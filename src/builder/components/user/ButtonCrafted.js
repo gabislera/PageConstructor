@@ -22,7 +22,7 @@ Button.craft = {
     type: "button",
     text: "Quero saber mais",
     notDeletable: false,
-    additionalCss: ""
+    additional_css: ""
   },
   related: {
     settings: ButtonSettings,

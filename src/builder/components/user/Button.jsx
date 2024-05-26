@@ -1,23 +1,5 @@
+import React, { useEffect, useState } from 'react';
 import { useNode } from '@craftjs/core';
-import React from 'react';
-
-export const ButtonContent = ({ children, gap, display, minWidth }) => {
-  const {
-    connectors: { connect },
-  } = useNode();
-  return (
-    <div
-      style={{
-        display,
-        minWidth,
-        gap,
-      }}
-      ref={connect}
-    >
-      {children}
-    </div>
-  );
-};
 
 export const Button = ({
   text,
@@ -36,30 +18,53 @@ export const Button = ({
   type,
   cursor,
   className,
-  additionalCss
+  additional_css
 }) => {
   const {
     connectors: { connect, drag },
   } = useNode();
 
-  const convertCssToObject = (css) => {
-    const regex = /(\w+): '([^']*)';/g;
-    const styleObj = {};
-    let match;
+  // Create a className dynamically
+  // const id = `btn-${Math.random().toString(36).substring(7)}`;
+  const id = `btn-r1qpk8`;
+  const styleSheetId = `style-${id}`;
 
-    while ((match = regex.exec(css)) !== null) {
-      const [_, key, value] = match;
-      styleObj[key] = value;
+  useEffect(() => {
+    // Find existing stylesheet
+    let styleSheet = [...document.styleSheets].find(
+      (sheet) => sheet.ownerNode.id === styleSheetId
+    );
+
+    if (styleSheet) {
+      // Remove all existing rules
+      while (styleSheet.cssRules.length > 0) {
+        styleSheet.deleteRule(0);
+      }
+    } else {
+      // Create a new style tag
+      const styleElement = document.createElement('style');
+      styleElement.id = styleSheetId;
+      document.head.appendChild(styleElement);
+      styleSheet = styleElement.sheet;
     }
-    return styleObj;
-  };
 
-  const additionalStyles = convertCssToObject(additionalCss || "");
+    // Insert new rules
+    if (styleSheet) {
+      const cssRules = additional_css.split('}');
+      cssRules.forEach((rule) => {
+        if (rule.trim() !== '') {
+          styleSheet.insertRule(rule + '}', styleSheet.cssRules.length);
+        }
+      });
+    }
+  }, [additional_css, id, styleSheetId]);
 
   return (
     <button
+      id={id}
       type={type}
       ref={(ref) => connect(drag(ref))}
+      className={id}
       style={{
         color,
         backgroundColor: background,
@@ -82,16 +87,9 @@ export const Button = ({
         alignItems: "center",
         alignSelf: "center",
         border: "none",
-        ...additionalStyles
       }}
     >
       {text}
     </button>
   );
 };
-
-
-
-
-
-
