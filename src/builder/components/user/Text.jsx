@@ -1,9 +1,12 @@
-import { useNode } from '@craftjs/core';
-import { Slider, FormControl, FormLabel } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import ContentEditable from 'react-contenteditable';
+import { Slider, FormControl, FormLabel, Grid, Button as MaterialButton, IconButton, Drawer } from '@mui/material';
+import { useNode } from '@craftjs/core';
+import CodeEditor from "../../../components/CodeEditor";
+import CloseIcon from '@mui/icons-material/Close';
+import CodeIcon from '@mui/icons-material/Code';
 
-export const Text = ({ text, fontSize, textAlign, ...props }) => {
+export const Text = ({ text, fontSize, textAlign, additional_css, ...props }) => {
   const {
     connectors: { connect, drag },
     selected,
@@ -22,13 +25,45 @@ export const Text = ({ text, fontSize, textAlign, ...props }) => {
     setEditable(false);
   }, [selected]);
 
+  const id = `txt-h3g4nm`;
+  const styleSheetId = `style-${id}`;
+
+  useEffect(() => {
+    let styleSheet = [...document.styleSheets].find(
+      (sheet) => sheet.ownerNode.id === styleSheetId
+    );
+
+    if (styleSheet) {
+      while (styleSheet.cssRules.length > 0) {
+        styleSheet.deleteRule(0);
+      }
+    } else {
+      const styleElement = document.createElement('style');
+      styleElement.id = styleSheetId;
+      document.head.appendChild(styleElement);
+      styleSheet = styleElement.sheet;
+    }
+
+    if (styleSheet && typeof additional_css === 'string') {
+      const cssRules = additional_css.split('}');
+      cssRules.forEach((rule) => {
+        if (rule.trim() !== '') {
+          styleSheet.insertRule(rule + '}', styleSheet.cssRules.length);
+        }
+      });
+    }
+  }, [additional_css, id, styleSheetId]);
+
   return (
     <div
       {...props}
+
       ref={(ref) => connect(drag(ref))}
       onClick={() => selected && setEditable(true)}
     >
       <ContentEditable
+        id={id}
+        className={id}
         html={text}
         disabled={!editable}
         onChange={(e) =>
@@ -45,21 +80,24 @@ export const Text = ({ text, fontSize, textAlign, ...props }) => {
   );
 };
 
-const TextSettings = () => {
+export const TextSettings = () => {
   const {
     actions: { setProp },
-    fontSize,
+    props,
   } = useNode((node) => ({
-    text: node.data.props.text,
-    fontSize: node.data.props.fontSize,
+    props: node.data.props,
   }));
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const textId = `txt-h3g4nm`;
 
   return (
     <>
       <FormControl size="small" component="fieldset">
         <FormLabel component="legend" sx={{ color: 'white' }}>Font size</FormLabel>
         <Slider
-          value={fontSize || 7}
+          value={props.fontSize || 7}
           step={7}
           min={1}
           max={50}
@@ -68,6 +106,41 @@ const TextSettings = () => {
           }}
         />
       </FormControl>
+
+      <Grid item mb={1}>
+        <MaterialButton sx={{ maxWidth: '100%' }} variant="text" color="primary" onClick={() => setDrawerOpen(true)}>
+          <CodeIcon />
+        </MaterialButton>
+      </Grid>
+
+      <Drawer hideBackdrop anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <div style={{ width: '350px', padding: '6px', backgroundColor: '#27272a', height: '100%' }}>
+          <Grid container direction="column" item mb={2}>
+            <CodeEditor
+              lang="css"
+              value={
+                props.additional_css
+                  ? props.additional_css
+                  : `.${textId} {
+  /* Place your custom styles here */
+}
+
+.${textId}:hover {
+  /* Place your hover styles here */
+}`
+              }
+              onChange={(e) => setProp((props) => { props.additional_css = e.target.value })}
+            />
+          </Grid>
+          <Grid item mb={2}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <IconButton aria-label="close" onClick={() => setDrawerOpen(false)}>
+                <CloseIcon />
+              </IconButton>
+            </div>
+          </Grid>
+        </div>
+      </Drawer>
     </>
   );
 };
@@ -75,6 +148,7 @@ const TextSettings = () => {
 export const TextDefaultProps = {
   text: 'Hi',
   fontSize: 20,
+  additional_css: "",
 };
 
 Text.craft = {

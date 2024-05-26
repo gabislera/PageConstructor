@@ -29,12 +29,6 @@ export const ButtonSettings = () => {
     });
   };
 
-  const handleCodeEditorChange = (value) => {
-    setProp((props) => {
-      props.additional_css = value;
-    });
-  };
-
   // Create a className dynamically
   // const buttonId = `btn-${Math.random().toString(36).substring(7)}`;
   const buttonId = `btn-r1qpk8`;
@@ -168,7 +162,7 @@ export const ButtonSettings = () => {
   /* Place your hover styles here */
 }`
               }
-              onChange={(e) => handleCodeEditorChange(e.target.value)}
+              onChange={(e) => setProp((props) => { props.additional_css = e.target.value })}
             />
           </Grid>
           <Grid item mb={2}>
