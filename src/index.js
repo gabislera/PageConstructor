@@ -1,23 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import ReactDOM from 'react-dom';
 import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+import './index.css';
+import { ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+const theme = createTheme({
+  palette: {
+    mode: "light",
+    primary: { main: "#625CF3" },
+    secondary: { main: "#FFF" },
+    default: { main: "#FFF" },
+
+    success: { main: "#00962d" },
+    error: { main: "#cc0000" },
+    // background: {
+    //   paper: "#010110",
+    //   default: "#02021a",
+    // },
+  },
+});
+
+ReactDOM.render(
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
     <App />
-  </React.StrictMode>
+  </ThemeProvider>,
+  document.getElementById("root")
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://cra.link/PWA
-serviceWorkerRegistration.unregister();
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
