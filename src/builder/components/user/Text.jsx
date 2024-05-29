@@ -26,57 +26,34 @@ export const Text = ({ text, fontSize, textAlign, additional_css, ...props }) =>
   }, [selected]);
 
   const id = `txt-h3g4nm`;
-  const styleSheetId = `style-${id}`;
-
-  useEffect(() => {
-    let styleSheet = [...document.styleSheets].find(
-      (sheet) => sheet.ownerNode.id === styleSheetId
-    );
-
-    if (styleSheet) {
-      while (styleSheet.cssRules.length > 0) {
-        styleSheet.deleteRule(0);
-      }
-    } else {
-      const styleElement = document.createElement('style');
-      styleElement.id = styleSheetId;
-      document.head.appendChild(styleElement);
-      styleSheet = styleElement.sheet;
-    }
-
-    if (styleSheet && typeof additional_css === 'string') {
-      const cssRules = additional_css.split('}');
-      cssRules.forEach((rule) => {
-        if (rule.trim() !== '') {
-          styleSheet.insertRule(rule + '}', styleSheet.cssRules.length);
-        }
-      });
-    }
-  }, [additional_css, id, styleSheetId]);
 
   return (
-    <div
-      {...props}
+    <>
+      <div
+        {...props}
 
-      ref={(ref) => connect(drag(ref))}
-      onClick={() => selected && setEditable(true)}
-    >
-      <ContentEditable
-        id={id}
-        className={id}
-        html={text}
-        disabled={!editable}
-        onChange={(e) =>
-          setProp(
-            (props) =>
-              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')),
-            500
-          )
-        }
-        tagName="p"
-        style={{ fontSize: `${fontSize}px`, textAlign }}
-      />
-    </div>
+        ref={(ref) => connect(drag(ref))}
+        onClick={() => selected && setEditable(true)}
+      >
+        <ContentEditable
+          id={id}
+          className={id}
+          html={text}
+          disabled={!editable}
+          onChange={(e) =>
+            setProp(
+              (props) =>
+                (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')),
+              500
+            )
+          }
+          tagName="p"
+          style={{ fontSize: `${fontSize}px`, textAlign }}
+        />
+      </div>
+      <style>{additional_css}</style>
+    </>
+
   );
 };
 

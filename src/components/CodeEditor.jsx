@@ -14,7 +14,7 @@ require("brace/mode/html");
 require("brace/mode/css");
 var pretty = require("pretty");
 
-const CodeEditor = ({ onChange, value, readOnly, lang }) => {
+const CodeEditor = ({ onChange, value, readOnly, lang, id }) => {
   let compAce = null;
   let session = null;
 
@@ -34,13 +34,15 @@ const CodeEditor = ({ onChange, value, readOnly, lang }) => {
     var edit = new EditSession(codigo);
 
     edit.setUseWrapMode(true);
+    // console.log(id, value);
 
     edit.setUndoManager(new ace.UndoManager());
     session = edit;
     confgSave(compAce);
-    compAce.setValue(codigo);
+    compAce.setValue(value);
+    compAce.renderer.setOption("showGutter", false);
     setStyle();
-  }, []);
+  }, [id]);
 
   function setStyle() {
     compAce.getSession().setMode(getMode());
@@ -79,6 +81,7 @@ const CodeEditor = ({ onChange, value, readOnly, lang }) => {
     editor.on("change", (code) => {
       if (onChange) {
         onChange({ target: { value: editor.getValue(), name: "html" } });
+        console.log(editor.getValue());
       }
     });
     editor.commands.addCommand({
@@ -110,7 +113,7 @@ const CodeEditor = ({ onChange, value, readOnly, lang }) => {
     <div
       id={"editor-html-" + momentId}
       style={{
-        minHeight: "800px",
+        minHeight: "250px",
         width: "100%",
         height: "100%",
         borderRadius: 4,
@@ -120,3 +123,31 @@ const CodeEditor = ({ onChange, value, readOnly, lang }) => {
 };
 
 export default CodeEditor;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ? selected.additional_css
+//                     : `.${currentId} {
+//   /* Place your custom styles here */
+// }
+
+// .${currentId}:hover {
+//   /* Place your hover styles here */
+// }`

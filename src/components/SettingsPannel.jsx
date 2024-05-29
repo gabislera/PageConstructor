@@ -8,6 +8,8 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { makeStyles } from "@mui/styles"
+import CodeEditor from "../components/CodeEditor";
+
 
 const SettingsPanel = () => {
   const classes = useStyles();
@@ -23,6 +25,7 @@ const SettingsPanel = () => {
           state.nodes[currentNodeId].related &&
           state.nodes[currentNodeId].related.settings,
         isDeletable: query.node(currentNodeId).isDeletable(),
+        additional_css: state.nodes[currentNodeId].data.props.additional_css,
       };
     }
 
@@ -31,6 +34,20 @@ const SettingsPanel = () => {
       isEnabled: state.options.enabled,
     };
   });
+
+  console.log(selected)
+
+  const addImportant = (css) => {
+    return css.replace(
+      /([^;\s{}]+)(\s*;)/g,
+      (match, property, semicolon) => {
+        if (property.includes("!important")) {
+          return match;
+        }
+        return `${property} !important${semicolon}`;
+      }
+    );
+  };
 
   return (
     <Paper className={classes.root} >
@@ -54,6 +71,21 @@ const SettingsPanel = () => {
           <div data-cy="settings-panel">
             {selected.settings && React.createElement(selected.settings)}
           </div>
+
+          <Grid item xs={12}>
+            <CodeEditor
+              id={selected?.id}
+              lang="css"
+              value={selected.additional_css}
+              onChange={(e) => {
+                const updatedCss = addImportant(e.target.value);
+
+                actions.setProp(selected.id, (props) => {
+                  props.additional_css = updatedCss;
+                });
+              }}
+            />
+          </Grid>
 
           {selected.isDeletable ? (
             <MaterialButton
