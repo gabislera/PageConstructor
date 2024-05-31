@@ -15,10 +15,46 @@ const theme = createTheme({
 
     success: { main: "#00962d" },
     error: { main: "#cc0000" },
-    // background: {
-    //   paper: "#010110",
-    //   default: "#02021a",
-    // },
+  },
+  components: {
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          color: 'white',
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: 'white',
+          '&.Mui-focused': {
+            color: 'white',
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'white',
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'white',
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'white',
+          },
+        },
+        input: {
+          '&::placeholder': {
+            color: 'white',
+            opacity: 1,
+          },
+        },
+      },
+    },
   },
 });
 

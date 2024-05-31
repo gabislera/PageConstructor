@@ -1,21 +1,21 @@
 import { useNode } from '@craftjs/core';
 import { Slider } from '@mui/material';
-import { Paper, FormControl, FormLabel } from '@mui/material';
+import { Box, FormControl, FormLabel } from '@mui/material';
 // import ColorPicker from 'material-ui-color-picker';
 import React from 'react';
 
-export const Container = ({ background, padding, children, ...props }) => {
+export const Container = ({ background, padding, children, minHeight = '80px', minWidth, maxWidth, ...props }) => {
   const {
     connectors: { connect, drag },
   } = useNode();
   return (
-    <Paper
+    <div
       {...props}
       ref={(ref) => connect(drag(ref))}
-      style={{ margin: '5px 0', background, padding: `${padding}px` }}
+      style={{ margin: '5px 0', background, padding: `${padding}px`, minHeight, minWidth, border: '1px solid #ccc', width: '100%', maxWidth }}
     >
       {children}
-    </Paper>
+    </div>
   );
 };
 
@@ -55,7 +55,7 @@ export const ContainerSettings = () => {
 };
 
 export const ContainerDefaultProps = {
-  background: '#ffffff',
+  background: 'transparent',
   padding: 3,
 };
 

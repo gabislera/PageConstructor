@@ -26,7 +26,7 @@ export const Button = ({
   } = useNode();
 
   const id = `btn-r1qpk8`;
-  console.log(data.id)
+  // console.log(data.id)
 
   return (
     <>

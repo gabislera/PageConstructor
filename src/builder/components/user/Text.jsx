@@ -125,6 +125,7 @@ export const TextSettings = () => {
 export const TextDefaultProps = {
   text: 'Hi',
   fontSize: 20,
+  color: 'black',
   additional_css: "",
 };
 

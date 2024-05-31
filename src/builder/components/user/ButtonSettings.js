@@ -23,7 +23,7 @@ export const ButtonSettings = () => {
   };
 
   return (
-    <div style={{ color: '#eee', padding: '10px' }}>
+    <div style={{ padding: '10px' }}>
       <FormControl size="small" component="fieldset" fullWidth sx={{ marginBottom: '10px' }} >
         <FormLabel component="legend" sx={{ color: 'white' }}>Width</FormLabel>
         <TextField
