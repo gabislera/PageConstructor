@@ -42,7 +42,7 @@ export const Viewport = ({ children }) => {
                   ? "360px"
                   : deviceView === "tablet"
                     ? "768px"
-                    : "100%",
+                    : "1024px",
               height:
                 deviceView === 'mobile'
                   ? '736px'

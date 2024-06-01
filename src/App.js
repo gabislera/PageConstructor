@@ -10,6 +10,7 @@ import { Viewport } from './components/editor/viewport';
 import { RenderNode } from './components/editor/viewport/RenderNode';
 import { ResponsiveModeProvider } from './contexts/ResponsiveModeContext';
 
+
 export default function App() {
   const classes = useStyles();
   return (
@@ -18,7 +19,7 @@ export default function App() {
         <Editor onRender={RenderNode} resolver={{ Card, Container, Button, Text, CardTop, CardBottom }}>
           <Viewport>
             <Frame>
-              <Element is={Container} minHeight={'100px'} maxWidth={'500px'} canvas>
+              <Element is={Container} minHeight={'100px'} maxWidth={'1220px'} canvas>
                 Arraste os elementos
               </Element>
             </Frame>
@@ -31,7 +32,7 @@ export default function App() {
 
 const useStyles = makeStyles({
   root: {
-    background: '#232325',
+    background: '#e0e0e0',
     minHeight: '100vh',
   },
 });

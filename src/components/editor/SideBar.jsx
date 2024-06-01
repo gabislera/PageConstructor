@@ -23,12 +23,12 @@ export default function SideBar({ isSelected }) {
         className={classes.container}
         style={{
           overflowX: 'hidden',
-          width: isOpen ? '16rem' : '0px',
+          width: isOpen ? '300px' : '0px',
           transition: 'width 0.3s ease-in-out',
           height: '100%',
         }}>
+        <Header isOpen={isOpen} onClick={() => actions.clearEvents()} />
         <Box className={classes.content}>
-          <Header isOpen={isOpen} onClick={() => actions.clearEvents()} />
           {!isSelected ? (
             <Toolbox />
           ) : (
@@ -82,6 +82,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     height: '100%',
     width: '100%',
+
   },
   content: {
     flexGrow: 1,

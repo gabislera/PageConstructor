@@ -4,7 +4,22 @@ import { Box, FormControl, FormLabel } from '@mui/material';
 // import ColorPicker from 'material-ui-color-picker';
 import React from 'react';
 
-export const Container = ({ background, padding, children, minHeight = '80px', minWidth, maxWidth, ...props }) => {
+export const Container = ({
+  flexDirection,
+  alignItems,
+  justifyContent,
+  fillSpace,
+  background,
+  color,
+  padding,
+  margin,
+  shadow,
+  radius,
+  children,
+  minHeight,
+  minWidth,
+  maxWidth,
+  ...props }) => {
   const {
     connectors: { connect, drag },
   } = useNode();
@@ -33,13 +48,6 @@ export const ContainerSettings = () => {
     <div>
       <FormControl fullWidth={true} margin="normal" component="fieldset">
         <FormLabel component="legend">Background</FormLabel>
-        {/* <ColorPicker
-          name="background-color"
-          value={background}
-          onChange={(color) => {
-            setProp((props) => (props.background = color), 500);
-          }}
-        /> */}
       </FormControl>
       <FormControl fullWidth={true} margin="normal" component="fieldset">
         <FormLabel component="legend">Padding</FormLabel>
