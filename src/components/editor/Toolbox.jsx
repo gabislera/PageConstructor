@@ -2,15 +2,15 @@ import { useEditor, Element } from '@craftjs/core';
 import { Box, Grid, Tooltip } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Container } from '../../builder/components/user/Container';
-import { Text } from '../../builder/components/user/Text';
+import Text from '../selectors/CraftedComponents/Text';
 import { Button } from '../../builder/components/user/Button';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import { ExpandMore, CropLandscapeSharp, FormatQuote, SmartButton } from '@mui/icons-material';
+import { ExpandMore, CropLandscapeSharp, FormatQuote, SmartButton, CalendarViewMonth, ImageOutlined, OndemandVideo, Remove, Quiz } from '@mui/icons-material';
 import styled from '@emotion/styled';
 
-export const Toolbox = ({ setShowToolbox }) => {
+export const Toolbox = () => {
   const {
     connectors: { create },
   } = useEditor((state, query) => ({
@@ -19,10 +19,33 @@ export const Toolbox = ({ setShowToolbox }) => {
 
   const classes = useStyles();
 
+  const GridItem = ({ element, tooltipText, children }) => {
+    return (
+      <Grid
+        item
+        ref={(ref) =>
+          create(
+            ref,
+            <Element
+              canvas
+              is={element}
+            />
+          )
+        }
+      >
+        <Tooltip title={tooltipText} placement="right">
+          <Box className={classes.item}>
+            {children}
+          </Box>
+        </Tooltip>
+      </Grid>
+    )
+  }
+
   return (
     <Grid container >
-      <CustomAccordionRoot>
-        <CustomAccordion>
+      <CustomAccordionRoot >
+        <CustomAccordion defaultExpanded>
           <CustomAccordionSummary
             expandIcon={<ExpandMore style={{ color: '#d5d8dc' }} />}
             aria-controls="panel1a-content"
@@ -32,55 +55,22 @@ export const Toolbox = ({ setShowToolbox }) => {
           </CustomAccordionSummary>
           <CustomAccordionDetails>
             <Grid container justifyContent={'space-between'}>
-              <Grid
-                item
-                ref={(ref) =>
-                  create(
-                    ref,
-                    <Element
-                      canvas
-                      is={Container}
-                      height="auto"
-                      width="auto"
-                    />
-                  )
-                }
-              >
-                <Tooltip title="Container" placement="right">
-                  <Box className={classes.item}>
-                    <CropLandscapeSharp />
-                    <span>Container</span>
-                  </Box>
-                </Tooltip>
-              </Grid>
+              <GridItem element={Container} tooltipText={'Container'}>
+                <CropLandscapeSharp />
+                <span>Container</span>
+              </GridItem>
 
-              <Grid
-                item
-                ref={(ref) =>
-                  create(
-                    ref,
-                    <Element
-                      canvas
-                      is={Text}
-                      text="Texto"
-                    />
-                  )
-                }
-              >
-                <Tooltip title="Text" placement="right">
-                  <Box className={classes.item}>
-                    <FormatQuote />
-                    <span>Text</span>
-                  </Box>
-                </Tooltip>
-              </Grid>
+              <GridItem element={Container} tooltipText={'Grid'}>
+                <CalendarViewMonth />
+                <span>Grid</span>
+              </GridItem>
             </Grid >
           </CustomAccordionDetails>
         </CustomAccordion>
       </CustomAccordionRoot>
 
       <CustomAccordionRoot>
-        <CustomAccordion>
+        <CustomAccordion defaultExpanded>
           <CustomAccordionSummary
             expandIcon={<ExpandMore style={{ color: '#d5d8dc' }} />}
             aria-controls="panel1a-content"
@@ -89,49 +79,36 @@ export const Toolbox = ({ setShowToolbox }) => {
             Basic
           </CustomAccordionSummary>
           <CustomAccordionDetails>
-            <Grid container justifyContent={'space-between'}>
-              <Grid
-                item
-                ref={(ref) =>
-                  create(
-                    ref,
-                    <Element
-                      canvas
-                      is={Button}
-                      height="auto"
-                      width="auto"
-                    />
-                  )
-                }
-              >
-                <Tooltip title="Container" placement="right">
-                  <Box className={classes.item}>
-                    <SmartButton />
-                    <span>Button</span>
-                  </Box>
-                </Tooltip>
-              </Grid>
+            <Grid container rowSpacing={1} justifyContent='space-between'>
+              <GridItem element={Button} tooltipText={'Button'}>
+                <SmartButton />
+                <span>Button</span>
+              </GridItem>
 
-              <Grid
-                item
-                ref={(ref) =>
-                  create(
-                    ref,
-                    <Element
-                      canvas
-                      is={Text}
-                      text="Texto"
-                    />
-                  )
-                }
-              >
-                <Tooltip title="Text" placement="right">
-                  <Box className={classes.item}>
-                    <FormatQuote />
-                    <span>Text</span>
-                  </Box>
-                </Tooltip>
-              </Grid>
+              <GridItem element={Text} tooltipText={'Text'}>
+                <FormatQuote />
+                <span>Text</span>
+              </GridItem>
+
+              <GridItem element={Text} tooltipText={'Image'}>
+                <ImageOutlined />
+                <span>Image</span>
+              </GridItem>
+
+              <GridItem element={Text} tooltipText={'Video'}>
+                <OndemandVideo />
+                <span>Video</span>
+              </GridItem>
+
+              <GridItem element={Text} tooltipText={'Divider'}>
+                <Remove />
+                <span>Divider</span>
+              </GridItem>
+
+              <GridItem element={Text} tooltipText={'Faq'}>
+                <Quiz />
+                <span>Faq</span>
+              </GridItem>
             </Grid >
           </CustomAccordionDetails>
         </CustomAccordion>
@@ -139,6 +116,8 @@ export const Toolbox = ({ setShowToolbox }) => {
     </Grid>
   )
 }
+
+
 
 const useStyles = makeStyles({
   item: {
@@ -163,8 +142,7 @@ const useStyles = makeStyles({
   },
 });
 
-
-const CustomAccordion = styled(Accordion)`
+const CustomAccordion = styled((props) => <Accordion {...props} />)`
   background-color: transparent;
   color: #d5d8dc;
   box-shadow: none;

@@ -1,11 +1,63 @@
+import React, { useState, useEffect } from 'react';
+import ContentEditable from 'react-contenteditable';
 import { Slider, FormControl, FormLabel, Grid, Button as MaterialButton, IconButton, Drawer } from '@mui/material';
 import { useNode } from '@craftjs/core';
-import React, { useState } from 'react';
 import CodeEditor from "../../../components/CodeEditor";
 import CloseIcon from '@mui/icons-material/Close';
 import CodeIcon from '@mui/icons-material/Code';
 
-export const TextSettings = () => {
+export const Texte = ({ text, fontSize, textAlign, additional_css, ...props }) => {
+  const {
+    connectors: { connect, drag },
+    selected,
+    actions: { setProp },
+  } = useNode((state) => ({
+    selected: state.events.selected,
+    dragged: state.events.dragged,
+  }));
+
+  const [editable, setEditable] = useState(false);
+
+  useEffect(() => {
+    if (selected) {
+      return;
+    }
+    setEditable(false);
+  }, [selected]);
+
+  const id = `txt-h3g4nm`;
+
+  return (
+    <>
+      <div
+        {...props}
+
+        ref={(ref) => connect(drag(ref))}
+        onClick={() => selected && setEditable(true)}
+      >
+        <ContentEditable
+          id={id}
+          className={id}
+          html={text}
+          disabled={!editable}
+          onChange={(e) =>
+            setProp(
+              (props) =>
+                (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')),
+              500
+            )
+          }
+          tagName="p"
+          style={{ fontSize: `${fontSize}px`, textAlign }}
+        />
+      </div>
+      <style>{additional_css}</style>
+    </>
+
+  );
+};
+
+export const TextSettingse = () => {
   const {
     actions: { setProp },
     props,
@@ -68,4 +120,18 @@ export const TextSettings = () => {
       </Drawer>
     </>
   );
+};
+
+export const TextDefaultProps = {
+  text: 'Hi',
+  fontSize: 20,
+  color: 'black',
+  additional_css: "",
+};
+
+Text.craft = {
+  props: TextDefaultProps,
+  related: {
+    settings: TextSettingse,
+  },
 };

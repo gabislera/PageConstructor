@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useEditor } from '@craftjs/core';
-import { Chip, Box, Typography, Button as MaterialButton, Paper } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import CodeEditor from '../CodeEditor';
+
 
 export const SettingsPanel = ({ setShowToolbox }) => {
   const classes = useStyles();
-  const { actions, selected, isEnabled } = useEditor((state, query) => {
-    // const currentNodeId = query.getEvent('selected').last();
+  const { selected } = useEditor((state, query) => {
     const [currentNodeId] = state.events.selected;
     let selected;
 
@@ -28,24 +27,8 @@ export const SettingsPanel = ({ setShowToolbox }) => {
     };
   });
 
-  const addImportant = (css) => {
-    return css.replace(
-      /([^;\s{}]+)(\s*;)/g,
-      (match, property, semicolon) => {
-        if (property.includes('!important')) {
-          return match;
-        }
-        return `${property} !important${semicolon}`;
-      }
-    );
-  };
-
-  // if (!isEnabled || !selected) {
-  //   return null;
-  // }
-
   return (
-    <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }} >
+    <Grid container direction={'column'} alignItems={'center'} >
       {selected && selected.settings ? (
         <div data-cy='settings-panel'>
           {React.createElement(selected.settings)}
@@ -69,7 +52,7 @@ export const SettingsPanel = ({ setShowToolbox }) => {
           </Typography>
         </Box>
       )}
-      {selected && selected.isDeletable ? (
+      {/* {selected && selected.isDeletable ? (
         <MaterialButton
           variant='contained'
           onClick={() => {
@@ -78,12 +61,15 @@ export const SettingsPanel = ({ setShowToolbox }) => {
         >
           Delete
         </MaterialButton>
-      ) : null}
-    </Box>
+      ) : null} */}
+    </Grid>
   );
 };
 
 const useStyles = makeStyles({
+  root: {
+
+  },
   notSelected: {
     display: "flex",
     flexDirection: "column",

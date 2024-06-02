@@ -27,7 +27,7 @@ export const Container = ({
     <div
       {...props}
       ref={(ref) => connect(drag(ref))}
-      style={{ margin: '5px 0', background, padding: `${padding}px`, minHeight, minWidth, border: '1px solid #ccc', width: '100%', maxWidth }}
+      style={{ margin: '5px 0', background, padding: `${padding}px`, minHeight, minWidth, border: '1px solid #ccc', width: '100%', maxWidth, justifyContent, alignItems, flexDirection, fillSpace, color, boxShadow: shadow, borderRadius: radius }}
     >
       {children}
     </div>

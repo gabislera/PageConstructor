@@ -23,7 +23,7 @@ export default function SideBar({ isSelected }) {
         className={classes.container}
         style={{
           overflowX: 'hidden',
-          width: isOpen ? '300px' : '0px',
+          width: isOpen ? '305px' : '0px',
           transition: 'width 0.3s ease-in-out',
           height: '100%',
         }}>
