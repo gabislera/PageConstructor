@@ -1,0 +1,15 @@
+.component-selected {
+    position: relative;
+  }
+
+.component-selected::after {
+    content: " ";
+    outline: 1px dotted #625cf3;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    display: block;
+}

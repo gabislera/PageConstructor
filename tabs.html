@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<div class="tabs-container">
+    <div class="main-plan-container padding-mobile">
+        <div class="main-plan-selection">
+            <button id="mensal" class="tab-button " onclick="selectTab(this)">Mensal</button>
+            <button id="anual" class="tab-button active" onclick="selectTab(this)">Anual</button>
+            <div class="slider"></div>
+        </div>
+
+        <div class="discount-tag-container">
+            <svg class="tag-icon" width="100" height="100" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 19l-7-7 7-7" fill="currentColor"/>
+            </svg>
+            <span class="discount-tag">Economize 20%</span>
+        </div>
+    </div>
+
+    <span class="recomended-tag mobile-hidden" >RECOMENDADO</span>
+    
+    <div class="tabs">
+        <input type="radio" name="tabs" id="tab1" checked="checked" />
+        <label for="tab1">Planos iniciais</label>
+        <div class="tab-content">
+            <div class="tab white-bg">
+                <h2>4 mil leads</h2>
+                <h3>Antigo BRONZE</h3>
+                <p>
+                    Comece na Sellflux<br />com capacidade mínima<br />de envio de leads
+                </p>
+    
+                <div class="price-discount">
+                    <span><strong>DE R$ 997</strong>/mês</span>
+                    <strong>POR</strong>
+                </div>
+    
+                <span class="price"><strong>R$ 197</strong>/mês</span>
+                <span class="total-price"><strong>Total de R$ 9.571,20</strong>/ano</span>
+        
+                <button class="btn-variant cta-btn">Assine já</button>
+   
+               <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+            </div>
+    
+            <div class="tab green-bg">
+                <h2>10 mil leads</h2>
+                <h3>Antigo SILVER</h3>
+                <p>
+                    Cresça seu negócio<br />aumentando sua capacidade<br />de envio de leads
+                </p>
+    
+                <div class="price-discount">
+                   <span><strong>DE R$ 997</strong>/mês</span>
+                    <strong>POR</strong>
+                </div>
+    
+                <span class="price"><strong>R$ 297</strong>/mês</span>
+                <span class="total-price"><strong>Total de R$ 9.571,20</strong>/ano</span>
+    
+                <button class="cta-btn">Assine já</button>
+
+                <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+           </div>
+
+           <div class="tab purple-bg">
+                <h2>30 mil leads</h2>
+                <h3>Antigo GOLD</h3>
+                <p>
+                    Suas automações ao próximo nível<br />com mais leads<br />e os mesmos custos adicionais
+                </p>
+    
+                <div class="price-discount">
+                    <span><strong>DE R$ 997</strong>/mês</span>
+                    <strong>POR</strong>
+                </div>
+    
+                <span class="price"><strong>R$ 597</strong>/mês</span>
+                <span class="total-price"><strong>Total de R$ 9.571,20</strong>/ano</span>
+    
+               <button class="cta-btn">Assine já</button>
+                <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+            </div>
+        </div>
+    
+        <input type="radio" name="tabs" id="tab2" />
+        <label for="tab2">Plano profissional</label>
+        <div class="tab-content">
+            <div class="tab blue-bg">
+                <h2>75 mil leads</h2>
+                <h3>Antigo PLATINUM</h3>
+                <p>
+                    Traga mais tecnologia para sua<br />empresa e alcance mais pessoas
+                </p>
+    
+                <div class="price-discount">
+                    <span><strong>DE R$ 997</strong>/mês</span>
+                    <strong>POR</strong>
+                </div>
+    
+                <span class="price"><strong>R$ 797,60</strong>/mês</span>
+                <span class="total-price"><strong>Total de R$ 9.571,20</strong>/ano</span>
+    
+                <span class="additional-info">Este plano possui </br> <strong>Inteligência artificial </strong>para <br>
+                   robô de autoatendimento </span>
+    
+                <button class="btn-variant cta-btn">Fale conosco</button>
+    
+                <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+            </div>
+        </div>
+    
+        <input type="radio" name="tabs" id="tab3" />
+        <label for="tab3">Plano customizado</label>
+        <div class="tab-content">
+            <div class="tab gray-bg">
+                <h2>CUSTOMIZAR</h2>
+                <p>
+                    Crie um plano que atenda<br />todas as singularidades <br /> da sua empresa
+                </p>
+    
+                <span class="additional-info text-white">Este plano possui </br> <strong>Inteligência artificial
+                   </strong>para <br> robô de autoatendimento </span>
+    
+                <button class="btn-variant cta-btn">Assine já</button>
+    
+                <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-tabs">
+        <div class="tab white-bg">
+            <h2>4 mil leads</h2>
+            <h3>Antigo BRONZE</h3>
+
+           <p>
+                Comece na Sellflux<br />com capacidade mínima<br />de envio de leads
+            </p>
+
+            <div class="price-discount">
+                <span><strong>DE R$ 997</strong>/mês</span>
+                <strong>POR</strong>
+            </div>
+
+            <span class="price"><strong>R$ 197</strong>/mês</span>
+            <span class="total-price"><strong>Total de R$ 9.571,20</strong>/ano</span>
+
+            <button class="btn-variant cta-btn">Assine já</button>
+
+            <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+        </div>
+
+        <div class="tab green-bg">
+            <h2>10 mil leads</h2>
+            <h3>Antigo SILVER</h3>
+            <p>
+                Cresça seu negócio<br />aumentando sua capacidade<br />de envio de leads
+            </p>
+
+            <div class="price-discount">
+                <span><strong>DE R$ 997</strong>/mês</span>
+                <strong>POR</strong>
+            </div>
+
+            <span class="price"><strong>R$ 297</strong>/mês</span>
+            <span class="total-price"><strong>Total de R$ 9.571,20</strong>/ano</span>
+
+            <button class="cta-btn">Assine já</button>
+
+            <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+        </div>
+
+        <div class="tab purple-bg">
+            <h2>30 mil leads</h2>
+            <h3>Antigo GOLD</h3>
+            <p>
+                Suas automações ao próximo nível<br />com mais leads<br />e os mesmos custos adicionais
+            </p>
+            
+            <div class="price-discount">
+                <span><strong>DE R$ 997</strong>/mês</span>
+                <strong>POR</strong>
+            </div>
+            
+            <span class="price"><strong>R$ 597</strong>/mês</span>
+            <span class="total-price"><strong>Total de R$ 9.571,20</strong>/ano</span>
+            
+            <button class="cta-btn">Assine já</button>
+            
+            <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+        </div>
+
+        <div class="highlight-bg">
+            <span class="recomended-tag" >RECOMENDADO</span>
+            <div class="tab blue-bg">
+                <h2>75 mil leads</h2>
+                <h3>Antigo PLATINUM</h3>
+                <p>
+                    Traga mais tecnologia para sua<br />empresa e alcance mais pessoas
+                </p>
+
+                <div class="price-discount">
+                    <span><strong>DE R$ 997</strong>/mês</span>
+                    <strong>POR</strong>
+                </div>
+
+                <span class="price"><strong>R$ 797,60</strong>/mês</span>
+                <span class="total-price"><strong>Total de R$ 9.571,20</strong>/ano</span>
+
+                <span class="additional-info">Este plano possui </br> <strong>Inteligência artificial </strong>para <br>
+                robô de autoatendimento </span>
+                <button class="btn-variant cta-btn">Fale conosco</button>
+
+                <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+            </div>
+        </div>
+
+
+        <div class="tab gray-bg">
+            <h2>CUSTOMIZAR</h2>
+            <p>
+                Crie um plano que atenda<br />todas as singularidades <br /> da sua empresa
+            </p>
+
+            <span class="additional-info text-white">Este plano possui </br> <strong>Inteligência artificial
+               </strong>para <br> robô de autoatendimento </span>
+            <button class="btn-variant cta-btn">Assine já</button>
+
+            <span class="bottom-info">*Pode variar com aquisições adicionais</span>
+        </div>
+    </div>
+    </div>
+  
+    <script>
+        window.onload = function () {
+        document.getElementById("anual").click();
+        };
+
+        function selectTab(button) {
+        const buttons = document.querySelectorAll('.tab-button');
+        const discountTagContainer = document.querySelector('.discount-tag-container');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        if(button.id === 'anual') {
+            discountTagContainer.classList.add('purple');
+        } else {
+            discountTagContainer.classList.remove('purple');
+        }
+        }
+
+        function updatePricing(isAnnual) {
+            const tabs = document.querySelectorAll('.tab');
+
+            tabs.forEach(function (tab, index) {
+                const title = tab.querySelector('h2');
+                if (!title) {
+                    // console.log(`No title element found in tab at index ${index}`);
+                    return; 
+                }
+
+                const price = tab.querySelector('.price strong');
+                if (!price) {
+                    // console.log(`No price element found in tab at index ${index}`);
+                    return;
+                }
+
+                const priceDiscount = tab.querySelector('.price-discount');
+                if (priceDiscount) {
+                    priceDiscount.style.display = isAnnual ? 'flex' : 'none';
+                }
+
+                const totalPrice = tab.querySelector('.total-price');
+                if (totalPrice) {
+                    totalPrice.style.display = isAnnual ? 'block' : 'none';
+                }
+
+                switch (title.textContent.trim()) {
+                    case '4 mil leads':
+                        price.textContent = isAnnual ? 'R$ 157,60' : 'R$ 197';
+                        break;
+                    case '10 mil leads':
+                        price.textContent = isAnnual ? 'R$ 237,60' : 'R$ 297';
+                        break;
+                    case '30 mil leads':
+                        price.textContent = isAnnual ? 'R$ 477,60' : 'R$ 597';
+                        break;
+                    case '75 mil leads':
+                        price.textContent = isAnnual ? 'R$ 797,60' : 'R$ 997';
+                        break;
+                    case 'CUSTOMIZAR':
+                        price.textContent = 'Valor sob consulta';
+                        break;
+                }
+            });
+
+            }
+
+            document.getElementById('anual').addEventListener('click', function () {
+            updatePricing(true);
+            });
+
+            document.getElementById('mensal').addEventListener('click', function () {
+            updatePricing(false);
+            });
+
+            if (document.getElementById('anual').classList.contains('active')) {
+            updatePricing(true);
+            } else {
+            updatePricing(false);
+
+            }
+
+    </script>
+   
+    <style>
+        h1,
+        h2,
+        h3,
+        p,
+        span {
+            margin: 0;
+            padding: 0;
+        }
+    
+        body {
+            background-color: #f2f3f4;
+            color: #000;
+        }
+        .discount-tag-container.purple svg,
+        .discount-tag-container.purple .discount-tag {
+            color: #5954ee;
+        }
+
+        .main-plan-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            align-self: start;
+        }
+
+        .discount-tag {
+            background-color: #fff;
+            border-radius: 29px;
+            font-size: 14px;
+            color: #808080;
+            height: 32px;
+            width: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recomended-tag {
+            background-color: #5954EE;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+  
+        .tabs-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            margin-top: 40px;
+            margin-bottom: 140px;
+        }
+
+        .discount-tag-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .discount-tag-container svg {
+            width: 20px;
+            margin: -5px;
+            color: #B2B2B280;
+        }
+    
+        .main-plan-selection {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 56px;
+            background-color: #fff;
+            overflow: hidden;
+            width: 223px;
+            height: 52px;
+            padding: 4px 8px;
+        }
+    
+        .tab-button {
+            position: relative;
+            z-index: 1;
+            border: none;
+            padding: 8px 16px;
+            background-color: transparent;
+            color: #000;
+            font-size: 20px;
+            font-weight: 400;
+            border-radius: 41px;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 8px 16px;
+            outline: none;
+        }
+    
+        .tab-button.active {
+            color: #fff;
+            font-weight: 700;
+        }
+    
+        .slider {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            left: 4px;
+            right: 4px;
+            background-color: #4537ff;
+            border-radius: 25px;
+            transition: transform 0.3s;
+        }
+    
+        #mensal.active ~ .slider {
+            transform: translateX(0);
+            width: 110px;
+            box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75)
+    
+        }
+    
+        #anual.active ~ .slider {
+            transform: translateX(120px);
+            width: 95px;
+            box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75)
+        }
+    
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+        }
+    
+        .tabs label {
+            color: black;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            order: initial;
+            padding: 0 30px;
+            transition: background ease 0.3s;
+            min-width: 230px;
+            height: 48px;
+            border-radius: 50px;
+            border: 3px solid white;
+            background-color: white;
+            box-sizing: border-box;
+        }
+    
+        .tabs .tab-content {
+            display: none;
+            flex-grow: 1;
+            width: 100%;
+            margin-top: 46px;
+            gap: 64px;
+        }
+    
+        .tabs input[type="radio"] {
+            display: none;
+        }
+    
+        .tabs input[type="radio"]:checked+label {
+            border: 3px solid #5952ee;
+            font-weight: 600;
+        }
+    
+        .tabs input[type="radio"]:checked+label+.tab-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1100px;
+        }
+    
+        .cta-btn {
+            margin-top: 40px;
+            background-color: #ffffff;
+            border: none;
+            padding: 16px 67px;
+            border-radius: 47px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #08012d;
+            transition: background-color 0.3s ease;
+        }
+    
+        .cta-btn:hover {
+            background-color: #e7e7e7;
+        }
+    
+        .tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 316px;
+            padding: 48px 0;
+            border-radius: 8px;
+        }
+    
+        .tab h2 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 38px;
+        }
+    
+        .tab h3 {
+            font-size: 20px;
+            line-height: 24px;
+            font-weight: 400;
+        }
+    
+        .tab p {
+            margin-top: 20px;
+            font-size: 16px;
+            line-height: 21px;
+        }
+    
+        .price {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    
+        .price strong {
+            font-size: 48px;
+            line-height: 57px;
+        }
+    
+        .total-price {
+            font-size: 12px;
+            display: none;
+    
+       }
+    
+        .price-discount {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+    
+        .price-discount span {
+            font-size: 20px;
+            text-decoration: line-through;
+        }
+    
+        .price-discount strong {
+            font-size: 24px;
+        }
+    
+        .bottom-info {
+            font-size: 14px;
+            line-height: 18px;
+            margin-top: 32px;
+        }
+    
+        .additional-info {
+            margin-top: 40px;
+            font-size: 16px;
+            line-height: 21px;
+            color: #8986FF;
+        }
+    
+        .white-bg {
+            background-color: white;
+        }
+    
+        .green-bg {
+            background-color: #51a952;
+            color: white;
+        }
+    
+        .blue-bg {
+            background-color: #08012d;
+            color: white;
+            margin: 0 auto;   
+            outline: #4537ff;
+                
+        }
+    
+        .gray-bg {
+            background-color: #666666;
+            color: white;
+            margin: 0 auto;
+        }
+    
+        .btn-variant {
+            background-color: #f2f3f4;
+        }
+    
+        .text-white {
+            color: white !important;
+        }
+    
+        .purple-bg {
+            background-color: #5954ee;
+            color: white;
+        }
+
+        .highlight-bg {
+            background-color: #5954EE33;
+            padding: 8px 24px 24px 24px;
+            display: flex;
+            align-items: center;
+            border: 2px solid #5954EE;
+            border-radius: 8px;
+            flex-direction: column;
+        }
+    
+        @media (min-width: 10em) {
+            .tabs .tab-content {
+                order: 99;
+            }
+    
+           .tabs label {
+                order: 1;
+            }
+    
+            .tabs label {
+                margin-right: 0.3rem;
+                margin-top: 0;
+                width: auto;
+            }
+        }
+
+        .mobile-tabs {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .tabs {
+            display: none;
+        }
+
+        .mobile-tabs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .mobile-hidden {
+            display: none;
+        }
+
+        .tabs-container {
+            margin-top: 0;
+        }
+
+        .padding-mobile {
+            padding: 0 20px;
+        }
+
+        .main-plan-selection {
+            width: 223px;
+        }
+
+        #anual.active ~ .slider {
+            transform: translateX(120px);
+            width: 95px;
+            box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75)
+        }
+    }
+    </style> 
+</body>
+
+</html>

@@ -1,14 +1,25 @@
-import { useEditor, Element } from '@craftjs/core';
-import { Box, Grid, Tooltip } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { Container } from '../../builder/components/user/Container';
-import Text from '../selectors/CraftedComponents/Text';
-import { Button } from '../../builder/components/user/Button';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import { ExpandMore, CropLandscapeSharp, FormatQuote, SmartButton, CalendarViewMonth, ImageOutlined, OndemandVideo, Remove, Quiz } from '@mui/icons-material';
-import styled from '@emotion/styled';
+import { useEditor, Element } from "@craftjs/core";
+import { Box, Grid, Tooltip } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+// import { Container } from '../../builder/components/user/Container';
+import Container from "../selectors/CraftedComponents/Container";
+import Text from "../selectors/CraftedComponents/Text";
+import { Button } from "../../builder/components/user/Button";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import {
+  ExpandMore,
+  CropLandscapeSharp,
+  FormatQuote,
+  SmartButton,
+  CalendarViewMonth,
+  ImageOutlined,
+  OndemandVideo,
+  Remove,
+  Quiz,
+} from "@mui/icons-material";
+import styled from "@emotion/styled";
 
 export const Toolbox = () => {
   const {
@@ -21,50 +32,37 @@ export const Toolbox = () => {
 
   const GridItem = ({ element, tooltipText, children }) => {
     return (
-      <Grid
-        item
-        ref={(ref) =>
-          create(
-            ref,
-            <Element
-              canvas
-              is={element}
-            />
-          )
-        }
-      >
+      <Grid item ref={(ref) => create(ref, <Element canvas is={element} />)}>
         <Tooltip title={tooltipText} placement="right">
-          <Box className={classes.item}>
-            {children}
-          </Box>
+          <Box className={classes.item}>{children}</Box>
         </Tooltip>
       </Grid>
-    )
-  }
+    );
+  };
 
   return (
-    <Grid container >
-      <CustomAccordionRoot >
+    <Grid container>
+      <CustomAccordionRoot>
         <CustomAccordion defaultExpanded>
           <CustomAccordionSummary
-            expandIcon={<ExpandMore style={{ color: '#d5d8dc' }} />}
+            expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
             Layout
           </CustomAccordionSummary>
           <CustomAccordionDetails>
-            <Grid container justifyContent={'space-between'}>
-              <GridItem element={Container} tooltipText={'Container'}>
+            <Grid container justifyContent={"space-between"}>
+              <GridItem element={Container} tooltipText={"Container"}>
                 <CropLandscapeSharp />
                 <span>Container</span>
               </GridItem>
 
-              <GridItem element={Container} tooltipText={'Grid'}>
+              <GridItem element={Container} tooltipText={"Grid"}>
                 <CalendarViewMonth />
                 <span>Grid</span>
               </GridItem>
-            </Grid >
+            </Grid>
           </CustomAccordionDetails>
         </CustomAccordion>
       </CustomAccordionRoot>
@@ -72,72 +70,70 @@ export const Toolbox = () => {
       <CustomAccordionRoot>
         <CustomAccordion defaultExpanded>
           <CustomAccordionSummary
-            expandIcon={<ExpandMore style={{ color: '#d5d8dc' }} />}
+            expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
             Basic
           </CustomAccordionSummary>
           <CustomAccordionDetails>
-            <Grid container rowSpacing={1} justifyContent='space-between'>
-              <GridItem element={Button} tooltipText={'Button'}>
+            <Grid container rowSpacing={1} justifyContent="space-between">
+              <GridItem element={Button} tooltipText={"Button"}>
                 <SmartButton />
                 <span>Button</span>
               </GridItem>
 
-              <GridItem element={Text} tooltipText={'Text'}>
+              <GridItem element={Text} tooltipText={"Text"}>
                 <FormatQuote />
                 <span>Text</span>
               </GridItem>
 
-              <GridItem element={Text} tooltipText={'Image'}>
+              <GridItem element={Text} tooltipText={"Image"}>
                 <ImageOutlined />
                 <span>Image</span>
               </GridItem>
 
-              <GridItem element={Text} tooltipText={'Video'}>
+              <GridItem element={Text} tooltipText={"Video"}>
                 <OndemandVideo />
                 <span>Video</span>
               </GridItem>
 
-              <GridItem element={Text} tooltipText={'Divider'}>
+              <GridItem element={Text} tooltipText={"Divider"}>
                 <Remove />
                 <span>Divider</span>
               </GridItem>
 
-              <GridItem element={Text} tooltipText={'Faq'}>
+              <GridItem element={Text} tooltipText={"Faq"}>
                 <Quiz />
                 <span>Faq</span>
               </GridItem>
-            </Grid >
+            </Grid>
           </CustomAccordionDetails>
         </CustomAccordion>
       </CustomAccordionRoot>
     </Grid>
-  )
-}
-
-
+  );
+};
 
 const useStyles = makeStyles({
   item: {
-    border: '1px solid #3f444b',
-    borderRadius: '3px',
+    border: "1px solid #3f444b",
+    borderRadius: "3px",
     // margin: '0.5rem',
     // padding: '1rem 3rem',
-    width: '128px',
-    height: '85px',
-    cursor: 'move',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '12px',
-    color: '#d5d8dc',
-    '& > svg': {
-      width: '28px',
-      height: '28px',
-      fill: '#d5d8dc',
+    width: "128px",
+    height: "85px",
+    cursor: "move",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "12px",
+    color: "#d5d8dc",
+    "& > svg": {
+      width: "28px",
+      height: "28px",
+      fill: "#d5d8dc",
     },
   },
 });
@@ -180,7 +176,7 @@ const CustomAccordionDetails = styled(AccordionDetails)`
   padding: 0 15px;
 `;
 
-const CustomAccordionRoot = styled('div')`
+const CustomAccordionRoot = styled("div")`
   width: 100%;
   background-color: transparent;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);

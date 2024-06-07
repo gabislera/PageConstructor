@@ -1,15 +1,16 @@
-import { useNode } from '@craftjs/core';
-import { Slider } from '@mui/material';
-import { Box, FormControl, FormLabel } from '@mui/material';
+import { useNode } from "@craftjs/core";
+import { Slider } from "@mui/material";
+import { Box, FormControl, FormLabel, Grid } from "@mui/material";
 // import ColorPicker from 'material-ui-color-picker';
-import React from 'react';
+import { ColorControl } from "../../../components/ColorControl";
+import React from "react";
 
 export const Container = ({
   flexDirection,
   alignItems,
   justifyContent,
   fillSpace,
-  background,
+  backgroundColor,
   color,
   padding,
   margin,
@@ -19,7 +20,8 @@ export const Container = ({
   minHeight,
   minWidth,
   maxWidth,
-  ...props }) => {
+  ...props
+}) => {
   const {
     connectors: { connect, drag },
   } = useNode();
@@ -27,7 +29,23 @@ export const Container = ({
     <div
       {...props}
       ref={(ref) => connect(drag(ref))}
-      style={{ margin: '5px 0', background, padding: `${padding}px`, minHeight, minWidth, border: '1px solid #ccc', width: '100%', maxWidth, justifyContent, alignItems, flexDirection, fillSpace, color, boxShadow: shadow, borderRadius: radius }}
+      style={{
+        margin: "5px 0",
+        backgroundColor,
+        padding: `${padding}px`,
+        minHeight,
+        minWidth,
+        border: "1px solid #ccc",
+        width: "100%",
+        maxWidth,
+        justifyContent,
+        alignItems,
+        flexDirection,
+        fillSpace,
+        color,
+        boxShadow: shadow,
+        borderRadius: radius,
+      }}
     >
       {children}
     </div>
@@ -49,6 +67,18 @@ export const ContainerSettings = () => {
       <FormControl fullWidth={true} margin="normal" component="fieldset">
         <FormLabel component="legend">Background</FormLabel>
       </FormControl>
+
+      <Grid item style={{ paddingLeft: 2 }} xs={12}>
+        <ColorControl
+          name={"Cor de Fundo"}
+          onChange={(e, value) => {
+            setProp((props) => (props.backgroundColor = value));
+          }}
+          defaultValue={"white"}
+          value={"white"}
+        />
+      </Grid>
+
       <FormControl fullWidth={true} margin="normal" component="fieldset">
         <FormLabel component="legend">Padding</FormLabel>
         <Slider
@@ -63,7 +93,7 @@ export const ContainerSettings = () => {
 };
 
 export const ContainerDefaultProps = {
-  background: 'transparent',
+  backgroundColor: "transparent",
   padding: 3,
 };
 

@@ -1,8 +1,7 @@
-import React from 'react';
-import { useEditor } from '@craftjs/core';
-import { Box, Typography, Grid } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-
+import React from "react";
+import { useEditor } from "@craftjs/core";
+import { Box, Typography, Grid } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 export const SettingsPanel = ({ setShowToolbox }) => {
   const classes = useStyles();
@@ -28,9 +27,9 @@ export const SettingsPanel = ({ setShowToolbox }) => {
   });
 
   return (
-    <Grid container direction={'column'} alignItems={'center'} >
+    <Grid container direction={"column"} alignItems={"center"}>
       {selected && selected.settings ? (
-        <div data-cy='settings-panel'>
+        <div data-cy="settings-panel">
           {React.createElement(selected.settings)}
         </div>
       ) : (
@@ -67,9 +66,7 @@ export const SettingsPanel = ({ setShowToolbox }) => {
 };
 
 const useStyles = makeStyles({
-  root: {
-
-  },
+  root: {},
   notSelected: {
     display: "flex",
     flexDirection: "column",

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Funcionalidades</title>
+  </head>
+
+  <body>
+    <div class="table-container">
+      <h2>Funcionalidades</h2>
+      <p class="info">(incluídas em todos os planos)</p>
+
+      <table>
+        <tr>
+          <td>
+            <svg
+              class="check-icon"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 10.993l7.793-7.793c.097-.098.226-.15.354-.15s.257.052.354.15c.195.195.195.512 0 .707l-8.5 8.5a.498.498 0 01-.708-.001L1.582 8.704a.501.501 0 010-.709c.196-.195.512-.195.708 0L6 10.993z"
+              />
+            </svg>
+          </td>
+          <td>Construtor de páginas</td>
+        </tr>
+
+        <tr>
+          <td>
+            <svg
+              class="check-icon"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 10.993l7.793-7.793c.097-.098.226-.15.354-.15s.257.052.354.15c.195.195.195.512 0 .707l-8.5 8.5a.498.498 0 01-.708-.001L1.582 8.704a.501.501 0 010-.709c.196-.195.512-.195.708 0L6 10.993z"
+              />
+            </svg>
+          </td>
+          <td>Chatbot</td>
+        </tr>
+
+        <tr>
+          <td>
+            <svg
+              class="check-icon"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 10.993l7.793-7.793c.097-.098.226-.15.354-.15s.257.052.354.15c.195.195.195.512 0 .707l-8.5 8.5a.498.498 0 01-.708-.001L1.582 8.704a.501.501 0 010-.709c.196-.195.512-.195.708 0L6 10.993z"
+              />
+            </svg>
+          </td>
+          <td>SAC para Whatsapp</td>
+        </tr>
+
+        <tr>
+          <td>R$ 0,08</td>
+          <td>Custo por SMS</td>
+        </tr>
+
+        <tr>
+          <td>R$ 0,12</td>
+          <td>Custo por ligação</td>
+        </tr>
+
+        <tr>
+          <td>Ilimitado</td>
+          <td>Limite de campanhas</td>
+        </tr>
+
+        <tr>
+          <td>Ilimitado</td>
+          <td>Limite de envios no Whatsapp</td>
+        </tr>
+
+        <tr>
+          <td>Ilimitado</td>
+          <td>Limite de usuários na equipe</td>
+        </tr>
+
+        <tr>
+          <td>Dispositivo único</td>
+          <td>Número de dispositivos de Whatsapp</td>
+        </tr>
+
+        <tr>
+          <td>R$ 75/mês</td>
+          <td>Custo de dispositivo extra de Whatsapp</td>
+        </tr>
+
+        <tr>
+          <td>R$ xx,xx</td>
+          <td>1.000 leads extras</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+  <style>
+    h1,
+    h2,
+    p {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f2f3f4;
+    }
+
+    .table-container {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 104px;
+    }
+
+    .table-container h2 {
+      font-size: 36px;
+      color: #08012d;
+      font-weight: bold;
+    }
+
+    .info {
+      font-size: 20px;
+      color: #08012d;
+      margin-bottom: 48px;
+    }
+
+    table {
+      width: 100%;
+      max-width: 650px;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 4px 0;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .check-icon {
+      width: 21px;
+      height: 16px;
+      stroke: black;
+      stroke-width: 1;
+    }
+
+    td:first-child {
+      text-align: center;
+      width: 250px;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #e8e8e8;
+    }
+
+    tr:nth-child(even) td {
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .table-container {
+        padding: 0 21.5px;
+      }
+
+      td:last-child {
+        max-width: 100px;
+        padding: 4px 20px;
+      }
+
+      td:first-child {
+        width: initial;
+      }
+    }
+  </style>
+</html>
