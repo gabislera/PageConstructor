@@ -9,7 +9,7 @@ import {
   Button as MaterialButton,
   ToggleButton,
   ToggleButtonGroup,
-  Divider
+  Divider,
 } from "@mui/material";
 import {
   Settings,
@@ -23,12 +23,34 @@ import {
   AlignVerticalTop,
   AlignVerticalCenter,
   AlignVerticalBottom,
-  FormatAlignJustify
+  FormatAlignJustify,
+  Start,
+  WrapText,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
-import { CustomButtonGroup, CustomSlider } from "../../_controls";
+import {
+  BackgroundType,
+  ColorControl,
+  CustomButtonGroup,
+  CustomLinkedValues,
+  CustomSelect,
+  CustomSlider,
+  CustomTextInput,
+  FileUpload,
+  TabOptions,
+  TabOptions2,
+} from "../../_Control";
+import { AdvancedSettings } from "./AdvancedSettings";
+
+import { ReactComponent as JustifyCenter } from "../../iconsControls/justify_center.svg";
+import { ReactComponent as JustifyStart } from "../../iconsControls/justify_start.svg";
+import { ReactComponent as JustifyEnd } from "../../iconsControls/justify_end.svg";
+import { ReactComponent as SpaceAround } from "../../iconsControls/space_around.svg";
+import { ReactComponent as SpaceBetween } from "../../iconsControls/space_between.svg";
+import { ReactComponent as SpaceEvenly } from "../../iconsControls/space_evenly.svg";
+import { ReactComponent as AlignStretch } from "../../iconsControls/align_stretch.svg";
 
 export const ContainerSettings = () => {
   const {
@@ -105,22 +127,42 @@ export const ContainerSettings = () => {
         </Tabs>
       </Box>
       <TabPannel value={value} index={0}>
-        <Grid container flexDirection={'column'} padding={2} color={'#fff'} sx={{ gap: 2 }}>
-          <Grid item width={'100%'}>
+        <Grid
+          container
+          flexDirection={"column"}
+          padding={2}
+          color={"#fff"}
+          sx={{ gap: 2 }}
+        >
+          <Grid item>
             <CustomSlider
-              text='Min width'
+              text="Width"
+              value={props.width}
+              onChange={(e, value) => setProp((props) => (props.width = value))}
+              min={8}
+              max={1220}
+              step={1}
+              tooltipText={"Escolha a largura do container"}
+            />
+          </Grid>
+
+          <Grid item>
+            <CustomSlider
+              text="Min height"
               value={props.minHeight}
-              onChange={(e, value) => setProp((props) => (props.minHeight = value))}
+              onChange={(e, value) =>
+                setProp((props) => (props.minHeight = value))
+              }
               min={8}
               max={1000}
               step={1}
-              tooltipText={'Escolha a altura minima'}
+              tooltipText={"Escolha a altura minima"}
             />
           </Grid>
 
           <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
 
-          <Grid item xs={12} >
+          <Grid item xs={12}>
             <Typography variant="caption" gutterBottom color="inherit">
               Item
             </Typography>
@@ -128,85 +170,166 @@ export const ContainerSettings = () => {
 
           <Grid item>
             <CustomButtonGroup
-              text='Direction'
+              text="Direction"
               value={props.flexDirection}
-              onChange={(e, value) => setProp((props) => (props.flexDirection = value))}
+              onChange={(e, value) =>
+                setProp((props) => (props.flexDirection = value))
+              }
               options={[
                 { value: "row", icon: <EastRounded /> },
                 { value: "column", icon: <SouthRounded /> },
                 { value: "row-reverse", icon: <NorthRounded /> },
                 { value: "column-reverse", icon: <WestRounded /> },
               ]}
-              tooltipText={'Escolha a direção do item'}
+              tooltipText={"Escolha a direção do item"}
             />
           </Grid>
 
           <Grid item>
             <CustomButtonGroup
-              text='Justify Content'
+              text="Justify Content"
               value={props.justifyContent}
-              onChange={(e, value) => setProp((props) => (props.justifyContent = value))}
+              onChange={(e, value) =>
+                setProp((props) => (props.justifyContent = value))
+              }
               options={[
-                { value: "start", icon: <EastRounded /> },
-                { value: "center", icon: <SouthRounded /> },
-                { value: "end", icon: <NorthRounded /> },
-                { value: "space-between", icon: <WestRounded /> },
-                { value: "space-around", icon: <WestRounded /> },
-                { value: "space-evenly", icon: <WestRounded /> },
+                { value: "start", icon: <JustifyStart /> },
+                { value: "center", icon: <JustifyCenter /> },
+                { value: "end", icon: <JustifyEnd /> },
+                { value: "space-between", icon: <SpaceBetween /> },
+                { value: "space-around", icon: <SpaceAround /> },
+                { value: "space-evenly", icon: <SpaceEvenly /> },
               ]}
-              tooltipText={'Escolha a direção do item'}
+              tooltipText={"Escolha a direção do item"}
             />
           </Grid>
 
           <Grid item>
             <CustomButtonGroup
-              text='Align Items'
+              text="Align Items"
               value={props.alignItems}
-              onChange={(e, value) => setProp((props) => (props.alignItems = value))}
+              onChange={(e, value) =>
+                setProp((props) => (props.alignItems = value))
+              }
               options={[
                 { value: "start", icon: <AlignVerticalTop /> },
                 { value: "center", icon: <AlignVerticalCenter /> },
                 { value: "end", icon: <AlignVerticalBottom /> },
-                { value: "stretch", icon: <FormatAlignJustify /> },
+                { value: "stretch", icon: <AlignStretch /> },
               ]}
-              tooltipText={'Escolha a direção do item'}
+              tooltipText={"Escolha a direção do item"}
             />
           </Grid>
 
           <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
 
+          <Grid item>
+            <CustomLinkedValues
+              text="Gaps"
+              values={props}
+              onChange={setProp}
+              options={[
+                { value: "columnGap", label: "Column" },
+                { value: "rowGap", label: "Row" },
+              ]}
+            />
+          </Grid>
+
+          <Grid item>
+            <CustomButtonGroup
+              text="Wrap"
+              value={props.flexWrap}
+              onChange={(e, value) =>
+                setProp((props) => (props.flexWrap = value))
+              }
+              options={[
+                { value: "nowrap", icon: <Start /> },
+                { value: "wrap", icon: <WrapText /> },
+              ]}
+              tooltipText={"Quebra de linha"}
+            />
+          </Grid>
+
+          <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
+          <Grid item width="100%">
+            <CustomSelect
+              text={"Html Tag"}
+              value={props.htmlTag}
+              onChange={(e) =>
+                setProp((props) => (props.htmlTag = e.target.value))
+              }
+              options={[
+                { value: "div", label: "div" },
+                { value: "header", label: "header" },
+                { value: "footer", label: "footer" },
+                { value: "main", label: "main" },
+                { value: "article", label: "article" },
+                { value: "aside", label: "aside" },
+                { value: "section", label: "section" },
+                { value: "nav", label: "nav" },
+              ]}
+              tooltipText={"Escolha a tag HTML para o container"}
+            />
+          </Grid>
+
+          <Grid item>
+            <CustomTextInput
+              text="Url"
+              value={props.url}
+              onChange={(e) => setProp((props) => (props.url = e.target.value))}
+              tooltipText={"Link para onde o container redireciona"}
+            />
+          </Grid>
         </Grid>
       </TabPannel>
 
       <TabPannel value={value} index={1}>
-        <Grid container flexDirection={'column'} padding={2} color={'#fff'} sx={{ gap: 2 }}>
+        <Grid
+          container
+          flexDirection={"column"}
+          padding={2}
+          color={"#fff"}
+          sx={{ gap: 2 }}
+        >
+          <Grid item>
+            <TabOptions title="Background type">
+              <Grid item mt={4}>
+                <ColorControl
+                  name="Color"
+                  onChange={(e, value) =>
+                    setProp((props) => (props.backgroundColor = value))
+                  }
+                  defaultValue={props.backgroundColor}
+                  value={props.backgroundColor}
+                />
 
+                <FileUpload
+                  value={props.backgroundImage}
+                  onChange={(e) =>
+                    setProp((props) => (props.backgroundImage = e.target.value))
+                  }
+                />
+              </Grid>
+
+              <Grid item mt={4}>
+                Modificar para receber no hover
+                <ColorControl
+                  name="Color"
+                  onChange={(e, value) =>
+                    setProp((props) => (props.backgroundColor = value))
+                  }
+                  defaultValue={props.backgroundColor}
+                  value={props.backgroundColor}
+                />
+              </Grid>
+            </TabOptions>
+          </Grid>
         </Grid>
       </TabPannel>
 
       <TabPannel value={value} index={2}>
-        <Grid container flexDirection={'column'} padding={2} color={'#fff'} sx={{ gap: 2 }}>
-          <Grid item xs={12}>
-            {selected && selected.isDeletable ? (
-              <MaterialButton
-                variant="text"
-                fullWidth
-                sx={{
-                  color: "#fff",
-                  textTransform: "none",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-                endIcon={<Delete color="secondary" />}
-                onClick={() => {
-                  actions.delete(selected.id);
-                }}
-              >
-                Delete
-              </MaterialButton>
-            ) : null}
-          </Grid>
-        </Grid>
+        <AdvancedSettings props={props} setProp={setProp} />
       </TabPannel>
     </Grid>
   );

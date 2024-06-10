@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import ContentEditable from 'react-contenteditable';
-import { useNode } from '@craftjs/core';
+import React, { useState, useEffect } from "react";
+import ContentEditable from "react-contenteditable";
+import { useNode } from "@craftjs/core";
 
 export const Text = ({
   content,
   url,
-  tag,
+  htmlTag,
   textAlign,
   lineHeight,
   fontWeight,
+  alignSelf,
   color,
   fontSize,
   fontFamily,
@@ -29,6 +30,7 @@ export const Text = ({
   textDecoration,
   letterSpacing,
   wordSpacing,
+  order,
   ...props
 }) => {
   const {
@@ -56,11 +58,11 @@ export const Text = ({
       onChange={(e) =>
         setProp(
           (props) =>
-            (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')),
+            (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
           500
         )
       }
-      tagName={tag}
+      tagName={htmlTag}
       style={{
         fontSize,
         textAlign,
@@ -81,15 +83,16 @@ export const Text = ({
         paddingRight,
         paddingBottom,
         paddingLeft,
+        alignSelf,
         width,
         ...(hoverColor || hoverBackgroundColor
           ? {
-            transition: 'color 0.3s, background-color 0.3s',
-            '&:hover': {
-              color: hoverColor,
-              backgroundColor: hoverBackgroundColor,
-            },
-          }
+              transition: "color 0.3s, background-color 0.3s",
+              "&:hover": {
+                color: hoverColor,
+                backgroundColor: hoverBackgroundColor,
+              },
+            }
           : {}),
       }}
     />
@@ -100,12 +103,22 @@ export const Text = ({
   return (
     <>
       <div
+        style={{
+          display: "inherit",
+          alignSelf,
+          order,
+        }}
         {...props}
         ref={(ref) => connect(drag(ref))}
         onClick={() => selected && setEditable(true)}
       >
         {url ? (
-          <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             <Content />
           </a>
         ) : (

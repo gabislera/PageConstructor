@@ -1,17 +1,17 @@
-import { TextSettings } from '../Settings/TextSettings'
-import { Text } from '../Text'
+import { TextSettings } from "../Settings/TextSettings";
+import { Text } from "../Text";
 
 Text.craft = {
   props: {
-    content: 'Digite seu texto aqui',
-    url: '',
-    tag: 'h2',
-    textAlign: 'left',
-    lineHeight: '1.5',
-    fontWeight: 'normal',
-    color: '#000000',
-    fontSize: '16px',
-    fontFamily: 'sans-serif',
+    content: "Digite seu texto aqui",
+    url: "",
+    htmlTag: "h2",
+    textAlign: "left",
+    lineHeight: "1.5",
+    fontWeight: "400",
+    color: "#000000",
+    fontSize: "16px",
+    fontFamily: "sans-serif",
     additional_css: "",
     marginTop: "0px",
     marginRight: "0px",
@@ -26,13 +26,15 @@ Text.craft = {
     hoverBackgroundColor: "#5D58E8",
     textTransform: "none",
     fontStyle: "normal",
-    textDecoration: "none",
-    letterSpacing: "",
-    wordSpacing: "",
+    textDecoration: "normal",
+    letterSpacing: "0",
+    wordSpacing: "0",
+    alignSelf: "start",
+    order: "0",
   },
   related: {
     settings: TextSettings,
   },
 };
 
-export default Text
+export default Text;

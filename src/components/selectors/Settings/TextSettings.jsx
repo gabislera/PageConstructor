@@ -4,14 +4,37 @@ import {
   Tab,
   Tabs,
   Button as MaterialButton,
-} from '@mui/material';
-import { useNode, useEditor } from '@craftjs/core';
-import React, { useState } from 'react';
-import { makeStyles } from '@mui/styles';
-import { Edit, Settings, Contrast, Delete, FormatAlignLeft, FormatAlignCenter, FormatAlignRight, FormatAlignJustify } from '@mui/icons-material';
-import { TabPannel } from '../TabPannel';
-import { a11yProps } from '../../../utils/a11yProps';
-import { CustomButtonGroup, CustomSelect, CustomSlider, CustomTextInput, ColorControl } from '../../_controls';
+  Divider,
+} from "@mui/material";
+import { useNode, useEditor } from "@craftjs/core";
+import React, { useState } from "react";
+import { makeStyles } from "@mui/styles";
+import {
+  Edit,
+  Settings,
+  Contrast,
+  Delete,
+  FormatAlignLeft,
+  FormatAlignCenter,
+  FormatAlignRight,
+  FormatAlignJustify,
+  AlignVerticalTop,
+  AlignVerticalCenter,
+  AlignVerticalBottom,
+  VerticalAlignBottom,
+  VerticalAlignTop,
+} from "@mui/icons-material";
+import { TabPannel } from "../TabPannel";
+import { a11yProps } from "../../../utils/a11yProps";
+import {
+  CustomButtonGroup,
+  CustomSelect,
+  CustomSlider,
+  CustomTextInput,
+  ColorControl,
+  CustomLinkedValues,
+} from "../../_Control";
+import { AdvancedSettings } from "./AdvancedSettings";
 
 export const TextSettings = () => {
   const {
@@ -49,14 +72,14 @@ export const TextSettings = () => {
   };
 
   return (
-    <Grid color={'#fff'}>
-      <Box width={'100%'} sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Grid color={"#fff"}>
+      <Box width={"100%"} sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
           onChange={handleChange}
           variant="fullWidth"
           indicatorColor="secondary"
-          sx={{ width: '305px' }}
+          sx={{ width: "305px" }}
         >
           <Tab
             className={classes.tab}
@@ -88,10 +111,69 @@ export const TextSettings = () => {
         </Tabs>
       </Box>
       <TabPannel value={value} index={0}>
-        <Grid container flexDirection={'column'} padding={2} color={'#fff'} sx={{ gap: 2 }}>
-          <Grid item xs={12}>
+        <Grid
+          container
+          flexDirection={"column"}
+          padding={2}
+          color={"#fff"}
+          sx={{ gap: 2 }}
+        >
+          <Grid item>
+            <CustomTextInput
+              text="Texto"
+              value={props.content}
+              onChange={(e) =>
+                setProp((props) => (props.content = e.target.value))
+              }
+              tooltipText={"Conteúdo do texto"}
+              multiline
+              rows={4}
+            />
+          </Grid>
+
+          <Grid item>
+            <CustomTextInput
+              text="Url"
+              value={props.url}
+              onChange={(e) => setProp((props) => (props.url = e.target.value))}
+              tooltipText={"Link para onde o texto redireciona"}
+            />
+          </Grid>
+
+          <Grid item width="100%">
+            <CustomSelect
+              text={"Html Tag"}
+              value={props.htmlTag}
+              onChange={(e) =>
+                setProp((props) => (props.htmlTag = e.target.value))
+              }
+              options={[
+                { value: "h1", label: "h1" },
+                { value: "h2", label: "h2" },
+                { value: "h3", label: "h3" },
+                { value: "h4", label: "h4" },
+                { value: "h5", label: "h5" },
+                { value: "h6", label: "h6" },
+                { value: "p", label: "p" },
+                { value: "span", label: "span" },
+              ]}
+              tooltipText={"Escolha a tag HTML para o texto"}
+            />
+          </Grid>
+        </Grid>
+      </TabPannel>
+
+      <TabPannel value={value} index={1}>
+        <Grid
+          container
+          flexDirection={"column"}
+          padding={2}
+          color={"#fff"}
+          sx={{ gap: 2 }}
+        >
+          <Grid item>
             <ColorControl
-              name={"Cor de Fundo"}
+              name={"Cor do texto"}
               onChange={(e, value) => {
                 setProp((props) => (props.color = value));
               }}
@@ -100,185 +182,236 @@ export const TextSettings = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
-            <CustomTextInput
-              text='Texto'
-              value={props.content}
-              onChange={(e) => setProp((props) => (props.content = e.target.value))}
-              tooltipText={'Conteúdo do texto'}
-              multiline
-              rows={4}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <CustomTextInput
-              text='Link'
-              value={props.url}
-              onChange={(e) => setProp((props) => (props.url = e.target.value))}
-              tooltipText={'Link para o texto'}
-            />
-          </Grid>
-
-          <Grid item width='100%' >
-            <CustomSelect
-              text={'Html Tag'}
-              value={props.tag}
-              onChange={(e) => setProp((props) => (props.tag = e.target.value))}
-              options={[
-                { value: 'h1', label: 'h1' },
-                { value: 'h2', label: 'h2' },
-                { value: 'h3', label: 'h3' },
-                { value: 'h4', label: 'h4' },
-                { value: 'h5', label: 'h5' },
-                { value: 'h6', label: 'h6' },
-                { value: 'p', label: 'p' },
-                { value: 'span', label: 'span' }
-              ]}
-              tooltipText={'Escolha a tag HTML para o texto'}
-            />
-          </Grid>
-        </Grid>
-      </TabPannel>
-
-      <TabPannel value={value} index={1}>
-        <Grid container flexDirection={'column'} padding={2} color={'#fff'} sx={{ gap: 2 }}>
-          <Grid item
-            spacing={3}
-            width={'100%'}
-          >
+          <Grid item spacing={3} width={"100%"}>
             <CustomButtonGroup
-              text='Alinhamento do texto'
+              text="Alinhamento"
               value={props.textAlign}
-              onChange={(e, value) => setProp((props) => (props.textAlign = value))}
+              onChange={(e, value) =>
+                setProp((props) => (props.textAlign = value))
+              }
               options={[
                 { value: "left", icon: <FormatAlignLeft /> },
                 { value: "center", icon: <FormatAlignCenter /> },
                 { value: "right", icon: <FormatAlignRight /> },
                 { value: "justify", icon: <FormatAlignJustify /> },
               ]}
-              tooltipText={'Escolha o alinhamento do texto'}
+              tooltipText={"Escolha o alinhamento do texto"}
             />
           </Grid>
 
-          <Grid item width={'100%'} >
+          <Grid item width={"100%"}>
             <CustomSlider
-              text={'Tamanho da fonte'}
+              text={"Tamanho da fonte"}
               value={props.fontSize}
-              onChange={(e, value) => setProp((props) => (props.fontSize = value))}
-              tooltipText={'Escolha o tamanho da fonte'}
+              onChange={(e, value) =>
+                setProp((props) => (props.fontSize = value))
+              }
+              tooltipText={"Escolha o tamanho da fonte"}
             />
           </Grid>
 
-          <Grid item width={'100%'} >
+          <Grid item width={"100%"}>
             <CustomSelect
-              text='Peso da fonte'
+              text="Peso da fonte"
               value={props.fontWeight}
-              onChange={(e) => setProp((props) => (props.fontWeight = e.target.value))}
+              onChange={(e) =>
+                setProp((props) => (props.fontWeight = e.target.value))
+              }
               options={[
-                { value: '300', label: '300' },
-                { value: '400', label: '400' },
-                { value: '500', label: '500' },
-                { value: '600', label: '600' },
-                { value: '700', label: '700' },
+                { value: "300", label: "300" },
+                { value: "400", label: "400" },
+                { value: "500", label: "500" },
+                { value: "600", label: "600" },
+                { value: "700", label: "700" },
               ]}
-              tooltipText={'Escolha o peso da fonte'}
+              tooltipText={"Escolha o peso da fonte"}
             />
           </Grid>
 
-          <Grid item width={'100%'} >
+          <Grid item width={"100%"}>
             <CustomSelect
-              text='Transform'
+              text="Transform"
               value={props.textTransform}
-              onChange={(e) => setProp((props) => (props.textTransform = e.target.value))}
+              onChange={(e) =>
+                setProp((props) => (props.textTransform = e.target.value))
+              }
               options={[
-                { value: 'none', label: 'Nenhum' },
-                { value: 'capitalize', label: 'Capitalizado' },
-                { value: 'uppercase', label: 'Maiúsculo' },
-                { value: 'lowercase', label: 'Minúsculo' },
+                { value: "none", label: "Nenhum" },
+                { value: "capitalize", label: "Capitalizado" },
+                { value: "uppercase", label: "Maiúsculo" },
+                { value: "lowercase", label: "Minúsculo" },
               ]}
-              tooltipText={'Escolha a transformação do texto'}
+              tooltipText={"Escolha a transformação do texto"}
             />
           </Grid>
 
-          <Grid item width={'100%'} >
+          <Grid item width={"100%"}>
             <CustomSelect
-              text='Estilo'
+              text="Estilo"
               value={props.fontStyle}
-              onChange={(e) => setProp((props) => (props.fontStyle = e.target.value))}
+              onChange={(e) =>
+                setProp((props) => (props.fontStyle = e.target.value))
+              }
               options={[
-                { value: 'normal', label: 'Normal' },
-                { value: 'italic', label: 'Italico' },
+                { value: "normal", label: "Normal" },
+                { value: "italic", label: "Italico" },
               ]}
-              tooltipText={'Escolha o estilo da fonte'}
+              tooltipText={"Escolha o estilo da fonte"}
             />
           </Grid>
 
-          <Grid item width={'100%'} >
+          <Grid item width={"100%"}>
             <CustomSelect
-              text='Decoração'
+              text="Decoração"
               value={props.textDecoration}
-              onChange={(e) => setProp((props) => (props.textDecoration = e.target.value))}
+              onChange={(e) =>
+                setProp((props) => (props.textDecoration = e.target.value))
+              }
               options={[
-                { value: 'normal', label: 'Normal' },
-                { value: 'underline', label: 'Sublinhado' },
-                { value: 'overline', label: 'Overline' },
-                { value: 'line-through', label: 'Riscado' },
+                { value: "normal", label: "Normal" },
+                { value: "underline", label: "Sublinhado" },
+                { value: "overline", label: "Overline" },
+                { value: "line-through", label: "Riscado" },
               ]}
-              tooltipText={'Escolha a decoração do texto'}
+              tooltipText={"Escolha a decoração do texto"}
             />
           </Grid>
 
-          <Grid item width={'100%'}>
+          <Grid item width={"100%"}>
             <CustomSlider
-              text={'Altura da linha'}
+              text={"Altura da linha"}
               value={props.lineHeight}
-              onChange={(e, value) => setProp((props) => (props.lineHeight = value))}
+              onChange={(e, value) =>
+                setProp((props) => (props.lineHeight = value))
+              }
               min={1}
               max={3}
               step={0.1}
-              tooltipText={'Escolha a altura da linha'}
+              tooltipText={"Escolha a altura da linha"}
             />
           </Grid>
 
-          <Grid item width={'100%'}>
+          <Grid item width={"100%"}>
             <CustomSlider
-              text={'Espaçamento das letras'}
+              text={"Espaçamento das letras"}
               value={props.letterSpacing}
-              onChange={(e, value) => setProp((props) => (props.letterSpacing = value))}
+              onChange={(e, value) =>
+                setProp((props) => (props.letterSpacing = value))
+              }
               min={-5}
               max={10}
               step={0.1}
-              tooltipText={'Escolha a espaçamento das letras'}
+              tooltipText={"Escolha a espaçamento das letras"}
             />
           </Grid>
 
-          <Grid item width={'100%'}>
+          <Grid item width={"100%"}>
             <CustomSlider
-              text={'Espaçamento das palavras'}
+              text={"Espaçamento das palavras"}
               value={props.wordSpacing}
-              onChange={(e, value) => setProp((props) => (props.wordSpacing = value))}
+              onChange={(e, value) =>
+                setProp((props) => (props.wordSpacing = value))
+              }
               min={-5}
               max={20}
               step={0.1}
-              tooltipText={'Escolha a espaçamento das palavras'}
+              tooltipText={"Escolha a espaçamento das palavras"}
             />
           </Grid>
         </Grid>
       </TabPannel>
 
       <TabPannel value={value} index={2}>
-        <Grid container flexDirection={'column'} padding={2} color={'#fff'} sx={{ gap: 2 }}>
+        <AdvancedSettings props={props} setProp={setProp} />
+        {/* <Grid
+          container
+          flexDirection={"column"}
+          padding={2}
+          color={"#fff"}
+          sx={{ gap: 2 }}
+        >
+          <Grid item >
+            <CustomLinkedValues
+              text="Padding"
+              values={props}
+              onChange={setProp}
+              options={[
+                { value: "paddingTop", label: "Top" },
+                { value: "paddingRight", label: "Right" },
+                { value: "paddingBottom", label: "Bottom" },
+                { value: "paddingLeft", label: "Left" },
+              ]}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <CustomLinkedValues
+              text="Margin"
+              values={props}
+              onChange={setProp}
+              options={[
+                { value: "marginTop", label: "Top" },
+                { value: "marginRight", label: "Right" },
+                { value: "marginBottom", label: "Bottom" },
+                { value: "marginLeft", label: "Left" },
+              ]}
+            />
+          </Grid>
+
+          <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
+          <Grid item>
+            <CustomButtonGroup
+              text="Align Self"
+              value={props.alignSelf}
+              onChange={(e, value) =>
+                setProp((props) => (props.alignSelf = value))
+              }
+              options={[
+                { value: "start", icon: <AlignVerticalTop /> },
+                { value: "center", icon: <AlignVerticalCenter /> },
+                { value: "end", icon: <AlignVerticalBottom /> },
+                { value: "stretch", icon: <FormatAlignJustify /> },
+              ]}
+              tooltipText={"Escolha a direção do item"}
+            />
+          </Grid>
+
+          <Grid item spacing={3} width={"100%"}>
+            <CustomButtonGroup
+              text="Order"
+              value={props.order}
+              onChange={(e, value) => setProp((props) => (props.order = value))}
+              options={[
+                {
+                  value: "1",
+                  icon: (
+                    <VerticalAlignBottom
+                      style={{ transform: "rotate(90deg)" }}
+                    />
+                  ),
+                },
+                {
+                  value: "2",
+                  icon: (
+                    <VerticalAlignTop style={{ transform: "rotate(90deg)" }} />
+                  ),
+                },
+              ]}
+              tooltipText={"Escolha a ordem da posição"}
+            />
+          </Grid>
+
           <Grid item xs={12}>
             {selected && selected.isDeletable ? (
               <MaterialButton
                 variant="text"
                 fullWidth
                 sx={{
-                  color: '#fff',
-                  textTransform: 'none',
-                  display: 'flex',
-                  justifyContent: 'space-between',
+                  color: "#fff",
+                  textTransform: "none",
+                  display: "flex",
+                  justifyContent: "space-between",
                 }}
                 endIcon={<Delete color="secondary" />}
                 onClick={() => {
@@ -289,7 +422,7 @@ export const TextSettings = () => {
               </MaterialButton>
             ) : null}
           </Grid>
-        </Grid>
+        </Grid> */}
       </TabPannel>
     </Grid>
   );
@@ -297,15 +430,15 @@ export const TextSettings = () => {
 
 const useStyles = makeStyles({
   tab: {
-    '& > svg': {
-      width: '16px',
-      height: '16px',
-      fill: '#d5d8dc',
+    "& > svg": {
+      width: "16px",
+      height: "16px",
+      fill: "#d5d8dc",
     },
-    '& > span': {
-      fontSize: '10px',
-      color: '#d5d8dc',
-      textTransform: 'none',
+    "& > span": {
+      fontSize: "10px",
+      color: "#d5d8dc",
+      textTransform: "none",
     },
   },
 });

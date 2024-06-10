@@ -56,7 +56,7 @@ export const RenderNode = ({ render }) => {
 
   useEffect(() => {
     if (dom) {
-      console.log(isHover);
+      // console.log(isHover);
       if (isActive || isHover) dom.classList.add("component-selected");
       else dom.classList.remove("component-selected");
     }
@@ -97,62 +97,62 @@ export const RenderNode = ({ render }) => {
     <>
       {isHover || isActive
         ? ReactDOM.createPortal(
-          <IndicatorDiv
-            onClick={() => actions.selectNode(id)}
-            ref={currentRef}
-            style={{
-              left: getPos(dom).left,
-              top: getPos(dom).top,
-              position: "fixed",
-              zIndex: 9999,
-              padding: 6,
-              color: "#FFF",
-              backgroundColor: "#6465ffda",
-            }}
-          >
-            <p style={{ fontSize: 12, fontWeight: "bold" }}>{name}</p>
-            <div
+            <IndicatorDiv
+              onClick={() => actions.selectNode(id)}
+              ref={currentRef}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
+                left: getPos(dom).left,
+                top: getPos(dom).top,
+                position: "fixed",
+                zIndex: 9999,
+                padding: 6,
+                color: "#FFF",
+                backgroundColor: "#6465ffda",
               }}
             >
-              {moveable ? (
-                <IconButton
-                  size="small"
-                  style={{ cursor: "move" }}
-                  ref={drag}
-                ></IconButton>
-              ) : null}
-              {id !== ROOT_NODE && (
-                <IconButton
-                  size="small"
-                  style={{}}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    actions.selectNode(parent);
-                  }}
-                >
-                  <KeyboardArrowUpIcon />
-                </IconButton>
-              )}
-              {!props.notDeletable && deletable ? (
-                <IconButton
-                  size="small"
-                  onMouseDown={(e) => {
-                    e.stopPropagation();
-                    actions.delete(id);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              ) : null}
-            </div>
-          </IndicatorDiv>,
-          document.querySelector(".page-container")
-        )
+              <p style={{ fontSize: 12, fontWeight: "bold" }}>{name}</p>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 2,
+                }}
+              >
+                {moveable ? (
+                  <IconButton
+                    size="small"
+                    style={{ cursor: "move" }}
+                    ref={drag}
+                  ></IconButton>
+                ) : null}
+                {id !== ROOT_NODE && (
+                  <IconButton
+                    size="small"
+                    style={{}}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      actions.selectNode(parent);
+                    }}
+                  >
+                    <KeyboardArrowUpIcon />
+                  </IconButton>
+                )}
+                {!props.notDeletable && deletable ? (
+                  <IconButton
+                    size="small"
+                    onMouseDown={(e) => {
+                      e.stopPropagation();
+                      actions.delete(id);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                ) : null}
+              </div>
+            </IndicatorDiv>,
+            document.querySelector(".page-container")
+          )
         : null}
       {render}
     </>

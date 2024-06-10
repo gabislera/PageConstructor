@@ -17,6 +17,7 @@ export const Container = ({
 
   overflow,
   htmlTag,
+  url,
 
   backgroundColor,
   backgroundImage,
@@ -45,8 +46,10 @@ export const Container = ({
     connectors: { connect, drag },
   } = useNode();
 
-  return (
-    <div
+  const ContainerTag = htmlTag;
+
+  const ContainerElement = (
+    <ContainerTag
       ref={(ref) => connect(drag(ref))}
       style={{
         maxWidth,
@@ -87,10 +90,23 @@ export const Container = ({
         position,
         zIndex,
 
-        // border: children ? "none" : "1px dashed grey",
+        border: children ? "none" : "1px dashed grey",
       }}
     >
       {children}
-    </div>
+    </ContainerTag>
+  );
+
+  return url ? (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
+      {ContainerElement}
+    </a>
+  ) : (
+    ContainerElement
   );
 };
