@@ -1,11 +1,8 @@
-import { Box, Typography } from "@mui/material";
-
 export const TabPannel = (props) => {
   const { children, value, index, icon, text, ...other } = props;
-
-
   return (
     <div
+      style={{ width: '100%' }}
       role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
@@ -13,9 +10,9 @@ export const TabPannel = (props) => {
       {...other}
     >
       {value === index && (
-        <Box >
-          <Typography>{children}</Typography>
-        </Box>
+        <>
+          {children}
+        </>
       )}
     </div>
   );

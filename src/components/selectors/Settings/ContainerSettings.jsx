@@ -1,29 +1,34 @@
 import React, { useState } from "react";
 import { useNode, useEditor } from "@craftjs/core";
-import { ColorControl } from "../../ColorControl";
 import {
   Grid,
-  TextField,
-  Select,
-  MenuItem,
-  FormControl,
   Typography,
   Box,
   Tab,
   Tabs,
   Button as MaterialButton,
-  Slider,
+  ToggleButton,
+  ToggleButtonGroup,
+  Divider
 } from "@mui/material";
 import {
-  Edit,
   Settings,
   Contrast,
   Delete,
   SpaceDashboardOutlined,
+  EastRounded,
+  SouthRounded,
+  NorthRounded,
+  WestRounded,
+  AlignVerticalTop,
+  AlignVerticalCenter,
+  AlignVerticalBottom,
+  FormatAlignJustify
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
+import { CustomButtonGroup, CustomSlider } from "../../_controls";
 
 export const ContainerSettings = () => {
   const {
@@ -100,17 +105,87 @@ export const ContainerSettings = () => {
         </Tabs>
       </Box>
       <TabPannel value={value} index={0}>
-        <Grid container spacing={3} padding={2} color={"#fff"}>
-          <Grid item xs={12}></Grid>
+        <Grid container flexDirection={'column'} padding={2} color={'#fff'} sx={{ gap: 2 }}>
+          <Grid item width={'100%'}>
+            <CustomSlider
+              text='Min width'
+              value={props.minHeight}
+              onChange={(e, value) => setProp((props) => (props.minHeight = value))}
+              min={8}
+              max={1000}
+              step={1}
+              tooltipText={'Escolha a altura minima'}
+            />
+          </Grid>
 
-          <Grid item xs={12}></Grid>
+          <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
+          <Grid item xs={12} >
+            <Typography variant="caption" gutterBottom color="inherit">
+              Item
+            </Typography>
+          </Grid>
+
+          <Grid item>
+            <CustomButtonGroup
+              text='Direction'
+              value={props.flexDirection}
+              onChange={(e, value) => setProp((props) => (props.flexDirection = value))}
+              options={[
+                { value: "row", icon: <EastRounded /> },
+                { value: "column", icon: <SouthRounded /> },
+                { value: "row-reverse", icon: <NorthRounded /> },
+                { value: "column-reverse", icon: <WestRounded /> },
+              ]}
+              tooltipText={'Escolha a direção do item'}
+            />
+          </Grid>
+
+          <Grid item>
+            <CustomButtonGroup
+              text='Justify Content'
+              value={props.justifyContent}
+              onChange={(e, value) => setProp((props) => (props.justifyContent = value))}
+              options={[
+                { value: "start", icon: <EastRounded /> },
+                { value: "center", icon: <SouthRounded /> },
+                { value: "end", icon: <NorthRounded /> },
+                { value: "space-between", icon: <WestRounded /> },
+                { value: "space-around", icon: <WestRounded /> },
+                { value: "space-evenly", icon: <WestRounded /> },
+              ]}
+              tooltipText={'Escolha a direção do item'}
+            />
+          </Grid>
+
+          <Grid item>
+            <CustomButtonGroup
+              text='Align Items'
+              value={props.alignItems}
+              onChange={(e, value) => setProp((props) => (props.alignItems = value))}
+              options={[
+                { value: "start", icon: <AlignVerticalTop /> },
+                { value: "center", icon: <AlignVerticalCenter /> },
+                { value: "end", icon: <AlignVerticalBottom /> },
+                { value: "stretch", icon: <FormatAlignJustify /> },
+              ]}
+              tooltipText={'Escolha a direção do item'}
+            />
+          </Grid>
+
+          <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
         </Grid>
       </TabPannel>
 
-      <TabPannel value={value} index={1}></TabPannel>
+      <TabPannel value={value} index={1}>
+        <Grid container flexDirection={'column'} padding={2} color={'#fff'} sx={{ gap: 2 }}>
+
+        </Grid>
+      </TabPannel>
 
       <TabPannel value={value} index={2}>
-        <Grid container spacing={3} padding={2} color={"#fff"}>
+        <Grid container flexDirection={'column'} padding={2} color={'#fff'} sx={{ gap: 2 }}>
           <Grid item xs={12}>
             {selected && selected.isDeletable ? (
               <MaterialButton

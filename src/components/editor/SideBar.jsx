@@ -18,7 +18,7 @@ export default function SideBar({ isSelected }) {
   };
 
   return (
-    <Box className={`${classes.root}`}>
+    <Box className={classes.root}>
       <div
         className={classes.container}
         style={{

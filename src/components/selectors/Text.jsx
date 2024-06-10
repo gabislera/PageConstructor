@@ -62,7 +62,7 @@ export const Text = ({
       }
       tagName={tag}
       style={{
-        fontSize: `${fontSize}px`,
+        fontSize,
         textAlign,
         lineHeight,
         fontWeight,
@@ -73,14 +73,14 @@ export const Text = ({
         textDecoration,
         color,
         fontFamily,
-        marginTop: `${marginTop}px`,
-        marginRight: `${marginRight}px`,
-        marginBottom: `${marginBottom}px`,
-        marginLeft: `${marginLeft}px`,
-        paddingTop: `${paddingTop}px`,
-        paddingRight: `${paddingRight}px`,
-        paddingBottom: `${paddingBottom}px`,
-        paddingLeft: `${paddingLeft}px`,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        paddingTop,
+        paddingRight,
+        paddingBottom,
+        paddingLeft,
         width,
         ...(hoverColor || hoverBackgroundColor
           ? {

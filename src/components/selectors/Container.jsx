@@ -4,6 +4,7 @@ import { useNode } from "@craftjs/core";
 export const Container = ({
   children,
   maxWidth,
+  display,
 
   width,
   minHeight,
@@ -49,6 +50,7 @@ export const Container = ({
       ref={(ref) => connect(drag(ref))}
       style={{
         maxWidth,
+        display,
 
         width,
         minHeight,
@@ -85,7 +87,7 @@ export const Container = ({
         position,
         zIndex,
 
-        border: children ? "none" : "1px dashed grey",
+        // border: children ? "none" : "1px dashed grey",
       }}
     >
       {children}

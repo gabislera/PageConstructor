@@ -34,7 +34,7 @@ export const SettingsPanel = ({ setShowToolbox }) => {
         </div>
       ) : (
         <Box className={classes.notSelected}>
-          <Typography
+          {/* <Typography
             variant="caption"
             style={{ fontWeight: "bold", fontSize: 11 }}
             color="textSecondary"
@@ -48,7 +48,7 @@ export const SettingsPanel = ({ setShowToolbox }) => {
           >
             Selecione algum item para personalizá-lo ou arraste um novo elemento
             da barra lateral.
-          </Typography>
+          </Typography> */}
         </Box>
       )}
       {/* {selected && selected.isDeletable ? (
