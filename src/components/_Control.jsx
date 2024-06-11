@@ -640,14 +640,16 @@ export const CustomSlider = ({
 
   const handleSliderChange = (event, newValue) => {
     setInternalValue(newValue);
-    onChange(event, `${newValue}${currentUnit}`);
+    // onChange(event, `${newValue}${currentUnit}`);
+    onChange(event, newValue);
   };
 
   const handleInputChange = (event) => {
     const newValue =
       event.target.value === "" ? "" : Number(event.target.value);
     setInternalValue(newValue);
-    onChange(event, `${newValue}${currentUnit}`);
+    // onChange(event, `${newValue}${currentUnit}`);
+    onChange(event, newValue);
   };
 
   return (
