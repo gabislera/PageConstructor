@@ -1,5 +1,6 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
+import { makeStyles } from "@mui/styles";
 
 export const Container = ({
   children,
@@ -22,10 +23,27 @@ export const Container = ({
   backgroundColor,
   backgroundImage,
 
-  borderType,
-  borderWidth,
+  borderStyle,
+  borderTopWidth,
+  borderBottomWidth,
+  borderRightWidth,
+  borderLeftWidth,
   borderColor,
-  borderRadius,
+  borderTopLeftRadius,
+  borderTopRightRadius,
+  borderBottomRightRadius,
+  borderBottomLeftRadius,
+  hoverBorderStyle,
+  hoverBorderTopWidth,
+  hoverBorderBottomWidth,
+  hoverBorderRightWidth,
+  hoverBorderLeftWidth,
+  hoverBorderColor,
+  hoverBorderTopLeftRadius,
+  hoverBorderTopRightRadius,
+  hoverBorderBottomRightRadius,
+  hoverBorderBottomLeftRadius,
+  transition,
 
   marginTop,
   marginRight,
@@ -40,17 +58,24 @@ export const Container = ({
   flexShrink,
   flexGrow,
   position,
+  top,
+  left,
+  right,
+  bottom,
   zIndex,
 }) => {
   const {
     connectors: { connect, drag },
   } = useNode();
-
+  const classes = useStyles();
   const ContainerTag = htmlTag;
+
+  console.log(display);
 
   const ContainerElement = (
     <ContainerTag
       ref={(ref) => connect(drag(ref))}
+      className={classes.hoverStyles}
       style={{
         maxWidth,
         display,
@@ -68,12 +93,18 @@ export const Container = ({
         htmlTag,
 
         backgroundColor,
-        backgroundImage,
 
-        borderType,
-        borderWidth,
+        borderStyle,
+        borderTopWidth,
+        borderBottomWidth,
+        borderRightWidth,
+        borderLeftWidth,
         borderColor,
-        borderRadius,
+        borderTopLeftRadius,
+        borderTopRightRadius,
+        borderBottomRightRadius,
+        borderBottomLeftRadius,
+        transition: `border ${transition}s ease-in-out`,
 
         marginTop,
         marginRight,
@@ -88,9 +119,17 @@ export const Container = ({
         flexShrink,
         flexGrow,
         position,
+        top,
+        left,
+        right,
+        bottom,
         zIndex,
 
         border: children ? "none" : "1px dashed grey",
+
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {children}
@@ -110,3 +149,20 @@ export const Container = ({
     ContainerElement
   );
 };
+
+const useStyles = makeStyles({
+  // hoverStyles: {
+  //   "&:hover": {
+  //     borderStyle: hoverBorderStyle,
+  //     borderTopWidth: hoverBorderTopWidth,
+  //     borderBottomWidth: hoverBorderBottomWidth,
+  //     borderRightWidth: hoverBorderRightWidth,
+  //     borderLeftWidth: hoverBorderLeftWidth,
+  //     borderColor: hoverBorderColor,
+  //     borderTopLeftRadius: hoverBorderTopLeftRadius,
+  //     borderTopRightRadius: hoverBorderTopRightRadius,
+  //     borderBottomRightRadius: hoverBorderBottomRightRadius,
+  //     borderBottomLeftRadius: hoverBorderBottomLeftRadius,
+  //   },
+  // },
+});

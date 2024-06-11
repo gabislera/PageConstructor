@@ -10,6 +10,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Divider,
+  IconButton,
 } from "@mui/material";
 import {
   Settings,
@@ -26,6 +27,7 @@ import {
   FormatAlignJustify,
   Start,
   WrapText,
+  Add,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
@@ -40,7 +42,6 @@ import {
   CustomTextInput,
   FileUpload,
   TabOptions,
-  TabOptions2,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 
@@ -294,7 +295,7 @@ export const ContainerSettings = () => {
         >
           <Grid item>
             <TabOptions title="Background type">
-              <Grid item mt={4}>
+              <Grid item mt={2}>
                 <ColorControl
                   name="Color"
                   onChange={(e, value) =>
@@ -306,14 +307,13 @@ export const ContainerSettings = () => {
 
                 <FileUpload
                   value={props.backgroundImage}
-                  onChange={(e) =>
-                    setProp((props) => (props.backgroundImage = e.target.value))
+                  onChange={(imageUrl) =>
+                    setProp((props) => (props.backgroundImage = imageUrl))
                   }
                 />
               </Grid>
 
-              <Grid item mt={4}>
-                Modificar para receber no hover
+              <Grid item mt={2}>
                 <ColorControl
                   name="Color"
                   onChange={(e, value) =>
@@ -322,6 +322,138 @@ export const ContainerSettings = () => {
                   defaultValue={props.backgroundColor}
                   value={props.backgroundColor}
                 />
+              </Grid>
+            </TabOptions>
+
+            <TabOptions title="Border">
+              <Grid item mt={0}>
+                <Grid item mt={2}>
+                  <CustomSelect
+                    text="Border style"
+                    value={props.borderStyle}
+                    onChange={(e) =>
+                      setProp((props) => (props.borderStyle = e.target.value))
+                    }
+                    options={[
+                      { value: "none", label: "None" },
+                      { value: "solid", label: "Solid" },
+                      { value: "dashed", label: "Dashed" },
+                      { value: "dotted", label: "Dotted" },
+                    ]}
+                  />
+                </Grid>
+
+                {props.borderStyle !== "none" && (
+                  <Grid item mt={2}>
+                    <CustomLinkedValues
+                      text="Border Width"
+                      values={props}
+                      onChange={setProp}
+                      options={[
+                        { value: "borderTopWidth", label: "Top" },
+                        { value: "borderRightWidth", label: "Right" },
+                        { value: "borderBottomWidth", label: "Bottom" },
+                        { value: "borderLeftWidth", label: "Left" },
+                      ]}
+                    />
+                  </Grid>
+                )}
+
+                {props.borderStyle !== "none" && (
+                  <Grid item mt={2}>
+                    <ColorControl
+                      name={"Border Color"}
+                      onChange={(e, value) => {
+                        setProp((props) => (props.borderColor = value));
+                      }}
+                      defaultValue={props.borderColor}
+                      value={props.borderColor}
+                    />
+                  </Grid>
+                )}
+
+                <Grid item mt={2}>
+                  <CustomLinkedValues
+                    text="Border Radius"
+                    values={props}
+                    onChange={setProp}
+                    options={[
+                      { value: "borderTopLeftRadius", label: "Top L" },
+                      { value: "borderTopRightRadius", label: "Top R" },
+                      { value: "borderBottomRightRadius", label: "Bottom R" },
+                      { value: "borderBottomLeftRadius", label: "Bottom L" },
+                    ]}
+                  />
+                </Grid>
+              </Grid>
+
+              <Grid item mt={0}>
+                <Grid item mt={2}>
+                  <CustomSelect
+                    text="Border style"
+                    value={props.hoverBorderStyle}
+                    onChange={(e) =>
+                      setProp(
+                        (props) => (props.hoverBorderStyle = e.target.value)
+                      )
+                    }
+                    options={[
+                      { value: "none", label: "None" },
+                      { value: "solid", label: "Solid" },
+                      { value: "dashed", label: "Dashed" },
+                      { value: "dotted", label: "Dotted" },
+                    ]}
+                  />
+                </Grid>
+
+                {props.hoverBorderStyle !== "none" && (
+                  <Grid item mt={2}>
+                    <CustomLinkedValues
+                      text="Border Width"
+                      values={props}
+                      onChange={setProp}
+                      options={[
+                        { value: "hoverBorderTopWidth", label: "Top" },
+                        { value: "hoverBorderRightWidth", label: "Right" },
+                        { value: "hoverBorderBottomWidth", label: "Bottom" },
+                        { value: "hoverBorderLeftWidth", label: "Left" },
+                      ]}
+                    />
+                  </Grid>
+                )}
+
+                {props.hoverBorderStyle !== "none" && (
+                  <Grid item mt={2}>
+                    <ColorControl
+                      name={"Border Color"}
+                      onChange={(e, value) => {
+                        setProp((props) => (props.hoverBorderColor = value));
+                      }}
+                      defaultValue={props.hoverBorderColor}
+                      value={props.hoverBorderColor}
+                    />
+                  </Grid>
+                )}
+
+                <Grid item mt={2}>
+                  <CustomLinkedValues
+                    text="Border Radius"
+                    values={props}
+                    onChange={setProp}
+                    options={[
+                      { value: "hoverBorderTopLeftRadius", label: "Top L" },
+                      { value: "hoverBorderTopRightRadius", label: "Top R" },
+                      {
+                        value: "hoverBorderBottomRightRadius",
+                        label: "Bottom R",
+                      },
+                      {
+                        value: "hoverBorderBottomLeftRadius",
+                        label: "Bottom L",
+                      },
+                    ]}
+                  />
+                </Grid>
               </Grid>
             </TabOptions>
           </Grid>

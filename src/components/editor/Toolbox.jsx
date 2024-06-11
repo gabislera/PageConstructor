@@ -41,7 +41,7 @@ export const Toolbox = () => {
   };
 
   return (
-    <Grid container>
+    <Grid container padding={2}>
       <CustomAccordionRoot>
         <CustomAccordion defaultExpanded>
           <CustomAccordionSummary
@@ -138,7 +138,7 @@ const useStyles = makeStyles({
   },
 });
 
-const CustomAccordion = styled((props) => <Accordion {...props} />)`
+export const CustomAccordion = styled((props) => <Accordion {...props} />)`
   background-color: transparent;
   color: #d5d8dc;
   box-shadow: none;
@@ -153,30 +153,29 @@ const CustomAccordion = styled((props) => <Accordion {...props} />)`
   }
 `;
 
-const CustomAccordionSummary = styled(AccordionSummary)`
+export const CustomAccordionSummary = styled(AccordionSummary)`
   background-color: transparent;
   /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
   min-height: 48px;
-  padding: 0 15px;
   font-size: 14px;
+  padding: 0;
 
   & .MuiAccordionSummary-content {
     margin: 0;
   }
 
   &.Mui-expanded {
-    min-height: 48px;
+    // min-height: 48px;
   }
 `;
 
-const CustomAccordionDetails = styled(AccordionDetails)`
+export const CustomAccordionDetails = styled(AccordionDetails)`
   display: block;
   padding: 0;
   margin-bottom: 1rem;
-  padding: 0 15px;
 `;
 
-const CustomAccordionRoot = styled("div")`
+export const CustomAccordionRoot = styled("div")`
   width: 100%;
   background-color: transparent;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);

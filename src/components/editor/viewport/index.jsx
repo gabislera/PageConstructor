@@ -11,16 +11,18 @@ export const Viewport = ({ children }) => {
 
   const { connectors, selected } = useEditor((state) => {
     const [currentNodeId] = state.events.selected;
-    return {
-      enabled: state.options.enabled,
-      selected: currentNodeId,
-    };
+    if (currentNodeId) {
+      return {
+        enabled: state.options.enabled,
+        selected: state.nodes[currentNodeId].data.name,
+      };
+    }
   });
 
   return (
     <Box className={`${classes.root}`}>
       <Box className={`page-container ${classes.pageContainer}`}>
-        <SideBar isSelected={selected} />
+        <SideBar selected={selected} />
         <Box
           className={`craftjs-renderer ${classes.rendererContainer}`}
           ref={(ref) => connectors.select(connectors.hover(ref, null), null)}

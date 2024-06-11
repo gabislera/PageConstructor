@@ -31,6 +31,12 @@ Text.craft = {
     wordSpacing: "0",
     alignSelf: "start",
     order: "0",
+    position: "static",
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
+    zIndex: "0",
   },
   related: {
     settings: TextSettings,

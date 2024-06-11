@@ -8,7 +8,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
-export default function SideBar({ isSelected }) {
+export default function SideBar({ selected }) {
   const { actions } = useEditor();
   const [isOpen, setIsOpen] = useState(true);
   const classes = useStyles();
@@ -28,9 +28,13 @@ export default function SideBar({ isSelected }) {
           height: "100%",
         }}
       >
-        <Header isOpen={isOpen} onClick={() => actions.clearEvents()} />
+        <Header
+          isOpen={isOpen}
+          onClick={() => actions.clearEvents()}
+          selected={selected}
+        />
         <Box className={classes.content}>
-          {!isSelected ? <Toolbox /> : <SettingsPanel />}
+          {!selected ? <Toolbox /> : <SettingsPanel />}
         </Box>
         <Footer />
       </div>

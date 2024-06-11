@@ -31,6 +31,13 @@ export const Text = ({
   letterSpacing,
   wordSpacing,
   order,
+  position,
+  top,
+  left,
+  right,
+  bottom,
+  zIndex,
+
   ...props
 }) => {
   const {
@@ -85,6 +92,7 @@ export const Text = ({
         paddingLeft,
         alignSelf,
         width,
+
         ...(hoverColor || hoverBackgroundColor
           ? {
               transition: "color 0.3s, background-color 0.3s",
@@ -107,6 +115,13 @@ export const Text = ({
           display: "inherit",
           alignSelf,
           order,
+          // position,
+          top,
+          left,
+          right,
+          bottom,
+          zIndex,
+          width: "fit-content",
         }}
         {...props}
         ref={(ref) => connect(drag(ref))}

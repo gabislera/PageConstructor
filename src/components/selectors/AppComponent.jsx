@@ -16,6 +16,7 @@ export const AppComponent = ({ maxWidth, backgroundColor, width, margin }) => {
         margin,
         width: `${width}%`,
         backgroundColor,
+        position: "relative",
       }}
     >
       <Element id="main_section" is={Container} className="section" canvas />
