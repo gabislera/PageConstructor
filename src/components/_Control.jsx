@@ -340,15 +340,36 @@ export const TabOptionsBackup = ({ title, children }) => {
 //   );
 // };
 
-export const CustomLinkedValues = ({ text, values, onChange, options }) => {
+export const CustomLinkedValues = ({
+  text,
+  values,
+  onChange,
+  options,
+  tooltipText,
+}) => {
   const classes = useStyles();
   const [linked, setLinked] = useState(true);
+
+  const initialUnit = (() => {
+    const firstOption = options[0]?.value;
+    if (firstOption) {
+      const valueWithUnit = values[firstOption];
+      const unitMatch = valueWithUnit?.toString().match(/[a-zA-Z%]+$/);
+      return unitMatch ? unitMatch[0] : "px";
+    }
+    return "px";
+  })();
+
+  const [currentUnit, setCurrentUnit] = useState(initialUnit);
+
   const [localValues, setLocalValues] = useState(
     options.reduce((acc, option) => {
       acc[option.value] = values[option.value] || 0;
       return acc;
     }, {})
   );
+
+  const units = ["px", "%", "rem", "vw"];
 
   useEffect(() => {
     setLocalValues(
@@ -360,9 +381,9 @@ export const CustomLinkedValues = ({ text, values, onChange, options }) => {
   }, [values, options]);
 
   const handleInputChange = (option, value) => {
-    const newValues = { ...localValues, [option]: value };
+    const newValues = { ...localValues, [option]: `${value}${currentUnit}` };
     if (linked) {
-      const syncedValue = value;
+      const syncedValue = `${value}${currentUnit}`;
       Object.keys(newValues).forEach((key) => (newValues[key] = syncedValue));
     }
     setLocalValues(newValues);
@@ -375,8 +396,7 @@ export const CustomLinkedValues = ({ text, values, onChange, options }) => {
   };
 
   const handleIconButtonClick = () => {
-    const newLinkedState = !linked;
-    setLinked(newLinkedState);
+    setLinked(!linked);
 
     const newValues = options.reduce((acc, option) => {
       acc[option.value] = 0;
@@ -392,13 +412,88 @@ export const CustomLinkedValues = ({ text, values, onChange, options }) => {
     });
   };
 
+  const handleUnitChange = (event) => {
+    const newUnit = event.target.value;
+
+    const newValues = options.reduce((acc, option) => {
+      const numericValue = parseFloat(localValues[option.value]);
+      acc[option.value] = `${numericValue}${newUnit}`;
+      return acc;
+    }, {});
+
+    setCurrentUnit(newUnit);
+    setLocalValues(newValues);
+
+    options.forEach((opt) => {
+      onChange((props) => {
+        props[opt.value] = newValues[opt.value];
+      });
+    });
+  };
+
   return (
     <Box width="100%" display="flex" flexDirection="column">
-      <Tooltip title={text} placement="right">
-        <Typography variant="caption" gutterBottom color="inherit">
-          {text}
-        </Typography>
-      </Tooltip>
+      <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Tooltip title={tooltipText} placement="right">
+          <Typography variant="caption" gutterBottom color="inherit">
+            {text}
+          </Typography>
+        </Tooltip>
+
+        <Tooltip title="Unidade de medida" placement="right">
+          <FormControl
+            variant="outlined"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                padding: "5px",
+                fontSize: "12px",
+                border: "none",
+                "& fieldset": {
+                  borderColor: "transparent",
+                  textAlign: "center",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#333",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "transparent",
+                },
+              },
+              "& .MuiOutlinedInput-input": {
+                padding: 0,
+                paddingRight: "0 !important",
+              },
+            }}
+          >
+            <Select
+              value={currentUnit}
+              onChange={handleUnitChange}
+              IconComponent={() => null}
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    bgcolor: "#333333",
+                    "& .MuiMenuItem-root": {
+                      color: "#fff",
+                      fontSize: "12px",
+                      padding: "4px 8px",
+                      textAlign: "center",
+                      justifyContent: "center",
+                      paddingRight: "0 important",
+                    },
+                  },
+                },
+              }}
+            >
+              {units.map((unit, index) => (
+                <MenuItem key={index} value={unit}>
+                  {unit}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Tooltip>
+      </Box>
 
       <Box display="flex" alignItems="start" justifyContent="space-between">
         {options.map((option, index) => (
@@ -412,8 +507,18 @@ export const CustomLinkedValues = ({ text, values, onChange, options }) => {
               key={index}
               variant="outlined"
               type="number"
-              value={localValues[option.value]}
-              placeholder={localValues[option.value]}
+              value={
+                parseFloat(localValues[option.value]) ||
+                localValues[option.value] === 0
+                  ? parseFloat(localValues[option.value])
+                  : localValues[option.value]
+              }
+              placeholder={
+                parseFloat(localValues[option.value]) ||
+                localValues[option.value] === 0
+                  ? parseFloat(localValues[option.value])
+                  : localValues[option.value]
+              }
               onChange={(e) =>
                 handleInputChange(
                   option.value,
@@ -567,7 +672,11 @@ export const CustomSlider = ({
 }) => {
   const classes = useStyles();
   const [internalValue, setInternalValue] = useState(value);
-  const [currentUnit, setCurrentUnit] = useState("px");
+
+  const [currentUnit, setCurrentUnit] = useState(() => {
+    const initialUnitMatch = value.match(/[a-zA-Z%]+$/);
+    return initialUnitMatch ? initialUnitMatch[0] : "px";
+  });
 
   const unitConfigs = {
     px: { _max: 200, _step: 1, _min: 1 },
