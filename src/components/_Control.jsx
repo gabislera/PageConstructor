@@ -343,7 +343,6 @@ export const TabOptionsBackup = ({ title, children }) => {
 export const CustomLinkedValues = ({ text, values, onChange, options }) => {
   const classes = useStyles();
   const [linked, setLinked] = useState(true);
-  const [currentUnit, setCurrentUnit] = useState("px");
   const [localValues, setLocalValues] = useState(
     options.reduce((acc, option) => {
       acc[option.value] = values[option.value] || 0;
@@ -369,10 +368,8 @@ export const CustomLinkedValues = ({ text, values, onChange, options }) => {
     setLocalValues(newValues);
 
     options.forEach((opt) => {
-      console.log(newValues[opt.value], currentUnit);
-
       onChange((props) => {
-        props[opt.value] = `${newValues[opt.value]}`;
+        props[opt.value] = newValues[opt.value];
       });
     });
   };
@@ -389,80 +386,19 @@ export const CustomLinkedValues = ({ text, values, onChange, options }) => {
     setLocalValues(newValues);
 
     options.forEach((opt) => {
-      // console.log(newValues[opt.value]);
       onChange((props) => {
         props[opt.value] = newValues[opt.value];
       });
     });
   };
 
-  const units = ["px", "%", "rem", "vw"];
-
   return (
     <Box width="100%" display="flex" flexDirection="column">
-      <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Tooltip title={text} placement="right">
-          <Typography variant="caption" gutterBottom color="inherit">
-            {text}
-          </Typography>
-        </Tooltip>
-
-        <Tooltip title="Unidade de medida" placement="right">
-          <FormControl
-            variant="outlined"
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                padding: "5px",
-                fontSize: "12px",
-                border: "none",
-
-                "& fieldset": {
-                  borderColor: "transparent",
-                  textAlign: "center",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#333",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "transparent",
-                },
-              },
-
-              "& .MuiOutlinedInput-input": {
-                padding: 0,
-                paddingRight: "0 !important",
-              },
-            }}
-          >
-            <Select
-              value={currentUnit}
-              onChange={(e) => setCurrentUnit(e.target.value)}
-              IconComponent={() => null}
-              MenuProps={{
-                PaperProps: {
-                  sx: {
-                    bgcolor: "#333333",
-                    "& .MuiMenuItem-root": {
-                      color: "#fff",
-                      fontSize: "12px",
-                      padding: "4px 8px",
-                      textAlign: "center",
-                      justifyContent: "center",
-                      paddingRight: "0 important",
-                    },
-                  },
-                },
-              }}
-            >
-              {units.map((option, index) => (
-                <MenuItem key={index} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Tooltip>
-      </Box>
+      <Tooltip title={text} placement="right">
+        <Typography variant="caption" gutterBottom color="inherit">
+          {text}
+        </Typography>
+      </Tooltip>
 
       <Box display="flex" alignItems="start" justifyContent="space-between">
         {options.map((option, index) => (
