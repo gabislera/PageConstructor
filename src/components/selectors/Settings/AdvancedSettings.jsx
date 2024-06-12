@@ -75,6 +75,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
             { value: "stretch", icon: <AlignStretch /> },
           ]}
           tooltipText={"Escolha a direção do item"}
+          fullWidth
         />
       </Grid>
 
@@ -98,6 +99,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
             },
           ]}
           tooltipText={"Escolha a ordem da posição"}
+          fullWidth
         />
       </Grid>
 

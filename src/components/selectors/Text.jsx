@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ContentEditable from "react-contenteditable";
 import { useNode } from "@craftjs/core";
+import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
 
 export const Text = ({
   content,
@@ -38,6 +39,31 @@ export const Text = ({
   bottom,
   zIndex,
 
+  mobileTextAlign,
+  mobileLineHeight,
+  mobileFontWeight,
+  mobileFontSize,
+  mobileMarginTop,
+  mobileMarginRight,
+  mobileMarginLeft,
+  mobileMarginBottom,
+  mobilePaddingTop,
+  mobilePaddingRight,
+  mobilePaddingLeft,
+  mobilePaddingBottom,
+  mobileFontStyle,
+  mobileTextDecoration,
+  mobileLetterSpacing,
+  mobileWordSpacing,
+  mobileAlignSelf,
+  mobileOrder,
+  mobilePosition,
+  mobileTop,
+  mobileLeft,
+  mobileRight,
+  mobileBottom,
+  mobileZIndex,
+
   ...props
 }) => {
   const {
@@ -50,6 +76,7 @@ export const Text = ({
   }));
 
   const [editable, setEditable] = useState(false);
+  const { deviceView } = useResponsiveMode();
 
   useEffect(() => {
     if (selected) {
@@ -57,6 +84,66 @@ export const Text = ({
     }
     setEditable(false);
   }, [selected]);
+
+  const getResponsiveProps = () => {
+    if (deviceView === "mobile") {
+      return {
+        textAlign: mobileTextAlign,
+        lineHeight: mobileLineHeight,
+        fontWeight: mobileFontWeight,
+        fontSize: mobileFontSize,
+        marginTop: mobileMarginTop,
+        marginRight: mobileMarginRight,
+        marginBottom: mobileMarginBottom,
+        marginLeft: mobileMarginLeft,
+        paddingTop: mobilePaddingTop,
+        paddingRight: mobilePaddingRight,
+        paddingBottom: mobilePaddingBottom,
+        paddingLeft: mobilePaddingLeft,
+        fontStyle: mobileFontStyle,
+        textDecoration: mobileTextDecoration,
+        letterSpacing: mobileLetterSpacing,
+        wordSpacing: mobileWordSpacing,
+        alignSelf: mobileAlignSelf,
+        order: mobileOrder,
+        // position: mobilePosition,
+        top: mobileTop,
+        left: mobileLeft,
+        right: mobileRight,
+        bottom: mobileBottom,
+        zIndex: mobileZIndex,
+      };
+    }
+
+    return {
+      textAlign,
+      lineHeight,
+      fontWeight,
+      fontSize,
+      marginTop,
+      marginRight,
+      marginBottom,
+      marginLeft,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+      fontStyle,
+      textDecoration,
+      letterSpacing,
+      wordSpacing,
+      alignSelf,
+      order,
+      // position,
+      top,
+      left,
+      right,
+      bottom,
+      zIndex,
+    };
+  };
+
+  const responsiveProps = getResponsiveProps();
 
   const Content = () => (
     <ContentEditable
@@ -71,37 +158,9 @@ export const Text = ({
       }
       tagName={htmlTag}
       style={{
-        fontSize,
-        textAlign,
-        lineHeight,
-        fontWeight,
-        letterSpacing,
-        wordSpacing,
-        textTransform,
-        fontStyle,
-        textDecoration,
+        ...responsiveProps,
         color,
-        fontFamily,
-        marginTop,
-        marginRight,
-        marginBottom,
-        marginLeft,
-        paddingTop,
-        paddingRight,
-        paddingBottom,
-        paddingLeft,
-        alignSelf,
         width,
-
-        ...(hoverColor || hoverBackgroundColor
-          ? {
-              transition: "color 0.3s, background-color 0.3s",
-              "&:hover": {
-                color: hoverColor,
-                backgroundColor: hoverBackgroundColor,
-              },
-            }
-          : {}),
       }}
     />
   );
@@ -109,38 +168,29 @@ export const Text = ({
   // TODO: url is not working
 
   return (
-    <>
-      <div
-        style={{
-          display: "inherit",
-          alignSelf,
-          order,
-          // position,
-          top,
-          left,
-          right,
-          bottom,
-          zIndex,
-          width: "fit-content",
-        }}
-        {...props}
-        ref={(ref) => connect(drag(ref))}
-        onClick={() => selected && setEditable(true)}
-      >
-        {url ? (
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <Content />
-          </a>
-        ) : (
+    <div
+      style={{
+        ...responsiveProps,
+        display: "inherit",
+        // position,
+        width: "fit-content",
+      }}
+      {...props}
+      ref={(ref) => connect(drag(ref))}
+      onClick={() => selected && setEditable(true)}
+    >
+      {url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <Content />
-        )}
-      </div>
-      <style>{additional_css}</style>
-    </>
+        </a>
+      ) : (
+        <Content />
+      )}
+    </div>
   );
 };

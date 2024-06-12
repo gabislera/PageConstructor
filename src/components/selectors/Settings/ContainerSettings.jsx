@@ -147,12 +147,12 @@ export const ContainerSettings = () => {
           </Grid>
 
           <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
-
+          {/* 
           <Grid item xs={12}>
             <Typography variant="caption" gutterBottom color="inherit">
               Item
             </Typography>
-          </Grid>
+          </Grid> */}
 
           <Grid item>
             <CustomButtonGroup
@@ -168,6 +168,7 @@ export const ContainerSettings = () => {
                 { value: "column-reverse", icon: <WestRounded /> },
               ]}
               tooltipText={"Escolha a direção do item"}
+              fullWidth
             />
           </Grid>
 
@@ -204,6 +205,7 @@ export const ContainerSettings = () => {
                 { value: "stretch", icon: <AlignStretch /> },
               ]}
               tooltipText={"Escolha a direção do item"}
+              fullWidth
             />
           </Grid>
 
@@ -233,6 +235,7 @@ export const ContainerSettings = () => {
                 { value: "wrap", icon: <WrapText /> },
               ]}
               tooltipText={"Quebra de linha"}
+              fullWidth
             />
           </Grid>
 

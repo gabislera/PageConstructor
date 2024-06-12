@@ -12,6 +12,7 @@ import { ResponsiveModeProvider } from "./contexts/ResponsiveModeContext";
 
 export default function App() {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <ResponsiveModeProvider>

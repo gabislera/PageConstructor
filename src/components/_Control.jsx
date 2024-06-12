@@ -28,6 +28,9 @@ import {
   Image,
   Add,
   ExpandMore,
+  Tv,
+  TabletMac,
+  PhoneIphone,
 } from "@mui/icons-material";
 import { a11yProps } from "../utils/a11yProps";
 import { TabPannel } from "./selectors/TabPannel";
@@ -37,6 +40,7 @@ import {
   CustomAccordionDetails,
   CustomAccordionRoot,
 } from "../components/editor/Toolbox";
+import { useResponsiveMode } from "../contexts/ResponsiveModeContext";
 
 export const FileUpload = ({ value, onChange }) => {
   const classes = useStyles();
@@ -163,95 +167,95 @@ export const TabOptions = ({ title, children }) => {
   );
 };
 
-export const TabOptionsBackup = ({ title, children }) => {
-  const classes = useStyles();
-  const [tabValue, setTabValue] = useState(0);
-  const [backgroundImage, setBackgroundImage] = useState(null);
+// export const TabOptionsBackup = ({ title, children }) => {
+//   const classes = useStyles();
+//   const [tabValue, setTabValue] = useState(0);
+//   const [backgroundImage, setBackgroundImage] = useState(null);
 
-  const handleChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
+//   const handleChange = (event, newValue) => {
+//     setTabValue(newValue);
+//   };
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const fileURL = URL.createObjectURL(file);
-      setBackgroundImage(fileURL);
-    }
-  };
+//   const handleFileChange = (event) => {
+//     const file = event.target.files[0];
+//     if (file) {
+//       const fileURL = URL.createObjectURL(file);
+//       setBackgroundImage(fileURL);
+//     }
+//   };
 
-  return (
-    <Box>
-      <CustomAccordionRoot>
-        <CustomAccordion defaultExpanded>
-          <CustomAccordionSummary
-            expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            {title}
-          </CustomAccordionSummary>
-          <CustomAccordionDetails>
-            <Tabs
-              value={tabValue}
-              onChange={handleChange}
-              indicatorColor="transparent"
-              sx={{
-                mt: 2,
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                minHeight: "auto",
-                color: "#fff !important",
-                "& .Mui-selected": {
-                  backgroundColor: "#3f444b",
-                  fontWeight: "bold",
-                },
-              }}
-            >
-              <Tab
-                label="Normal"
-                {...a11yProps(0)}
-                disableFocusRipple
-                disableRipple
-                disableTouchRipple
-                sx={{
-                  minWidth: "auto",
-                  width: "50%",
-                  padding: "3px",
-                  minHeight: "auto",
-                  textTransform: "none",
-                  color: "#fff !important",
-                  fontSize: "12px",
-                }}
-              />
-              <Tab
-                label="Hover"
-                {...a11yProps(1)}
-                disableFocusRipple
-                disableRipple
-                disableTouchRipple
-                sx={{
-                  minWidth: "auto",
-                  width: "50%",
-                  textTransform: "none",
-                  color: "#fff !important",
-                  padding: "3px",
-                  minHeight: "auto",
-                  fontSize: "12px",
-                }}
-              />
-            </Tabs>
+//   return (
+//     <Box>
+//       <CustomAccordionRoot>
+//         <CustomAccordion defaultExpanded>
+//           <CustomAccordionSummary
+//             expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
+//             aria-controls="panel1a-content"
+//             id="panel1a-header"
+//           >
+//             {title}
+//           </CustomAccordionSummary>
+//           <CustomAccordionDetails>
+//             <Tabs
+//               value={tabValue}
+//               onChange={handleChange}
+//               indicatorColor="transparent"
+//               sx={{
+//                 mt: 2,
+//                 border: "1px solid rgba(255, 255, 255, 0.1)",
+//                 minHeight: "auto",
+//                 color: "#fff !important",
+//                 "& .Mui-selected": {
+//                   backgroundColor: "#3f444b",
+//                   fontWeight: "bold",
+//                 },
+//               }}
+//             >
+//               <Tab
+//                 label="Normal"
+//                 {...a11yProps(0)}
+//                 disableFocusRipple
+//                 disableRipple
+//                 disableTouchRipple
+//                 sx={{
+//                   minWidth: "auto",
+//                   width: "50%",
+//                   padding: "3px",
+//                   minHeight: "auto",
+//                   textTransform: "none",
+//                   color: "#fff !important",
+//                   fontSize: "12px",
+//                 }}
+//               />
+//               <Tab
+//                 label="Hover"
+//                 {...a11yProps(1)}
+//                 disableFocusRipple
+//                 disableRipple
+//                 disableTouchRipple
+//                 sx={{
+//                   minWidth: "auto",
+//                   width: "50%",
+//                   textTransform: "none",
+//                   color: "#fff !important",
+//                   padding: "3px",
+//                   minHeight: "auto",
+//                   fontSize: "12px",
+//                 }}
+//               />
+//             </Tabs>
 
-            {children.map((child, index) => (
-              <TabPannel key={index} value={tabValue} index={index}>
-                {child}
-              </TabPannel>
-            ))}
-          </CustomAccordionDetails>
-        </CustomAccordion>
-      </CustomAccordionRoot>
-    </Box>
-  );
-};
+//             {children.map((child, index) => (
+//               <TabPannel key={index} value={tabValue} index={index}>
+//                 {child}
+//               </TabPannel>
+//             ))}
+//           </CustomAccordionDetails>
+//         </CustomAccordion>
+//       </CustomAccordionRoot>
+//     </Box>
+//   );
+// };
 
 // export const BackgroundType = ({ value, onChange }) => {
 //   const [tabValue, setTabValue] = useState(0);
@@ -434,11 +438,14 @@ export const CustomLinkedValues = ({
   return (
     <Box width="100%" display="flex" flexDirection="column">
       <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Tooltip title={tooltipText} placement="right">
+        {/* <Tooltip title={tooltipText} placement="right"> */}
+        <Box alignItems="center">
           <Typography variant="caption" gutterBottom color="inherit">
             {text}
           </Typography>
-        </Tooltip>
+          <DeviceViewSelect />
+        </Box>
+        {/* </Tooltip> */}
 
         <Tooltip title="Unidade de medida" placement="right">
           <FormControl
@@ -576,27 +583,41 @@ export const CustomButtonGroup = ({
   onChange,
   options,
   tooltipText,
+  fullWidth,
 }) => {
   return (
-    <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Tooltip title={tooltipText} placement="right">
-        <Typography variant="caption" gutterBottom color="inherit">
-          {text}
-        </Typography>
-      </Tooltip>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: fullWidth ? "row" : "column",
+        alignItems: fullWidth ? "center" : "start",
+        justifyContent: fullWidth ? "space-between" : "start",
+      }}
+    >
+      <Box display="flex" alignItems="center">
+        <Tooltip title={tooltipText} placement="top">
+          <Typography variant="caption" gutterBottom color="inherit">
+            {text}
+          </Typography>
+        </Tooltip>
+
+        <DeviceViewSelect />
+      </Box>
 
       <ToggleButtonGroup
         value={value}
         exclusive
         onChange={onChange}
         sx={{
+          width: fullWidth ? "auto" : "100%",
+          justifyContent: "space-between",
           "& .Mui-selected": {
             backgroundColor: "rgba(255, 255, 255, 0.3) !important",
             borderColor: "rgba(255, 255, 255, 0.3)",
           },
           "& .MuiToggleButton-root": {
             borderColor: "rgba(255, 255, 255, 0.1)",
-            padding: "5px",
+            padding: fullWidth ? "5px" : "5px 14px", // TODO: paddingX must not be fixed, it only works in justifyContent props
             "&.Mui-selected > svg": {
               fill: "#fff",
             },
@@ -665,16 +686,22 @@ export const CustomSlider = ({
   text,
   value,
   onChange,
+  mobileValue,
+  mobileOnChange,
   min,
   max,
   step,
-  tooltipText,
 }) => {
   const classes = useStyles();
-  const [internalValue, setInternalValue] = useState(value);
+  const { deviceView } = useResponsiveMode();
+  const [internalValue, setInternalValue] = useState(
+    deviceView === "desktop" ? value : mobileValue
+  );
 
   const [currentUnit, setCurrentUnit] = useState(() => {
-    const initialUnitMatch = value.match(/[a-zA-Z%]+$/);
+    const initialUnitMatch = (
+      deviceView === "desktop" ? value : mobileValue
+    ).match(/[a-zA-Z%]+$/);
     return initialUnitMatch ? initialUnitMatch[0] : "px";
   });
 
@@ -688,27 +715,42 @@ export const CustomSlider = ({
   const units = Object.keys(unitConfigs);
 
   useEffect(() => {
-    setInternalValue(value);
-  }, [value]);
+    setInternalValue(deviceView === "desktop" ? value : mobileValue);
+  }, [value, mobileValue, deviceView]);
 
   const handleSliderChange = (event, newValue) => {
-    setInternalValue(`${newValue}${currentUnit}`);
-    onChange(event, `${newValue}${currentUnit}`);
+    const newValueWithUnit = `${newValue}${currentUnit}`;
+    setInternalValue(newValueWithUnit);
+    if (deviceView === "desktop") {
+      onChange(event, newValueWithUnit);
+    } else {
+      mobileOnChange(event, newValueWithUnit);
+    }
   };
 
   const handleInputChange = (event) => {
     const newValue =
       event.target.value === "" ? "" : Number(event.target.value);
-    setInternalValue(`${newValue}${currentUnit}`);
-    onChange(event, `${newValue}${currentUnit}`);
+    const newValueWithUnit = `${newValue}${currentUnit}`;
+    setInternalValue(newValueWithUnit);
+    if (deviceView === "desktop") {
+      onChange(event, newValueWithUnit);
+    } else {
+      mobileOnChange(event, newValueWithUnit);
+    }
   };
 
   const handleUnitChange = (event) => {
     const newUnit = event.target.value;
     const numericValue = parseFloat(internalValue);
+    const newValueWithUnit = `${numericValue}${newUnit}`;
     setCurrentUnit(newUnit);
-    setInternalValue(`${numericValue}${newUnit}`);
-    onChange({}, `${numericValue}${newUnit}`);
+    setInternalValue(newValueWithUnit);
+    if (deviceView === "desktop") {
+      onChange({}, newValueWithUnit);
+    } else {
+      mobileOnChange({}, newValueWithUnit);
+    }
   };
 
   const { _max, _step, _min } = unitConfigs[currentUnit];
@@ -716,11 +758,12 @@ export const CustomSlider = ({
   return (
     <Box width="100%" display="flex" flexDirection="column">
       <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Tooltip title={tooltipText} placement="right">
+        <Box alignItems="center">
           <Typography variant="caption" gutterBottom color="inherit">
             {text}
           </Typography>
-        </Tooltip>
+          <DeviceViewSelect />
+        </Box>
 
         <Tooltip title="Unidade de medida" placement="right">
           <FormControl
@@ -1011,6 +1054,84 @@ export const CustomSwitch = ({ text, value, onChange, tooltipText }) => {
         />
       </Box>
     </Tooltip>
+  );
+};
+
+export const DeviceViewSelect = () => {
+  const { deviceView, setDeviceView } = useResponsiveMode();
+
+  return (
+    <FormControl
+      variant="outlined"
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          padding: "5px",
+          fontSize: "12px",
+          border: "none",
+          "& fieldset": {
+            borderColor: "transparent",
+            textAlign: "center",
+          },
+          "&:hover fieldset": {
+            borderColor: "#333",
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: "transparent",
+          },
+        },
+        "& .MuiOutlinedInput-input": {
+          padding: 0,
+          paddingRight: "0 !important",
+          "& svg": {
+            width: "14px",
+            height: "14px",
+            fill: "#fff",
+          },
+        },
+      }}
+    >
+      <Select
+        value={deviceView}
+        onChange={(e) => setDeviceView(e.target.value)}
+        IconComponent={() => null}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              bgcolor: "#333333",
+              "& .MuiMenuItem-root": {
+                color: "#fff",
+                fontSize: "12px",
+                padding: "6px 6px",
+                textAlign: "center",
+                justifyContent: "center",
+                paddingRight: "0 important",
+              },
+              "& svg": {
+                width: "14px",
+                height: "14px",
+                fill: "#fff",
+              },
+            },
+          },
+        }}
+      >
+        <MenuItem value="desktop">
+          <Tooltip title="Desktop" placement="right">
+            <Tv />
+          </Tooltip>
+        </MenuItem>
+        <MenuItem value="tablet">
+          <Tooltip title="Tablet" placement="right">
+            <TabletMac />
+          </Tooltip>
+        </MenuItem>
+        <MenuItem value="mobile">
+          <Tooltip title="Mobile" placement="right">
+            <PhoneIphone />
+          </Tooltip>
+        </MenuItem>
+      </Select>
+    </FormControl>
   );
 };
 

@@ -54,7 +54,7 @@ Container.craft = {
     paddingRight: "2",
     paddingLeft: "2",
     paddingBottom: "2",
-    alignSelf: "stretch",
+    alignSelf: "initial",
     flexOrder: "0",
     flexShrink: "1",
     flexGrow: "0",

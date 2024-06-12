@@ -33,23 +33,7 @@ export const SettingsPanel = ({ setShowToolbox }) => {
           {React.createElement(selected.settings)}
         </div>
       ) : (
-        <Box className={classes.notSelected}>
-          {/* <Typography
-            variant="caption"
-            style={{ fontWeight: "bold", fontSize: 11 }}
-            color="textSecondary"
-          >
-            Nenhum item selecionado para a edição.
-          </Typography>
-          <Typography
-            variant="caption"
-            color="textSecondary"
-            style={{ fontSize: 11 }}
-          >
-            Selecione algum item para personalizá-lo ou arraste um novo elemento
-            da barra lateral.
-          </Typography> */}
-        </Box>
+        <></>
       )}
       {/* {selected && selected.isDeletable ? (
         <MaterialButton

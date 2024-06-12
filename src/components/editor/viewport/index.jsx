@@ -4,10 +4,11 @@ import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import SideBar from "../SideBar";
 import { ResponsiveMode } from "../ResponsiveMode";
+import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
 export const Viewport = ({ children }) => {
   const classes = useStyles();
-  const [deviceView, setDeviceView] = useState("desktop");
+  const { deviceView } = useResponsiveMode();
 
   const { connectors, selected } = useEditor((state) => {
     const [currentNodeId] = state.events.selected;
@@ -27,7 +28,7 @@ export const Viewport = ({ children }) => {
           className={`craftjs-renderer ${classes.rendererContainer}`}
           ref={(ref) => connectors.select(connectors.hover(ref, null), null)}
         >
-          <ResponsiveMode onModeChange={setDeviceView} />
+          <ResponsiveMode />
           <Box
             sx={{
               display: "flex",

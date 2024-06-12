@@ -189,6 +189,7 @@ export const TextSettings = () => {
                 { value: "justify", icon: <FormatAlignJustify /> },
               ]}
               tooltipText={"Escolha o alinhamento do texto"}
+              fullWidth
             />
           </Grid>
 
@@ -196,8 +197,12 @@ export const TextSettings = () => {
             <CustomSlider
               text={"Tamanho da fonte"}
               value={props.fontSize}
+              mobileValue={props.mobileFontSize}
               onChange={(e, value) =>
                 setProp((props) => (props.fontSize = value))
+              }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileFontSize = value))
               }
               tooltipText={"Escolha o tamanho da fonte"}
             />
