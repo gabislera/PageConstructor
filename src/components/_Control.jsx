@@ -396,7 +396,7 @@ export const CustomLinkedValues = ({ text, values, onChange, options }) => {
     });
   };
 
-  const unities = ["px", "%", "rem", "vw"];
+  const units = ["px", "%", "rem", "vw"];
 
   return (
     <Box width="100%" display="flex" flexDirection="column">
@@ -454,7 +454,7 @@ export const CustomLinkedValues = ({ text, values, onChange, options }) => {
                 },
               }}
             >
-              {unities.map((option, index) => (
+              {units.map((option, index) => (
                 <MenuItem key={index} value={option}>
                   {option}
                 </MenuItem>
@@ -632,25 +632,41 @@ export const CustomSlider = ({
   const classes = useStyles();
   const [internalValue, setInternalValue] = useState(value);
   const [currentUnit, setCurrentUnit] = useState("px");
-  const unities = ["px", "%", "rem", "vw"];
+
+  const unitConfigs = {
+    px: { _max: 200, _step: 1, _min: 1 },
+    "%": { _max: 100, _step: 1, _min: 1 },
+    rem: { _max: 20, _step: 0.1, _min: 1 },
+    vw: { _max: 100, _step: 1, _min: 1 },
+  };
+
+  const units = Object.keys(unitConfigs);
 
   useEffect(() => {
     setInternalValue(value);
   }, [value]);
 
   const handleSliderChange = (event, newValue) => {
-    setInternalValue(newValue);
-    // onChange(event, `${newValue}${currentUnit}`);
-    onChange(event, newValue);
+    setInternalValue(`${newValue}${currentUnit}`);
+    onChange(event, `${newValue}${currentUnit}`);
   };
 
   const handleInputChange = (event) => {
     const newValue =
       event.target.value === "" ? "" : Number(event.target.value);
-    setInternalValue(newValue);
-    // onChange(event, `${newValue}${currentUnit}`);
-    onChange(event, newValue);
+    setInternalValue(`${newValue}${currentUnit}`);
+    onChange(event, `${newValue}${currentUnit}`);
   };
+
+  const handleUnitChange = (event) => {
+    const newUnit = event.target.value;
+    const numericValue = parseFloat(internalValue);
+    setCurrentUnit(newUnit);
+    setInternalValue(`${numericValue}${newUnit}`);
+    onChange({}, `${numericValue}${newUnit}`);
+  };
+
+  const { _max, _step, _min } = unitConfigs[currentUnit];
 
   return (
     <Box width="100%" display="flex" flexDirection="column">
@@ -669,7 +685,6 @@ export const CustomSlider = ({
                 padding: "5px",
                 fontSize: "12px",
                 border: "none",
-
                 "& fieldset": {
                   borderColor: "transparent",
                   textAlign: "center",
@@ -681,7 +696,6 @@ export const CustomSlider = ({
                   borderColor: "transparent",
                 },
               },
-
               "& .MuiOutlinedInput-input": {
                 padding: 0,
                 paddingRight: "0 !important",
@@ -690,7 +704,7 @@ export const CustomSlider = ({
           >
             <Select
               value={currentUnit}
-              onChange={(e) => setCurrentUnit(e.target.value)}
+              onChange={handleUnitChange}
               IconComponent={() => null}
               MenuProps={{
                 PaperProps: {
@@ -708,9 +722,9 @@ export const CustomSlider = ({
                 },
               }}
             >
-              {unities.map((option, index) => (
-                <MenuItem key={index} value={option}>
-                  {option}
+              {units.map((unit, index) => (
+                <MenuItem key={index} value={unit}>
+                  {unit}
                 </MenuItem>
               ))}
             </Select>
@@ -719,11 +733,16 @@ export const CustomSlider = ({
       </Box>
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Slider
-          value={typeof internalValue === "number" ? internalValue : 0}
+          value={
+            typeof internalValue === "string" &&
+            !isNaN(parseFloat(internalValue))
+              ? parseFloat(internalValue)
+              : 0
+          }
           onChange={handleSliderChange}
-          min={min || 0}
-          max={max || 100}
-          step={step || 1}
+          min={min ? min : _min}
+          max={max ? max : _max}
+          step={step ? step : _step}
           valueLabelDisplay="auto"
           aria-labelledby={`${text}-slider`}
           sx={{
@@ -738,16 +757,17 @@ export const CustomSlider = ({
           }}
         />
         <TextField
-          value={internalValue}
+          value={
+            parseFloat(internalValue) || internalValue === 0
+              ? parseFloat(internalValue)
+              : internalValue
+          }
           onChange={handleInputChange}
           variant="outlined"
           size="small"
           className={classes.customInput}
           sx={{
             width: "50px",
-            "& input": {
-              textAlign: "center",
-            },
           }}
         />
       </Box>

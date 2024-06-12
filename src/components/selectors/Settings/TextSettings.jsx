@@ -13,16 +13,10 @@ import {
   Edit,
   Settings,
   Contrast,
-  Delete,
   FormatAlignLeft,
   FormatAlignCenter,
   FormatAlignRight,
   FormatAlignJustify,
-  AlignVerticalTop,
-  AlignVerticalCenter,
-  AlignVerticalBottom,
-  VerticalAlignBottom,
-  VerticalAlignTop,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
@@ -32,7 +26,6 @@ import {
   CustomSlider,
   CustomTextInput,
   ColorControl,
-  CustomLinkedValues,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 
@@ -140,7 +133,7 @@ export const TextSettings = () => {
             />
           </Grid>
 
-          <Grid item width="100%">
+          <Grid item>
             <CustomSelect
               text={"Html Tag"}
               value={props.htmlTag}
@@ -299,8 +292,6 @@ export const TextSettings = () => {
                 setProp((props) => (props.letterSpacing = value))
               }
               min={-5}
-              max={10}
-              step={0.1}
               tooltipText={"Escolha a espaçamento das letras"}
             />
           </Grid>
@@ -313,8 +304,6 @@ export const TextSettings = () => {
                 setProp((props) => (props.wordSpacing = value))
               }
               min={-5}
-              max={20}
-              step={0.1}
               tooltipText={"Escolha a espaçamento das palavras"}
             />
           </Grid>
@@ -323,106 +312,6 @@ export const TextSettings = () => {
 
       <TabPannel value={value} index={2}>
         <AdvancedSettings props={props} setProp={setProp} />
-        {/* <Grid
-          container
-          flexDirection={"column"}
-          padding={2}
-          color={"#fff"}
-          sx={{ gap: 2 }}
-        >
-          <Grid item >
-            <CustomLinkedValues
-              text="Padding"
-              values={props}
-              onChange={setProp}
-              options={[
-                { value: "paddingTop", label: "Top" },
-                { value: "paddingRight", label: "Right" },
-                { value: "paddingBottom", label: "Bottom" },
-                { value: "paddingLeft", label: "Left" },
-              ]}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <CustomLinkedValues
-              text="Margin"
-              values={props}
-              onChange={setProp}
-              options={[
-                { value: "marginTop", label: "Top" },
-                { value: "marginRight", label: "Right" },
-                { value: "marginBottom", label: "Bottom" },
-                { value: "marginLeft", label: "Left" },
-              ]}
-            />
-          </Grid>
-
-          <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
-
-          <Grid item>
-            <CustomButtonGroup
-              text="Align Self"
-              value={props.alignSelf}
-              onChange={(e, value) =>
-                setProp((props) => (props.alignSelf = value))
-              }
-              options={[
-                { value: "start", icon: <AlignVerticalTop /> },
-                { value: "center", icon: <AlignVerticalCenter /> },
-                { value: "end", icon: <AlignVerticalBottom /> },
-                { value: "stretch", icon: <FormatAlignJustify /> },
-              ]}
-              tooltipText={"Escolha a direção do item"}
-            />
-          </Grid>
-
-          <Grid item spacing={3} width={"100%"}>
-            <CustomButtonGroup
-              text="Order"
-              value={props.order}
-              onChange={(e, value) => setProp((props) => (props.order = value))}
-              options={[
-                {
-                  value: "1",
-                  icon: (
-                    <VerticalAlignBottom
-                      style={{ transform: "rotate(90deg)" }}
-                    />
-                  ),
-                },
-                {
-                  value: "2",
-                  icon: (
-                    <VerticalAlignTop style={{ transform: "rotate(90deg)" }} />
-                  ),
-                },
-              ]}
-              tooltipText={"Escolha a ordem da posição"}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            {selected && selected.isDeletable ? (
-              <MaterialButton
-                variant="text"
-                fullWidth
-                sx={{
-                  color: "#fff",
-                  textTransform: "none",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-                endIcon={<Delete color="secondary" />}
-                onClick={() => {
-                  actions.delete(selected.id);
-                }}
-              >
-                Delete
-              </MaterialButton>
-            ) : null}
-          </Grid>
-        </Grid> */}
       </TabPannel>
     </Grid>
   );

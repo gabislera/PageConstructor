@@ -70,7 +70,7 @@ export const Container = ({
   const classes = useStyles();
   const ContainerTag = htmlTag;
 
-  console.log(display);
+  // console.log(display);
 
   const ContainerElement = (
     <ContainerTag

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useNode } from '@craftjs/core';
+import React from "react";
+import { useNode } from "@craftjs/core";
 
 export const Button = ({
   text,
@@ -17,23 +17,17 @@ export const Button = ({
   borderRadius,
   type,
   cursor,
-  className,
-  additional_css
 }) => {
   const {
     connectors: { connect, drag },
     ...data
   } = useNode();
 
-  const id = `btn-r1qpk8`;
-  // console.log(data.id)
-
   return (
     <>
       <button
         type={type}
         ref={(ref) => connect(drag(ref))}
-        className={id}
         style={{
           color,
           backgroundColor: background,
@@ -60,7 +54,6 @@ export const Button = ({
       >
         {text}
       </button>
-      <style>{additional_css}</style>
     </>
   );
 };

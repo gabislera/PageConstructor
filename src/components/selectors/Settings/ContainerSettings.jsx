@@ -1,21 +1,9 @@
 import React, { useState } from "react";
 import { useNode, useEditor } from "@craftjs/core";
-import {
-  Grid,
-  Typography,
-  Box,
-  Tab,
-  Tabs,
-  Button as MaterialButton,
-  ToggleButton,
-  ToggleButtonGroup,
-  Divider,
-  IconButton,
-} from "@mui/material";
+import { Grid, Typography, Box, Tab, Tabs, Divider } from "@mui/material";
 import {
   Settings,
   Contrast,
-  Delete,
   SpaceDashboardOutlined,
   EastRounded,
   SouthRounded,
@@ -24,16 +12,13 @@ import {
   AlignVerticalTop,
   AlignVerticalCenter,
   AlignVerticalBottom,
-  FormatAlignJustify,
   Start,
   WrapText,
-  Add,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
 import {
-  BackgroundType,
   ColorControl,
   CustomButtonGroup,
   CustomLinkedValues,

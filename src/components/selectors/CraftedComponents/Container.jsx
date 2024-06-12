@@ -8,7 +8,7 @@ Container.craft = {
     display: "flex",
 
     width: "100%",
-    minHeight: "100",
+    minHeight: "100px",
     flexDirection: "row",
     justifyContent: "start",
     alignItems: "start",
