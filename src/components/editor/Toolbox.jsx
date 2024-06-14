@@ -75,8 +75,9 @@ export const Toolbox = () => {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            Basic
+            Básico
           </CustomAccordionSummary>
+
           <CustomAccordionDetails>
             <Grid container rowSpacing={1} justifyContent="space-between">
               <GridItem element={Button} tooltipText={"Button"}>
