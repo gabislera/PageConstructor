@@ -33,7 +33,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
       sx={{ gap: 2 }}
     >
       <CustomAccordionRoot>
-        <CustomAccordion>
+        <CustomAccordion defaultExpanded>
           <CustomAccordionSummary
             sx={{ mt: -2 }}
             expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
@@ -43,7 +43,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
             Layout
           </CustomAccordionSummary>
           <CustomAccordionDetails>
-            <Grid item xs={12} mt={1}>
+            <Grid display={"flex"} flexDirection={"column"} sx={{ gap: 2 }}>
               <CustomLinkedValues
                 text="Padding"
                 values={props}
@@ -55,9 +55,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
                   { value: "paddingLeft", label: "Esquerda" },
                 ]}
               />
-            </Grid>
 
-            <Grid item xs={12} mt={1}>
               <CustomLinkedValues
                 text="Margin"
                 values={props}
@@ -69,11 +67,9 @@ export const AdvancedSettings = ({ props, setProp }) => {
                   { value: "marginLeft", label: "Esquerda" },
                 ]}
               />
-            </Grid>
 
-            <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
 
-            <Grid item>
               <CustomButtonGroup
                 text="Alinhar-se"
                 value={props.alignSelf}
@@ -105,9 +101,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
                 tooltipText={"Escolha a direção do item"}
                 fullWidth
               />
-            </Grid>
 
-            <Grid item spacing={3} width={"100%"}>
               <CustomButtonGroup
                 text="Ordem"
                 value={props.order}
@@ -133,9 +127,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
                 tooltipText={"Escolha a ordem da posição"}
                 fullWidth
               />
-            </Grid>
 
-            <Grid item mt={1}>
               <CustomSelect
                 text="Posição"
                 value={props.position}
@@ -150,37 +142,37 @@ export const AdvancedSettings = ({ props, setProp }) => {
                 ]}
                 tooltipText={"Escolha a posição do item"}
               />
+
+              {props.position !== "static" && (
+                <Grid item mt={1}>
+                  <CustomLinkedValues
+                    // text="Padding"
+                    values={props}
+                    onChange={setProp}
+                    options={[
+                      { value: "top", label: "Superior" },
+                      { value: "right", label: "Direita" },
+                      { value: "bottom", label: "Inferior" },
+                      { value: "left", label: "Esquerda" },
+                    ]}
+                  />
+                </Grid>
+              )}
+
+              {props.position !== "static" && (
+                <Grid item mt={1}>
+                  <CustomTextInput
+                    text="Z-index"
+                    value={props.zIndex}
+                    onChange={(e) =>
+                      setProp((props) => (props.zIndex = e.target.value))
+                    }
+                    row
+                    tooltipText={"z-index"}
+                  />
+                </Grid>
+              )}
             </Grid>
-
-            {props.position !== "static" && (
-              <Grid item mt={1}>
-                <CustomLinkedValues
-                  // text="Padding"
-                  values={props}
-                  onChange={setProp}
-                  options={[
-                    { value: "top", label: "Superior" },
-                    { value: "right", label: "Direita" },
-                    { value: "bottom", label: "Inferior" },
-                    { value: "left", label: "Esquerda" },
-                  ]}
-                />
-              </Grid>
-            )}
-
-            {props.position !== "static" && (
-              <Grid item mt={1}>
-                <CustomTextInput
-                  text="Z-index"
-                  value={props.zIndex}
-                  onChange={(e) =>
-                    setProp((props) => (props.zIndex = e.target.value))
-                  }
-                  row
-                  tooltipText={"z-index"}
-                />
-              </Grid>
-            )}
           </CustomAccordionDetails>
         </CustomAccordion>
       </CustomAccordionRoot>
