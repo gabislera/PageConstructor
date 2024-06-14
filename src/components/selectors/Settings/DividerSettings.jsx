@@ -147,6 +147,22 @@ export const DividerSettings = () => {
               ]}
             />
           </Grid>
+          <Grid item>
+            <CustomSlider
+              text="Largura"
+              value={props.minHeight}
+              mobileValue={props.borderBottomWidthMobile}
+              onChange={(e, value) =>
+                setProp((props) => (props.borderBottomWidth = value))
+              }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.borderBottomWidth = value))
+              }
+              min={8}
+              max={1000}
+              step={1}
+            />
+          </Grid>
         </Grid>
       </TabPannel>
 
