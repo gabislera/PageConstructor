@@ -552,10 +552,10 @@ export const ButtonSettings = () => {
                     values={props}
                     onChange={setProp}
                     options={[
-                      { value: "paddingTopLeftRadius", label: "Superior" },
-                      { value: "paddingTopRightRadius", label: "Direita" },
-                      { value: "paddingBottomRightRadius", label: "Inferior" },
-                      { value: "paddingBottomLeftRadius", label: "Esquerda" },
+                      { value: "paddingLeft", label: "Superior" },
+                      { value: "paddingTop", label: "Direita" },
+                      { value: "paddingRight", label: "Inferior" },
+                      { value: "paddingBottom", label: "Esquerda" },
                     ]}
                   />
                 </Grid>
