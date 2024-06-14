@@ -1,6 +1,6 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
-import { makeStyles } from "@mui/styles";
+import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
 export const Container = ({
   children,
@@ -15,6 +15,33 @@ export const Container = ({
   rowGap,
   columnGap,
   flexWrap,
+
+  mobileWidth,
+  mobileMinHeight,
+  mobileFlexDirection,
+  mobileJustifyContent,
+  mobileAlignItems,
+  mobileRowGap,
+  mobileColumnGap,
+  mobileFlexWrap,
+  mobileMarginTop,
+  mobileMarginRight,
+  mobileMarginLeft,
+  mobileMarginBottom,
+  mobilePaddingTop,
+  mobilePaddingRight,
+  mobilePaddingLeft,
+  mobilePaddingBottom,
+  mobileAlignSelf,
+  mobileFlexOrder,
+  mobileFlexShrink,
+  mobileFlexGrow,
+  mobilePosition,
+  mobileTop,
+  mobileLeft,
+  mobileRight,
+  mobileBottom,
+  mobileZIndex,
 
   overflow,
   htmlTag,
@@ -67,27 +94,82 @@ export const Container = ({
   const {
     connectors: { connect, drag },
   } = useNode();
-  const classes = useStyles();
   const ContainerTag = htmlTag;
+  const { deviceView } = useResponsiveMode();
 
-  // console.log(display);
+  console.log(flexDirection, mobileFlexDirection);
+
+  const getResponsiveProps = () => {
+    if (deviceView === "mobile") {
+      return {
+        width: mobileWidth,
+        minHeight: mobileMinHeight,
+        flexDirection: mobileFlexDirection,
+        justifyContent: mobileJustifyContent,
+        alignItems: mobileAlignItems,
+        rowGap: mobileRowGap,
+        columnGap: mobileColumnGap,
+        flexWrap: mobileFlexWrap,
+        marginTop: mobileMarginTop,
+        marginRight: mobileMarginRight,
+        marginLeft: mobileMarginLeft,
+        marginBottom: mobileMarginBottom,
+        paddingTop: mobilePaddingTop,
+        paddingRight: mobilePaddingRight,
+        paddingLeft: mobilePaddingLeft,
+        paddingBottom: mobilePaddingBottom,
+        alignSelf: mobileAlignSelf,
+        flexOrder: mobileFlexOrder,
+        flexShrink: mobileFlexShrink,
+        flexGrow: mobileFlexGrow,
+        position: mobilePosition,
+        top: mobileTop,
+        left: mobileLeft,
+        right: mobileRight,
+        bottom: mobileBottom,
+        zIndex: mobileZIndex,
+      };
+    }
+
+    return {
+      width,
+      minHeight,
+      flexDirection,
+      justifyContent,
+      alignItems,
+      rowGap,
+      columnGap,
+      flexWrap,
+      marginTop,
+      marginRight,
+      marginLeft,
+      marginBottom,
+      paddingTop,
+      paddingRight,
+      paddingLeft,
+      paddingBottom,
+      alignSelf,
+      flexOrder,
+      flexShrink,
+      flexGrow,
+      position,
+      top,
+      left,
+      right,
+      bottom,
+      zIndex,
+    };
+  };
+
+  const responsiveProps = getResponsiveProps();
 
   const ContainerElement = (
     <ContainerTag
       ref={(ref) => connect(drag(ref))}
-      className={classes.hoverStyles}
       style={{
+        ...responsiveProps,
         maxWidth,
         display,
-
-        width,
-        minHeight,
-        flexDirection,
-        justifyContent,
-        alignItems,
-        rowGap,
-        columnGap,
-        flexWrap,
 
         overflow,
         htmlTag,
@@ -105,25 +187,6 @@ export const Container = ({
         borderBottomRightRadius,
         borderBottomLeftRadius,
         transition: `border ${transition}s ease-in-out`,
-
-        marginTop,
-        marginRight,
-        marginLeft,
-        marginBottom,
-        paddingTop,
-        paddingRight,
-        paddingLeft,
-        paddingBottom,
-        alignSelf,
-        flexOrder,
-        flexShrink,
-        flexGrow,
-        position,
-        top,
-        left,
-        right,
-        bottom,
-        zIndex,
 
         border: children ? "none" : "1px dashed grey",
 
@@ -149,20 +212,3 @@ export const Container = ({
     ContainerElement
   );
 };
-
-const useStyles = makeStyles({
-  // hoverStyles: {
-  //   "&:hover": {
-  //     borderStyle: hoverBorderStyle,
-  //     borderTopWidth: hoverBorderTopWidth,
-  //     borderBottomWidth: hoverBorderBottomWidth,
-  //     borderRightWidth: hoverBorderRightWidth,
-  //     borderLeftWidth: hoverBorderLeftWidth,
-  //     borderColor: hoverBorderColor,
-  //     borderTopLeftRadius: hoverBorderTopLeftRadius,
-  //     borderTopRightRadius: hoverBorderTopRightRadius,
-  //     borderBottomRightRadius: hoverBorderBottomRightRadius,
-  //     borderBottomLeftRadius: hoverBorderBottomLeftRadius,
-  //   },
-  // },
-});

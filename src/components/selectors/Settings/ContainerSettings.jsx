@@ -122,9 +122,13 @@ export const ContainerSettings = () => {
         >
           <Grid item>
             <CustomSlider
-              text="Width"
+              text="Largura"
               value={props.width}
+              mobileValue={props.mobileWidth}
               onChange={(e, value) => setProp((props) => (props.width = value))}
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileWidth = value))
+              }
               min={8}
               max={1220}
               step={1}
@@ -134,10 +138,14 @@ export const ContainerSettings = () => {
 
           <Grid item>
             <CustomSlider
-              text="Min height"
+              text="Altura mínima"
               value={props.minHeight}
+              mobileValue={props.mobileMinHeight}
               onChange={(e, value) =>
                 setProp((props) => (props.minHeight = value))
+              }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileMinHeight = value))
               }
               min={8}
               max={1000}
@@ -156,16 +164,36 @@ export const ContainerSettings = () => {
 
           <Grid item>
             <CustomButtonGroup
-              text="Direction"
+              text="Direção"
               value={props.flexDirection}
+              mobileValue={props.mobileFlexDirection}
               onChange={(e, value) =>
                 setProp((props) => (props.flexDirection = value))
               }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileFlexDirection = value))
+              }
               options={[
-                { value: "row", icon: <EastRounded /> },
-                { value: "column", icon: <SouthRounded /> },
-                { value: "row-reverse", icon: <NorthRounded /> },
-                { value: "column-reverse", icon: <WestRounded /> },
+                {
+                  value: "row",
+                  icon: <EastRounded />,
+                  tooltip: "Linha - horizontal",
+                },
+                {
+                  value: "column",
+                  icon: <SouthRounded />,
+                  tooltip: "Coluna - vertical",
+                },
+                {
+                  value: "row-reverse",
+                  icon: <NorthRounded />,
+                  tooltip: "Linha - invertida",
+                },
+                {
+                  value: "column-reverse",
+                  icon: <WestRounded />,
+                  tooltip: "Coluna - invertida",
+                },
               ]}
               tooltipText={"Escolha a direção do item"}
               fullWidth
@@ -174,18 +202,34 @@ export const ContainerSettings = () => {
 
           <Grid item>
             <CustomButtonGroup
-              text="Justify Content"
+              text="Justificar conteúdo"
               value={props.justifyContent}
+              mobileValue={props.mobileJustifyContent}
               onChange={(e, value) =>
                 setProp((props) => (props.justifyContent = value))
               }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileJustifyContent = value))
+              }
               options={[
-                { value: "start", icon: <JustifyStart /> },
-                { value: "center", icon: <JustifyCenter /> },
-                { value: "end", icon: <JustifyEnd /> },
-                { value: "space-between", icon: <SpaceBetween /> },
-                { value: "space-around", icon: <SpaceAround /> },
-                { value: "space-evenly", icon: <SpaceEvenly /> },
+                { value: "start", icon: <JustifyStart />, tooltip: "Início" },
+                { value: "center", icon: <JustifyCenter />, tooltip: "Centro" },
+                { value: "end", icon: <JustifyEnd />, tooltip: "Fim" },
+                {
+                  value: "space-between",
+                  icon: <SpaceBetween />,
+                  tooltip: "Espaço entre",
+                },
+                {
+                  value: "space-around",
+                  icon: <SpaceAround />,
+                  tooltip: "Espaço ao redor",
+                },
+                {
+                  value: "space-evenly",
+                  icon: <SpaceEvenly />,
+                  tooltip: "Espaço uniforme",
+                },
               ]}
               tooltipText={"Escolha a direção do item"}
             />
@@ -193,16 +237,32 @@ export const ContainerSettings = () => {
 
           <Grid item>
             <CustomButtonGroup
-              text="Align Items"
+              text="Alinhar itens"
               value={props.alignItems}
+              mobileValue={props.mobileAlignItems}
               onChange={(e, value) =>
                 setProp((props) => (props.alignItems = value))
               }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileAlignItems = value))
+              }
               options={[
-                { value: "start", icon: <AlignVerticalTop /> },
-                { value: "center", icon: <AlignVerticalCenter /> },
-                { value: "end", icon: <AlignVerticalBottom /> },
-                { value: "stretch", icon: <AlignStretch /> },
+                {
+                  value: "start",
+                  icon: <AlignVerticalTop />,
+                  tooltip: "Início",
+                },
+                {
+                  value: "center",
+                  icon: <AlignVerticalCenter />,
+                  tooltip: "Centro",
+                },
+                { value: "end", icon: <AlignVerticalBottom />, tooltip: "Fim" },
+                {
+                  value: "stretch",
+                  icon: <AlignStretch />,
+                  tooltip: "Esticar",
+                },
               ]}
               tooltipText={"Escolha a direção do item"}
               fullWidth
@@ -213,26 +273,30 @@ export const ContainerSettings = () => {
 
           <Grid item>
             <CustomLinkedValues
-              text="Gaps"
+              text="Espaçamentos"
               values={props}
               onChange={setProp}
               options={[
-                { value: "columnGap", label: "Column" },
-                { value: "rowGap", label: "Row" },
+                { value: "columnGap", label: "Coluna" },
+                { value: "rowGap", label: "Linha" },
               ]}
             />
           </Grid>
 
           <Grid item>
             <CustomButtonGroup
-              text="Wrap"
+              text="Envolver"
               value={props.flexWrap}
+              mobileValue={props.mobileFlexWrap}
               onChange={(e, value) =>
                 setProp((props) => (props.flexWrap = value))
               }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileFlexWrap = value))
+              }
               options={[
-                { value: "nowrap", icon: <Start /> },
-                { value: "wrap", icon: <WrapText /> },
+                { value: "nowrap", icon: <Start />, tooltip: "Sem envolver" },
+                { value: "wrap", icon: <WrapText />, tooltip: "Envolver" },
               ]}
               tooltipText={"Quebra de linha"}
               fullWidth
@@ -243,7 +307,7 @@ export const ContainerSettings = () => {
 
           <Grid item width="100%">
             <CustomSelect
-              text={"Html Tag"}
+              text={"Tag HTML"}
               value={props.htmlTag}
               onChange={(e) =>
                 setProp((props) => (props.htmlTag = e.target.value))
@@ -264,7 +328,7 @@ export const ContainerSettings = () => {
 
           <Grid item>
             <CustomTextInput
-              text="Url"
+              text="Link"
               value={props.url}
               onChange={(e) => setProp((props) => (props.url = e.target.value))}
               tooltipText={"Link para onde o container redireciona"}
@@ -282,10 +346,10 @@ export const ContainerSettings = () => {
           sx={{ gap: 2 }}
         >
           <Grid item>
-            <TabOptions title="Background type">
+            <TabOptions title="Plano de fundo">
               <Grid item mt={2}>
                 <ColorControl
-                  name="Color"
+                  name="Cor de Fundo"
                   onChange={(e, value) =>
                     setProp((props) => (props.backgroundColor = value))
                   }
@@ -303,7 +367,7 @@ export const ContainerSettings = () => {
 
               <Grid item mt={2}>
                 <ColorControl
-                  name="Color"
+                  name="Cor de fundo"
                   onChange={(e, value) =>
                     setProp((props) => (props.backgroundColor = value))
                   }
@@ -313,20 +377,20 @@ export const ContainerSettings = () => {
               </Grid>
             </TabOptions>
 
-            <TabOptions title="Border">
+            <TabOptions title="Borda">
               <Grid item mt={0}>
                 <Grid item mt={2}>
                   <CustomSelect
-                    text="Border style"
+                    text="Tipo da borda"
                     value={props.borderStyle}
                     onChange={(e) =>
                       setProp((props) => (props.borderStyle = e.target.value))
                     }
                     options={[
-                      { value: "none", label: "None" },
-                      { value: "solid", label: "Solid" },
-                      { value: "dashed", label: "Dashed" },
-                      { value: "dotted", label: "Dotted" },
+                      { value: "none", label: "Padrão" },
+                      { value: "solid", label: "Solido" },
+                      { value: "dashed", label: "Tracejado" },
+                      { value: "dotted", label: "Pontilhado" },
                     ]}
                   />
                 </Grid>
@@ -334,14 +398,14 @@ export const ContainerSettings = () => {
                 {props.borderStyle !== "none" && (
                   <Grid item mt={2}>
                     <CustomLinkedValues
-                      text="Border Width"
+                      text="Largura da borda"
                       values={props}
                       onChange={setProp}
                       options={[
-                        { value: "borderTopWidth", label: "Top" },
-                        { value: "borderRightWidth", label: "Right" },
-                        { value: "borderBottomWidth", label: "Bottom" },
-                        { value: "borderLeftWidth", label: "Left" },
+                        { value: "borderTopWidth", label: "Superior" },
+                        { value: "borderRightWidth", label: "Direita" },
+                        { value: "borderBottomWidth", label: "Inferior" },
+                        { value: "borderLeftWidth", label: "Esquerda" },
                       ]}
                     />
                   </Grid>
@@ -350,7 +414,7 @@ export const ContainerSettings = () => {
                 {props.borderStyle !== "none" && (
                   <Grid item mt={2}>
                     <ColorControl
-                      name={"Border Color"}
+                      name={"Cor da borda"}
                       onChange={(e, value) => {
                         setProp((props) => (props.borderColor = value));
                       }}
@@ -362,14 +426,14 @@ export const ContainerSettings = () => {
 
                 <Grid item mt={2}>
                   <CustomLinkedValues
-                    text="Border Radius"
+                    text="Raio da borda"
                     values={props}
                     onChange={setProp}
                     options={[
-                      { value: "borderTopLeftRadius", label: "Top L" },
-                      { value: "borderTopRightRadius", label: "Top R" },
-                      { value: "borderBottomRightRadius", label: "Bottom R" },
-                      { value: "borderBottomLeftRadius", label: "Bottom L" },
+                      { value: "borderTopLeftRadius", label: "Superior" },
+                      { value: "borderTopRightRadius", label: "Direita" },
+                      { value: "borderBottomRightRadius", label: "Inferior" },
+                      { value: "borderBottomLeftRadius", label: "Esquerda" },
                     ]}
                   />
                 </Grid>
@@ -378,7 +442,7 @@ export const ContainerSettings = () => {
               <Grid item mt={0}>
                 <Grid item mt={2}>
                   <CustomSelect
-                    text="Border style"
+                    text="Tipo da borda"
                     value={props.hoverBorderStyle}
                     onChange={(e) =>
                       setProp(
@@ -386,10 +450,10 @@ export const ContainerSettings = () => {
                       )
                     }
                     options={[
-                      { value: "none", label: "None" },
-                      { value: "solid", label: "Solid" },
-                      { value: "dashed", label: "Dashed" },
-                      { value: "dotted", label: "Dotted" },
+                      { value: "none", label: "Padrão" },
+                      { value: "solid", label: "Solido" },
+                      { value: "dashed", label: "Tracejado" },
+                      { value: "dotted", label: "Pontilhado" },
                     ]}
                   />
                 </Grid>
@@ -397,14 +461,14 @@ export const ContainerSettings = () => {
                 {props.hoverBorderStyle !== "none" && (
                   <Grid item mt={2}>
                     <CustomLinkedValues
-                      text="Border Width"
+                      text="Largura da borda"
                       values={props}
                       onChange={setProp}
                       options={[
-                        { value: "hoverBorderTopWidth", label: "Top" },
-                        { value: "hoverBorderRightWidth", label: "Right" },
-                        { value: "hoverBorderBottomWidth", label: "Bottom" },
-                        { value: "hoverBorderLeftWidth", label: "Left" },
+                        { value: "borderTopWidth", label: "Superior" },
+                        { value: "borderRightWidth", label: "Direita" },
+                        { value: "borderBottomWidth", label: "Inferior" },
+                        { value: "borderLeftWidth", label: "Esquerda" },
                       ]}
                     />
                   </Grid>
@@ -413,7 +477,7 @@ export const ContainerSettings = () => {
                 {props.hoverBorderStyle !== "none" && (
                   <Grid item mt={2}>
                     <ColorControl
-                      name={"Border Color"}
+                      name={"Cor da borda"}
                       onChange={(e, value) => {
                         setProp((props) => (props.hoverBorderColor = value));
                       }}
@@ -425,20 +489,14 @@ export const ContainerSettings = () => {
 
                 <Grid item mt={2}>
                   <CustomLinkedValues
-                    text="Border Radius"
+                    text="Raio da borda"
                     values={props}
                     onChange={setProp}
                     options={[
-                      { value: "hoverBorderTopLeftRadius", label: "Top L" },
-                      { value: "hoverBorderTopRightRadius", label: "Top R" },
-                      {
-                        value: "hoverBorderBottomRightRadius",
-                        label: "Bottom R",
-                      },
-                      {
-                        value: "hoverBorderBottomLeftRadius",
-                        label: "Bottom L",
-                      },
+                      { value: "borderTopLeftRadius", label: "Superior" },
+                      { value: "borderTopRightRadius", label: "Direita" },
+                      { value: "borderBottomRightRadius", label: "Inferior" },
+                      { value: "borderBottomLeftRadius", label: "Esquerda" },
                     ]}
                   />
                 </Grid>

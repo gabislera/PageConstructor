@@ -126,7 +126,7 @@ export const TextSettings = () => {
 
           <Grid item>
             <CustomTextInput
-              text="Url"
+              text="Link"
               value={props.url}
               onChange={(e) => setProp((props) => (props.url = e.target.value))}
               tooltipText={"Link para onde o texto redireciona"}
@@ -135,7 +135,7 @@ export const TextSettings = () => {
 
           <Grid item>
             <CustomSelect
-              text={"Html Tag"}
+              text={"Tag HTML"}
               value={props.htmlTag}
               onChange={(e) =>
                 setProp((props) => (props.htmlTag = e.target.value))
@@ -179,14 +179,34 @@ export const TextSettings = () => {
             <CustomButtonGroup
               text="Alinhamento"
               value={props.textAlign}
+              mobileValue={props.mobileTextAlign}
               onChange={(e, value) =>
                 setProp((props) => (props.textAlign = value))
               }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileTextAlign = value))
+              }
               options={[
-                { value: "left", icon: <FormatAlignLeft /> },
-                { value: "center", icon: <FormatAlignCenter /> },
-                { value: "right", icon: <FormatAlignRight /> },
-                { value: "justify", icon: <FormatAlignJustify /> },
+                {
+                  value: "left",
+                  icon: <FormatAlignLeft />,
+                  tooltip: "Esquerda",
+                },
+                {
+                  value: "center",
+                  icon: <FormatAlignCenter />,
+                  tooltip: "Centro",
+                },
+                {
+                  value: "right",
+                  icon: <FormatAlignRight />,
+                  tooltip: "Direita",
+                },
+                {
+                  value: "justify",
+                  icon: <FormatAlignJustify />,
+                  tooltip: "Justificado",
+                },
               ]}
               tooltipText={"Escolha o alinhamento do texto"}
               fullWidth
@@ -195,7 +215,7 @@ export const TextSettings = () => {
 
           <Grid item width={"100%"}>
             <CustomSlider
-              text={"Tamanho da fonte"}
+              text={"Tamanho"}
               value={props.fontSize}
               mobileValue={props.mobileFontSize}
               onChange={(e, value) =>
@@ -210,7 +230,7 @@ export const TextSettings = () => {
 
           <Grid item width={"100%"}>
             <CustomSelect
-              text="Peso da fonte"
+              text="Peso"
               value={props.fontWeight}
               onChange={(e) =>
                 setProp((props) => (props.fontWeight = e.target.value))
@@ -228,14 +248,14 @@ export const TextSettings = () => {
 
           <Grid item width={"100%"}>
             <CustomSelect
-              text="Transform"
+              text="Transformação"
               value={props.textTransform}
               onChange={(e) =>
                 setProp((props) => (props.textTransform = e.target.value))
               }
               options={[
                 { value: "none", label: "Nenhum" },
-                { value: "capitalize", label: "Capitalizado" },
+                { value: "capitalize", label: "Capitalizar" },
                 { value: "uppercase", label: "Maiúsculo" },
                 { value: "lowercase", label: "Minúsculo" },
               ]}
@@ -268,7 +288,7 @@ export const TextSettings = () => {
               options={[
                 { value: "normal", label: "Normal" },
                 { value: "underline", label: "Sublinhado" },
-                { value: "overline", label: "Overline" },
+                { value: "overline", label: "Sobrelinhado" },
                 { value: "line-through", label: "Riscado" },
               ]}
               tooltipText={"Escolha a decoração do texto"}
@@ -279,8 +299,12 @@ export const TextSettings = () => {
             <CustomSlider
               text={"Altura da linha"}
               value={props.lineHeight}
+              mobileValue={props.mobileLineHeight}
               onChange={(e, value) =>
                 setProp((props) => (props.lineHeight = value))
+              }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileLineHeight = value))
               }
               min={1}
               max={3}
@@ -291,10 +315,14 @@ export const TextSettings = () => {
 
           <Grid item width={"100%"}>
             <CustomSlider
-              text={"Espaçamento das letras"}
+              text={"Espaçamento entre letras"}
               value={props.letterSpacing}
+              mobileValue={props.mobileLetterSpacing}
               onChange={(e, value) =>
                 setProp((props) => (props.letterSpacing = value))
+              }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileLetterSpacing = value))
               }
               min={-5}
               tooltipText={"Escolha a espaçamento das letras"}
@@ -303,10 +331,14 @@ export const TextSettings = () => {
 
           <Grid item width={"100%"}>
             <CustomSlider
-              text={"Espaçamento das palavras"}
+              text={"Espaçamento entre palavras"}
               value={props.wordSpacing}
+              mobileValue={props.mobileWordSpacing}
               onChange={(e, value) =>
                 setProp((props) => (props.wordSpacing = value))
+              }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobileWordSpacing = value))
               }
               min={-5}
               tooltipText={"Escolha a espaçamento das palavras"}

@@ -49,10 +49,10 @@ export const AdvancedSettings = ({ props, setProp }) => {
                 values={props}
                 onChange={setProp}
                 options={[
-                  { value: "paddingTop", label: "Top" },
-                  { value: "paddingRight", label: "Right" },
-                  { value: "paddingBottom", label: "Bottom" },
-                  { value: "paddingLeft", label: "Left" },
+                  { value: "paddingTop", label: "Superior" },
+                  { value: "paddingRight", label: "Direita" },
+                  { value: "paddingBottom", label: "Inferior" },
+                  { value: "paddingLeft", label: "Esquerda" },
                 ]}
               />
             </Grid>
@@ -63,10 +63,10 @@ export const AdvancedSettings = ({ props, setProp }) => {
                 values={props}
                 onChange={setProp}
                 options={[
-                  { value: "marginTop", label: "Top" },
-                  { value: "marginRight", label: "Right" },
-                  { value: "marginBottom", label: "Bottom" },
-                  { value: "marginLeft", label: "Left" },
+                  { value: "marginTop", label: "Superior" },
+                  { value: "marginRight", label: "Direita" },
+                  { value: "marginBottom", label: "Inferior" },
+                  { value: "marginLeft", label: "Esquerda" },
                 ]}
               />
             </Grid>
@@ -75,16 +75,32 @@ export const AdvancedSettings = ({ props, setProp }) => {
 
             <Grid item>
               <CustomButtonGroup
-                text="Align Self"
+                text="Alinhar-se"
                 value={props.alignSelf}
                 onChange={(e, value) =>
                   setProp((props) => (props.alignSelf = value))
                 }
                 options={[
-                  { value: "start", icon: <AlignVerticalTop /> },
-                  { value: "center", icon: <AlignVerticalCenter /> },
-                  { value: "end", icon: <AlignVerticalBottom /> },
-                  { value: "stretch", icon: <AlignStretch /> },
+                  {
+                    value: "start",
+                    icon: <AlignVerticalTop />,
+                    tooltip: "Início",
+                  },
+                  {
+                    value: "center",
+                    icon: <AlignVerticalCenter />,
+                    tooltip: "Centro",
+                  },
+                  {
+                    value: "end",
+                    icon: <AlignVerticalBottom />,
+                    tooltip: "Fim",
+                  },
+                  {
+                    value: "stretch",
+                    icon: <AlignStretch />,
+                    tooltip: "Esticar",
+                  },
                 ]}
                 tooltipText={"Escolha a direção do item"}
                 fullWidth
@@ -93,29 +109,25 @@ export const AdvancedSettings = ({ props, setProp }) => {
 
             <Grid item spacing={3} width={"100%"}>
               <CustomButtonGroup
-                text="Order"
+                text="Ordem"
                 value={props.order}
+                mobileValue={props.mobileOrder}
                 onChange={(e, value) =>
                   setProp((props) => (props.order = value))
+                }
+                mobileOnChange={(e, value) =>
+                  setProp((props) => (props.mobileOrder = value))
                 }
                 options={[
                   {
                     value: "1",
-                    icon: (
-                      <VerticalAlignBottom
-                        style={{ transform: "rotate(90deg)" }}
-                      />
-                    ),
-                    tooltip: "first",
+                    icon: <VerticalAlignTop />,
+                    tooltip: "Primeiro",
                   },
                   {
-                    value: "2",
-                    icon: (
-                      <VerticalAlignTop
-                        style={{ transform: "rotate(90deg)" }}
-                      />
-                    ),
-                    tooltip: "last",
+                    value: "999",
+                    icon: <VerticalAlignBottom />,
+                    tooltip: "Último",
                   },
                 ]}
                 tooltipText={"Escolha a ordem da posição"}
@@ -125,16 +137,16 @@ export const AdvancedSettings = ({ props, setProp }) => {
 
             <Grid item mt={1}>
               <CustomSelect
-                text="Position"
+                text="Posição"
                 value={props.position}
                 onChange={(e) =>
                   setProp((props) => (props.position = e.target.value))
                 }
                 options={[
-                  { value: "static", label: "default" },
-                  { value: "relative", label: "relative" },
-                  { value: "absolute", label: "absolute" },
-                  { value: "fixed", label: "fixed" },
+                  { value: "static", label: "Padrão" },
+                  { value: "relative", label: "Relativo" },
+                  { value: "absolute", label: "Absoluto" },
+                  { value: "fixed", label: "Fixo" },
                 ]}
                 tooltipText={"Escolha a posição do item"}
               />
@@ -147,10 +159,10 @@ export const AdvancedSettings = ({ props, setProp }) => {
                   values={props}
                   onChange={setProp}
                   options={[
-                    { value: "top", label: "Top" },
-                    { value: "right", label: "Right" },
-                    { value: "bottom", label: "Bottom" },
-                    { value: "left", label: "Left" },
+                    { value: "top", label: "Superior" },
+                    { value: "right", label: "Direita" },
+                    { value: "bottom", label: "Inferior" },
+                    { value: "left", label: "Esquerda" },
                   ]}
                 />
               </Grid>

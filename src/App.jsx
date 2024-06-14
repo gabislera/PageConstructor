@@ -5,6 +5,7 @@ import { Editor, Frame, Element } from "@craftjs/core";
 import Container from "./components/selectors/CraftedComponents/Container.jsx";
 import Button from "./components/selectors/CraftedComponents/Button.jsx";
 import Text from "./components/selectors/CraftedComponents/Text.jsx";
+import Image from "./components/selectors/CraftedComponents/Image.jsx";
 import AppComponent from "./components/selectors/CraftedComponents/AppComponent.jsx";
 import { Viewport } from "./components/editor/viewport";
 import { RenderNode } from "./components/editor/viewport/RenderNode";
@@ -18,7 +19,7 @@ export default function App() {
       <ResponsiveModeProvider>
         <Editor
           onRender={RenderNode}
-          resolver={{ Container, Button, Text, AppComponent }}
+          resolver={{ Container, Button, Text, AppComponent, Image }}
         >
           <Viewport>
             <Frame>

@@ -6,6 +6,7 @@ import { IconButton } from "@mui/material";
 
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { ContentCopy, DragIndicator } from "@mui/icons-material";
 
 const IndicatorDiv = ({ children, style, onClick }) => (
   <div
@@ -42,6 +43,7 @@ export const RenderNode = ({ render }) => {
     connectors: { drag },
     parent,
     props,
+    isLinkedNode,
   } = useNode((node) => ({
     isHover: node.events.hovered,
     dom: node.dom,
@@ -56,9 +58,12 @@ export const RenderNode = ({ render }) => {
 
   useEffect(() => {
     if (dom) {
-      // console.log(isHover);
-      if (isActive || isHover) dom.classList.add("component-selected");
-      else dom.classList.remove("component-selected");
+      if (isHover) dom.classList.add("component-hover");
+      else dom.classList.remove("component-hover");
+      if (isActive) {
+        dom.classList.add("component-selected");
+        dom.classList.remove("component-hover");
+      } else dom.classList.remove("component-selected");
     }
   }, [dom, isActive, isHover]);
 
@@ -97,6 +102,39 @@ export const RenderNode = ({ render }) => {
     <>
       {isHover || isActive
         ? ReactDOM.createPortal(
+            // <div
+            //   className="background-blur"
+            //   style={{
+            //     left: getPos(dom).left,
+            //     top: getPos(dom).top,
+            //     position: "fixed",
+            //     zIndex: 9999,
+            //     padding: 6,
+            //     color: "#FFF",
+            //     height: "24px",
+            //     width: "24px",
+            //     display: "flex",
+            //     alignItems: "center",
+            //     justifyContent: "center",
+            //   }}
+            // >
+            //   {id !== ROOT_NODE && (
+            //     <IconButton
+            //       disableRipple
+            //       disableFocusRipple
+            //       disableTouchRipple
+            //       size="small"
+            //       style={{}}
+            //       onClick={(e) => {
+            //         e.preventDefault();
+            //         e.stopPropagation();
+            //         actions.selectNode(parent);
+            //       }}
+            //     >
+            //       <KeyboardArrowUpIcon />
+            //     </IconButton>
+            //   )}
+            // </div>,
             <IndicatorDiv
               onClick={() => actions.selectNode(id)}
               ref={currentRef}
@@ -121,14 +159,33 @@ export const RenderNode = ({ render }) => {
                 {moveable ? (
                   <IconButton
                     size="small"
-                    style={{ cursor: "move" }}
                     ref={drag}
-                  ></IconButton>
+                    sx={{
+                      "&:hover": {
+                        borderRadius: 0,
+                      },
+                      "& svg": {
+                        width: 17,
+                        height: 17,
+                        transform: "rotate(90deg)",
+                      },
+                    }}
+                  >
+                    <DragIndicator />
+                  </IconButton>
                 ) : null}
                 {id !== ROOT_NODE && (
                   <IconButton
                     size="small"
-                    style={{}}
+                    sx={{
+                      "&:hover": {
+                        borderRadius: 0,
+                      },
+                      "& svg": {
+                        width: 17,
+                        height: 17,
+                      },
+                    }}
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -138,9 +195,46 @@ export const RenderNode = ({ render }) => {
                     <KeyboardArrowUpIcon />
                   </IconButton>
                 )}
+                {id !== ROOT_NODE &&
+                !isLinkedNode &&
+                !props.notDuplicateable &&
+                !["Tela", "Section", "Container"].includes(name) ? (
+                  <IconButton
+                    size="small"
+                    sx={{
+                      "&:hover": {
+                        borderRadius: 0,
+                      },
+                      "& svg": {
+                        width: 13,
+                        height: 13,
+                      },
+                    }}
+                    onMouseDown={() => {
+                      const {
+                        data: { type, props },
+                      } = query.node(id).get();
+                      actions.add(
+                        query.createNode(React.createElement(type, props)),
+                        parent
+                      );
+                    }}
+                  >
+                    <ContentCopy />
+                  </IconButton>
+                ) : null}
                 {!props.notDeletable && deletable ? (
                   <IconButton
                     size="small"
+                    sx={{
+                      "&:hover": {
+                        borderRadius: 0,
+                      },
+                      "& svg": {
+                        width: 15,
+                        height: 15,
+                      },
+                    }}
                     onMouseDown={(e) => {
                       e.stopPropagation();
                       actions.delete(id);

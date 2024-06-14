@@ -1,15 +1,37 @@
 .component-selected {
-    position: relative;
-  }
+  position: relative;
+}
 
 .component-selected::after {
-    content: " ";
-    outline: 1px dotted #625cf3;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    pointer-events: none;
-    display: block;
+  content: " ";
+  outline: 1px solid #625CF3;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.component-hover {
+position: relative;
+}
+
+.component-hover::after {
+content: " ";
+outline: 1px dashed #625CF3;
+width: 100%;
+height: 100%;
+position: absolute;
+left: 0;
+top: 0;
+pointer-events: none;
+display: block;
+}
+
+.background-blur {
+background: rgba(98, 92, 243, 0.65);
+backdrop-filter: blur(1px);
+-webkit-backdrop-filter: blur(1px);
 }

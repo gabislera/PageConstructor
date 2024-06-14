@@ -17,7 +17,7 @@ export const Header = ({ isOpen, onClick, selected }) => {
           }}
           className={classes.logo}
         >
-          Edit {selected}
+          Editar {selected}
         </span>
       ) : (
         <img

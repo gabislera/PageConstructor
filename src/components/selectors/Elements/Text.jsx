@@ -174,6 +174,8 @@ export const Text = ({
         display: "inherit",
         // position,
         width: "fit-content",
+        maxWidth: "100%",
+        overflowWrap: "break-word",
       }}
       {...props}
       ref={(ref) => connect(drag(ref))}

@@ -47,11 +47,12 @@ import {
   CustomAccordionRoot,
 } from "../components/editor/Toolbox";
 import { useResponsiveMode } from "../contexts/ResponsiveModeContext";
+import { unitConfigs } from "../utils/unitConfigs";
 
 export const FileUpload = ({ value, onChange }) => {
   const classes = useStyles();
 
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(value || null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -359,100 +360,115 @@ export const CustomLinkedValues = ({
   nolink,
 }) => {
   const classes = useStyles();
+  const { deviceView } = useResponsiveMode();
   const [linked, setLinked] = useState(true);
 
-  const initialUnit = (() => {
-    const firstOption = options[0]?.value;
-    if (firstOption) {
-      const valueWithUnit = values[firstOption];
-      const unitMatch = valueWithUnit?.toString().match(/[a-zA-Z%]+$/);
-      return unitMatch ? unitMatch[0] : "px";
-    }
-    return "px";
-  })();
+  const capitalizeFirstLetter = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1);
 
-  const [currentUnit, setCurrentUnit] = useState(initialUnit);
+  const initialUnitDesktop =
+    (options[0]?.value &&
+      values[options[0]?.value]?.toString().match(/[a-zA-Z%]+$/)?.[0]) ||
+    "px";
 
-  const [localValues, setLocalValues] = useState(
-    options.reduce((acc, option) => {
-      acc[option.value] = values[option.value] || 0;
+  const initialUnitMobile =
+    (options[0]?.value &&
+      values[`mobile${capitalizeFirstLetter(options[0]?.value)}`]
+        ?.toString()
+        .match(/[a-zA-Z%]+$/)?.[0]) ||
+    "px";
+
+  const [currentUnitDesktop, setCurrentUnitDesktop] =
+    useState(initialUnitDesktop);
+
+  const [currentUnitMobile, setCurrentUnitMobile] = useState(initialUnitMobile);
+
+  const getValuesForDevice = (deviceView, values) =>
+    options.reduce((acc, { value }) => {
+      const key =
+        deviceView === "desktop"
+          ? value
+          : `mobile${capitalizeFirstLetter(value)}`;
+      acc[value] = values[key] || 0;
       return acc;
-    }, {})
+    }, {});
+
+  const [localValues, setLocalValues] = useState(() =>
+    getValuesForDevice(deviceView, values)
   );
 
-  const units = ["px", "%", "rem", "vw"];
-
   useEffect(() => {
-    setLocalValues(
-      options.reduce((acc, option) => {
-        acc[option.value] = values[option.value] || 0;
-        return acc;
-      }, {})
-    );
-  }, [values, options]);
+    setLocalValues(getValuesForDevice(deviceView, values));
+  }, [values, options, deviceView]);
 
-  const handleInputChange = (option, value) => {
-    const newValues = { ...localValues, [option]: `${value}${currentUnit}` };
-    if (linked) {
-      const syncedValue = `${value}${currentUnit}`;
-      Object.keys(newValues).forEach((key) => (newValues[key] = syncedValue));
-    }
-    setLocalValues(newValues);
-
-    options.forEach((opt) => {
+  const updateValues = (newValues) => {
+    options.forEach(({ value }) => {
+      const key =
+        deviceView === "desktop"
+          ? value
+          : `mobile${capitalizeFirstLetter(value)}`;
       onChange((props) => {
-        props[opt.value] = newValues[opt.value];
+        props[key] = newValues[value];
       });
     });
+  };
+
+  const handleInputChange = (option, value) => {
+    const newUnit =
+      deviceView === "desktop" ? currentUnitDesktop : currentUnitMobile;
+    const newValues = { ...localValues, [option]: `${value}${newUnit}` };
+
+    if (linked) {
+      Object.keys(newValues).forEach(
+        (key) => (newValues[key] = `${value}${newUnit}`)
+      );
+    }
+
+    setLocalValues(newValues);
+    updateValues(newValues);
   };
 
   const handleIconButtonClick = () => {
     setLinked(!linked);
 
-    const newValues = options.reduce((acc, option) => {
-      acc[option.value] = 0;
+    const resetValues = options.reduce((acc, { value }) => {
+      acc[value] = 0;
       return acc;
     }, {});
 
-    setLocalValues(newValues);
-
-    options.forEach((opt) => {
-      onChange((props) => {
-        props[opt.value] = newValues[opt.value];
-      });
-    });
+    setLocalValues(resetValues);
+    updateValues(resetValues);
   };
 
   const handleUnitChange = (event) => {
     const newUnit = event.target.value;
 
-    const newValues = options.reduce((acc, option) => {
-      const numericValue = parseFloat(localValues[option.value]);
-      acc[option.value] = `${numericValue}${newUnit}`;
+    const updatedValues = options.reduce((acc, { value }) => {
+      acc[value] = `${parseFloat(localValues[value])}${newUnit}`;
       return acc;
     }, {});
 
-    setCurrentUnit(newUnit);
-    setLocalValues(newValues);
+    if (deviceView === "desktop") {
+      setCurrentUnitDesktop(newUnit);
+    } else {
+      setCurrentUnitMobile(newUnit);
+    }
 
-    options.forEach((opt) => {
-      onChange((props) => {
-        props[opt.value] = newValues[opt.value];
-      });
-    });
+    setLocalValues(updatedValues);
+    updateValues(updatedValues);
   };
+
+  const units = ["px", "%", "rem", "vw"];
 
   return (
     <Box width="100%" display="flex" flexDirection="column">
       <Box display="flex" alignItems="center" justifyContent="space-between">
-        {/* <Tooltip title={tooltipText} placement="right"> */}
         <Box alignItems="center">
           <Typography variant="caption" gutterBottom color="inherit">
             {text}
           </Typography>
           <DeviceViewSelect />
         </Box>
-        {/* </Tooltip> */}
 
         <Tooltip title="Unidade de medida" placement="right">
           <FormControl
@@ -480,7 +496,11 @@ export const CustomLinkedValues = ({
             }}
           >
             <Select
-              value={currentUnit}
+              value={
+                deviceView === "desktop"
+                  ? currentUnitDesktop
+                  : currentUnitMobile
+              }
               onChange={handleUnitChange}
               IconComponent={() => null}
               MenuProps={{
@@ -588,11 +608,22 @@ export const CustomLinkedValues = ({
 export const CustomButtonGroup = ({
   text,
   value,
+  mobileValue,
   onChange,
+  mobileOnChange,
   options,
   tooltipText,
   fullWidth,
 }) => {
+  const { deviceView } = useResponsiveMode();
+  const handleChange = (event, newValue) => {
+    if (deviceView === "mobile") {
+      mobileOnChange(event, newValue);
+    } else {
+      onChange(event, newValue);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -613,9 +644,9 @@ export const CustomButtonGroup = ({
       </Box>
 
       <ToggleButtonGroup
-        value={value}
+        value={deviceView === "mobile" ? mobileValue : value}
         exclusive
-        onChange={onChange}
+        onChange={handleChange}
         sx={{
           width: fullWidth ? "auto" : "100%",
           justifyContent: "space-between",
@@ -644,7 +675,15 @@ export const CustomButtonGroup = ({
             placement="top"
             key={option.value}
           >
-            <ToggleButton value={option.value} aria-label={option.value}>
+            <ToggleButton
+              value={option.value}
+              aria-label={option.value}
+              selected={
+                deviceView === "mobile"
+                  ? mobileValue === option.value
+                  : value === option.value
+              }
+            >
               {option.icon}
             </ToggleButton>
           </Tooltip>
@@ -698,9 +737,9 @@ export const CustomTextInput = ({
 
 export const CustomSlider = ({
   text,
-  value,
+  value = "0px",
   onChange,
-  mobileValue,
+  mobileValue = "0px",
   mobileOnChange,
   min,
   max,
@@ -708,66 +747,71 @@ export const CustomSlider = ({
 }) => {
   const classes = useStyles();
   const { deviceView } = useResponsiveMode();
-  const [internalValue, setInternalValue] = useState(
-    deviceView === "desktop" ? value : mobileValue
-  );
 
-  const [currentUnit, setCurrentUnit] = useState(() => {
-    const initialUnitMatch = (
-      deviceView === "desktop" ? value : mobileValue
-    ).match(/[a-zA-Z%]+$/);
-    return initialUnitMatch ? initialUnitMatch[0] : "px";
-  });
+  const getDefaultUnit = (val) => val.match(/[a-zA-Z%]+$/)?.[0] || "px";
 
-  const unitConfigs = {
-    px: { _max: 200, _step: 1, _min: 1 },
-    "%": { _max: 100, _step: 1, _min: 1 },
-    rem: { _max: 20, _step: 0.1, _min: 1 },
-    vw: { _max: 100, _step: 1, _min: 1 },
+  const initialConfigs = {
+    desktop: {
+      value,
+      unit: getDefaultUnit(value),
+    },
+    mobile: {
+      value: mobileValue,
+      unit: getDefaultUnit(mobileValue),
+    },
   };
+
+  const [internalValue, setInternalValue] = useState(
+    deviceView === "desktop"
+      ? initialConfigs.desktop.value
+      : initialConfigs.mobile.value
+  );
+  const [currentUnit, setCurrentUnit] = useState(
+    deviceView === "desktop"
+      ? initialConfigs.desktop.unit
+      : initialConfigs.mobile.unit
+  );
 
   const units = Object.keys(unitConfigs);
 
   useEffect(() => {
-    setInternalValue(deviceView === "desktop" ? value : mobileValue);
+    const updatedValue = deviceView === "desktop" ? value : mobileValue;
+    const updatedUnit = getDefaultUnit(updatedValue);
+    setInternalValue(updatedValue);
+    setCurrentUnit(updatedUnit);
   }, [value, mobileValue, deviceView]);
 
-  const handleSliderChange = (event, newValue) => {
-    const newValueWithUnit = `${newValue}${currentUnit}`;
-    setInternalValue(newValueWithUnit);
+  const handleChange = (event, newValue, newUnit = currentUnit) => {
+    const formattedValue = `${newValue}${newUnit}`;
+    setInternalValue(formattedValue);
+
     if (deviceView === "desktop") {
-      onChange(event, newValueWithUnit);
+      onChange(event, formattedValue);
     } else {
-      mobileOnChange(event, newValueWithUnit);
+      mobileOnChange(event, formattedValue);
     }
+  };
+
+  const handleSliderChange = (event, newValue) => {
+    handleChange(event, newValue);
   };
 
   const handleInputChange = (event) => {
     const newValue =
       event.target.value === "" ? "" : Number(event.target.value);
-    const newValueWithUnit = `${newValue}${currentUnit}`;
-    setInternalValue(newValueWithUnit);
-    if (deviceView === "desktop") {
-      onChange(event, newValueWithUnit);
-    } else {
-      mobileOnChange(event, newValueWithUnit);
-    }
+    handleChange(event, newValue);
   };
 
   const handleUnitChange = (event) => {
     const newUnit = event.target.value;
     const numericValue = parseFloat(internalValue);
-    const newValueWithUnit = `${numericValue}${newUnit}`;
     setCurrentUnit(newUnit);
-    setInternalValue(newValueWithUnit);
-    if (deviceView === "desktop") {
-      onChange({}, newValueWithUnit);
-    } else {
-      mobileOnChange({}, newValueWithUnit);
-    }
+    handleChange({}, numericValue, newUnit);
   };
 
   const { _max, _step, _min } = unitConfigs[currentUnit];
+
+  const computedMax = currentUnit === "%" ? _max : max || _max;
 
   return (
     <Box width="100%" display="flex" flexDirection="column">
@@ -824,8 +868,8 @@ export const CustomSlider = ({
                 },
               }}
             >
-              {units.map((unit, index) => (
-                <MenuItem key={index} value={unit}>
+              {units.map((unit) => (
+                <MenuItem key={unit} value={unit}>
                   {unit}
                 </MenuItem>
               ))}
@@ -835,16 +879,11 @@ export const CustomSlider = ({
       </Box>
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Slider
-          value={
-            typeof internalValue === "string" &&
-            !isNaN(parseFloat(internalValue))
-              ? parseFloat(internalValue)
-              : 0
-          }
+          value={parseFloat(internalValue) || 0}
           onChange={handleSliderChange}
-          min={min ? min : _min}
-          max={max ? max : _max}
-          step={step ? step : _step}
+          min={min || _min}
+          max={computedMax}
+          step={step || _step}
           valueLabelDisplay="auto"
           aria-labelledby={`${text}-slider`}
           sx={{
@@ -859,11 +898,7 @@ export const CustomSlider = ({
           }}
         />
         <TextField
-          value={
-            parseFloat(internalValue) || internalValue === 0
-              ? parseFloat(internalValue)
-              : internalValue
-          }
+          value={parseFloat(internalValue) || internalValue}
           onChange={handleInputChange}
           variant="outlined"
           size="small"
@@ -1145,11 +1180,11 @@ export const DeviceViewSelect = () => {
             <Tv />
           </Tooltip>
         </MenuItem>
-        <MenuItem value="tablet">
+        {/* <MenuItem value="tablet">
           <Tooltip title="Tablet" placement="right">
             <TabletMac />
           </Tooltip>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem value="mobile">
           <Tooltip title="Mobile" placement="right">
             <PhoneIphone />
@@ -1527,7 +1562,7 @@ const useStyles = makeStyles({
     backgroundColor: "#2c2e32",
     color: "#d5d8dc",
     border: "1px dashed rgba(255, 255, 255, 0.2)",
-    borderRadius: "4px",
+    borderRadius: "2px",
     cursor: "pointer",
     position: "relative",
   },
@@ -1548,6 +1583,6 @@ const useStyles = makeStyles({
     width: "100%",
     height: "100%",
     objectFit: "cover",
-    borderRadius: "4px",
+    borderRadius: "2px",
   },
 });
