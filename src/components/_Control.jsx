@@ -1006,7 +1006,14 @@ export const ColorControl = ({ name, onChange, value, alpha }) => {
   );
 };
 
-export const CustomSwitch = ({ text, value, onChange, tooltipText }) => {
+export const CustomSwitch = ({
+  text,
+  value,
+  onChange,
+  tooltipText,
+  checkedText,
+  uncheckedText,
+}) => {
   return (
     <Tooltip title={tooltipText || ""} placement="right">
       <Box
@@ -1036,7 +1043,7 @@ export const CustomSwitch = ({ text, value, onChange, tooltipText }) => {
                   opacity: 1,
                   border: 0,
                   "&:before": {
-                    content: '"Hide"',
+                    content: `'${checkedText}'`,
                     display: "block",
                     lineHeight: "18px",
                     color: "#d5d8dc",
@@ -1051,7 +1058,7 @@ export const CustomSwitch = ({ text, value, onChange, tooltipText }) => {
                 opacity: 1,
                 border: 0,
                 "&:before": {
-                  content: '"Show"',
+                  content: `'${uncheckedText}'`,
                   display: "block",
                   lineHeight: "18px",
                   color: "#d5d8dc",
@@ -1068,7 +1075,6 @@ export const CustomSwitch = ({ text, value, onChange, tooltipText }) => {
             },
           }}
           checked={value}
-          // onChange={onChange(checked ? "none" : "flex")}
           inputProps={{ "aria-label": "custom switch" }}
         />
       </Box>
@@ -1453,46 +1459,6 @@ export const CustomCollapse = ({
     </Box>
   );
 };
-
-export const CustomCheckbox = ({
-  onChange,
-  tooltipText,
-  column,
-  text,
-  value,
-  options,
-  classes,
-}) => {
-  return (
-    <>
-      <Tooltip title={tooltipText ? tooltipText : ""} placement="right">
-        <Box>
-          {options.map((option, index) => (
-            <Box
-              key={index}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography variant="caption" gutterBottom color="inherit">
-                {option.label}
-              </Typography>
-
-              <FormControlLabel control={<Android12Switch sx={{ m: 1 }} />} />
-            </Box>
-          ))}
-        </Box>
-      </Tooltip>
-    </>
-  );
-};
-const Android12Switch = styled(Switch)(({ theme }) => ({
-  width: 42,
-  height: 26,
-  padding: 0,
-}));
 
 const useStyles = makeStyles({
   customInput: {

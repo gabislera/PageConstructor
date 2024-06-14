@@ -5,13 +5,11 @@ import {
   CustomSelect,
   CustomSwitch,
   CustomTextInput,
-  CustomCheckbox,
 } from "../../_Control";
 import {
   AlignVerticalTop,
   AlignVerticalCenter,
   AlignVerticalBottom,
-  FormatAlignJustify,
   VerticalAlignBottom,
   VerticalAlignTop,
   ExpandMore,
@@ -124,53 +122,6 @@ export const AdvancedSettings = ({ props, setProp }) => {
                 fullWidth
               />
             </Grid>
-            <Grid item mt={1}>
-              <CustomButtonGroup
-                text="Align Self"
-                value={props.alignSelf}
-                onChange={(e, value) =>
-                  setProp((props) => (props.alignSelf = value))
-                }
-                options={[
-                  { value: "start", icon: <AlignVerticalTop /> },
-                  { value: "center", icon: <AlignVerticalCenter /> },
-                  { value: "end", icon: <AlignVerticalBottom /> },
-                  { value: "stretch", icon: <AlignStretch /> },
-                ]}
-                tooltipText={"Escolha a direção do item"}
-              />
-            </Grid>
-
-            <Grid item spacing={3} width={"100%"} mt={1}>
-              <CustomButtonGroup
-                text="Order"
-                value={props.order}
-                onChange={(e, value) =>
-                  setProp((props) => (props.order = value))
-                }
-                options={[
-                  {
-                    value: "1",
-                    icon: (
-                      <VerticalAlignBottom
-                        style={{ transform: "rotate(90deg)" }}
-                      />
-                    ),
-                    tooltip: "first",
-                  },
-                  {
-                    value: "2",
-                    icon: (
-                      <VerticalAlignTop
-                        style={{ transform: "rotate(90deg)" }}
-                      />
-                    ),
-                    tooltip: "last",
-                  },
-                ]}
-                tooltipText={"Escolha a ordem da posição"}
-              />
-            </Grid>
 
             <Grid item mt={1}>
               <CustomSelect
@@ -232,7 +183,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
             Responsivo
           </CustomAccordionSummary>
           <CustomAccordionDetails>
-            <Grid item width="100%" mt={1}>
+            <Grid item width="100%">
               <Typography className="subtitle">
                 A visibilidade responsiva terá efeito apenas no modo de
                 pré-visualização ou na página ao vivo, e não durante a edição no
@@ -241,34 +192,32 @@ export const AdvancedSettings = ({ props, setProp }) => {
             </Grid>
 
             <Grid item width="100%" mt={1}>
-              <CustomCheckbox
-                text={"Duração da Animação"}
-                value={props.htmlTag}
-                column
-                onChange={(e) =>
-                  setProp((props) => (props.htmlTag = e.target.value))
-                }
-                options={[
-                  { value: "desktop", label: "Ocultar em Desktop" },
-                  {
-                    value: "tablet",
-                    label: "Ocultar em Tablet no modo retrato",
-                  },
-                  {
-                    value: "movel",
-                    label: "Ocultar em Dispositivos móveis no modo retrato",
-                  },
-                ]}
-              />
-            </Grid>
-            <Grid item width="100%" mt={1}>
-              <CustomLinkedValues
-                nolink
-                text="Atraso da animação (ms)"
-                values={props}
-                onChange={setProp}
-                options={[{ value: "paddingTop" }]}
-              />
+              <Grid>
+                <CustomSwitch
+                  checkedText="Mostrar"
+                  uncheckedText="Ocultar"
+                  text="Ocultar em Desktop"
+                  value={props.display}
+                  onChange={(props) =>
+                    setProp((props) => (props.display = props))
+                  }
+                />
+              </Grid>
+
+              <Grid mt={1}>
+                <CustomSwitch
+                  text="Ocultar em Tablet no modo retrato"
+                  checkedText={"Mostrar"}
+                  uncheckedText={"Ocultar"}
+                />
+              </Grid>
+              <Grid mt={1}>
+                <CustomSwitch
+                  text="Ocultar em Dispositivos móveis no modo retrato"
+                  checkedText={"Mostrar"}
+                  uncheckedText={"Ocultar"}
+                />
+              </Grid>
             </Grid>
           </CustomAccordionDetails>
         </CustomAccordion>
@@ -321,35 +270,6 @@ export const AdvancedSettings = ({ props, setProp }) => {
                 onChange={setProp}
                 options={[{ value: "paddingTop" }]}
               />
-            </Grid>
-          </CustomAccordionDetails>
-        </CustomAccordion>
-      </CustomAccordionRoot>
-      <CustomAccordionRoot>
-        <CustomAccordion>
-          <CustomAccordionSummary
-            sx={{ mt: -2 }}
-            expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            Visibility
-          </CustomAccordionSummary>
-          <CustomAccordionDetails>
-            <Grid>
-              <CustomSwitch
-                text="Hide on Desktop"
-                value={props.display}
-                onChange={(props) =>
-                  setProp((props) => (props.display = props))
-                }
-              />
-            </Grid>
-            <Grid mt={1}>
-              <CustomSwitch text="Hide on Tablet" />
-            </Grid>
-            <Grid mt={1}>
-              <CustomSwitch text="Hide on Mobile" />
             </Grid>
           </CustomAccordionDetails>
         </CustomAccordion>
