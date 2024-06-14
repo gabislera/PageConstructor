@@ -102,6 +102,9 @@ const useStyles = makeStyles({
 
     alignItems: "center",
     justifyContent: "space-between",
+
+    position: "absolute",
+    bottom: 0,
   },
   item: {
     marginRight: "10px",
