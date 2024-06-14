@@ -17,6 +17,18 @@ export const Button = ({
   borderRadius,
   type,
   cursor,
+  fontFamily,
+  fontWeight,
+  fontSize,
+  textTransform,
+  fontStyle,
+  textDecoration,
+  wordSpacing,
+  letterSpacing,
+  borderStyle,
+  borderColor,
+  boxShadow,
+  lineHeight,
 }) => {
   const {
     connectors: { connect, drag },
@@ -40,8 +52,12 @@ export const Button = ({
           marginBottom,
           paddingTop,
           paddingRight,
+          borderStyle,
           paddingLeft,
+          borderColor,
+          boxShadow,
           paddingBottom,
+
           minWidth: "100px",
           minHeight: "50px",
           textAlign: "center",
@@ -52,7 +68,21 @@ export const Button = ({
           border: "none",
         }}
       >
-        {text}
+        <span
+          style={{
+            fontFamily,
+            fontWeight,
+            fontSize,
+            textTransform,
+            fontStyle,
+            textDecoration,
+            wordSpacing,
+            letterSpacing,
+            lineHeight,
+          }}
+        >
+          {text}
+        </span>
       </button>
     </>
   );

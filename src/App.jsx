@@ -3,13 +3,13 @@ import "./App.css";
 import { makeStyles } from "@mui/styles";
 import { Editor, Frame, Element } from "@craftjs/core";
 import Container from "./components/selectors/CraftedComponents/Container.jsx";
-import Button from "./builder/components/user/ButtonCrafted";
+import Button from "./components/selectors/CraftedComponents/Button.jsx";
 import Text from "./components/selectors/CraftedComponents/Text.jsx";
 import AppComponent from "./components/selectors/CraftedComponents/AppComponent.jsx";
 import { Viewport } from "./components/editor/viewport";
 import { RenderNode } from "./components/editor/viewport/RenderNode";
 import { ResponsiveModeProvider } from "./contexts/ResponsiveModeContext";
-
+import "./components/styles/app.css";
 export default function App() {
   const classes = useStyles();
 

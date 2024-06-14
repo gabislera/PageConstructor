@@ -1,0 +1,8 @@
+.pulse-oscillating-button {
+  transform: scale(1);
+  animation: pulse 2s infinite;
+  animation-name: pulse, oscillate;
+  animation-duration: 2s, 4s;
+  animation-timing-function: ease-in-out, linear;
+  animation-iteration-count: infinite;
+}

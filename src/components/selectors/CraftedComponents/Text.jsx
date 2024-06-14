@@ -1,5 +1,5 @@
 import { TextSettings } from "../Settings/TextSettings";
-import { Text } from "../Text";
+import { Text } from "../Elements/Text";
 
 Text.craft = {
   props: {

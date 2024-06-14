@@ -1,5 +1,5 @@
 import { ContainerSettings } from "../Settings/ContainerSettings";
-import { Container } from "../Container";
+import { Container } from "../Elements/Container";
 
 Container.craft = {
   displayName: "Container",

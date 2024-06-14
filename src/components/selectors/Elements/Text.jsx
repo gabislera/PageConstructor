@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ContentEditable from "react-contenteditable";
 import { useNode } from "@craftjs/core";
-import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
+import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
 export const Text = ({
   content,

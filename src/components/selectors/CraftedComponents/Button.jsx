@@ -1,5 +1,5 @@
-import { Button } from "./Button";
-import { ButtonSettings } from "./ButtonSettings";
+import { Button } from "../Elements/Button";
+import { ButtonSettings } from "../../../components/selectors/Settings/ButtonSettings";
 
 Button.craft = {
   displayName: "Botão",
@@ -22,11 +22,23 @@ Button.craft = {
     type: "button",
     text: "Quero saber mais",
     notDeletable: false,
-    additional_css: ""
+    additional_css: "",
+    fontFamily: "sans-serif",
+    fontWeight: "400",
+    fontSize: "16px",
+    textTransform: "none",
+    fontStyle: "normal",
+    textDecoration: "none",
+    wordSpacing: "0",
+    letterSpacing: "0",
+    borderStyle: "none",
+    borderColor: "none",
+    boxShadow: "none",
+    lineHeight: "0px",
   },
   related: {
     settings: ButtonSettings,
   },
 };
 
-export default Button
+export default Button;

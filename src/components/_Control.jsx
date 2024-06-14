@@ -2,6 +2,7 @@ import { ChromePicker } from "react-color";
 import { useState, useEffect } from "react";
 import { ClickAwayListener } from "@mui/base";
 import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/styles";
 import {
   Tooltip,
   TextField,
@@ -19,6 +20,10 @@ import {
   Tab,
   Grid,
   Switch,
+  Collapse,
+  Checkbox,
+  FormControlLabel,
+  Button,
 } from "@mui/material";
 import {
   Brush,
@@ -32,6 +37,7 @@ import {
   TabletMac,
   PhoneIphone,
 } from "@mui/icons-material";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
 import { TabPannel } from "./selectors/TabPannel";
 import {
@@ -90,7 +96,7 @@ export const FileUpload = ({ value, onChange }) => {
   );
 };
 
-export const TabOptions = ({ title, children }) => {
+export const TabOptions = ({ title, children, typeStyle }) => {
   const [tabValue, setTabValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -350,6 +356,7 @@ export const CustomLinkedValues = ({
   onChange,
   options,
   tooltipText,
+  nolink,
 }) => {
   const classes = useStyles();
   const [linked, setLinked] = useState(true);
@@ -552,26 +559,27 @@ export const CustomLinkedValues = ({
             </Typography>
           </Box>
         ))}
+        {!nolink ? (
+          <Tooltip title="Relacionar todos os valores" placement="right">
+            <IconButton
+              onClick={handleIconButtonClick}
+              sx={{
+                color: linked ? "#d5d8dc" : "grey",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                boxSizing: "border-box",
+                borderRadius: "0px",
+                padding: "5px 5px 4px 4px",
 
-        <Tooltip title="Relacionar todos os valores" placement="right">
-          <IconButton
-            onClick={handleIconButtonClick}
-            sx={{
-              color: linked ? "#d5d8dc" : "grey",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              boxSizing: "border-box",
-              borderRadius: "0px",
-              padding: "5px 5px 4px 4px",
-
-              "& svg": {
-                width: "16px",
-                height: "16px",
-              },
-            }}
-          >
-            {linked ? <Link /> : <LinkOff />}
-          </IconButton>
-        </Tooltip>
+                "& svg": {
+                  width: "16px",
+                  height: "16px",
+                },
+              }}
+            >
+              {linked ? <Link /> : <LinkOff />}
+            </IconButton>
+          </Tooltip>
+        ) : null}
       </Box>
     </Box>
   );
@@ -614,6 +622,7 @@ export const CustomButtonGroup = ({
           "& .Mui-selected": {
             backgroundColor: "rgba(255, 255, 255, 0.3) !important",
             borderColor: "rgba(255, 255, 255, 0.3)",
+            cursor: "pointer",
           },
           "& .MuiToggleButton-root": {
             borderColor: "rgba(255, 255, 255, 0.1)",
@@ -643,6 +652,11 @@ export const CustomButtonGroup = ({
       </ToggleButtonGroup>
     </Box>
   );
+};
+const BoxShadowDemo = () => {
+  const [boxShadow, setBoxShadow] = useState("0px 0px 5px rgba(0, 0, 0, 0.3)");
+
+  return <div></div>;
 };
 
 export const CustomTextInput = ({
@@ -869,13 +883,19 @@ export const CustomSelect = ({
   onChange,
   options,
   tooltipText,
+  column,
 }) => {
   const classes = useStyles();
   return (
-    <Tooltip title={tooltipText} placement="right">
+    <Tooltip title={tooltipText ? tooltipText : ""} placement="right">
       <Box
         display={"flex"}
         width={"100%"}
+        style={{
+          flexDirection: column ? "column" : "row",
+          justifyContent: column ? "" : "space-between",
+          alignItems: column ? "start" : "center",
+        }}
         justifyContent={"space-between"}
         alignItems={"center"}
       >
@@ -890,7 +910,7 @@ export const CustomSelect = ({
         <FormControl
           variant="outlined"
           className={classes.customInput}
-          sx={{ width: "50%" }}
+          sx={{ width: column ? "100%" : "50%" }}
         >
           <Select
             value={value}
@@ -922,7 +942,7 @@ export const CustomSelect = ({
   );
 };
 
-export const ColorControl = ({ name, onChange, value }) => {
+export const ColorControl = ({ name, onChange, value, alpha }) => {
   const [openFilterColor, setOpenFilterColor] = useState(false);
 
   const classes = useStyles();
@@ -971,7 +991,6 @@ export const ColorControl = ({ name, onChange, value }) => {
                 className={classes.pickerWrapper}
               >
                 <ChromePicker
-                  disableAlpha
                   color={value}
                   onChange={(color) => {
                     onChange(color, color.hex);
@@ -1134,6 +1153,346 @@ export const DeviceViewSelect = () => {
     </FormControl>
   );
 };
+
+const CustomInput = ({
+  text,
+  placeholder,
+  tooltip,
+  icon,
+  setOpen,
+  open,
+  classes,
+}) => (
+  <Box
+    display="flex"
+    flexDirection="column"
+    style={{ display: "flex", gap: 5 }}
+  >
+    <Typography variant="caption" gutterBottom color="inherit" marginBottom={0}>
+      {text}
+    </Typography>
+    <Box display="flex" alignItems="center" flexDirection="row" width="100%">
+      <TextField
+        fullWidth
+        placeholder={placeholder || ""}
+        sx={{
+          "& .MuiInputBase-placeholder": {
+            color: "#d5d8dc",
+          },
+          "& .MuiInputBase-root": {
+            borderRadius: "0px",
+          },
+        }}
+        variant="outlined"
+        className={`${classes.customInput} ${classes.spinButton}`}
+      />
+      <Tooltip title={tooltip || ""} placement="top">
+        <IconButton
+          onClick={() => setOpen(!open)}
+          sx={{
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            boxSizing: "border-box",
+            borderRadius: "0px",
+            padding: "5px 5px 4px 4px",
+            "& svg": {
+              width: "16px",
+              height: "16px",
+            },
+          }}
+        >
+          {icon ? icon : <SettingsIcon fontSize="small" color="secondary" />}
+        </IconButton>
+      </Tooltip>
+    </Box>
+  </Box>
+);
+
+const OptionsList = ({ options, value, onChange }) => (
+  <>
+    {options?.map((option, index) => (
+      <Box key={index}>
+        <FormControlLabel
+          style={{ display: "flex", alignItems: "center" }}
+          control={
+            <Checkbox
+              size="small"
+              checked={value}
+              onChange={onChange}
+              value={value}
+            />
+          }
+          label={
+            <Typography variant="caption" gutterBottom color="inherit">
+              {option.label}
+            </Typography>
+          }
+        />
+      </Box>
+    ))}
+  </>
+);
+
+const IconButtonGroup = ({
+  optionsButton,
+  setOpen,
+  open,
+  propype,
+  openCollapse,
+  setOpenCollapse,
+  text,
+  boxShadow,
+  setBoxShadow,
+}) => (
+  <Box width="100%" style={{ display: "flex", flexDirection: "column" }}>
+    <Box style={{ display: "flex", justifyContent: "space-between" }}>
+      <Box>
+        <Typography
+          variant="caption"
+          gutterBottom
+          color="inherit"
+          marginBottom={0}
+        >
+          {text}
+        </Typography>
+      </Box>
+      <Box>
+        {optionsButton?.map((option, index) => (
+          <Tooltip key={index} title={option.label || ""} placement="top">
+            <IconButton
+              onClick={option.onClick}
+              sx={{
+                backgroundColor: option.value === "boxShadow" ? "#3f444b" : "",
+                border:
+                  option.value === "none" || "boxShadow"
+                    ? ""
+                    : "1px solid rgba(255, 255, 255, 0.1)",
+                boxSizing: "border-box",
+                borderRadius: option.value === "boxShadow" ? "3px" : "0px",
+                padding: "5px 5px 4px 4px",
+                "& svg": {
+                  width: "14px",
+                  height: "14px",
+                  transform:
+                    option.value === "none"
+                      ? "translateY(-0%) rotate(-40deg)"
+                      : "",
+                },
+              }}
+            >
+              {option.icon}
+            </IconButton>
+          </Tooltip>
+        ))}{" "}
+      </Box>
+    </Box>
+
+    <Box>
+      <CustomCollapseBoxShadow
+        openCollapse={openCollapse}
+        setOpenCollapse={setOpenCollapse}
+        boxShadow={boxShadow}
+        setBoxShadow={setBoxShadow}
+      />
+    </Box>
+  </Box>
+);
+
+const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
+  const handleSliderChange = (prop) => (event, newValue) => {
+    setBoxShadow({ ...boxShadow, [prop]: newValue });
+  };
+
+  const handleColorChange = (color) => {
+    setBoxShadow({
+      ...boxShadow,
+      color: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`,
+    });
+  };
+
+  const toggleInset = () => {
+    setBoxShadow({ ...boxShadow, inset: !boxShadow.inset });
+  };
+
+  return (
+    <Box style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+      <Collapse in={openCollapse} timeout="auto" unmountOnExit>
+        <Grid item mt={2}>
+          <ColorControl
+            name={"Cor da sobra"}
+            onChange={handleColorChange}
+            defaultValue={boxShadow?.color}
+            value={boxShadow?.color}
+          />
+        </Grid>
+
+        <Grid item mt={2}>
+          <CustomSlider
+            text="Horizontal"
+            value={boxShadow?.horizontal}
+            onChange={handleSliderChange("horizontal")}
+            min={-100}
+            max={100}
+            step={1}
+            tooltipText={"Ajuste o valor horizontal da sombra"}
+          />
+        </Grid>
+
+        <Grid item mt={2}>
+          <CustomSlider
+            text="Vertical"
+            value={boxShadow?.vertical}
+            onChange={handleSliderChange("vertical")}
+            min={-100}
+            max={100}
+            step={1}
+            tooltipText={"Ajuste o valor vertical da sombra"}
+          />
+        </Grid>
+
+        <Grid item mt={2}>
+          <CustomSlider
+            text="Desfoque"
+            value={boxShadow?.blur}
+            onChange={handleSliderChange("blur")}
+            min={0}
+            max={100}
+            step={1}
+            tooltipText={"Ajuste o valor de desfoque da sombra"}
+          />
+        </Grid>
+
+        <Grid item mt={2}>
+          <CustomSlider
+            text="Distância"
+            value={boxShadow?.spread}
+            onChange={handleSliderChange("spread")}
+            min={-50}
+            max={50}
+            step={1}
+            tooltipText={"Ajuste a distância da sombra"}
+          />
+        </Grid>
+
+        <Grid item mt={2}>
+          <CustomSelect
+            text={"Posição"}
+            value={boxShadow?.inset ? "inset" : ""}
+            onChange={toggleInset}
+            options={[
+              { value: "", label: "Contorno" },
+              { value: "inset", label: "Interno" },
+            ]}
+          />
+        </Grid>
+      </Collapse>
+    </Box>
+  );
+};
+
+export const CustomCollapse = ({
+  text,
+  options,
+  type,
+  value,
+  onChange,
+  tooltip,
+  icon,
+  placeholder,
+  optionsButton,
+  propype,
+  boxShadow,
+  setBoxShadow,
+  onclick,
+  openCollapse,
+  setOpenCollapse,
+}) => {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Box style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+      {type === "textField" ? (
+        <CustomInput
+          text={text}
+          placeholder={placeholder}
+          tooltip={tooltip}
+          icon={icon}
+          setOpen={setOpen}
+          open={open}
+          classes={classes}
+        />
+      ) : (
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          flexDirection={"row"}
+          width="100%"
+        >
+          <IconButtonGroup
+            optionsButton={optionsButton}
+            setOpen={setOpen}
+            open={open}
+            text={text}
+            propype={propype}
+            openCollapse={openCollapse}
+            setOpenCollapse={setOpenCollapse}
+            boxShadow={boxShadow}
+            setBoxShadow={setBoxShadow}
+          />
+        </Box>
+      )}
+
+      <Box width="100%">
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          {type === "textField" && (
+            <OptionsList options={options} value={value} onChange={onChange} />
+          )}
+        </Collapse>
+      </Box>
+    </Box>
+  );
+};
+
+export const CustomCheckbox = ({
+  onChange,
+  tooltipText,
+  column,
+  text,
+  value,
+  options,
+  classes,
+}) => {
+  return (
+    <>
+      <Tooltip title={tooltipText ? tooltipText : ""} placement="right">
+        <Box>
+          {options.map((option, index) => (
+            <Box
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography variant="caption" gutterBottom color="inherit">
+                {option.label}
+              </Typography>
+
+              <FormControlLabel control={<Android12Switch sx={{ m: 1 }} />} />
+            </Box>
+          ))}
+        </Box>
+      </Tooltip>
+    </>
+  );
+};
+const Android12Switch = styled(Switch)(({ theme }) => ({
+  width: 42,
+  height: 26,
+  padding: 0,
+}));
 
 const useStyles = makeStyles({
   customInput: {

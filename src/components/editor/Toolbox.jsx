@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 // import { Container } from '../../builder/components/user/Container';
 import Container from "../selectors/CraftedComponents/Container";
 import Text from "../selectors/CraftedComponents/Text";
-import { Button } from "../../builder/components/user/Button";
+import Button from "../selectors/CraftedComponents/Button";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";

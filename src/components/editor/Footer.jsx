@@ -1,21 +1,19 @@
-import { makeStyles } from '@mui/styles';
-import { Box, Button, IconButton, Tooltip } from '@mui/material';
-import { useEditor } from '@craftjs/core';
-import clsx from 'clsx';
-import { Redo, Undo, Devices, RemoveRedEye } from '@mui/icons-material';
-import { useEffect } from 'react';
-import { useResponsiveMode } from '../../contexts/ResponsiveModeContext';
+import { makeStyles } from "@mui/styles";
+import { Box, Button, IconButton, Tooltip } from "@mui/material";
+import { useEditor } from "@craftjs/core";
+import clsx from "clsx";
+import { Redo, Undo, Devices, RemoveRedEye } from "@mui/icons-material";
+import { useEffect } from "react";
+import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
 
 export const Footer = () => {
   const classes = useStyles();
   const { isResponsiveMode, setIsResponsiveMode } = useResponsiveMode();
-  const { enabled, canUndo, canRedo, actions } = useEditor(
-    (state, query) => ({
-      enabled: state.options.enabled,
-      canUndo: query.history.canUndo(),
-      canRedo: query.history.canRedo(),
-    })
-  );
+  const { enabled, canUndo, canRedo, actions } = useEditor((state, query) => ({
+    enabled: state.options.enabled,
+    canUndo: query.history.canUndo(),
+    canRedo: query.history.canRedo(),
+  }));
 
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
@@ -34,16 +32,16 @@ export const Footer = () => {
     });
   }, [actions.history]);
 
-
-
   return (
-    <Box className={classes.root} >
-      <Box display='flex' justifyContent='center' width={'100%'}>
+    <Box className={classes.root}>
+      <Box display="flex" justifyContent="center" width={"100%"}>
         {enabled && (
           <>
             <Tooltip title="Undo" placement="bottom">
               <IconButton
-                className={clsx(classes.item, { [classes.itemDisabled]: !canUndo })}
+                className={clsx(classes.item, {
+                  [classes.itemDisabled]: !canUndo,
+                })}
                 onClick={() => actions.history.undo()}
                 disabled={!canUndo}
               >
@@ -52,7 +50,9 @@ export const Footer = () => {
             </Tooltip>
             <Tooltip title="Redo" placement="bottom">
               <IconButton
-                className={clsx(classes.item, { [classes.itemDisabled]: !canRedo })}
+                className={clsx(classes.item, {
+                  [classes.itemDisabled]: !canRedo,
+                })}
                 onClick={() => actions.history.redo()}
                 disabled={!canRedo}
               >
@@ -82,33 +82,37 @@ export const Footer = () => {
       </Box>
 
       <Tooltip title="Publish" placement="bottom">
-        <Button variant="contained" sx={{ color: 'white', borderRadius: 0, textTransform: 'capitalize' }}>
+        <Button
+          variant="contained"
+          sx={{ color: "white", borderRadius: 0, textTransform: "capitalize" }}
+        >
           Publish
         </Button>
       </Tooltip>
-    </Box >
-  )
-}
+    </Box>
+  );
+};
 
 const useStyles = makeStyles({
   root: {
-    background: '#232325',
-    width: '100%',
-    overflowX: 'hidden',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    background: "#232325",
+    width: "100%",
+    overflowX: "hidden",
+    display: "flex",
+
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   item: {
-    marginRight: '10px',
-    '& svg': {
-      width: '20px',
-      height: '20px',
-      fill: '#707070',
+    marginRight: "10px",
+    "& svg": {
+      width: "20px",
+      height: "20px",
+      fill: "#707070",
     },
   },
   itemDisabled: {
-    opacity: '0.5',
-    cursor: 'not-allowed',
+    opacity: "0.5",
+    cursor: "not-allowed",
   },
-})
+});

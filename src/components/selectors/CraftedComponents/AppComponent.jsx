@@ -1,4 +1,4 @@
-import { AppComponent } from "../AppComponent";
+import { AppComponent } from "../Elements/AppComponent";
 
 AppComponent.craft = {
   displayName: "Tela",
