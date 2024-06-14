@@ -14,11 +14,9 @@ import {
   CustomSelect,
   CustomTextInput,
   CustomCollapse,
-  CustomButtonGroup,
   CustomSlider,
   ColorControl,
   CustomLinkedValues,
-  TabOptions,
 } from "../../_Control";
 import { ExpandMore } from "@mui/icons-material";
 import { AdvancedSettings } from "./AdvancedSettings";
@@ -80,6 +78,7 @@ export const ButtonSettings = () => {
     }`;
     setProp((props) => (props.boxShadow = boxShadowString));
   }, [boxShadow, props, setProp]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

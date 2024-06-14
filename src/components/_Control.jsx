@@ -748,7 +748,7 @@ export const CustomSlider = ({
   const classes = useStyles();
   const { deviceView } = useResponsiveMode();
 
-  const getDefaultUnit = (val) => val.match(/[a-zA-Z%]+$/)?.[0] || "px";
+  const getDefaultUnit = (val) => val?.match(/[a-zA-Z%]+$/)?.[0] || "px";
 
   const initialConfigs = {
     desktop: {

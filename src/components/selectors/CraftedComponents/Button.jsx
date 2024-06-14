@@ -33,7 +33,7 @@ Button.craft = {
     letterSpacing: "0",
     boxShadow: "none",
     lineHeight: "0px",
-
+    boxShadowString: "none",
     borderStyle: "none",
     borderTopWidth: "0px",
     borderRightWidth: "0px",

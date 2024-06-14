@@ -78,6 +78,7 @@ export const Button = ({
   right,
   bottom,
   zIndex,
+  boxShadowString,
 }) => {
   const {
     connectors: { connect, drag },
@@ -173,6 +174,7 @@ export const Button = ({
           borderBottomLeftRadius,
           boxShadow,
           paddingBottom,
+          boxShadowString,
           ...responsiveProps,
           minWidth: "100px",
           minHeight: "50px",

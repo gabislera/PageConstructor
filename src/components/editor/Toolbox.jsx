@@ -5,6 +5,7 @@ import { makeStyles } from "@mui/styles";
 import Container from "../selectors/CraftedComponents/Container";
 import Text from "../selectors/CraftedComponents/Text";
 import Button from "../selectors/CraftedComponents/Button";
+import Divider from "../selectors/CraftedComponents/Divider";
 import Image from "../selectors/CraftedComponents/Image";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -100,7 +101,7 @@ export const Toolbox = () => {
                 <span>Video</span>
               </GridItem>
 
-              <GridItem element={Text} tooltipText={"Divider"}>
+              <GridItem element={Divider} tooltipText={"Divider"}>
                 <Remove />
                 <span>Divider</span>
               </GridItem>
