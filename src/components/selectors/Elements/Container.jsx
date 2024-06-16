@@ -70,7 +70,9 @@ export const Container = ({
   hoverBorderTopRightRadius,
   hoverBorderBottomRightRadius,
   hoverBorderBottomLeftRadius,
-  transition,
+  hoverBackgroundColor,
+  backgroundcolorTransitionDuration,
+  borderTransitionDuration,
 
   marginTop,
   marginRight,
@@ -96,8 +98,6 @@ export const Container = ({
   } = useNode();
   const ContainerTag = htmlTag;
   const { deviceView } = useResponsiveMode();
-
-  console.log(flexDirection, mobileFlexDirection);
 
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
@@ -163,40 +163,57 @@ export const Container = ({
 
   const responsiveProps = getResponsiveProps();
 
+  const hoverStyles = `
+    .container-hover:hover {
+      background-color: ${hoverBackgroundColor} !important;
+      border-style: ${hoverBorderStyle} !important;
+      border-top-width: ${hoverBorderTopWidth} !important;
+      border-bottom-width: ${hoverBorderBottomWidth} !important;
+      border-right-width: ${hoverBorderRightWidth} !important;
+      border-left-width: ${hoverBorderLeftWidth} !important;
+      border-color: ${hoverBorderColor} !important;
+      border-top-left-radius: ${hoverBorderTopLeftRadius} !important;
+      border-top-right-radius: ${hoverBorderTopRightRadius} !important;
+      border-bottom-right-radius: ${hoverBorderBottomRightRadius} !important;
+      border-bottom-left-radius: ${hoverBorderBottomLeftRadius} !important;
+    }
+  `;
+
   const ContainerElement = (
-    <ContainerTag
-      ref={(ref) => connect(drag(ref))}
-      style={{
-        ...responsiveProps,
-        maxWidth,
-        display,
+    <>
+      <ContainerTag
+        ref={(ref) => connect(drag(ref))}
+        className="container-hover"
+        style={{
+          ...responsiveProps,
+          maxWidth,
+          display,
 
-        overflow,
-        htmlTag,
+          overflow,
+          htmlTag,
 
-        backgroundColor,
+          backgroundColor,
+          borderStyle,
+          borderTopWidth,
+          borderBottomWidth,
+          borderRightWidth,
+          borderLeftWidth,
+          borderColor,
+          borderTopLeftRadius,
+          borderTopRightRadius,
+          borderBottomRightRadius,
+          borderBottomLeftRadius,
+          transition: `background-color ${backgroundcolorTransitionDuration}s ease-in-out, border ${borderTransitionDuration}s ease-in-out`,
 
-        borderStyle,
-        borderTopWidth,
-        borderBottomWidth,
-        borderRightWidth,
-        borderLeftWidth,
-        borderColor,
-        borderTopLeftRadius,
-        borderTopRightRadius,
-        borderBottomRightRadius,
-        borderBottomLeftRadius,
-        transition: `border ${transition}s ease-in-out`,
-
-        border: children ? "none" : "1px dashed grey",
-
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {children}
-    </ContainerTag>
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {children}
+      </ContainerTag>
+      <style>{hoverStyles}</style>
+    </>
   );
 
   return url ? (

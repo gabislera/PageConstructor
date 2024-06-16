@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNode, useEditor } from "@craftjs/core";
-import { Grid, Typography, Box, Tab, Tabs, Divider } from "@mui/material";
+import { useNode } from "@craftjs/core";
+import { Grid, Box, Tab, Tabs, Divider } from "@mui/material";
 import {
   Settings,
   Contrast,
@@ -45,25 +45,25 @@ export const ContainerSettings = () => {
   } = useNode((node) => ({
     props: node.data.props,
   }));
-  const { actions, selected } = useEditor((state, query) => {
-    const [currentNodeId] = state.events.selected;
-    let selected;
+  // const { actions, selected } = useEditor((state, query) => {
+  //   const [currentNodeId] = state.events.selected;
+  //   let selected;
 
-    if (currentNodeId) {
-      selected = {
-        id: currentNodeId,
-        name: state.nodes[currentNodeId].data.name,
-        settings:
-          state.nodes[currentNodeId].related &&
-          state.nodes[currentNodeId].related.settings,
-        isDeletable: query.node(currentNodeId).isDeletable(),
-      };
-    }
+  //   if (currentNodeId) {
+  //     selected = {
+  //       id: currentNodeId,
+  //       name: state.nodes[currentNodeId].data.name,
+  //       settings:
+  //         state.nodes[currentNodeId].related &&
+  //         state.nodes[currentNodeId].related.settings,
+  //       isDeletable: query.node(currentNodeId).isDeletable(),
+  //     };
+  //   }
 
-    return {
-      selected,
-    };
-  });
+  //   return {
+  //     selected,
+  //   };
+  // });
 
   const classes = useStyles();
 
@@ -369,137 +369,160 @@ export const ContainerSettings = () => {
                 <ColorControl
                   name="Cor de fundo"
                   onChange={(e, value) =>
-                    setProp((props) => (props.backgroundColor = value))
+                    setProp((props) => (props.hoverBackgroundColor = value))
                   }
-                  defaultValue={props.backgroundColor}
-                  value={props.backgroundColor}
+                  defaultValue={props.hoverBackgroundColor}
+                  value={props.hoverBackgroundColor}
+                />
+
+                <CustomSlider
+                  text="Duração da transição"
+                  value={props.backgroundcolorTransitionDuration}
+                  onChange={(e, value) => setProp((props) => (props.backgroundcolorTransitionDuration = value))}
+                  min={0}
+                  max={3}
+                  step={0.1}
+                  disableUnits
+                  disableDeviceView
+                  tooltipText={"Escolha o tempo da transição"}
                 />
               </Grid>
             </TabOptions>
 
             <TabOptions title="Borda">
-              <Grid item mt={0}>
-                <Grid item mt={2}>
-                  <CustomSelect
-                    text="Tipo da borda"
-                    value={props.borderStyle}
-                    onChange={(e) =>
-                      setProp((props) => (props.borderStyle = e.target.value))
-                    }
-                    options={[
-                      { value: "none", label: "Padrão" },
-                      { value: "solid", label: "Solido" },
-                      { value: "dashed", label: "Tracejado" },
-                      { value: "dotted", label: "Pontilhado" },
-                    ]}
-                  />
-                </Grid>
+              <Grid
+                item
+                mt={2}
+                display={"flex"}
+                flexDirection={"column"}
+                sx={{ gap: 2 }}
+              >
+                <CustomSelect
+                  text="Tipo da borda"
+                  value={props.borderStyle}
+                  onChange={(e) =>
+                    setProp((props) => (props.borderStyle = e.target.value))
+                  }
+                  options={[
+                    { value: "none", label: "Padrão" },
+                    { value: "solid", label: "Solido" },
+                    { value: "dashed", label: "Tracejado" },
+                    { value: "dotted", label: "Pontilhado" },
+                  ]}
+                />
 
                 {props.borderStyle !== "none" && (
-                  <Grid item mt={2}>
-                    <CustomLinkedValues
-                      text="Largura da borda"
-                      values={props}
-                      onChange={setProp}
-                      options={[
-                        { value: "borderTopWidth", label: "Superior" },
-                        { value: "borderRightWidth", label: "Direita" },
-                        { value: "borderBottomWidth", label: "Inferior" },
-                        { value: "borderLeftWidth", label: "Esquerda" },
-                      ]}
-                    />
-                  </Grid>
-                )}
-
-                {props.borderStyle !== "none" && (
-                  <Grid item mt={2}>
-                    <ColorControl
-                      name={"Cor da borda"}
-                      onChange={(e, value) => {
-                        setProp((props) => (props.borderColor = value));
-                      }}
-                      defaultValue={props.borderColor}
-                      value={props.borderColor}
-                    />
-                  </Grid>
-                )}
-
-                <Grid item mt={2}>
                   <CustomLinkedValues
-                    text="Raio da borda"
+                    text="Largura da borda"
                     values={props}
                     onChange={setProp}
                     options={[
-                      { value: "borderTopLeftRadius", label: "Superior" },
-                      { value: "borderTopRightRadius", label: "Direita" },
-                      { value: "borderBottomRightRadius", label: "Inferior" },
-                      { value: "borderBottomLeftRadius", label: "Esquerda" },
+                      { value: "borderTopWidth", label: "Superior" },
+                      { value: "borderRightWidth", label: "Direita" },
+                      { value: "borderBottomWidth", label: "Inferior" },
+                      { value: "borderLeftWidth", label: "Esquerda" },
                     ]}
                   />
-                </Grid>
+                )}
+
+                {props.borderStyle !== "none" && (
+                  <ColorControl
+                    name={"Cor da borda"}
+                    onChange={(e, value) => {
+                      setProp((props) => (props.borderColor = value));
+                    }}
+                    defaultValue={props.borderColor}
+                    value={props.borderColor}
+                  />
+                )}
+
+                <CustomLinkedValues
+                  text="Raio da borda"
+                  values={props}
+                  onChange={setProp}
+                  options={[
+                    { value: "borderTopLeftRadius", label: "Superior" },
+                    { value: "borderTopRightRadius", label: "Direita" },
+                    { value: "borderBottomRightRadius", label: "Inferior" },
+                    { value: "borderBottomLeftRadius", label: "Esquerda" },
+                  ]}
+                />
               </Grid>
 
-              <Grid item mt={0}>
-                <Grid item mt={2}>
-                  <CustomSelect
-                    text="Tipo da borda"
-                    value={props.hoverBorderStyle}
-                    onChange={(e) =>
-                      setProp(
-                        (props) => (props.hoverBorderStyle = e.target.value)
-                      )
-                    }
-                    options={[
-                      { value: "none", label: "Padrão" },
-                      { value: "solid", label: "Solido" },
-                      { value: "dashed", label: "Tracejado" },
-                      { value: "dotted", label: "Pontilhado" },
-                    ]}
-                  />
-                </Grid>
+              <Grid
+                item
+                mt={2}
+                display={"flex"}
+                flexDirection={"column"}
+                sx={{ gap: 2 }}
+              >
+                <CustomSelect
+                  text="Tipo da borda"
+                  value={props.hoverBorderStyle}
+                  onChange={(e) =>
+                    setProp(
+                      (props) => (props.hoverBorderStyle = e.target.value)
+                    )
+                  }
+                  options={[
+                    { value: "none", label: "Padrão" },
+                    { value: "solid", label: "Solido" },
+                    { value: "dashed", label: "Tracejado" },
+                    { value: "dotted", label: "Pontilhado" },
+                  ]}
+                />
 
                 {props.hoverBorderStyle !== "none" && (
-                  <Grid item mt={2}>
-                    <CustomLinkedValues
-                      text="Largura da borda"
-                      values={props}
-                      onChange={setProp}
-                      options={[
-                        { value: "borderTopWidth", label: "Superior" },
-                        { value: "borderRightWidth", label: "Direita" },
-                        { value: "borderBottomWidth", label: "Inferior" },
-                        { value: "borderLeftWidth", label: "Esquerda" },
-                      ]}
-                    />
-                  </Grid>
-                )}
-
-                {props.hoverBorderStyle !== "none" && (
-                  <Grid item mt={2}>
-                    <ColorControl
-                      name={"Cor da borda"}
-                      onChange={(e, value) => {
-                        setProp((props) => (props.hoverBorderColor = value));
-                      }}
-                      defaultValue={props.hoverBorderColor}
-                      value={props.hoverBorderColor}
-                    />
-                  </Grid>
-                )}
-
-                <Grid item mt={2}>
                   <CustomLinkedValues
-                    text="Raio da borda"
+                    text="Largura da borda"
                     values={props}
                     onChange={setProp}
                     options={[
-                      { value: "borderTopLeftRadius", label: "Superior" },
-                      { value: "borderTopRightRadius", label: "Direita" },
-                      { value: "borderBottomRightRadius", label: "Inferior" },
-                      { value: "borderBottomLeftRadius", label: "Esquerda" },
+                      { value: "hoverBorderTopWidth", label: "Superior" },
+                      { value: "hoverBorderRightWidth", label: "Direita" },
+                      { value: "hoverBorderBottomWidth", label: "Inferior" },
+                      { value: "hoverBorderLeftWidth", label: "Esquerda" },
                     ]}
                   />
-                </Grid>
+                )}
+
+                {props.hoverBorderStyle !== "none" && (
+                  <ColorControl
+                    name={"Cor da borda"}
+                    onChange={(e, value) => {
+                      setProp((props) => (props.hoverBorderColor = value));
+                    }}
+                    defaultValue={props.hoverBorderColor}
+                    value={props.hoverBorderColor}
+                  />
+                )}
+
+                <CustomLinkedValues
+                  text="Raio da borda"
+                  values={props}
+                  onChange={setProp}
+                  options={[
+                    { value: "hoverBorderTopLeftRadius", label: "Superior" },
+                    { value: "hoverBorderTopRightRadius", label: "Direita" },
+                    { value: "hoverBorderBottomRightRadius", label: "Inferior" },
+                    { value: "hoverBorderBottomLeftRadius", label: "Esquerda" },
+                  ]}
+                />
+
+                {props.hoverBorderStyle !== "none" && (
+                  <CustomSlider
+                    text="Duração da transição"
+                    value={props.borderTransitionDuration}
+                    onChange={(e, value) => setProp((props) => (props.borderTransitionDuration = value))}
+                    min={0}
+                    max={3}
+                    step={0.1}
+                    disableUnits
+                    disableDeviceView
+                    tooltipText={"Escolha o tempo da transição"}
+                  />
+                )}
+
               </Grid>
             </TabOptions>
           </Grid>

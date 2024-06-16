@@ -1,7 +1,6 @@
 import { useEditor, Element } from "@craftjs/core";
 import { Box, Grid, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-// import { Container } from '../../builder/components/user/Container';
 import Container from "../selectors/CraftedComponents/Container";
 import Text from "../selectors/CraftedComponents/Text";
 import Button from "../selectors/CraftedComponents/Button";
@@ -10,7 +9,6 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import {
-  ExpandMore,
   CropLandscapeSharp,
   FormatQuote,
   SmartButton,
@@ -21,6 +19,8 @@ import {
   Quiz,
 } from "@mui/icons-material";
 import styled from "@emotion/styled";
+import { CustomAccordion } from "../_Control";
+import { Layers } from "@craftjs/layers";
 
 export const Toolbox = () => {
   const {
@@ -43,75 +43,53 @@ export const Toolbox = () => {
 
   return (
     <Grid container padding={2}>
-      <CustomAccordionRoot>
-        <CustomAccordion defaultExpanded>
-          <CustomAccordionSummary
-            expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            Layout
-          </CustomAccordionSummary>
-          <CustomAccordionDetails>
-            <Grid container justifyContent={"space-between"}>
-              <GridItem element={Container} tooltipText={"Container"}>
-                <CropLandscapeSharp />
-                <span>Container</span>
-              </GridItem>
+      <CustomAccordion title="Layout" defaultExpanded>
+        <Grid container justifyContent={"space-between"}>
+          <GridItem element={Container} tooltipText={"Container"}>
+            <CropLandscapeSharp />
+            <span>Container</span>
+          </GridItem>
 
-              <GridItem element={Container} tooltipText={"Grid"}>
-                <CalendarViewMonth />
-                <span>Grid</span>
-              </GridItem>
-            </Grid>
-          </CustomAccordionDetails>
-        </CustomAccordion>
-      </CustomAccordionRoot>
+          <GridItem element={Container} tooltipText={"Grid"}>
+            <CalendarViewMonth />
+            <span>Grid</span>
+          </GridItem>
+        </Grid>
+      </CustomAccordion>
 
-      <CustomAccordionRoot>
-        <CustomAccordion defaultExpanded>
-          <CustomAccordionSummary
-            expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            Basic
-          </CustomAccordionSummary>
-          <CustomAccordionDetails>
-            <Grid container rowSpacing={1} justifyContent="space-between">
-              <GridItem element={Button} tooltipText={"Button"}>
-                <SmartButton />
-                <span>Button</span>
-              </GridItem>
+      <CustomAccordion title="Basic" defaultExpanded>
+        <Grid container rowSpacing={1} justifyContent="space-between">
+          <GridItem element={Button} tooltipText={"Button"}>
+            <SmartButton />
+            <span>Button</span>
+          </GridItem>
 
-              <GridItem element={Text} tooltipText={"Text"}>
-                <FormatQuote />
-                <span>Text</span>
-              </GridItem>
+          <GridItem element={Text} tooltipText={"Text"}>
+            <FormatQuote />
+            <span>Text</span>
+          </GridItem>
 
-              <GridItem element={Image} tooltipText={"Image"}>
-                <ImageOutlined />
-                <span>Image</span>
-              </GridItem>
+          <GridItem element={Image} tooltipText={"Image"}>
+            <ImageOutlined />
+            <span>Image</span>
+          </GridItem>
 
-              <GridItem element={Text} tooltipText={"Video"}>
-                <OndemandVideo />
-                <span>Video</span>
-              </GridItem>
+          <GridItem element={Text} tooltipText={"Video"}>
+            <OndemandVideo />
+            <span>Video</span>
+          </GridItem>
 
-              <GridItem element={Text} tooltipText={"Divider"}>
-                <Remove />
-                <span>Divider</span>
-              </GridItem>
+          <GridItem element={Text} tooltipText={"Divider"}>
+            <Remove />
+            <span>Divider</span>
+          </GridItem>
 
-              <GridItem element={Text} tooltipText={"Faq"}>
-                <Quiz />
-                <span>Faq</span>
-              </GridItem>
-            </Grid>
-          </CustomAccordionDetails>
-        </CustomAccordion>
-      </CustomAccordionRoot>
+          <GridItem element={Text} tooltipText={"Faq"}>
+            <Quiz />
+            <span>Faq</span>
+          </GridItem>
+        </Grid>
+      </CustomAccordion>
     </Grid>
   );
 };
@@ -139,7 +117,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const CustomAccordion = styled((props) => <Accordion {...props} />)`
+export const CustomAccordionBase = styled((props) => <Accordion {...props} />)`
   background-color: transparent;
   color: #d5d8dc;
   box-shadow: none;
@@ -159,6 +137,7 @@ export const CustomAccordionSummary = styled(AccordionSummary)`
   /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
   min-height: 48px;
   font-size: 14px;
+  font-weight: 700;
   padding: 0;
 
   & .MuiAccordionSummary-content {

@@ -2,7 +2,6 @@ import { ChromePicker } from "react-color";
 import { useState, useEffect } from "react";
 import { ClickAwayListener } from "@mui/base";
 import { makeStyles } from "@mui/styles";
-import { styled } from "@mui/styles";
 import {
   Tooltip,
   TextField,
@@ -23,28 +22,25 @@ import {
   Collapse,
   Checkbox,
   FormControlLabel,
-  Button,
 } from "@mui/material";
 import {
-  Brush,
-  Gradient,
   Link,
   LinkOff,
-  Image,
   Add,
   ExpandMore,
   Tv,
-  TabletMac,
   PhoneIphone,
+  FormatColorReset,
 } from "@mui/icons-material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
 import { TabPannel } from "./selectors/TabPannel";
+
 import {
-  CustomAccordion,
   CustomAccordionSummary,
   CustomAccordionDetails,
   CustomAccordionRoot,
+  CustomAccordionBase,
 } from "../components/editor/Toolbox";
 import { useResponsiveMode } from "../contexts/ResponsiveModeContext";
 import { unitConfigs } from "../utils/unitConfigs";
@@ -173,183 +169,6 @@ export const TabOptions = ({ title, children, typeStyle }) => {
     </Box>
   );
 };
-
-// export const TabOptionsBackup = ({ title, children }) => {
-//   const classes = useStyles();
-//   const [tabValue, setTabValue] = useState(0);
-//   const [backgroundImage, setBackgroundImage] = useState(null);
-
-//   const handleChange = (event, newValue) => {
-//     setTabValue(newValue);
-//   };
-
-//   const handleFileChange = (event) => {
-//     const file = event.target.files[0];
-//     if (file) {
-//       const fileURL = URL.createObjectURL(file);
-//       setBackgroundImage(fileURL);
-//     }
-//   };
-
-//   return (
-//     <Box>
-//       <CustomAccordionRoot>
-//         <CustomAccordion defaultExpanded>
-//           <CustomAccordionSummary
-//             expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
-//             aria-controls="panel1a-content"
-//             id="panel1a-header"
-//           >
-//             {title}
-//           </CustomAccordionSummary>
-//           <CustomAccordionDetails>
-//             <Tabs
-//               value={tabValue}
-//               onChange={handleChange}
-//               indicatorColor="transparent"
-//               sx={{
-//                 mt: 2,
-//                 border: "1px solid rgba(255, 255, 255, 0.1)",
-//                 minHeight: "auto",
-//                 color: "#fff !important",
-//                 "& .Mui-selected": {
-//                   backgroundColor: "#3f444b",
-//                   fontWeight: "bold",
-//                 },
-//               }}
-//             >
-//               <Tab
-//                 label="Normal"
-//                 {...a11yProps(0)}
-//                 disableFocusRipple
-//                 disableRipple
-//                 disableTouchRipple
-//                 sx={{
-//                   minWidth: "auto",
-//                   width: "50%",
-//                   padding: "3px",
-//                   minHeight: "auto",
-//                   textTransform: "none",
-//                   color: "#fff !important",
-//                   fontSize: "12px",
-//                 }}
-//               />
-//               <Tab
-//                 label="Hover"
-//                 {...a11yProps(1)}
-//                 disableFocusRipple
-//                 disableRipple
-//                 disableTouchRipple
-//                 sx={{
-//                   minWidth: "auto",
-//                   width: "50%",
-//                   textTransform: "none",
-//                   color: "#fff !important",
-//                   padding: "3px",
-//                   minHeight: "auto",
-//                   fontSize: "12px",
-//                 }}
-//               />
-//             </Tabs>
-
-//             {children.map((child, index) => (
-//               <TabPannel key={index} value={tabValue} index={index}>
-//                 {child}
-//               </TabPannel>
-//             ))}
-//           </CustomAccordionDetails>
-//         </CustomAccordion>
-//       </CustomAccordionRoot>
-//     </Box>
-//   );
-// };
-
-// export const BackgroundType = ({ value, onChange }) => {
-//   const [tabValue, setTabValue] = useState(0);
-//   const classes = useStyles();
-
-//   const handleChange = (event, newValue) => {
-//     setTabValue(newValue);
-//   };
-//   return (
-//     <Box>
-//       <Typography variant="caption" gutterBottom color="inherit">
-//         Background
-//       </Typography>
-//       <Box
-//         alignItems={"center"}
-//         justifyContent={"space-between"}
-//         width={"100%"}
-//         display={"flex"}
-//       >
-//         <Typography variant="caption">Background Type</Typography>
-//         <Tabs
-//           value={tabValue}
-//           onChange={handleChange}
-//           indicatorColor="transparent"
-//           sx={{
-//             border: "1px solid rgba(255, 255, 255, 0.1)",
-//             minHeight: "auto",
-//             "& .Mui-selected": {
-//               backgroundColor: "#3f444b",
-//               "& > svg": {
-//                 fill: "#fff",
-//               },
-//             },
-//           }}
-//         >
-//           <Tooltip title="Solid Color" placement="top">
-//             <Tab
-//               icon={<Brush />}
-//               {...a11yProps(0)}
-//               className={classes.tab}
-//               disableFocusRipple
-//               disableRipple
-//               disableTouchRipple
-//               sx={{
-//                 minWidth: "auto",
-//                 padding: "5px",
-//                 minHeight: "auto",
-//               }}
-//             />
-//           </Tooltip>
-//           <Tooltip title="Image" placement="top">
-//             <Tab
-//               icon={<Image />}
-//               {...a11yProps(1)}
-//               className={classes.tab}
-//               disableFocusRipple
-//               disableRipple
-//               disableTouchRipple
-//               sx={{
-//                 minWidth: "auto",
-//                 padding: "5px",
-//                 minHeight: "auto",
-//                 borderLeft: "1px solid rgba(255, 255, 255, 0.1)",
-//                 borderRight: "1px solid rgba(255, 255, 255, 0.1)",
-//               }}
-//             />
-//           </Tooltip>
-//         </Tabs>
-//       </Box>
-//       <TabPannel value={tabValue} index={0}>
-//         <Grid item mt={4}>
-//           <ColorControl
-//             name={"Cor do fundo"}
-//             onChange={onChange}
-//             defaultValue={value}
-//             value={value}
-//           />
-//         </Grid>
-//       </TabPannel>
-//       <TabPannel value={tabValue} index={1}>
-//         <Grid item mt={4}>
-//           Load image here
-//         </Grid>
-//       </TabPannel>
-//     </Box>
-//   );
-// };
 
 export const CustomLinkedValues = ({
   text,
@@ -543,13 +362,13 @@ export const CustomLinkedValues = ({
               type="number"
               value={
                 parseFloat(localValues[option.value]) ||
-                localValues[option.value] === 0
+                  localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
               placeholder={
                 parseFloat(localValues[option.value]) ||
-                localValues[option.value] === 0
+                  localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
@@ -705,6 +524,7 @@ export const CustomTextInput = ({
   tooltipText,
   multiline,
   row,
+  placeholder
 }) => {
   const classes = useStyles();
   return (
@@ -717,13 +537,14 @@ export const CustomTextInput = ({
           justifyContent: row ? "space-between" : "start",
         }}
       >
-        <Typography variant="caption" gutterBottom color="inherit">
+        <Typography variant="caption" gutterBottom color="inherit" sx={{ mb: 0 }}>
           {text}
         </Typography>
         <TextField
           variant="outlined"
           multiline={multiline ? true : false}
           rows={multiline ? 4 : 1}
+          placeholder={placeholder}
           value={value}
           onChange={onChange}
           className={classes.customInput}
@@ -744,6 +565,8 @@ export const CustomSlider = ({
   min,
   max,
   step,
+  disableUnits = false,
+  disableDeviceView = false,
 }) => {
   const classes = useStyles();
   const { deviceView } = useResponsiveMode();
@@ -753,39 +576,45 @@ export const CustomSlider = ({
   const initialConfigs = {
     desktop: {
       value,
-      unit: getDefaultUnit(value),
+      unit: disableUnits ? '' : getDefaultUnit(value),
     },
     mobile: {
       value: mobileValue,
-      unit: getDefaultUnit(mobileValue),
+      unit: disableUnits ? '' : getDefaultUnit(mobileValue),
     },
   };
 
   const [internalValue, setInternalValue] = useState(
-    deviceView === "desktop"
+    deviceView === "desktop" || disableUnits
       ? initialConfigs.desktop.value
       : initialConfigs.mobile.value
   );
+
   const [currentUnit, setCurrentUnit] = useState(
-    deviceView === "desktop"
-      ? initialConfigs.desktop.unit
-      : initialConfigs.mobile.unit
+    disableUnits
+      ? ''
+      : deviceView === "desktop"
+        ? initialConfigs.desktop.unit
+        : initialConfigs.mobile.unit
   );
 
   const units = Object.keys(unitConfigs);
 
   useEffect(() => {
-    const updatedValue = deviceView === "desktop" ? value : mobileValue;
-    const updatedUnit = getDefaultUnit(updatedValue);
+    const updatedValue = disableUnits || deviceView === "desktop" ? value : mobileValue;
+    const updatedUnit = disableUnits ? '' : getDefaultUnit(updatedValue);
     setInternalValue(updatedValue);
     setCurrentUnit(updatedUnit);
-  }, [value, mobileValue, deviceView]);
+  }, [value, mobileValue, deviceView, disableUnits]);
 
-  const handleChange = (event, newValue, newUnit = currentUnit) => {
-    const formattedValue = `${newValue}${newUnit}`;
+  const handleChange = (event, newValue) => {
+    const formattedValue = disableUnits
+      ? newValue
+      : `${newValue}${currentUnit}`;
+
     setInternalValue(formattedValue);
 
-    if (deviceView === "desktop") {
+    if (disableUnits || deviceView === "desktop") {
       onChange(event, formattedValue);
     } else {
       mobileOnChange(event, formattedValue);
@@ -797,8 +626,7 @@ export const CustomSlider = ({
   };
 
   const handleInputChange = (event) => {
-    const newValue =
-      event.target.value === "" ? "" : Number(event.target.value);
+    const newValue = event.target.value === "" ? "" : Number(event.target.value);
     handleChange(event, newValue);
   };
 
@@ -806,11 +634,11 @@ export const CustomSlider = ({
     const newUnit = event.target.value;
     const numericValue = parseFloat(internalValue);
     setCurrentUnit(newUnit);
-    handleChange({}, numericValue, newUnit);
+    handleChange({}, numericValue);
   };
 
-  const { _max, _step, _min } = unitConfigs[currentUnit];
-
+  const unitConfig = unitConfigs[currentUnit] || {};
+  const { _max = 1000, _step = 1, _min = 0 } = unitConfig;
   const computedMax = currentUnit === "%" ? _max : max || _max;
 
   return (
@@ -820,62 +648,64 @@ export const CustomSlider = ({
           <Typography variant="caption" gutterBottom color="inherit">
             {text}
           </Typography>
-          <DeviceViewSelect />
+          {!disableDeviceView && <DeviceViewSelect />}
         </Box>
 
-        <Tooltip title="Unidade de medida" placement="right">
-          <FormControl
-            variant="outlined"
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                padding: "5px",
-                fontSize: "12px",
-                border: "none",
-                "& fieldset": {
-                  borderColor: "transparent",
-                  textAlign: "center",
-                },
-                "&:hover fieldset": {
-                  borderColor: "#333",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "transparent",
-                },
-              },
-              "& .MuiOutlinedInput-input": {
-                padding: 0,
-                paddingRight: "0 !important",
-              },
-            }}
-          >
-            <Select
-              value={currentUnit}
-              onChange={handleUnitChange}
-              IconComponent={() => null}
-              MenuProps={{
-                PaperProps: {
-                  sx: {
-                    bgcolor: "#333333",
-                    "& .MuiMenuItem-root": {
-                      color: "#fff",
-                      fontSize: "12px",
-                      padding: "4px 8px",
-                      textAlign: "center",
-                      justifyContent: "center",
-                      paddingRight: "0 important",
-                    },
+        {!disableUnits && (
+          <Tooltip title="Unidade de medida" placement="right">
+            <FormControl
+              variant="outlined"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  padding: "5px",
+                  fontSize: "12px",
+                  border: "none",
+                  "& fieldset": {
+                    borderColor: "transparent",
+                    textAlign: "center",
                   },
+                  "&:hover fieldset": {
+                    borderColor: "#333",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "transparent",
+                  },
+                },
+                "& .MuiOutlinedInput-input": {
+                  padding: 0,
+                  paddingRight: "0 !important",
                 },
               }}
             >
-              {units.map((unit) => (
-                <MenuItem key={unit} value={unit}>
-                  {unit}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Tooltip>
+              <Select
+                value={currentUnit}
+                onChange={handleUnitChange}
+                IconComponent={() => null}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      bgcolor: "#333333",
+                      "& .MuiMenuItem-root": {
+                        color: "#fff",
+                        fontSize: "12px",
+                        padding: "4px 8px",
+                        textAlign: "center",
+                        justifyContent: "center",
+                        paddingRight: "0 important",
+                      },
+                    },
+                  },
+                }}
+              >
+                {units.map((unit) => (
+                  <MenuItem key={unit} value={unit}>
+                    {unit}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Tooltip>
+        )}
       </Box>
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Slider
@@ -979,28 +809,35 @@ export const CustomSelect = ({
 
 export const ColorControl = ({ name, onChange, value, alpha }) => {
   const [openFilterColor, setOpenFilterColor] = useState(false);
-
   const classes = useStyles();
 
-  const handleHexChange = (e) => {
-    let value = e.target.value;
-    if (value.length < 10) {
-      onChange({}, value);
-    }
-  };
-
   return (
-    <>
-      <ClickAwayListener
-        onClickAway={() => {
-          setOpenFilterColor(false);
-        }}
-      >
-        <Box>
-          <Box className={classes.box}>
-            <Typography variant="caption" gutterBottom color="inherit">
-              {name}
-            </Typography>
+    <ClickAwayListener
+      onClickAway={() => {
+        setOpenFilterColor(false);
+      }}
+    >
+      <Box>
+        <Box className={classes.box}>
+          <Typography variant="caption" gutterBottom color="inherit">
+            {name}
+          </Typography>
+          <Box display="flex" alignItems="center"	>
+            <Tooltip title={"Transparente"} placement="top">
+              <IconButton
+                disabled={value === "transparent"}
+                onClick={() => onChange({}, "transparent")}
+                sx={{
+                  '&:disabled': {
+                    '& svg': {
+                      fill: "rgba(255, 255, 255, 0.3)",
+                    }
+                  }
+                }}
+              >
+                <FormatColorReset sx={{ color: "#fff", width: 16, height: 16 }} />
+              </IconButton>
+            </Tooltip>
             <Tooltip title={value} placement="top">
               <div
                 onClick={() => {
@@ -1017,27 +854,27 @@ export const ColorControl = ({ name, onChange, value, alpha }) => {
               />
             </Tooltip>
           </Box>
-          {openFilterColor && (
-            <Grow in={openFilterColor}>
-              <div
-                // onMouseLeave={() => {
-                //   setOpenFilterColor(false);
-                // }}
-                className={classes.pickerWrapper}
-              >
-                <ChromePicker
-                  color={value}
-                  onChange={(color) => {
-                    onChange(color, color.hex);
-                  }}
-                  className={classes.picker}
-                />
-              </div>
-            </Grow>
-          )}
         </Box>
-      </ClickAwayListener>
-    </>
+        {openFilterColor && (
+          <Grow in={openFilterColor}>
+            <div
+              // onMouseLeave={() => {
+              //   setOpenFilterColor(false);
+              // }}
+              className={classes.pickerWrapper}
+            >
+              <ChromePicker
+                color={value}
+                onChange={(color) => {
+                  onChange(color, color.hex);
+                }}
+                className={classes.picker}
+              />
+            </div>
+          </Grow>
+        )}
+      </Box>
+    </ClickAwayListener>
   );
 };
 
@@ -1194,6 +1031,25 @@ export const DeviceViewSelect = () => {
     </FormControl>
   );
 };
+
+export const CustomAccordion = ({ title, children, defaultExpanded }) => {
+  return (
+    <CustomAccordionRoot >
+      <CustomAccordionBase defaultExpanded={defaultExpanded}>
+        <CustomAccordionSummary
+          expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          {title}
+        </CustomAccordionSummary>
+        <CustomAccordionDetails >
+          {children}
+        </CustomAccordionDetails>
+      </CustomAccordionBase>
+    </CustomAccordionRoot>
+  )
+}
 
 const CustomInput = ({
   text,
@@ -1586,3 +1442,46 @@ const useStyles = makeStyles({
     borderRadius: "2px",
   },
 });
+
+// export const CustomAccordion = styled((props) => <Accordion {...props} />)`
+//   background-color: transparent !important;
+//   color: #d5d8dc;
+//   box-shadow: none;
+//   border: none;
+
+//   &:before {
+//     display: none;
+//   }
+
+//   &.Mui-expanded {
+//     margin: 0;
+//   }
+// `;
+
+// export const CustomAccordionSummary = styled(AccordionSummary)`
+//   background-color: transparent;
+//   /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+//   min-height: 48px;
+//   font-size: 14px;
+//   padding: 0;
+
+//   & .MuiAccordionSummary-content {
+//     margin: 0;
+//   }
+
+//   &.Mui-expanded {
+//     // min-height: 48px;
+//   }
+// `;
+
+// export const CustomAccordionDetails = styled(AccordionDetails)`
+//   display: block;
+//   padding: 0;
+//   margin-bottom: 1rem;
+// `;
+
+// export const CustomAccordionRoot = styled("div")`
+//   width: 100%;
+//   background-color: transparent !important;
+//   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+// `;

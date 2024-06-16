@@ -30,60 +30,55 @@ export const Button = ({
   boxShadow,
   lineHeight,
 }) => {
-  const {
-    connectors: { connect, drag },
-    ...data
-  } = useNode();
+  const { connectors: { connect, drag } } = useNode();
 
   return (
-    <>
-      <button
-        type={type}
-        ref={(ref) => connect(drag(ref))}
-        style={{
-          color,
-          backgroundColor: background,
-          borderRadius,
-          cursor,
-          width,
-          marginTop,
-          marginRight,
-          marginLeft,
-          marginBottom,
-          paddingTop,
-          paddingRight,
-          borderStyle,
-          paddingLeft,
-          borderColor,
-          boxShadow,
-          paddingBottom,
+    <button
+      type={type}
+      ref={(ref) => connect(drag(ref))}
+      style={{
+        color,
+        backgroundColor: background,
+        borderRadius,
+        cursor,
+        width,
+        marginTop,
+        marginRight,
+        marginLeft,
+        marginBottom,
+        paddingTop,
+        paddingRight,
+        borderStyle,
+        paddingLeft,
+        borderColor,
+        boxShadow,
+        paddingBottom,
 
-          minWidth: "100px",
-          minHeight: "50px",
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          alignSelf: "center",
-          border: "none",
+        minWidth: "100px",
+        minHeight: "50px",
+        textAlign: "center",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center",
+        border: "none",
+      }}
+    >
+      <span
+        style={{
+          fontFamily,
+          fontWeight,
+          fontSize,
+          textTransform,
+          fontStyle,
+          textDecoration,
+          wordSpacing,
+          letterSpacing,
+          lineHeight,
         }}
       >
-        <span
-          style={{
-            fontFamily,
-            fontWeight,
-            fontSize,
-            textTransform,
-            fontStyle,
-            textDecoration,
-            wordSpacing,
-            letterSpacing,
-            lineHeight,
-          }}
-        >
-          {text}
-        </span>
-      </button>
-    </>
+        {text}
+      </span>
+    </button>
   );
 };

@@ -35,7 +35,7 @@ Container.craft = {
     borderBottomLeftRadius: "0px",
 
     hoverBorderStyle: "none",
-    hoverBorderTopWidth: "0px",
+    hoverBorderTopWidth: "10px",
     hoverBorderRightWidth: "0px",
     hoverBorderBottomWidth: "0px",
     hoverBorderLeftWidth: "0px",
@@ -44,7 +44,9 @@ Container.craft = {
     hoverBorderTopRightRadius: "0px",
     hoverBorderBottomRightRadius: "0px",
     hoverBorderBottomLeftRadius: "0px",
-    transition: "",
+    hoverBackgroundColor: "transparent",
+    backgroundcolorTransitionDuration: "0.3",
+    borderTransitionDuration: "0.3",
 
     marginTop: "0",
     marginRight: "0",

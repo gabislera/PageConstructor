@@ -7,10 +7,12 @@ import { useEditor } from "@craftjs/core";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { Layers } from "./Layers";
 
 export default function SideBar({ selected }) {
   const { actions } = useEditor();
   const [isOpen, setIsOpen] = useState(true);
+  const [isLayersOpen, setIsLayersOpen] = useState(false);
   const classes = useStyles();
 
   const toggleSidebar = () => {
@@ -35,8 +37,9 @@ export default function SideBar({ selected }) {
         />
         <Box className={classes.content}>
           {!selected ? <Toolbox /> : <SettingsPanel />}
+          {isLayersOpen && <Layers />}
         </Box>
-        <Footer />
+        <Footer isLayersOpen={isLayersOpen} setIsLayersOpen={setIsLayersOpen} />
       </div>
       <IconButton
         className={classes.toggleButton}
@@ -90,6 +93,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    position: "relative",
 
     paddingBottom: "36px",
 
