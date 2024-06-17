@@ -26,7 +26,7 @@ Video.craft = {
 
     height: "500px",
     heightMobile: "190px",
-
+    url: "",
     borderTopLeftRadius: "5px",
     borderTopRightRadius: "5px",
     borderBottomRightRadius: "5px",
@@ -39,6 +39,7 @@ Video.craft = {
     backgroundColor: "#000",
     overflow: "hidden",
     border: "none",
+    typeVideo: "video_url",
   },
   related: {
     settings: VideoSettings,

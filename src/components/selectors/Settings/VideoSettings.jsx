@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 import { useNode, useEditor } from "@craftjs/core";
-import { Grid, Box, Tab, Tabs } from "@mui/material";
+import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
 import {
   Settings,
   Contrast,
   SpaceDashboardOutlined,
-  FormatAlignLeft,
-  FormatAlignCenter,
-  FormatAlignRight,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
-import { CustomAccordion } from "../../_Control";
+import { CustomAccordion, CustomSwitch } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
+import Divider from "@mui/material/Divider";
 import {
-  CustomButtonGroup,
   CustomSelect,
-  CustomSlider,
   CustomTextInput,
   FileUpload,
+  ColorControl,
+  CustomSlider,
 } from "../../_Control";
 
 export const VideoSettings = () => {
@@ -89,19 +87,143 @@ export const VideoSettings = () => {
             <Box display="flex" flexDirection="column" gap="16px">
               <CustomSelect
                 text="Fonte"
-                value={props.position}
+                value={props.typeVideo}
                 onChange={(e) =>
-                  setProp((props) => (props.position = e.target.value))
+                  setProp((props) => (props.typeVideo = e.target.value))
                 }
                 options={[
-                  { value: "static", label: "Youtube" },
-                  { value: "relative", label: "Vimeo" },
-                  { value: "absolute", label: "Dailymotion" },
-                  { value: "fixed", label: "VideoPress" },
-                  { value: "fixed", label: "Auto-hospedado" },
+                  { value: "video_url", label: "Youtube" },
+                  { value: "Video_embead", label: "Embead" },
+                  { value: "upload_video", label: "Auto-hospedado" },
                 ]}
-                tooltipText={"Escolha a posição do item"}
               />
+              {props.typeVideo === "video_url" ? (
+                <CustomTextInput
+                  text="Link"
+                  value={props.url}
+                  onChange={(e) =>
+                    setProp((props) => (props.url = e.target.value))
+                  }
+                  placeholder={"Digite seu URL(Youtube)"}
+                />
+              ) : null}
+              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+              <Box display="flex" flexDirection="column" gap="16px">
+                <Typography variant="caption" gutterBottom color="inherit">
+                  Opções de vídeo
+                </Typography>
+                <CustomSwitch
+                  checkedText="Sim"
+                  uncheckedText="Não"
+                  text="Reprodução automática"
+                  value={props.display}
+                  onChange={(e) => setProp((props) => (props.display = e))}
+                />
+                <CustomSwitch
+                  checkedText="Sim"
+                  uncheckedText="Não"
+                  text="Sem som"
+                  value={props.display}
+                  onChange={(e) => setProp((props) => (props.display = e))}
+                />
+                <CustomSwitch
+                  checkedText="Sim"
+                  uncheckedText="Não"
+                  text="Repetir"
+                  value={props.display}
+                  onChange={(e) => setProp((props) => (props.display = e))}
+                />
+                <CustomSwitch
+                  checkedText="Mostrar"
+                  uncheckedText="Ocultar"
+                  text="Controles do reprodutor"
+                  value={props.display}
+                  onChange={(e) => setProp((props) => (props.display = e))}
+                />
+                <CustomSwitch
+                  checkedText="Sim"
+                  uncheckedText="Não"
+                  text="Marca discreta"
+                  value={props.display}
+                  onChange={(e) => setProp((props) => (props.display = e))}
+                />
+                <CustomSwitch
+                  checkedText="Sim"
+                  uncheckedText="Não"
+                  text="Modo de privacidade"
+                  value={props.display}
+                  onChange={(e) => setProp((props) => (props.display = e))}
+                />
+                <Typography className="subtitle">
+                  Quando você ativa o modo de privacidade, o YouTube/Vimeo não
+                  armazena informações sobre os visitantes do seu site, a menos
+                  que eles reproduzam o vídeo.
+                </Typography>
+                <CustomSwitch
+                  checkedText="Sim"
+                  uncheckedText="Não"
+                  text="Carregamento Lento"
+                  value={props.display}
+                  onChange={(e) => setProp((props) => (props.display = e))}
+                />
+              </Box>
+            </Box>
+          </CustomAccordion>
+
+          <CustomAccordion title="Sobreposição de imagem">
+            <Box display="flex" flexDirection="column" gap="16px">
+              <CustomSwitch
+                checkedText="Mostrar"
+                uncheckedText="Ocultar"
+                text="Sobreposição de iamgem"
+                value={props.display}
+                onChange={(e) => setProp((props) => (props.display = e))}
+              />
+              <FileUpload
+                value={props.src}
+                onChange={(src) => setProp((props) => (props.src = src))}
+              />
+              <CustomSelect
+                text="Resolução de imagem"
+                value={props.typeVideo}
+                onChange={(e) =>
+                  setProp((props) => (props.typeVideo = e.target.value))
+                }
+                options={[
+                  { value: "thumbnail", label: "Thumbnail - 150 x 150" },
+                  { value: "medium", label: "Medium - 300 x 300" },
+                  { value: "medium_large", label: "Medium Large - 768 x 0" },
+                  { value: "large", label: "Large - 1024 x 1024" },
+                  { value: "1536x1536", label: "1536x1536 - 1536 x 1536" },
+                  { value: "2048x2048", label: "2048x2048 - 2048 x 2048" },
+                  {
+                    value: "woocommerce_thumbnail",
+                    label: "Woocommerce Thumbnail - 300 x 300",
+                  },
+                  {
+                    value: "woocommerce_single",
+                    label: "Woocommerce Single - 600 x 0",
+                  },
+                  {
+                    value: "full",
+                    label: "Completo",
+                  },
+                  {
+                    value: "custom",
+                    label: "Personalizado",
+                  },
+                ]}
+              />{" "}
+              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+              <Box display="flex" flexDirection="column" gap="16px">
+                <CustomSwitch
+                  checkedText="Mostrar"
+                  uncheckedText="Ocultar"
+                  text="Ícone de reprodução"
+                  value={props.display}
+                  onChange={(e) => setProp((props) => (props.display = e))}
+                />
+              </Box>{" "}
             </Box>
           </CustomAccordion>
         </Grid>
@@ -131,6 +253,33 @@ export const VideoSettings = () => {
                   { value: "219", label: "21:9" },
                   { value: "916", label: "9:16" },
                 ]}
+              />
+            </Box>
+          </CustomAccordion>
+          <CustomAccordion title="Sobreposição de imagem">
+            <Box display="flex" flexDirection="column" gap="16px">
+              <Typography variant="caption" gutterBottom color="inherit">
+                Ícone de Reprodução
+              </Typography>
+              <ColorControl
+                name={"Cor"}
+                onChange={(e) =>
+                  setProp((props) => (props.position = e.target.value))
+                }
+                defaultValue={props?.color}
+                value={props?.color}
+              />
+              <CustomSlider
+                text={"Tamanho"}
+                value={props.fontSize}
+                mobileValue={props.mobileFontSize}
+                onChange={(e, value) =>
+                  setProp((props) => (props.fontSize = value))
+                }
+                mobileOnChange={(e, value) =>
+                  setProp((props) => (props.mobileFontSize = value))
+                }
+                tooltipText={"Escolha o tamanho da fonte"}
               />
             </Box>
           </CustomAccordion>

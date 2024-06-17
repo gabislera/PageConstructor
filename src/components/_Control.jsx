@@ -63,7 +63,7 @@ export const FileUpload = ({ value, onChange }) => {
   return (
     <Grid item>
       <Typography variant="caption" gutterBottom color="inherit">
-        Image
+        Escolher imagem
       </Typography>
 
       <input
@@ -528,7 +528,7 @@ export const CustomTextInput = ({
 }) => {
   const classes = useStyles();
   return (
-    <Tooltip title={tooltipText} placement="right">
+    <Tooltip title={tooltipText ? tooltipText : ""} placement="right">
       <Box
         sx={{
           display: "flex",
