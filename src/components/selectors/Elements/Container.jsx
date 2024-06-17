@@ -6,7 +6,6 @@ export const Container = ({
   children,
   maxWidth,
   display,
-
   width,
   minHeight,
   flexDirection,
@@ -15,7 +14,6 @@ export const Container = ({
   rowGap,
   columnGap,
   flexWrap,
-
   mobileWidth,
   mobileMinHeight,
   mobileFlexDirection,
@@ -42,14 +40,11 @@ export const Container = ({
   mobileRight,
   mobileBottom,
   mobileZIndex,
-
   overflow,
   htmlTag,
   url,
-
   backgroundColor,
   backgroundImage,
-
   borderStyle,
   borderTopWidth,
   borderBottomWidth,
@@ -73,7 +68,6 @@ export const Container = ({
   hoverBackgroundColor,
   backgroundcolorTransitionDuration,
   borderTransitionDuration,
-
   marginTop,
   marginRight,
   marginLeft,
@@ -96,7 +90,7 @@ export const Container = ({
   const {
     connectors: { connect, drag },
   } = useNode();
-  const ContainerTag = htmlTag;
+  const ContainerTag = htmlTag || "div";
   const { deviceView } = useResponsiveMode();
 
   const getResponsiveProps = () => {
@@ -122,12 +116,12 @@ export const Container = ({
         flexOrder: mobileFlexOrder,
         flexShrink: mobileFlexShrink,
         flexGrow: mobileFlexGrow,
-        position: mobilePosition,
-        top: mobileTop,
-        left: mobileLeft,
-        right: mobileRight,
-        bottom: mobileBottom,
-        zIndex: mobileZIndex,
+        // position: mobilePosition,
+        // top: mobileTop,
+        // left: mobileLeft,
+        // right: mobileRight,
+        // bottom: mobileBottom,
+        // zIndex: mobileZIndex,
       };
     }
 
@@ -152,12 +146,12 @@ export const Container = ({
       flexOrder,
       flexShrink,
       flexGrow,
-      position,
-      top,
-      left,
-      right,
-      bottom,
-      zIndex,
+      // position,
+      // top,
+      // left,
+      // right,
+      // bottom,
+      // zIndex,
     };
   };
 
@@ -188,10 +182,7 @@ export const Container = ({
           ...responsiveProps,
           maxWidth,
           display,
-
           overflow,
-          htmlTag,
-
           backgroundColor,
           borderStyle,
           borderTopWidth,
@@ -204,7 +195,7 @@ export const Container = ({
           borderBottomRightRadius,
           borderBottomLeftRadius,
           transition: `background-color ${backgroundcolorTransitionDuration}s ease-in-out, border ${borderTransitionDuration}s ease-in-out`,
-
+          border: children ? "none" : "1px dashed #B2B2B2",
           backgroundImage: `url(${backgroundImage})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

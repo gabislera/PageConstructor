@@ -2,22 +2,31 @@ import { makeStyles } from "@mui/styles";
 import { Box, Button, IconButton, Tooltip } from "@mui/material";
 import { useEditor } from "@craftjs/core";
 import clsx from "clsx";
-import { Redo, Undo, Devices, RemoveRedEye, Layers } from "@mui/icons-material";
+import {
+  Redo,
+  Undo,
+  Devices,
+  RemoveRedEye,
+  Layers,
+  Settings,
+} from "@mui/icons-material";
 import { useEffect } from "react";
 import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
 
 export const Footer = ({ isLayersOpen, setIsLayersOpen }) => {
   const classes = useStyles();
   const { isResponsiveMode, setIsResponsiveMode } = useResponsiveMode();
-  const { enabled, canUndo, canRedo, actions, query } = useEditor((state, query) => ({
-    enabled: state.options.enabled,
-    canUndo: query.history.canUndo(),
-    canRedo: query.history.canRedo(),
-  }));
+  const { enabled, canUndo, canRedo, actions, query } = useEditor(
+    (state, query) => ({
+      enabled: state.options.enabled,
+      canUndo: query.history.canUndo(),
+      canRedo: query.history.canRedo(),
+    })
+  );
 
   const handlePublish = () => {
     const json = query.serialize();
-    console.log(json)
+    console.log(json);
   };
 
   useEffect(() => {
@@ -37,9 +46,21 @@ export const Footer = ({ isLayersOpen, setIsLayersOpen }) => {
     });
   }, [actions.history]);
 
+  const handleSelectAppComponent = () => {
+    actions.selectNode("ROOT");
+  };
+
   return (
     <Box className={classes.root}>
       <Box display="flex" justifyContent="center" width={"100%"}>
+        <Tooltip title="Configurações" placement="bottom">
+          <IconButton
+            onClick={handleSelectAppComponent}
+            className={classes.item}
+          >
+            <Settings />
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Camadas" placement="bottom">
           <IconButton
             onClick={() => setIsLayersOpen(!isLayersOpen)}

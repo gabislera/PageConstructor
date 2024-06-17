@@ -1,8 +1,7 @@
 import { useEditor, Element } from "@craftjs/core";
 import { Box, Grid, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Layers as LayersCraft, } from '@craftjs/layers'
-
+import { Layers as LayersCraft, useLayer } from "@craftjs/layers";
 
 export const Layers = () => {
   const {
@@ -11,10 +10,10 @@ export const Layers = () => {
     enabled: state.options.enabled,
   }));
 
-  const classes = useStyles();
-
   return (
-    <Grid padding={2} width={"100%"}
+    <Grid
+      padding={2}
+      width={"100%"}
       sx={{
         position: "absolute",
         top: 0,
@@ -24,15 +23,7 @@ export const Layers = () => {
         zIndex: 10,
       }}
     >
-      <LayersCraft
-
-      />
+      <LayersCraft />
     </Grid>
   );
 };
-
-const useStyles = makeStyles({
-  root: {
-
-  },
-});

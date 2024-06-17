@@ -15,7 +15,7 @@ import {
   VerticalAlignTop,
 } from "@mui/icons-material";
 
-import { ReactComponent as AlignStretch } from "../../iconsControls/align_stretch.svg"
+import { ReactComponent as AlignStretch } from "../../iconsControls/align_stretch.svg";
 
 export const AdvancedSettings = ({ props, setProp }) => {
   return (
@@ -90,9 +90,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
             text="Ordem"
             value={props.order}
             mobileValue={props.mobileOrder}
-            onChange={(e, value) =>
-              setProp((props) => (props.order = value))
-            }
+            onChange={(e, value) => setProp((props) => (props.order = value))}
             mobileOnChange={(e, value) =>
               setProp((props) => (props.mobileOrder = value))
             }
@@ -172,17 +170,17 @@ export const AdvancedSettings = ({ props, setProp }) => {
               checkedText="Mostrar"
               uncheckedText="Ocultar"
               text="Ocultar em Desktop"
-            // value={props.display}
-            // onChange={(props) =>
-            //   setProp((props) => (props.display = props))
-            // }
+              // value={props.display}
+              // onChange={(props) =>
+              //   setProp((props) => (props.display = props))
+              // }
             />
 
-            <CustomSwitch
+            {/* <CustomSwitch
               text="Ocultar em Tablet"
               checkedText={"Mostrar"}
               uncheckedText={"Ocultar"}
-            />
+            /> */}
 
             <CustomSwitch
               text="Ocultar em Dispositivos móveis"
@@ -190,7 +188,6 @@ export const AdvancedSettings = ({ props, setProp }) => {
               uncheckedText={"Ocultar"}
             />
           </Box>
-
         </Box>
       </CustomAccordion>
 
@@ -238,8 +235,6 @@ export const AdvancedSettings = ({ props, setProp }) => {
           </Grid>
         </Box>
       </CustomAccordion>
-
-
 
       {/* <Grid item xs={12}>
         {selected && selected.isDeletable ? (

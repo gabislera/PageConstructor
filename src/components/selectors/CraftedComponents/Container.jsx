@@ -6,7 +6,6 @@ Container.craft = {
   props: {
     maxWidth: "100%",
     display: "flex",
-
     width: "100%",
     minHeight: "100px",
     flexDirection: "column",
@@ -14,15 +13,11 @@ Container.craft = {
     alignItems: "start",
     rowGap: "0",
     columnGap: "0",
-    flexWrap: "wrap",
-
-    // overflow: "auto",
+    flexWrap: "nowrap",
     htmlTag: "div",
     url: "",
-
     backgroundColor: "transparent",
     backgroundImage: "",
-
     borderStyle: "none",
     borderTopWidth: "0px",
     borderRightWidth: "0px",
@@ -33,7 +28,6 @@ Container.craft = {
     borderTopRightRadius: "0px",
     borderBottomRightRadius: "0px",
     borderBottomLeftRadius: "0px",
-
     hoverBorderStyle: "none",
     hoverBorderTopWidth: "10px",
     hoverBorderRightWidth: "0px",
@@ -47,7 +41,6 @@ Container.craft = {
     hoverBackgroundColor: "transparent",
     backgroundcolorTransitionDuration: "0.3",
     borderTransitionDuration: "0.3",
-
     marginTop: "0",
     marginRight: "0",
     marginLeft: "0",
@@ -66,7 +59,6 @@ Container.craft = {
     right: "0",
     bottom: "0",
     zIndex: "0",
-
     mobileWidth: "100%",
     mobileMinHeight: "100px",
     mobileFlexDirection: "column",
@@ -93,6 +85,9 @@ Container.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
+  },
+  rules: {
+    canDrag: () => true,
   },
   related: {
     settings: ContainerSettings,

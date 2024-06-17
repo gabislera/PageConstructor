@@ -58,8 +58,9 @@ export const RenderNode = ({ render }) => {
 
   useEffect(() => {
     if (dom) {
-      if (isHover) dom.classList.add("component-hover");
-      else dom.classList.remove("component-hover");
+      if (isHover) {
+        dom.classList.add("component-hover");
+      } else dom.classList.remove("component-hover");
       if (isActive) {
         dom.classList.add("component-selected");
         dom.classList.remove("component-hover");

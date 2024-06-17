@@ -23,7 +23,9 @@ export default function App() {
         >
           <Viewport>
             <Frame>
-              <Element is={AppComponent} />
+              <Element is={AppComponent} canvas>
+                <Element is={Container} canvas></Element>
+              </Element>
             </Frame>
           </Viewport>
         </Editor>

@@ -12,6 +12,7 @@
   top: 0;
   pointer-events: none;
   display: block;
+  z-index: 99999;
 }
 
 .component-hover {
@@ -28,6 +29,7 @@ left: 0;
 top: 0;
 pointer-events: none;
 display: block;
+z-index: 99999;
 }
 
 .background-blur {
@@ -35,3 +37,37 @@ background: rgba(98, 92, 243, 0.65);
 backdrop-filter: blur(1px);
 -webkit-backdrop-filter: blur(1px);
 }
+
+.craft-layer-node {
+  color: #d5d8dc !important;
+  background-color: transparent !important;
+  margin-top: 0px !important;
+}
+
+/* .craft-layer-node.craft-layer-node-selected {
+  background-color: violet !important;
+} */
+
+.craft-layer-node > div {
+  background-color: transparent !important;
+  max-height: 30px !important;
+
+}
+
+.craft-layer-node a {
+  margin-top: -5px !important
+}
+
+.layer-name h2 {
+  font-size: 14px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.layer-name a {
+  height: 2px !important;
+}
+
+.inner {
+  max-height: 25px !important;
+} 

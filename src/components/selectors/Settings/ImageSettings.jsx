@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNode, useEditor } from "@craftjs/core";
-import { Grid, Box, Tab, Tabs } from "@mui/material";
+import { Grid, Box, Tab, Tabs, Divider } from "@mui/material";
 import {
   Settings,
   Contrast,
@@ -15,11 +15,14 @@ import { makeStyles } from "@mui/styles";
 
 import { AdvancedSettings } from "./AdvancedSettings";
 import {
+  ColorControl,
   CustomButtonGroup,
+  CustomLinkedValues,
   CustomSelect,
   CustomSlider,
   CustomTextInput,
   FileUpload,
+  TabOptions,
 } from "../../_Control";
 
 export const ImageSettings = () => {
@@ -112,16 +115,17 @@ export const ImageSettings = () => {
             text="Texto alternativo"
             value={props.alt}
             onChange={(e) => setProp((props) => (props.alt = e.target.value))}
+            tooltipText={"Texto alternativo para a imagem"}
             row
           />
-          <CustomTextInput
+          {/* <CustomTextInput
             text="Legenda"
             value={props.caption}
             onChange={(e) =>
               setProp((props) => (props.caption = e.target.value))
             }
             row
-          />
+          /> */}
           <CustomTextInput
             text="Link"
             value={props.url}
@@ -209,6 +213,107 @@ export const ImageSettings = () => {
               { value: "contain", label: "Conter" },
             ]}
             tooltipText={"Escolha a posição do item"}
+          />
+
+          <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
+          <TabOptions>
+            <Grid item mt={2}>
+              <CustomSlider
+                text="Opacidade"
+                value={props.opacity}
+                onChange={(e, value) =>
+                  setProp((props) => (props.opacity = value))
+                }
+                min={0}
+                max={1}
+                step={0.1}
+                disableUnits
+                disableDeviceView
+                tooltipText={"Escolha a opacidade da imagem"}
+              />
+            </Grid>
+
+            <Grid item mt={2}>
+              <CustomSlider
+                text="Opacidade"
+                value={props.hoverOpacity}
+                onChange={(e, value) =>
+                  setProp((props) => (props.hoverOpacity = value))
+                }
+                min={0}
+                max={1}
+                step={0.1}
+                disableUnits
+                disableDeviceView
+                tooltipText={"Escolha a opacidade da imagem"}
+              />
+
+              <CustomSlider
+                text="Duração da transição"
+                value={props.opacityTransitionDuration}
+                onChange={(e, value) =>
+                  setProp((props) => (props.opacityTransitionDuration = value))
+                }
+                min={0}
+                max={3}
+                step={0.1}
+                disableUnits
+                disableDeviceView
+                tooltipText={"Escolha o tempo da transição"}
+              />
+            </Grid>
+          </TabOptions>
+
+          <CustomSelect
+            text="Tipo da borda"
+            value={props.borderStyle}
+            onChange={(e) =>
+              setProp((props) => (props.borderStyle = e.target.value))
+            }
+            options={[
+              { value: "none", label: "Padrão" },
+              { value: "solid", label: "Solido" },
+              { value: "dashed", label: "Tracejado" },
+              { value: "dotted", label: "Pontilhado" },
+            ]}
+          />
+
+          {props.borderStyle !== "none" && (
+            <CustomLinkedValues
+              text="Largura da borda"
+              values={props}
+              onChange={setProp}
+              options={[
+                { value: "borderTopWidth", label: "Superior" },
+                { value: "borderRightWidth", label: "Direita" },
+                { value: "borderBottomWidth", label: "Inferior" },
+                { value: "borderLeftWidth", label: "Esquerda" },
+              ]}
+            />
+          )}
+
+          {props.borderStyle !== "none" && (
+            <ColorControl
+              name={"Cor da borda"}
+              onChange={(e, value) => {
+                setProp((props) => (props.borderColor = value));
+              }}
+              defaultValue={props.borderColor}
+              value={props.borderColor}
+            />
+          )}
+
+          <CustomLinkedValues
+            text="Raio da borda"
+            values={props}
+            onChange={setProp}
+            options={[
+              { value: "borderTopLeftRadius", label: "Superior" },
+              { value: "borderTopRightRadius", label: "Direita" },
+              { value: "borderBottomRightRadius", label: "Inferior" },
+              { value: "borderBottomLeftRadius", label: "Esquerda" },
+            ]}
           />
         </Grid>
       </TabPannel>

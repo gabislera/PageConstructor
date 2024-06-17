@@ -1,11 +1,11 @@
-import React from "react";
-import { useEditor } from "@craftjs/core";
-import { Box, Typography, Grid } from "@mui/material";
+import React, { useEffect } from "react";
+import { useEditor, useNode } from "@craftjs/core";
+import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 export const SettingsPanel = ({ setShowToolbox }) => {
   const classes = useStyles();
-  const { selected } = useEditor((state, query) => {
+  const { selected, actions } = useEditor((state, query) => {
     const [currentNodeId] = state.events.selected;
     let selected;
 
@@ -26,25 +26,26 @@ export const SettingsPanel = ({ setShowToolbox }) => {
     };
   });
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Delete" && selected && selected.isDeletable) {
+        actions.delete(selected.id);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selected, actions]);
+
   return (
     <Grid container direction={"column"} alignItems={"center"}>
-      {selected && selected.settings ? (
+      {selected && selected.settings && (
         <div data-cy="settings-panel">
           {React.createElement(selected.settings)}
         </div>
-      ) : (
-        <></>
       )}
-      {/* {selected && selected.isDeletable ? (
-        <MaterialButton
-          variant='contained'
-          onClick={() => {
-            actions.delete(selected.id);
-          }}
-        >
-          Delete
-        </MaterialButton>
-      ) : null} */}
     </Grid>
   );
 };
@@ -57,6 +58,5 @@ const useStyles = makeStyles({
     gap: 10,
     alignItems: "center",
     textAlign: "center",
-    // padding: "50px 12px",
   },
 });

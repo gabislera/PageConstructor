@@ -13,6 +13,19 @@ export const Image = ({
   caption,
   url,
   textAlign,
+  opacity,
+  hoverOpacity,
+  opacityTransitionDuration,
+  borderStyle,
+  borderTopWidth,
+  borderBottomWidth,
+  borderRightWidth,
+  borderLeftWidth,
+  borderColor,
+  borderTopLeftRadius,
+  borderTopRightRadius,
+  borderBottomRightRadius,
+  borderBottomLeftRadius,
 
   marginTop,
   marginRight,
@@ -57,6 +70,8 @@ export const Image = ({
     connectors: { connect, drag },
   } = useNode();
   const { deviceView } = useResponsiveMode();
+
+  console.log(opacity, hoverOpacity, opacityTransitionDuration);
 
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
@@ -108,26 +123,43 @@ export const Image = ({
 
   const responsiveProps = getResponsiveProps();
 
+  const hoverStyles = `
+  .image-hover:hover {
+    opacity: ${hoverOpacity} !important; 
+    transition: opacity ${opacityTransitionDuration}s ease-in-out !important;
+  }
+`;
+
   const ImageElement = (
-    <figure
-      style={{
-        ...responsiveProps,
-      }}
-    >
+    <>
       <img
         ref={(ref) => connect(drag(ref))}
         src={src}
         alt={alt}
+        className="image-hover"
         style={{
           ...responsiveProps,
-          display,
           maxWidth,
+          display,
           height,
           objectFit,
+          opacity,
+          borderStyle,
+          borderTopWidth,
+          borderBottomWidth,
+          borderRightWidth,
+          borderLeftWidth,
+          borderColor,
+          borderTopLeftRadius,
+          borderTopRightRadius,
+          borderBottomRightRadius,
+          borderBottomLeftRadius,
+
+          transition: `opacity ${opacityTransitionDuration}s ease-in-out`,
         }}
       />
-      <figcaption style={{ textAlign: "center" }}>{caption}</figcaption>
-    </figure>
+      <style>{hoverStyles}</style>
+    </>
   );
 
   return url ? (
@@ -135,7 +167,11 @@ export const Image = ({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ textDecoration: "none", color: "inherit" }}
+      style={{
+        textDecoration: "none",
+        color: "inherit",
+        textAlign,
+      }}
     >
       {ImageElement}
     </a>

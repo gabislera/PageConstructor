@@ -108,9 +108,11 @@ export const TabOptions = ({ title, children, typeStyle }) => {
         marginBottom: 2,
       }}
     >
-      <Typography variant="caption" gutterBottom color="inherit">
-        {title}
-      </Typography>
+      {title && (
+        <Typography variant="caption" gutterBottom color="inherit">
+          {title}
+        </Typography>
+      )}
 
       <Tabs
         value={tabValue}
@@ -362,13 +364,13 @@ export const CustomLinkedValues = ({
               type="number"
               value={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
               placeholder={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
@@ -524,7 +526,7 @@ export const CustomTextInput = ({
   tooltipText,
   multiline,
   row,
-  placeholder
+  placeholder,
 }) => {
   const classes = useStyles();
   return (
@@ -537,7 +539,12 @@ export const CustomTextInput = ({
           justifyContent: row ? "space-between" : "start",
         }}
       >
-        <Typography variant="caption" gutterBottom color="inherit" sx={{ mb: 0 }}>
+        <Typography
+          variant="caption"
+          gutterBottom
+          color="inherit"
+          sx={{ mb: 0 }}
+        >
           {text}
         </Typography>
         <TextField
@@ -576,11 +583,11 @@ export const CustomSlider = ({
   const initialConfigs = {
     desktop: {
       value,
-      unit: disableUnits ? '' : getDefaultUnit(value),
+      unit: disableUnits ? "" : getDefaultUnit(value),
     },
     mobile: {
       value: mobileValue,
-      unit: disableUnits ? '' : getDefaultUnit(mobileValue),
+      unit: disableUnits ? "" : getDefaultUnit(mobileValue),
     },
   };
 
@@ -592,17 +599,18 @@ export const CustomSlider = ({
 
   const [currentUnit, setCurrentUnit] = useState(
     disableUnits
-      ? ''
+      ? ""
       : deviceView === "desktop"
-        ? initialConfigs.desktop.unit
-        : initialConfigs.mobile.unit
+      ? initialConfigs.desktop.unit
+      : initialConfigs.mobile.unit
   );
 
   const units = Object.keys(unitConfigs);
 
   useEffect(() => {
-    const updatedValue = disableUnits || deviceView === "desktop" ? value : mobileValue;
-    const updatedUnit = disableUnits ? '' : getDefaultUnit(updatedValue);
+    const updatedValue =
+      disableUnits || deviceView === "desktop" ? value : mobileValue;
+    const updatedUnit = disableUnits ? "" : getDefaultUnit(updatedValue);
     setInternalValue(updatedValue);
     setCurrentUnit(updatedUnit);
   }, [value, mobileValue, deviceView, disableUnits]);
@@ -626,7 +634,8 @@ export const CustomSlider = ({
   };
 
   const handleInputChange = (event) => {
-    const newValue = event.target.value === "" ? "" : Number(event.target.value);
+    const newValue =
+      event.target.value === "" ? "" : Number(event.target.value);
     handleChange(event, newValue);
   };
 
@@ -822,20 +831,22 @@ export const ColorControl = ({ name, onChange, value, alpha }) => {
           <Typography variant="caption" gutterBottom color="inherit">
             {name}
           </Typography>
-          <Box display="flex" alignItems="center"	>
+          <Box display="flex" alignItems="center">
             <Tooltip title={"Transparente"} placement="top">
               <IconButton
                 disabled={value === "transparent"}
                 onClick={() => onChange({}, "transparent")}
                 sx={{
-                  '&:disabled': {
-                    '& svg': {
+                  "&:disabled": {
+                    "& svg": {
                       fill: "rgba(255, 255, 255, 0.3)",
-                    }
-                  }
+                    },
+                  },
                 }}
               >
-                <FormatColorReset sx={{ color: "#fff", width: 16, height: 16 }} />
+                <FormatColorReset
+                  sx={{ color: "#fff", width: 16, height: 16 }}
+                />
               </IconButton>
             </Tooltip>
             <Tooltip title={value} placement="top">
@@ -1034,7 +1045,7 @@ export const DeviceViewSelect = () => {
 
 export const CustomAccordion = ({ title, children, defaultExpanded }) => {
   return (
-    <CustomAccordionRoot >
+    <CustomAccordionRoot>
       <CustomAccordionBase defaultExpanded={defaultExpanded}>
         <CustomAccordionSummary
           expandIcon={<ExpandMore style={{ color: "#d5d8dc" }} />}
@@ -1043,13 +1054,11 @@ export const CustomAccordion = ({ title, children, defaultExpanded }) => {
         >
           {title}
         </CustomAccordionSummary>
-        <CustomAccordionDetails >
-          {children}
-        </CustomAccordionDetails>
+        <CustomAccordionDetails>{children}</CustomAccordionDetails>
       </CustomAccordionBase>
     </CustomAccordionRoot>
-  )
-}
+  );
+};
 
 const CustomInput = ({
   text,

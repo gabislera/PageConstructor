@@ -41,14 +41,15 @@ export const Viewport = ({ children }) => {
                 deviceView === "mobile"
                   ? "360px"
                   : deviceView === "tablet"
-                    ? "768px"
-                    : "100%",
+                  ? "768px"
+                  : "1220px",
+              // : "100%",
               height:
                 deviceView === "mobile"
                   ? "736px"
                   : deviceView === "tablet"
-                    ? "831px"
-                    : "100%",
+                  ? "831px"
+                  : "100%",
               transition: "width 0.3s ease-in-out, height 0.3s ease-in-out",
             }}
           >
