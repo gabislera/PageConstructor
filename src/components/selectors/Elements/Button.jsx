@@ -84,6 +84,7 @@ export const Button = ({
   pulse,
   delay,
   className,
+  animation,
 }) => {
   const {
     connectors: { connect, drag },
@@ -157,9 +158,15 @@ export const Button = ({
     if (deviceView === "mobile") return displayMobile == "none";
     return display == "none";
   }
+
   function getClass(deviceView) {
-    if (hasDisableDisplay(deviceView)) return "oscillating";
-    if (delay > 0 && !pulse) return "oscillating";
+    const isDisabled = hasDisableDisplay(deviceView);
+    console.log(
+      `getClass: isDisabled=${isDisabled}, pulse=${pulse}, delay=${delay}`
+    );
+
+    if (isDisabled) return "oscillating";
+    if (pulse && delay <= 0) return "pulse-button";
 
     return "";
   }
@@ -170,6 +177,7 @@ export const Button = ({
         type={type}
         ref={(ref) => connect(drag(ref))}
         className={`${className} ${getClass(deviceView)}`}
+        data-delay={delay}
         style={{
           color,
           backgroundColor: background,
@@ -192,7 +200,8 @@ export const Button = ({
           boxShadow,
           paddingBottom,
           boxShadowString,
-
+          animation,
+          pulse,
           ...responsiveProps,
         }}
       >

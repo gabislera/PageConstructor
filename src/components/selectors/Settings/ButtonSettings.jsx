@@ -44,6 +44,7 @@ export const ButtonSettings = () => {
     color: "rgba(0, 0, 0, 0.3)",
     inset: false,
   };
+
   const [boxShadow, setBoxShadow] = useState(initialValueBoxShadow);
 
   useEffect(() => {

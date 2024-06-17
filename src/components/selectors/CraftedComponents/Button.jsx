@@ -83,6 +83,8 @@ Button.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
+    // pulseMobile: "true",
+    // pulse: "false",
   },
   related: {
     settings: ButtonSettings,

@@ -188,10 +188,8 @@ export const Container = ({
           ...responsiveProps,
           maxWidth,
           display,
-
           overflow,
           htmlTag,
-
           backgroundColor,
           borderStyle,
           borderTopWidth,

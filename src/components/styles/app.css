@@ -22,24 +22,19 @@ control-title-size {
   );
   background-color: #00000066 !important;
   box-shadow: 0px 0px 10px 0px rgb(0 0 0) !important;
-  animation: oscillate 2s infinite;
 }
-@keyframes oscillate {
-  0% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 0.9;
-  }
-}
-.pulse-oscillating {
+
+.pulse-button {
   transform: scale(1);
   animation: pulse 2s infinite;
-  animation-name: pulse, oscillate;
-  animation-duration: 2s, 4s;
-  animation-timing-function: ease-in-out, linear;
-  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.04);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
