@@ -5,6 +5,7 @@ import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 export const Button = ({
   text,
   paddingTop,
+  position,
   paddingRight,
   paddingLeft,
   paddingBottom,
@@ -28,7 +29,7 @@ export const Button = ({
   letterSpacing,
   borderStyle,
   borderColor,
-
+  alignSelf,
   borderTopLeftRadius,
   borderTopRightRadius,
   borderBottomRightRadius,
@@ -68,24 +69,27 @@ export const Button = ({
   rowGap,
   columnGap,
   flexWrap,
-  alignSelf,
   flexOrder,
   flexShrink,
   flexGrow,
-  position,
   top,
   left,
   right,
   bottom,
   zIndex,
   boxShadowString,
+  textAlign,
+  display,
+  displayMobile,
+  pulse,
+  delay,
+  className,
 }) => {
   const {
     connectors: { connect, drag },
     ...data
   } = useNode();
   const { deviceView } = useResponsiveMode();
-
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {
@@ -148,11 +152,24 @@ export const Button = ({
     };
   };
   const responsiveProps = getResponsiveProps();
+
+  function hasDisableDisplay(deviceView) {
+    if (deviceView === "mobile") return displayMobile == "none";
+    return display == "none";
+  }
+  function getClass(deviceView) {
+    if (hasDisableDisplay(deviceView)) return "oscillating";
+    if (delay > 0 && !pulse) return "oscillating";
+
+    return "";
+  }
+
   return (
     <>
       <button
         type={type}
         ref={(ref) => connect(drag(ref))}
+        className={`${className} ${getClass(deviceView)}`}
         style={{
           color,
           backgroundColor: background,
@@ -175,15 +192,8 @@ export const Button = ({
           boxShadow,
           paddingBottom,
           boxShadowString,
+
           ...responsiveProps,
-          minWidth: "100px",
-          minHeight: "50px",
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          alignSelf: "center",
-          border: "none",
         }}
       >
         <span
@@ -197,6 +207,7 @@ export const Button = ({
             wordSpacing,
             letterSpacing,
             lineHeight,
+            textAlign,
           }}
         >
           {text}

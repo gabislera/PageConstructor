@@ -2,18 +2,23 @@ import { makeStyles } from "@mui/styles";
 import { Box, Button, IconButton, Tooltip } from "@mui/material";
 import { useEditor } from "@craftjs/core";
 import clsx from "clsx";
-import { Redo, Undo, Devices, RemoveRedEye } from "@mui/icons-material";
+import { Redo, Undo, Devices, RemoveRedEye, Layers } from "@mui/icons-material";
 import { useEffect } from "react";
 import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
 
-export const Footer = () => {
+export const Footer = ({ isLayersOpen, setIsLayersOpen }) => {
   const classes = useStyles();
   const { isResponsiveMode, setIsResponsiveMode } = useResponsiveMode();
-  const { enabled, canUndo, canRedo, actions } = useEditor((state, query) => ({
+  const { enabled, canUndo, canRedo, actions, query } = useEditor((state, query) => ({
     enabled: state.options.enabled,
     canUndo: query.history.canUndo(),
     canRedo: query.history.canRedo(),
   }));
+
+  const handlePublish = () => {
+    const json = query.serialize();
+    console.log(json)
+  };
 
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
@@ -35,9 +40,19 @@ export const Footer = () => {
   return (
     <Box className={classes.root}>
       <Box display="flex" justifyContent="center" width={"100%"}>
+        <Tooltip title="Camadas" placement="bottom">
+          <IconButton
+            onClick={() => setIsLayersOpen(!isLayersOpen)}
+            className={clsx(classes.item, {
+              [classes.itemDisabled]: !canUndo,
+            })}
+          >
+            <Layers />
+          </IconButton>
+        </Tooltip>
         {enabled && (
           <>
-            <Tooltip title="Undo" placement="bottom">
+            <Tooltip title="Desfazer" placement="bottom">
               <IconButton
                 className={clsx(classes.item, {
                   [classes.itemDisabled]: !canUndo,
@@ -48,7 +63,7 @@ export const Footer = () => {
                 <Undo />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Redo" placement="bottom">
+            <Tooltip title="Refazer" placement="bottom">
               <IconButton
                 className={clsx(classes.item, {
                   [classes.itemDisabled]: !canRedo,
@@ -61,7 +76,7 @@ export const Footer = () => {
             </Tooltip>
           </>
         )}
-        <Tooltip title="Responsive mode" placement="bottom">
+        <Tooltip title="Modo responsivo" placement="bottom">
           <IconButton
             className={classes.item}
             onClick={() => setIsResponsiveMode(!isResponsiveMode)}
@@ -83,6 +98,7 @@ export const Footer = () => {
 
       <Tooltip title="Publish" placement="bottom">
         <Button
+          onClick={handlePublish}
           variant="contained"
           sx={{ color: "white", borderRadius: 0, textTransform: "capitalize" }}
         >
@@ -104,6 +120,7 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
 
     position: "absolute",
+    zIndex: 20,
     bottom: 0,
   },
   item: {

@@ -11,3 +11,35 @@ control-title-size {
   color: #9da5ae;
   max-width: 60%;
 }
+
+.oscillating {
+  background: repeating-linear-gradient(
+    125deg,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 2px,
+    transparent 9px
+  );
+  background-color: #00000066 !important;
+  box-shadow: 0px 0px 10px 0px rgb(0 0 0) !important;
+  animation: oscillate 2s infinite;
+}
+@keyframes oscillate {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+.pulse-oscillating {
+  transform: scale(1);
+  animation: pulse 2s infinite;
+  animation-name: pulse, oscillate;
+  animation-duration: 2s, 4s;
+  animation-timing-function: ease-in-out, linear;
+  animation-iteration-count: infinite;
+}

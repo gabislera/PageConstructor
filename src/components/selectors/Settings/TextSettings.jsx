@@ -3,10 +3,8 @@ import {
   Box,
   Tab,
   Tabs,
-  Button as MaterialButton,
-  Divider,
 } from "@mui/material";
-import { useNode, useEditor } from "@craftjs/core";
+import { useNode } from "@craftjs/core";
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import {
@@ -36,25 +34,6 @@ export const TextSettings = () => {
   } = useNode((node) => ({
     props: node.data.props,
   }));
-  const { actions, selected } = useEditor((state, query) => {
-    const [currentNodeId] = state.events.selected;
-    let selected;
-
-    if (currentNodeId) {
-      selected = {
-        id: currentNodeId,
-        name: state.nodes[currentNodeId].data.name,
-        settings:
-          state.nodes[currentNodeId].related &&
-          state.nodes[currentNodeId].related.settings,
-        isDeletable: query.node(currentNodeId).isDeletable(),
-      };
-    }
-
-    return {
-      selected,
-    };
-  });
 
   const classes = useStyles();
 

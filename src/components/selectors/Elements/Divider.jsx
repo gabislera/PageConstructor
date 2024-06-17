@@ -20,6 +20,30 @@ export const Divider = ({
   borderBottomWidth,
   width,
   widthMobile,
+  paddingBlockStart,
+  paddingBlockEnd,
+  position,
+  alignSelf,
+  mobileAlignSelf,
+  zIndex,
+  mobileZIndex,
+  top,
+  left,
+  right,
+  bottom,
+  mobileTop,
+  mobileLeft,
+  mobileRight,
+  mobileBottom,
+  mobilePosition,
+  paddingTop,
+  paddingRight,
+  paddingLeft,
+  paddingBottom,
+  mobilePaddingTop,
+  mobilePaddingRight,
+  mobilePaddingLeft,
+  mobilePaddingBottom,
 }) => {
   const {
     connectors: { connect, drag },
@@ -37,6 +61,17 @@ export const Divider = ({
         borderBottomStyle: borderBottomStyleMobile,
         borderBottomWidth: borderBottomWidthMobile,
         width: widthMobile,
+        alignSelf: mobileAlignSelf,
+        zIndex: mobileZIndex,
+        top: mobileTop,
+        left: mobileLeft,
+        right: mobileRight,
+        bottom: mobileBottom,
+        position: mobilePosition,
+        paddingTop: mobilePaddingTop,
+        paddingRight: mobilePaddingRight,
+        paddingLeft: mobilePaddingLeft,
+        paddingBottom: mobilePaddingBottom,
       };
     }
     return {
@@ -48,18 +83,27 @@ export const Divider = ({
       borderBottomStyle,
       borderBottomWidth,
       width,
+      alignSelf,
+      position,
+      zIndex,
+      top,
+      left,
+      right,
+      bottom,
+      paddingTop,
+      paddingRight,
+      paddingLeft,
+      paddingBottom,
     };
   };
 
   return (
-    <div
+    <span
       ref={(ref) => connect(drag(ref))}
       data-delay={delay}
       style={{
-        borderBottomColor,
-        borderBottomStyle,
-        width,
-        borderBottomWidth,
+        paddingBlockStart,
+        paddingBlockEnd,
         ...getResponsiveProps(deviceView),
       }}
       className={`${delay > 0 ? "oscillating" : ""}`}
