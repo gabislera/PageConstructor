@@ -63,7 +63,7 @@ export const FileUpload = ({ value, onChange }) => {
   return (
     <Grid item>
       <Typography variant="caption" gutterBottom color="inherit">
-        Image
+        Escolher imagem
       </Typography>
 
       <input
@@ -364,13 +364,13 @@ export const CustomLinkedValues = ({
               type="number"
               value={
                 parseFloat(localValues[option.value]) ||
-                localValues[option.value] === 0
+                  localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
               placeholder={
                 parseFloat(localValues[option.value]) ||
-                localValues[option.value] === 0
+                  localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
@@ -530,7 +530,7 @@ export const CustomTextInput = ({
 }) => {
   const classes = useStyles();
   return (
-    <Tooltip title={tooltipText} placement="right">
+    <Tooltip title={tooltipText ? tooltipText : ""} placement="right">
       <Box
         sx={{
           display: "flex",
@@ -578,7 +578,7 @@ export const CustomSlider = ({
   const classes = useStyles();
   const { deviceView } = useResponsiveMode();
 
-  const getDefaultUnit = (val) => val.match(/[a-zA-Z%]+$/)?.[0] || "px";
+  const getDefaultUnit = (val) => val?.match(/[a-zA-Z%]+$/)?.[0] || "px";
 
   const initialConfigs = {
     desktop: {
@@ -601,8 +601,8 @@ export const CustomSlider = ({
     disableUnits
       ? ""
       : deviceView === "desktop"
-      ? initialConfigs.desktop.unit
-      : initialConfigs.mobile.unit
+        ? initialConfigs.desktop.unit
+        : initialConfigs.mobile.unit
   );
 
   const units = Object.keys(unitConfigs);
@@ -816,7 +816,7 @@ export const CustomSelect = ({
   );
 };
 
-export const ColorControl = ({ name, onChange, value, alpha }) => {
+export const ColorControl = ({ name, onChange, value, alpha, tooltipText }) => {
   const [openFilterColor, setOpenFilterColor] = useState(false);
   const classes = useStyles();
 
@@ -849,7 +849,7 @@ export const ColorControl = ({ name, onChange, value, alpha }) => {
                 />
               </IconButton>
             </Tooltip>
-            <Tooltip title={value} placement="top">
+            <Tooltip title={tooltipText ? tooltipText : value} placement="top">
               <div
                 onClick={() => {
                   setOpenFilterColor(true);
@@ -892,6 +892,7 @@ export const ColorControl = ({ name, onChange, value, alpha }) => {
 export const CustomSwitch = ({
   text,
   value,
+  mobileOnChange,
   onChange,
   tooltipText,
   checkedText,
@@ -957,7 +958,8 @@ export const CustomSwitch = ({
               padding: 0,
             },
           }}
-          checked={value}
+          checked={value === "flex"}
+          onChange={(e) => onChange(e.target.checked ? "flex" : "none")}
           inputProps={{ "aria-label": "custom switch" }}
         />
       </Box>
@@ -1140,9 +1142,6 @@ const OptionsList = ({ options, value, onChange }) => (
 
 const IconButtonGroup = ({
   optionsButton,
-  setOpen,
-  open,
-  propype,
   openCollapse,
   setOpenCollapse,
   text,
@@ -1204,17 +1203,15 @@ const IconButtonGroup = ({
 );
 
 const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
-  const handleSliderChange = (prop) => (event, newValue) => {
-    setBoxShadow({ ...boxShadow, [prop]: newValue });
-  };
-
   const handleColorChange = (color) => {
     setBoxShadow({
       ...boxShadow,
       color: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`,
     });
   };
-
+  const handleSliderChange = (prop) => (event, newValue) => {
+    setBoxShadow({ ...boxShadow, [prop]: newValue });
+  };
   const toggleInset = () => {
     setBoxShadow({ ...boxShadow, inset: !boxShadow.inset });
   };
@@ -1230,9 +1227,10 @@ const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
             value={boxShadow?.color}
           />
         </Grid>
-
         <Grid item mt={2}>
           <CustomSlider
+            disableUnits
+            disableDeviceView
             text="Horizontal"
             value={boxShadow?.horizontal}
             onChange={handleSliderChange("horizontal")}
@@ -1245,6 +1243,8 @@ const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
 
         <Grid item mt={2}>
           <CustomSlider
+            disableUnits
+            disableDeviceView
             text="Vertical"
             value={boxShadow?.vertical}
             onChange={handleSliderChange("vertical")}
@@ -1257,6 +1257,8 @@ const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
 
         <Grid item mt={2}>
           <CustomSlider
+            disableUnits
+            disableDeviceView
             text="Desfoque"
             value={boxShadow?.blur}
             onChange={handleSliderChange("blur")}
@@ -1269,6 +1271,8 @@ const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
 
         <Grid item mt={2}>
           <CustomSlider
+            disableUnits
+            disableDeviceView
             text="Distância"
             value={boxShadow?.spread}
             onChange={handleSliderChange("spread")}
@@ -1292,6 +1296,56 @@ const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
         </Grid>
       </Collapse>
     </Box>
+  );
+};
+export const TextFieldControl = ({
+  name,
+  label,
+  icon,
+  value,
+  defaultValue,
+  onChange,
+  helperText,
+  multiline,
+  error,
+}) => {
+  return (
+    <>
+      <Box>
+        <Typography variant="caption" gutterBottom color="inherit">
+          Código HTML do Vídeo:
+        </Typography>
+        <Tooltip title={name} placement="top">
+          <TextField
+            error={error}
+            multiline={multiline}
+            value={value}
+            helperText={helperText}
+            defaultValue={defaultValue}
+            onChange={(e) => {
+              onChange(e, e.target.value);
+            }}
+            size={multiline ? "large" : "small"}
+            variant="outlined"
+            fullWidth
+            placeholder={name}
+            InputProps={{
+              startAdornment: label ? (
+                <Typography
+                  variant="body2"
+                  style={{ opacity: 0.5, fontSize: 12, margin: "0 10px" }}
+                  gutterBottom
+                >
+                  {label}
+                </Typography>
+              ) : (
+                icon
+              ),
+            }}
+          />
+        </Tooltip>
+      </Box>
+    </>
   );
 };
 

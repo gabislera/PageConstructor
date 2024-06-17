@@ -11,3 +11,30 @@ control-title-size {
   color: #9da5ae;
   max-width: 60%;
 }
+
+.oscillating {
+  background: repeating-linear-gradient(
+    125deg,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 2px,
+    transparent 9px
+  );
+  background-color: #00000066 !important;
+  box-shadow: 0px 0px 10px 0px rgb(0 0 0) !important;
+}
+
+.pulse-button {
+  transform: scale(1);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.04);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

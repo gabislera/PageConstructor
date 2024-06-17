@@ -170,22 +170,16 @@ export const AdvancedSettings = ({ props, setProp }) => {
               checkedText="Mostrar"
               uncheckedText="Ocultar"
               text="Ocultar em Desktop"
-              // value={props.display}
-              // onChange={(props) =>
-              //   setProp((props) => (props.display = props))
-              // }
+              value={props.display}
+              onChange={(e) => setProp((props) => (props.display = e))}
             />
-
-            {/* <CustomSwitch
-              text="Ocultar em Tablet"
-              checkedText={"Mostrar"}
-              uncheckedText={"Ocultar"}
-            /> */}
 
             <CustomSwitch
               text="Ocultar em Dispositivos móveis"
               checkedText={"Mostrar"}
               uncheckedText={"Ocultar"}
+              value={props.displayMobile}
+              onChange={(e) => setProp((props) => (props.displayMobile = e))}
             />
           </Box>
         </Box>
@@ -196,34 +190,12 @@ export const AdvancedSettings = ({ props, setProp }) => {
           <CustomSelect
             column
             text={"Animação de entrada"}
-            value={props.htmlTag}
-            onChange={(e) =>
-              setProp((props) => (props.htmlTag = e.target.value))
-            }
+            value={props.pulse}
+            onChange={(e) => setProp((props) => (props.pulse = e.target.value))}
             options={[
-              { value: "NoAnimation", label: "Sem animação" },
-              { value: "pulse", label: "Pulsar" },
+              { value: "false", label: "Sem animação" },
+              { value: "true", label: "Pulsar" },
             ]}
-          />
-
-          <CustomSelect
-            text={"Duração da Animação"}
-            value={props.htmlTag}
-            onChange={(e) =>
-              setProp((props) => (props.htmlTag = e.target.value))
-            }
-            options={[
-              { value: "Rápido", label: "fast" },
-              { value: "Médio", label: "avarege" },
-              { value: "Lento", label: "slow" },
-            ]}
-          />
-          <CustomLinkedValues
-            nolink
-            text="Atraso da animação (ms)"
-            values={props}
-            onChange={setProp}
-            options={[{ value: "paddingTop" }]}
           />
         </Box>
       </CustomAccordion>
@@ -231,7 +203,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
       <CustomAccordion title="Custom css">
         <Box display="flex" flexDirection="column" gap="16px">
           <Grid sx={{ fontSize: "12px", textAlign: "center" }}>
-            Edit your custom css here
+            Edite seu CSS personalizado aqui
           </Grid>
         </Box>
       </CustomAccordion>

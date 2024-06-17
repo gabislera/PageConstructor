@@ -378,7 +378,12 @@ export const ContainerSettings = () => {
                 <CustomSlider
                   text="Duração da transição"
                   value={props.backgroundcolorTransitionDuration}
-                  onChange={(e, value) => setProp((props) => (props.backgroundcolorTransitionDuration = value))}
+                  onChange={(e, value) =>
+                    setProp(
+                      (props) =>
+                        (props.backgroundcolorTransitionDuration = value)
+                    )
+                  }
                   min={0}
                   max={3}
                   step={0.1}
@@ -504,7 +509,10 @@ export const ContainerSettings = () => {
                   options={[
                     { value: "hoverBorderTopLeftRadius", label: "Superior" },
                     { value: "hoverBorderTopRightRadius", label: "Direita" },
-                    { value: "hoverBorderBottomRightRadius", label: "Inferior" },
+                    {
+                      value: "hoverBorderBottomRightRadius",
+                      label: "Inferior",
+                    },
                     { value: "hoverBorderBottomLeftRadius", label: "Esquerda" },
                   ]}
                 />
@@ -513,7 +521,11 @@ export const ContainerSettings = () => {
                   <CustomSlider
                     text="Duração da transição"
                     value={props.borderTransitionDuration}
-                    onChange={(e, value) => setProp((props) => (props.borderTransitionDuration = value))}
+                    onChange={(e, value) =>
+                      setProp(
+                        (props) => (props.borderTransitionDuration = value)
+                      )
+                    }
                     min={0}
                     max={3}
                     step={0.1}
@@ -522,7 +534,6 @@ export const ContainerSettings = () => {
                     tooltipText={"Escolha o tempo da transição"}
                   />
                 )}
-
               </Grid>
             </TabOptions>
           </Grid>

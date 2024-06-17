@@ -4,10 +4,13 @@ import { makeStyles } from "@mui/styles";
 import Container from "../selectors/CraftedComponents/Container";
 import Text from "../selectors/CraftedComponents/Text";
 import Button from "../selectors/CraftedComponents/Button";
+import Divider from "../selectors/CraftedComponents/Divider";
 import Image from "../selectors/CraftedComponents/Image";
+import Video from "../selectors/CraftedComponents/Video";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import InsightsIcon from "@mui/icons-material/Insights";
 import {
   CropLandscapeSharp,
   FormatQuote,
@@ -20,7 +23,6 @@ import {
 } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { CustomAccordion } from "../_Control";
-import { Layers } from "@craftjs/layers";
 
 export const Toolbox = () => {
   const {
@@ -57,7 +59,7 @@ export const Toolbox = () => {
         </Grid>
       </CustomAccordion>
 
-      <CustomAccordion title="Basic" defaultExpanded>
+      <CustomAccordion title="Básico" defaultExpanded>
         <Grid container rowSpacing={1} justifyContent="space-between">
           <GridItem element={Button} tooltipText={"Button"}>
             <SmartButton />
@@ -74,12 +76,12 @@ export const Toolbox = () => {
             <span>Image</span>
           </GridItem>
 
-          <GridItem element={Text} tooltipText={"Video"}>
+          <GridItem element={Video} tooltipText={"Video"}>
             <OndemandVideo />
             <span>Video</span>
           </GridItem>
 
-          <GridItem element={Text} tooltipText={"Divider"}>
+          <GridItem element={Divider} tooltipText={"Divider"}>
             <Remove />
             <span>Divider</span>
           </GridItem>
@@ -87,6 +89,10 @@ export const Toolbox = () => {
           <GridItem element={Text} tooltipText={"Faq"}>
             <Quiz />
             <span>Faq</span>
+          </GridItem>
+          <GridItem element={Text} tooltipText={"Faq"}>
+            <InsightsIcon />
+            <span>Barra de progresso</span>
           </GridItem>
         </Grid>
       </CustomAccordion>

@@ -4,8 +4,10 @@ import { makeStyles } from "@mui/styles";
 import { Editor, Frame, Element } from "@craftjs/core";
 import Container from "./components/selectors/CraftedComponents/Container.jsx";
 import Button from "./components/selectors/CraftedComponents/Button.jsx";
+import Divider from "./components/selectors/CraftedComponents/Divider.jsx";
 import Text from "./components/selectors/CraftedComponents/Text.jsx";
 import Image from "./components/selectors/CraftedComponents/Image.jsx";
+import Video from "./components/selectors/CraftedComponents/Video.jsx";
 import AppComponent from "./components/selectors/CraftedComponents/AppComponent.jsx";
 import { Viewport } from "./components/editor/viewport";
 import { RenderNode } from "./components/editor/viewport/RenderNode";
@@ -19,7 +21,15 @@ export default function App() {
       <ResponsiveModeProvider>
         <Editor
           onRender={RenderNode}
-          resolver={{ Container, Button, Text, AppComponent, Image }}
+          resolver={{
+            Container,
+            Button,
+            Text,
+            AppComponent,
+            Image,
+            Divider,
+            Video,
+          }}
         >
           <Viewport>
             <Frame>
