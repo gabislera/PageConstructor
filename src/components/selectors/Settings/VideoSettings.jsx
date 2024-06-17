@@ -18,6 +18,7 @@ import {
   FileUpload,
   ColorControl,
   CustomSlider,
+  TextFieldControl,
 } from "../../_Control";
 
 export const VideoSettings = () => {
@@ -105,6 +106,15 @@ export const VideoSettings = () => {
                     setProp((props) => (props.url = e.target.value))
                   }
                   placeholder={"Digite seu URL(Youtube)"}
+                />
+              ) : props.typeVideo === "Video_embead" ? (
+                <TextFieldControl
+                  name="Código HTML do Vídeo: "
+                  multiline
+                  value={props.html}
+                  onChange={(e) => {
+                    setProp((props) => (props.html = e.target.value));
+                  }}
                 />
               ) : null}
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />

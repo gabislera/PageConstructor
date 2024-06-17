@@ -1296,6 +1296,56 @@ const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
     </Box>
   );
 };
+export const TextFieldControl = ({
+  name,
+  label,
+  icon,
+  value,
+  defaultValue,
+  onChange,
+  helperText,
+  multiline,
+  error,
+}) => {
+  return (
+    <>
+      <Box>
+        <Typography variant="caption" gutterBottom color="inherit">
+          Código HTML do Vídeo:
+        </Typography>
+        <Tooltip title={name} placement="top">
+          <TextField
+            error={error}
+            multiline={multiline}
+            value={value}
+            helperText={helperText}
+            defaultValue={defaultValue}
+            onChange={(e) => {
+              onChange(e, e.target.value);
+            }}
+            size={multiline ? "large" : "small"}
+            variant="outlined"
+            fullWidth
+            placeholder={name}
+            InputProps={{
+              startAdornment: label ? (
+                <Typography
+                  variant="body2"
+                  style={{ opacity: 0.5, fontSize: 12, margin: "0 10px" }}
+                  gutterBottom
+                >
+                  {label}
+                </Typography>
+              ) : (
+                icon
+              ),
+            }}
+          />
+        </Tooltip>
+      </Box>
+    </>
+  );
+};
 
 export const CustomCollapse = ({
   text,
