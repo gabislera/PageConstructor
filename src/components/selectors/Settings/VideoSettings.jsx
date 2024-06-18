@@ -116,6 +116,12 @@ export const VideoSettings = () => {
                     setProp((props) => (props.html = e.target.value));
                   }}
                 />
+              ) : props.typeVideo === "upload_video" ? (
+                <FileUpload
+                  value={props.src}
+                  title={"Selecionar vídeo"}
+                  onChange={(src) => setProp((props) => (props.src = src))}
+                />
               ) : null}
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
               <Box display="flex" flexDirection="column" gap="16px">
@@ -126,55 +132,36 @@ export const VideoSettings = () => {
                   checkedText="Sim"
                   uncheckedText="Não"
                   text="Reprodução automática"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.autoPlay}
+                  onChange={(e) => setProp((props) => (props.autoPlay = e))}
                 />
                 <CustomSwitch
                   checkedText="Sim"
                   uncheckedText="Não"
                   text="Sem som"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.muted}
+                  onChange={(e) => setProp((props) => (props.muted = e))}
                 />
                 <CustomSwitch
                   checkedText="Sim"
                   uncheckedText="Não"
                   text="Repetir"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.loop}
+                  onChange={(e) => setProp((props) => (props.loop = e))}
                 />
                 <CustomSwitch
                   checkedText="Mostrar"
                   uncheckedText="Ocultar"
                   text="Controles do reprodutor"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.controls}
+                  onChange={(e) => setProp((props) => (props.controls = e))}
                 />
                 <CustomSwitch
                   checkedText="Sim"
                   uncheckedText="Não"
                   text="Marca discreta"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
-                />
-                <CustomSwitch
-                  checkedText="Sim"
-                  uncheckedText="Não"
-                  text="Modo de privacidade"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
-                />
-                <Typography className="subtitle">
-                  Quando você ativa o modo de privacidade, o YouTube/Vimeo não
-                  armazena informações sobre os visitantes do seu site, a menos
-                  que eles reproduzam o vídeo.
-                </Typography>
-                <CustomSwitch
-                  checkedText="Sim"
-                  uncheckedText="Não"
-                  text="Carregamento Lento"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.playsInline}
+                  onChange={(e) => setProp((props) => (props.playsInline = e))}
                 />
               </Box>
             </Box>
@@ -191,6 +178,7 @@ export const VideoSettings = () => {
               />
               <FileUpload
                 value={props.src}
+                title={"Selecionar imagem"}
                 onChange={(src) => setProp((props) => (props.src = src))}
               />
               <CustomSelect

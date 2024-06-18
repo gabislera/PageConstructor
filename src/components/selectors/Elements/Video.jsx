@@ -1,189 +1,215 @@
-import React, { useEffect, useState } from "react";
-import { useEditor, useNode } from "@craftjs/core";
+import React, { useState, useEffect } from "react";
+import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
 export const Video = ({
-  width,
-  widthMobile,
-  height,
-  heightMobile,
-  minWidth,
-  minWidthMobile,
-  minHeight,
-  minHeightMobile,
-  maxWidth,
-  maxWidthMobile,
-  maxHeight,
-  maxHeightMobile,
-  marginTop,
-  marginTopMobile,
-  marginBottom,
-  marginBottomMobile,
-  marginLeft,
-  marginLeftMobile,
-  marginRight,
-  marginRightMobile,
+  src,
+  typeVideo,
+  url,
   html,
-  borderTopLeftRadius,
-  borderTopRightRadius,
-  borderBottomRightRadius,
-  borderBottomLeftRadius,
-  thumbnail,
-  delay,
-  className,
+  autoPlay,
+  muted,
+  loop,
+  controls,
+  playsInline,
+  // Estilos
+  color,
+  fontSize,
+  additional_css,
+  marginTop,
+  marginRight,
+  marginLeft,
+  marginBottom,
+  paddingTop,
+  paddingRight,
+  paddingLeft,
+  paddingBottom,
+  width,
+  hoverColor,
+  hoverBackgroundColor,
+  order,
   position,
-  overflow,
-  border,
-  backgroundColor,
+  top,
+  left,
+  right,
+  bottom,
+  zIndex,
+  // Propriedades Responsivas
+  mobileAutoPlay,
+  mobileMuted,
+  mobileLoop,
+  mobileControls,
+  mobilePlaysInline,
+  mobileMarginTop,
+  mobileMarginRight,
+  mobileMarginLeft,
+  mobileMarginBottom,
+  mobilePaddingTop,
+  mobilePaddingRight,
+  mobilePaddingLeft,
+  mobilePaddingBottom,
+  mobileOrder,
+  mobilePosition,
+  mobileTop,
+  mobileLeft,
+  mobileRight,
+  mobileBottom,
+  mobileZIndex,
+  ...props
 }) => {
   const {
     connectors: { connect, drag },
-    actions: { setProp },
-  } = useNode();
-  const { enabled } = useEditor((state, query) => ({
-    enabled: state.options.enabled,
+    selected,
+  } = useNode((state) => ({
+    selected: state.events.selected,
+    dragged: state.events.dragged,
   }));
-  const { deviceView } = useResponsiveMode();
-  const [play, setPlay] = useState(false);
 
-  const getResponsiveProps = (deviceView) => {
+  const { deviceView } = useResponsiveMode();
+
+  const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {
-        width: widthMobile,
-        height: !html ? 180 : heightMobile,
-        minWidth: minWidthMobile,
-        minHeight: minHeightMobile,
-        maxWidth: maxWidthMobile,
-        maxHeight: maxHeightMobile,
-        marginBottom: marginBottomMobile,
-        marginTop: marginTopMobile,
-        marginLeft: marginLeftMobile,
-        marginRight: marginRightMobile,
+        autoPlay: mobileAutoPlay,
+        muted: mobileMuted,
+        loop: mobileLoop,
+        controls: mobileControls,
+        playsInline: mobilePlaysInline,
+        marginTop: mobileMarginTop,
+        marginRight: mobileMarginRight,
+        marginBottom: mobileMarginBottom,
+        marginLeft: mobileMarginLeft,
+        paddingTop: mobilePaddingTop,
+        paddingRight: mobilePaddingRight,
+        paddingBottom: mobilePaddingBottom,
+        paddingLeft: mobilePaddingLeft,
+        order: mobileOrder,
+        top: mobileTop,
+        left: mobileLeft,
+        right: mobileRight,
+        bottom: mobileBottom,
+        zIndex: mobileZIndex,
       };
     }
+
     return {
-      width,
-      height: !html ? 550 : height,
-      minWidth,
-      minHeight,
-      maxWidth,
-      maxHeight,
-      marginBottom,
+      autoPlay,
+      muted,
+      loop,
+      controls,
+      playsInline,
       marginTop,
-      marginLeft,
       marginRight,
+      marginBottom,
+      marginLeft,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+      order,
+      top,
+      left,
+      right,
+      bottom,
+      zIndex,
     };
   };
 
-  const refactorHtml = (html) => {
-    let refactoredHtml = html;
-
-    if (refactoredHtml && refactoredHtml.includes("width=")) {
-      refactoredHtml = refactoredHtml.replace(
-        /width="[^"]*"/gi,
-        "width='100%'"
-      );
-    } else {
-      refactoredHtml = refactoredHtml.replace(
-        "<iframe ",
-        "<iframe width='100%'"
-      );
-    }
-
-    if (refactoredHtml && refactoredHtml.includes("height=")) {
-      refactoredHtml = refactoredHtml.replace(
-        /height="[^"]*"/gi,
-        `height="100%"`
-      );
-    } else {
-      refactoredHtml = refactoredHtml.replace(
-        "<iframe ",
-        `<iframe height="100%"`
-      );
-    }
-    refactoredHtml = refactoredHtml.replace("position:absolute;", "");
-
-    if (enabled) {
-      // Verificar se o estilo já existe usando uma expressão regular
-      const styleRegex = /style\s*=\s*['"]([^'"]*)['"]/i;
-      const styleMatch = refactoredHtml.match(styleRegex);
-
-      if (styleMatch) {
-        // O estilo já existe, então substitua o valor do estilo
-        const existingStyle = styleMatch[1];
-        const updatedStyle = existingStyle + "; pointer-events: none;";
-        refactoredHtml = refactoredHtml.replace(
-          styleRegex,
-          `style="${updatedStyle}"`
-        );
-      } else {
-        // O estilo não existe, então adicione o estilo
-        refactoredHtml = refactoredHtml.replace(
-          "<iframe",
-          "<iframe style='pointer-events: none'"
-        );
-      }
-    }
-
-    return refactoredHtml;
-  };
+  const responsiveProps = getResponsiveProps();
 
   useEffect(() => {
-    setPlay(false);
-    if (thumbnail) {
-      if (!height || height === "auto") {
-        setProp((props) => (props.height = 300));
-      }
+    if (selected) {
+      return;
     }
-  }, [thumbnail]);
+  }, [selected]);
+
+  const getVideoSource = () => {
+    switch (typeVideo) {
+      case "video_url":
+        return url;
+      case "Video_embead":
+        return html;
+      case "upload_video":
+        return src;
+      default:
+        return null;
+    }
+  };
+
+  const renderEmbeddedVideo = (embedHtml) => {
+    return (
+      <div
+        style={{
+          ...responsiveProps,
+          display: "inherit",
+          width: "fit-content",
+          maxWidth: "100%",
+        }}
+        {...props}
+        ref={(ref) => connect(drag(ref))}
+        dangerouslySetInnerHTML={{ __html: embedHtml }}
+      />
+    );
+  };
+
+  const renderIFrameVideo = (videoUrl) => {
+    const srcUrl = `https://www.youtube.com/embed/${videoUrl}?controls=1&rel=0&playsinline=1`;
+    return (
+      <div
+        style={{
+          ...responsiveProps,
+          display: "inherit",
+          width: "fit-content",
+          maxWidth: "100%",
+        }}
+        {...props}
+        ref={(ref) => connect(drag(ref))}
+      >
+        <iframe
+          src={srcUrl}
+          frameBorder="0"
+          allowFullscreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          title="Video"
+          width="640"
+          height="360"
+        />
+      </div>
+    );
+  };
+
+  if (typeVideo === "Video_embead") {
+    return renderEmbeddedVideo(getVideoSource());
+  }
+
+  if (typeVideo === "video_url" && url.includes("youtube.com")) {
+    const videoId = url.split("v=")[1];
+    return renderIFrameVideo(videoId);
+  }
 
   return (
-    <>
-      {thumbnail && !play ? (
-        <div
-          data-delay={delay}
-          onClick={() => (enabled ? setPlay(true) : null)}
-          ref={(ref) => connect(drag(ref))}
-          style={{
-            ...getResponsiveProps(deviceView),
-            borderTopLeftRadius,
-            borderTopRightRadius,
-            borderBottomRightRadius,
-            borderBottomLeftRadius,
-            position,
-            overflow,
-            backgroundImage: `url(${thumbnail})`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            cursor: "pointer",
-            height: getResponsiveProps(deviceView)?.height,
-          }}
-          className={` ${delay > 0 ? "oscillating" : ""}`}
-        >
-          <div className="play-icon">
-            <img alt="play_button" src="/play.svg" width={"22px"} />
-          </div>
-        </div>
-      ) : (
-        <div
-          data-delay={delay}
-          ref={(ref) => connect(drag(ref))}
-          style={{
-            ...getResponsiveProps(deviceView),
-            backgroundColor: html ? "transparent" : backgroundColor,
-            borderTopLeftRadius,
-            borderTopRightRadius,
-            borderBottomRightRadius,
-            borderBottomLeftRadius,
-
-            position,
-            overflow,
-            border,
-          }}
-          className={`${delay > 0 ? "oscillating" : ""}`}
-          dangerouslySetInnerHTML={{ __html: refactorHtml(html) }}
-        />
-      )}
-    </>
+    <div
+      style={{
+        ...responsiveProps,
+        display: "inherit",
+        width: "fit-content",
+        maxWidth: "100%",
+      }}
+      {...props}
+      ref={(ref) => connect(drag(ref))}
+    >
+      <video
+        src={getVideoSource()}
+        autoPlay={responsiveProps.autoPlay}
+        muted={responsiveProps.muted}
+        loop={responsiveProps.loop}
+        controls={responsiveProps.controls}
+        playsInline={responsiveProps.playsInline}
+        style={{ color, fontSize }}
+      >
+        <track kind="captions" />
+      </video>
+    </div>
   );
 };

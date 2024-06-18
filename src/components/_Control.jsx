@@ -45,7 +45,7 @@ import {
 import { useResponsiveMode } from "../contexts/ResponsiveModeContext";
 import { unitConfigs } from "../utils/unitConfigs";
 
-export const FileUpload = ({ value, onChange }) => {
+export const FileUpload = ({ value, onChange, title }) => {
   const classes = useStyles();
 
   const [imagePreviewUrl, setImagePreviewUrl] = useState(value || null);
@@ -63,7 +63,7 @@ export const FileUpload = ({ value, onChange }) => {
   return (
     <Grid item>
       <Typography variant="caption" gutterBottom color="inherit">
-        Escolher imagem
+        {title ? title : "Escolher imagem"}
       </Typography>
 
       <input
@@ -364,13 +364,13 @@ export const CustomLinkedValues = ({
               type="number"
               value={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
               placeholder={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
@@ -601,8 +601,8 @@ export const CustomSlider = ({
     disableUnits
       ? ""
       : deviceView === "desktop"
-        ? initialConfigs.desktop.unit
-        : initialConfigs.mobile.unit
+      ? initialConfigs.desktop.unit
+      : initialConfigs.mobile.unit
   );
 
   const units = Object.keys(unitConfigs);
