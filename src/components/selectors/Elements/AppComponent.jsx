@@ -1,6 +1,5 @@
 import React from "react";
-import { useNode, Element } from "@craftjs/core";
-import { Container } from "./Container";
+import { useNode } from "@craftjs/core";
 
 export const AppComponent = ({
   maxWidth,

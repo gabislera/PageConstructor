@@ -1,10 +1,9 @@
 import { ImageSettings } from "../Settings/ImageSettings";
 import { Image } from "../Image";
 
-var image_temp =
-  "https://sendpage.blog/wp-content/plugins/elementor/assets/images/placeholder.png";
+// var image_temp =
+//   "https://sendpage.blog/wp-content/plugins/elementor/assets/images/placeholder.png";
 
-// TODO: remove caption from css props
 
 Image.craft = {
   displayName: "Imagem",

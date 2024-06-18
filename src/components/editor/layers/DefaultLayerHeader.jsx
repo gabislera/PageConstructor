@@ -4,8 +4,6 @@ import styled from 'styled-components';
 
 import { EditableLayerName } from './EditableLayerName';
 
-// import { useLayer } from '../useLayer';
-
 import { KeyboardArrowDown, Visibility, Link } from '@mui/icons-material';
 import { useLayer } from '@craftjs/layers';
 
@@ -17,11 +15,9 @@ const StyledDiv = styled.div`
   background: ${(props) => (props.selected ? '#625CF3' : 'transparent')};
   border-radius: 4px;
   color: ${(props) => (props.selected ? '#fff' : 'inherit')};
-  /* color: ${props => (props.hovered ? '#fff' : '#d5d8dc')}; */
 
   svg {
     fill: ${(props) => (props.selected ? '#fff' : '#d5d8dc')};
-    /* margin-top: 2px; */
   }
   .inner {
     flex: 1;
@@ -35,7 +31,6 @@ const StyledDiv = styled.div`
         flex: 1;
         h2 {
           font-size: 12px;
-          /* line-height: 26px; */
         }
       }
     }

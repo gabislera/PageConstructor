@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import { useEditor, useNode } from "@craftjs/core";
+import { useEditor } from "@craftjs/core";
 import { Grid } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 
-export const SettingsPanel = ({ setShowToolbox }) => {
-  const classes = useStyles();
+export const SettingsPanel = () => {
   const { selected, actions } = useEditor((state, query) => {
     const [currentNodeId] = state.events.selected;
     let selected;
@@ -49,14 +47,3 @@ export const SettingsPanel = ({ setShowToolbox }) => {
     </Grid>
   );
 };
-
-const useStyles = makeStyles({
-  root: {},
-  notSelected: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 10,
-    alignItems: "center",
-    textAlign: "center",
-  },
-});

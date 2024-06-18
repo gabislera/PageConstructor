@@ -15,7 +15,7 @@ const LayerNodeDiv = styled.div`
 `;
 
 const LayerChildren = styled.div`
-  margin: 0 0 0 ${props => (props.hasCanvases ? 35 : 5)}px;
+  margin: 0 0 0 ${props => (props.hasCanvases ? 15 : 5)}px;
   /* background: ${props => (props.hasCanvases ? 'rgba(255, 255, 255, 0.02)' : 'transparent')}; */
   background: 'transparent';
 

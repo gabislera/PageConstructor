@@ -1,6 +1,5 @@
 import React from "react";
 import { useNode, Element } from "@craftjs/core";
-import { GridItem } from "./GridItem";
 import { Container } from "./Container";
 
 export const Grid = ({
