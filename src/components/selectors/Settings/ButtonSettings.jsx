@@ -21,7 +21,6 @@ import {
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 import Divider from "@mui/material/Divider";
-
 import { ReactComponent as Replay } from "../../iconsControls/replay.svg";
 
 export const ButtonSettings = () => {

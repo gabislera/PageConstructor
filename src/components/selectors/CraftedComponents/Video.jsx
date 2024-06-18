@@ -36,11 +36,10 @@ Video.craft = {
     border: "none",
     color: "#fff",
     fontSize: "12px",
-
     typeVideo: "Video_embead",
     html: `<iframe width="560" height="315" src="https://www.youtube.com/embed/SW176S0n5Iw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`,
     thumbnail: "",
-    url: "",
+    url: "https://www.youtube.com/watch?v=7qDyJpGbyj4&feature=youtu.be",
     src: "",
     autoPlay: false,
     muted: false,
@@ -52,6 +51,7 @@ Video.craft = {
     mobileLoop: false,
     mobileControls: true,
     mobilePlaysInline: true,
+    imageOverlay: false,
   },
   related: {
     settings: VideoSettings,
