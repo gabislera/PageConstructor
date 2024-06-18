@@ -11,6 +11,8 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import InsightsIcon from "@mui/icons-material/Insights";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import {
   CropLandscapeSharp,
   FormatQuote,
@@ -65,34 +67,37 @@ export const Toolbox = () => {
             <SmartButton />
             <span>Button</span>
           </GridItem>
-
           <GridItem element={Text} tooltipText={"Text"}>
             <FormatQuote />
             <span>Text</span>
           </GridItem>
-
           <GridItem element={Image} tooltipText={"Image"}>
             <ImageOutlined />
             <span>Image</span>
           </GridItem>
-
           <GridItem element={Video} tooltipText={"Video"}>
             <OndemandVideo />
             <span>Video</span>
           </GridItem>
-
           <GridItem element={Divider} tooltipText={"Divider"}>
             <Remove />
             <span>Divider</span>
           </GridItem>
-
           <GridItem element={Text} tooltipText={"Faq"}>
             <Quiz />
-            <span>Faq</span>
+            <span>F.A.Q</span>
           </GridItem>
           <GridItem element={Text} tooltipText={"Faq"}>
             <InsightsIcon />
             <span>Barra de progresso</span>
+          </GridItem>
+          <GridItem element={Text} tooltipText={"Form"}>
+            <ContactsIcon />
+            <span>Formulário</span>
+          </GridItem>
+          <GridItem element={Text} tooltipText={"Form"}>
+            <AccessTimeIcon />
+            <span>Contador regressivo</span>
           </GridItem>
         </Grid>
       </CustomAccordion>
