@@ -8,17 +8,8 @@ import {
   Settings,
   Contrast,
   SpaceDashboardOutlined,
-  EastRounded,
-  SouthRounded,
-  NorthRounded,
-  WestRounded,
-  AlignVerticalTop,
-  AlignVerticalCenter,
-  AlignVerticalBottom,
-  Start,
-  WrapText,
 } from "@mui/icons-material";
-import { Grid, Box, Tab, Tabs, Divider } from "@mui/material";
+import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { AdvancedSettings } from "./AdvancedSettings";
 
 export const AppComponentSettings = () => {
@@ -33,7 +24,7 @@ export const AppComponentSettings = () => {
 
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_event, newValue) => {
     setValue(newValue);
   };
 
@@ -59,7 +50,7 @@ export const AppComponentSettings = () => {
           <Tab
             className={classes.tab}
             icon={<Contrast />}
-            label={<span>Style</span>}
+            label={<span>Estilo</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple
@@ -68,7 +59,7 @@ export const AppComponentSettings = () => {
           <Tab
             className={classes.tab}
             icon={<Settings />}
-            label={<span>Advanced</span>}
+            label={<span>Avançado</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple

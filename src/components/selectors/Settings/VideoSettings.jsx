@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useNode, useEditor } from "@craftjs/core";
+import { useNode } from "@craftjs/core";
 import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
 import {
   Settings,
   Contrast,
-  SpaceDashboardOutlined,
+  Edit,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
@@ -49,8 +49,8 @@ export const VideoSettings = () => {
         >
           <Tab
             className={classes.tab}
-            icon={<SpaceDashboardOutlined />}
-            label={<span>Layout</span>}
+            icon={<Edit />}
+            label={<span>Conteúdo</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple
@@ -59,7 +59,7 @@ export const VideoSettings = () => {
           <Tab
             className={classes.tab}
             icon={<Contrast />}
-            label={<span>Style</span>}
+            label={<span>Estilo</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple
@@ -68,7 +68,7 @@ export const VideoSettings = () => {
           <Tab
             className={classes.tab}
             icon={<Settings />}
-            label={<span>Advanced</span>}
+            label={<span>Avançado</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple
@@ -84,7 +84,7 @@ export const VideoSettings = () => {
           paddingTop={0}
           color={"#fff"}
         >
-          <CustomAccordion title="Vídeo">
+          <CustomAccordion title="Vídeo" defaultExpanded>
             <Box display="flex" flexDirection="column" gap="16px">
               <CustomSelect
                 text="Fonte"

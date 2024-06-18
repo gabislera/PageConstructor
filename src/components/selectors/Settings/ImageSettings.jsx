@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useNode, useEditor } from "@craftjs/core";
+import { useNode } from "@craftjs/core";
 import { Grid, Box, Tab, Tabs, Divider } from "@mui/material";
 import {
   Settings,
   Contrast,
-  SpaceDashboardOutlined,
   FormatAlignLeft,
   FormatAlignCenter,
   FormatAlignRight,
+  Edit,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
@@ -52,8 +52,8 @@ export const ImageSettings = () => {
         >
           <Tab
             className={classes.tab}
-            icon={<SpaceDashboardOutlined />}
-            label={<span>Layout</span>}
+            icon={<Edit />}
+            label={<span>Conteúdo</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple
@@ -62,7 +62,7 @@ export const ImageSettings = () => {
           <Tab
             className={classes.tab}
             icon={<Contrast />}
-            label={<span>Style</span>}
+            label={<span>Estilo</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple
@@ -71,7 +71,7 @@ export const ImageSettings = () => {
           <Tab
             className={classes.tab}
             icon={<Settings />}
-            label={<span>Advanced</span>}
+            label={<span>Avançado</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple

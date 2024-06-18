@@ -95,7 +95,7 @@ export const ContainerSettings = () => {
           <Tab
             className={classes.tab}
             icon={<Contrast />}
-            label={<span>Style</span>}
+            label={<span>Estilo</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple
@@ -104,7 +104,7 @@ export const ContainerSettings = () => {
           <Tab
             className={classes.tab}
             icon={<Settings />}
-            label={<span>Advanced</span>}
+            label={<span>Avançado</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple
