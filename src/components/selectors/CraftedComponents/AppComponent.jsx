@@ -9,7 +9,7 @@ AppComponent.craft = {
     maxWidth: "1220px",
     margin: "0 auto",
     width: 100,
-    backgroundColor: "#fdfdfd",
+    backgroundColor: "#fff",
     flexDirection: "column",
 
     columnGap: "5px",

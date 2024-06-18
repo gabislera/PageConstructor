@@ -38,31 +38,31 @@ backdrop-filter: blur(1px);
 -webkit-backdrop-filter: blur(1px);
 }
 
-.craft-layer-node {
+/* .craft-layer-node {
   color: #d5d8dc !important;
   background-color: transparent !important;
   margin-top: 0px !important;
-}
+} */
 
-.craft-layer-node > div {
+/* .craft-layer-node > div {
   background-color: transparent !important;
-}
+} */
 
-.craft-layer-node a {
+/* .craft-layer-node a {
   margin-top: -5px !important
-}
+} */
 
-.layer-name h2 {
+/* .layer-name h2 {
   font-size: 14px !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-}
+} */
 
-.inner {
+/* .inner {
   max-height: 25px !important;
-} 
+}  */
 
-.inner a {
+/* .inner a {
   height: 28px !important;
   margin-top: 0px !important;
-}
+} */

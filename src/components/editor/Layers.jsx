@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Layers as LayersCraft } from "@craftjs/layers";
 import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
+import { DefaultLayer } from "./layers/DefaultLayer";
 
 export const Layers = () => {
   const { isLayersOpen } = useResponsiveMode();
@@ -19,7 +20,7 @@ export const Layers = () => {
           height: "100%",
         }}
       >
-        <LayersCraft expandRootOnLoad />
+        <LayersCraft expandRootOnLoad renderLayer={DefaultLayer} />
       </div>
     </Box>
   );

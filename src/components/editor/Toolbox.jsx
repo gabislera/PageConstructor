@@ -20,7 +20,7 @@ import {
   ImageOutlined,
   OndemandVideo,
   Remove,
-  Quiz,
+  // Quiz,
 } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { CustomAccordion } from "../_Control";
