@@ -958,8 +958,8 @@ export const CustomSwitch = ({
               padding: 0,
             },
           }}
-          checked={value === "flex"}
-          onChange={(e) => onChange(e.target.checked ? "flex" : "none")}
+          checked={value}
+          onChange={(e) => onChange(e.target.checked)}
           inputProps={{ "aria-label": "custom switch" }}
         />
       </Box>

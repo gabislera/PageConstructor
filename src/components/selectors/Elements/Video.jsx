@@ -12,6 +12,7 @@ export const Video = ({
   loop,
   controls,
   playsInline,
+  modestBranding,
   // Estilos
   color,
   fontSize,
@@ -40,6 +41,7 @@ export const Video = ({
   mobileLoop,
   mobileControls,
   mobilePlaysInline,
+  mobileModestBranding,
   mobileMarginTop,
   mobileMarginRight,
   mobileMarginLeft,
@@ -75,6 +77,7 @@ export const Video = ({
         loop: mobileLoop,
         controls: mobileControls,
         playsInline: mobilePlaysInline,
+        modestBranding: mobileModestBranding,
         marginTop: mobileMarginTop,
         marginRight: mobileMarginRight,
         marginBottom: mobileMarginBottom,
@@ -98,6 +101,7 @@ export const Video = ({
       loop,
       controls,
       playsInline,
+      modestBranding,
       marginTop,
       marginRight,
       marginBottom,
@@ -151,9 +155,46 @@ export const Video = ({
       />
     );
   };
-
+  console.log("muted", muted);
   const renderIFrameVideo = (videoUrl) => {
-    const srcUrl = `https://www.youtube.com/embed/${videoUrl}?controls=1&rel=0&playsinline=1`;
+    const extractVideoId = (url) => {
+      try {
+        const urlObj = new URL(url);
+        const searchParams = new URLSearchParams(urlObj.search);
+
+        // Tenta pegar o ID do vídeo a partir do parâmetro `v`
+        if (searchParams.has("v")) {
+          return searchParams.get("v");
+        }
+
+        // Se não conseguir, tenta pegar do final da URL
+        let pathname = urlObj.pathname;
+        return pathname.substring(pathname.lastIndexOf("/") + 1);
+      } catch (error) {
+        console.error("URL de vídeo inválida:", error);
+      }
+
+      return null;
+    };
+
+    const videoId = extractVideoId(videoUrl);
+
+    if (!videoId) {
+      console.error("ID de vídeo não encontrado na URL fornecida.");
+      return null;
+    }
+
+    const queryParams = [];
+    if (responsiveProps.autoPlay) queryParams.push("autoplay=1");
+    if (responsiveProps.muted) queryParams.push("mute=1");
+    if (responsiveProps.loop) queryParams.push(`loop=1&playlist=${videoId}`);
+    if (!responsiveProps.controls) queryParams.push("controls=0");
+    if (responsiveProps.playsInline) queryParams.push("playsinline=1");
+    if (responsiveProps.modestBranding) queryParams.push("modestbranding=1");
+
+    const srcUrl = `https://www.youtube.com/embed/${videoId}?${queryParams.join(
+      "&"
+    )}`;
     return (
       <div
         style={{
@@ -168,13 +209,13 @@ export const Video = ({
         <iframe
           src={srcUrl}
           frameBorder="0"
-          allowFullscreen
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
           title="Video"
           width="640"
           height="360"
-        />
+          allowFullScreen
+        ></iframe>
       </div>
     );
   };
@@ -184,8 +225,7 @@ export const Video = ({
   }
 
   if (typeVideo === "video_url" && url.includes("youtube.com")) {
-    const videoId = url.split("v=")[1];
-    return renderIFrameVideo(videoId);
+    return renderIFrameVideo(url);
   }
 
   return (
