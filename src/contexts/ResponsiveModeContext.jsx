@@ -5,6 +5,7 @@ const ResponsiveModeContext = createContext();
 export const ResponsiveModeProvider = ({ children }) => {
   const [isResponsiveMode, setIsResponsiveMode] = useState(false);
   const [deviceView, setDeviceView] = useState("desktop");
+  const [isLayersOpen, setIsLayersOpen] = useState(false);
 
   return (
     <ResponsiveModeContext.Provider
@@ -13,6 +14,8 @@ export const ResponsiveModeProvider = ({ children }) => {
         setIsResponsiveMode,
         deviceView,
         setDeviceView,
+        isLayersOpen,
+        setIsLayersOpen,
       }}
     >
       {children}

@@ -13,9 +13,9 @@ import {
 import { useEffect } from "react";
 import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
 
-export const Footer = ({ isLayersOpen, setIsLayersOpen }) => {
+export const Footer = () => {
   const classes = useStyles();
-  const { isResponsiveMode, setIsResponsiveMode } = useResponsiveMode();
+  const { isResponsiveMode, setIsResponsiveMode, setIsLayersOpen, isLayersOpen } = useResponsiveMode();
   const { enabled, canUndo, canRedo, actions, query } = useEditor(
     (state, query) => ({
       enabled: state.options.enabled,

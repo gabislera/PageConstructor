@@ -5,6 +5,7 @@ import { makeStyles } from "@mui/styles";
 import SideBar from "../SideBar";
 import { ResponsiveMode } from "../ResponsiveMode";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
+import { LayersSidebar } from "../LayersSidebar";
 
 export const Viewport = ({ children }) => {
   const classes = useStyles();
@@ -41,21 +42,22 @@ export const Viewport = ({ children }) => {
                 deviceView === "mobile"
                   ? "360px"
                   : deviceView === "tablet"
-                  ? "768px"
-                  : "1220px",
+                    ? "768px"
+                    : "1220px",
               // : "100%",
               height:
                 deviceView === "mobile"
                   ? "736px"
                   : deviceView === "tablet"
-                  ? "831px"
-                  : "100%",
+                    ? "831px"
+                    : "100%",
               transition: "width 0.3s ease-in-out, height 0.3s ease-in-out",
             }}
           >
             {children}
           </Box>
         </Box>
+        <LayersSidebar />
       </Box>
     </Box>
   );

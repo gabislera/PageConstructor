@@ -172,56 +172,54 @@ export const Button = ({
   }
 
   return (
-    <>
-      <button
-        type={type}
-        ref={(ref) => connect(drag(ref))}
-        className={`${className} ${getClass(deviceView)}`}
-        data-delay={delay}
+    <button
+      type={type}
+      ref={(ref) => connect(drag(ref))}
+      className={`${className} ${getClass(deviceView)}`}
+      data-delay={delay}
+      style={{
+        color,
+        backgroundColor: background,
+        borderRadius,
+        cursor,
+        width,
+        marginTop,
+        marginRight,
+        marginLeft,
+        marginBottom,
+        paddingTop,
+        paddingRight,
+        borderStyle,
+        paddingLeft,
+        borderColor,
+        borderTopLeftRadius,
+        borderTopRightRadius,
+        borderBottomRightRadius,
+        borderBottomLeftRadius,
+        boxShadow,
+        paddingBottom,
+        boxShadowString,
+        animation,
+        pulse,
+        ...responsiveProps,
+      }}
+    >
+      <span
         style={{
-          color,
-          backgroundColor: background,
-          borderRadius,
-          cursor,
-          width,
-          marginTop,
-          marginRight,
-          marginLeft,
-          marginBottom,
-          paddingTop,
-          paddingRight,
-          borderStyle,
-          paddingLeft,
-          borderColor,
-          borderTopLeftRadius,
-          borderTopRightRadius,
-          borderBottomRightRadius,
-          borderBottomLeftRadius,
-          boxShadow,
-          paddingBottom,
-          boxShadowString,
-          animation,
-          pulse,
-          ...responsiveProps,
+          fontFamily,
+          fontWeight,
+          fontSize,
+          textTransform,
+          fontStyle,
+          textDecoration,
+          wordSpacing,
+          letterSpacing,
+          lineHeight,
+          textAlign,
         }}
       >
-        <span
-          style={{
-            fontFamily,
-            fontWeight,
-            fontSize,
-            textTransform,
-            fontStyle,
-            textDecoration,
-            wordSpacing,
-            letterSpacing,
-            lineHeight,
-            textAlign,
-          }}
-        >
-          {text}
-        </span>
-      </button>
-    </>
+        {text}
+      </span>
+    </button>
   );
 };
