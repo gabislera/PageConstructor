@@ -12,6 +12,9 @@ AppComponent.craft = {
     backgroundColor: "#fdfdfd",
     flexDirection: "column",
 
+    columnGap: "5px",
+    rowGap: "5px",
+
     paddingTop: "20px",
     paddingRight: "20px",
     paddingLeft: "20px",

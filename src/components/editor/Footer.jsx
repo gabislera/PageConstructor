@@ -15,7 +15,12 @@ import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
 
 export const Footer = () => {
   const classes = useStyles();
-  const { isResponsiveMode, setIsResponsiveMode, setIsLayersOpen, isLayersOpen } = useResponsiveMode();
+  const {
+    isResponsiveMode,
+    setIsResponsiveMode,
+    setIsLayersOpen,
+    isLayersOpen,
+  } = useResponsiveMode();
   const { enabled, canUndo, canRedo, actions, query } = useEditor(
     (state, query) => ({
       enabled: state.options.enabled,
@@ -64,9 +69,7 @@ export const Footer = () => {
         <Tooltip title="Camadas" placement="bottom">
           <IconButton
             onClick={() => setIsLayersOpen(!isLayersOpen)}
-            className={clsx(classes.item, {
-              [classes.itemDisabled]: !canUndo,
-            })}
+            className={classes.item}
           >
             <Layers />
           </IconButton>
@@ -132,7 +135,7 @@ export const Footer = () => {
 
 const useStyles = makeStyles({
   root: {
-    background: "#232325",
+    background: "#171717",
     width: "100%",
     overflowX: "hidden",
     display: "flex",

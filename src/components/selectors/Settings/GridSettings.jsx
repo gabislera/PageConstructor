@@ -1,36 +1,25 @@
 import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
-import { ColorControl, CustomLinkedValues, CustomSlider } from "../../_Control";
-import { TabPannel } from "../TabPannel";
-import { a11yProps } from "../../../utils/a11yProps";
-import { makeStyles } from "@mui/styles";
+import { Grid, Box, Tab, Tabs } from "@mui/material";
 import {
   Settings,
   Contrast,
   SpaceDashboardOutlined,
-  EastRounded,
-  SouthRounded,
-  NorthRounded,
-  WestRounded,
-  AlignVerticalTop,
-  AlignVerticalCenter,
-  AlignVerticalBottom,
-  Start,
-  WrapText,
 } from "@mui/icons-material";
-import { Grid, Box, Tab, Tabs, Divider } from "@mui/material";
+import { TabPannel } from "../TabPannel";
+import { a11yProps } from "../../../utils/a11yProps";
+import { makeStyles } from "@mui/styles";
+import { CustomSlider } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 
-export const AppComponentSettings = () => {
+export const GridSettings = () => {
   const {
     actions: { setProp },
     props,
   } = useNode((node) => ({
     props: node.data.props,
   }));
-
   const classes = useStyles();
-
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -80,9 +69,36 @@ export const AppComponentSettings = () => {
         <Grid
           container
           flexDirection={"column"}
+          padding={2}
           color={"#fff"}
           sx={{ gap: 2 }}
-        ></Grid>
+        >
+          <CustomSlider
+            text="Colunas"
+            value={props.gridColumns}
+            onChange={(e, value) =>
+              setProp((props) => (props.gridColumns = value))
+            }
+            min={1}
+            max={12}
+            step={1}
+            disableUnits
+            tooltipText={"Escolha o número de colunas"}
+          />
+
+          <CustomSlider
+            text="Linhas"
+            value={props.gridRows}
+            onChange={(e, value) =>
+              setProp((props) => (props.gridRows = value))
+            }
+            min={1}
+            max={12}
+            step={1}
+            disableUnits
+            tooltipText={"Escolha o número de Linhas"}
+          />
+        </Grid>
       </TabPannel>
 
       <TabPannel value={value} index={1}>
@@ -92,59 +108,7 @@ export const AppComponentSettings = () => {
           padding={2}
           color={"#fff"}
           sx={{ gap: 2 }}
-        >
-          <Grid
-            container
-            flexDirection={"column"}
-            paddingTop={0}
-            color={"#fff"}
-          >
-            <ColorControl
-              name={"Cor de fundo"}
-              onChange={(e, value) => {
-                setProp((props) => (props.backgroundColor = value));
-              }}
-              defaultValue={props.backgroundColor}
-              value={props.backgroundColor}
-            />
-
-            <CustomSlider
-              text="Largura do container"
-              value={props.maxWidth}
-              onChange={(e, value) =>
-                setProp((props) => (props.maxWidth = value))
-              }
-              min={0}
-              max={2000}
-              step={10}
-              disableUnits
-              disableDeviceView
-              tooltipText={"Escolha o largura máxima do container"}
-            />
-
-            <CustomLinkedValues
-              text="Padding"
-              values={props}
-              onChange={setProp}
-              options={[
-                { value: "paddingTop", label: "Superior" },
-                { value: "paddingRight", label: "Direita" },
-                { value: "paddingBottom", label: "Inferior" },
-                { value: "paddingLeft", label: "Esquerda" },
-              ]}
-            />
-
-            <CustomLinkedValues
-              text="Espaçamentos"
-              values={props}
-              onChange={setProp}
-              options={[
-                { value: "columnGap", label: "Coluna" },
-                { value: "rowGap", label: "Linha" },
-              ]}
-            />
-          </Grid>
-        </Grid>
+        ></Grid>
       </TabPannel>
 
       <TabPannel value={value} index={2}>

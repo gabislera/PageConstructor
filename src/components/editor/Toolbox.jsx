@@ -1,5 +1,5 @@
 import { useEditor, Element } from "@craftjs/core";
-import { Box, Grid, Tooltip } from "@mui/material";
+import { Box, Grid as MaterialGrid, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Container from "../selectors/CraftedComponents/Container";
 import Text from "../selectors/CraftedComponents/Text";
@@ -7,6 +7,7 @@ import Button from "../selectors/CraftedComponents/Button";
 import Divider from "../selectors/CraftedComponents/Divider";
 import Image from "../selectors/CraftedComponents/Image";
 import Video from "../selectors/CraftedComponents/Video";
+import Grid from "../selectors/CraftedComponents/Grid";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -35,32 +36,35 @@ export const Toolbox = () => {
 
   const GridItem = ({ element, tooltipText, children }) => {
     return (
-      <Grid item ref={(ref) => create(ref, <Element canvas is={element} />)}>
+      <MaterialGrid
+        item
+        ref={(ref) => create(ref, <Element canvas is={element} />)}
+      >
         <Tooltip title={tooltipText} placement="right">
           <Box className={classes.item}>{children}</Box>
         </Tooltip>
-      </Grid>
+      </MaterialGrid>
     );
   };
 
   return (
-    <Grid container padding={2}>
+    <MaterialGrid container padding={2}>
       <CustomAccordion title="Layout" defaultExpanded>
-        <Grid container justifyContent={"space-between"}>
+        <MaterialGrid container justifyContent={"space-between"}>
           <GridItem element={Container} tooltipText={"Container"}>
             <CropLandscapeSharp />
             <span>Container</span>
           </GridItem>
 
-          <GridItem element={Container} tooltipText={"Grid"}>
+          <GridItem element={Grid} tooltipText={"Grid"}>
             <CalendarViewMonth />
             <span>Grid</span>
           </GridItem>
-        </Grid>
+        </MaterialGrid>
       </CustomAccordion>
 
       <CustomAccordion title="Básico" defaultExpanded>
-        <Grid container rowSpacing={1} justifyContent="space-between">
+        <MaterialGrid container rowSpacing={1} justifyContent="space-between">
           <GridItem element={Button} tooltipText={"Button"}>
             <SmartButton />
             <span>Button</span>
@@ -85,18 +89,18 @@ export const Toolbox = () => {
             <Remove />
             <span>Divider</span>
           </GridItem>
-
+          {/* 
           <GridItem element={Text} tooltipText={"Faq"}>
             <Quiz />
             <span>Faq</span>
-          </GridItem>
+          </GridItem> */}
           <GridItem element={Text} tooltipText={"Faq"}>
             <InsightsIcon />
             <span>Barra de progresso</span>
           </GridItem>
-        </Grid>
+        </MaterialGrid>
       </CustomAccordion>
-    </Grid>
+    </MaterialGrid>
   );
 };
 

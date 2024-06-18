@@ -97,6 +97,8 @@ export const Divider = ({
     };
   };
 
+  const responsiveProps = getResponsiveProps();
+
   return (
     <span
       ref={(ref) => connect(drag(ref))}
@@ -104,7 +106,7 @@ export const Divider = ({
       style={{
         paddingBlockStart,
         paddingBlockEnd,
-        ...getResponsiveProps(deviceView),
+        ...responsiveProps,
       }}
       className={`${delay > 0 ? "oscillating" : ""}`}
     />

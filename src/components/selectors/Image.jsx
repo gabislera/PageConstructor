@@ -71,8 +71,6 @@ export const Image = ({
   } = useNode();
   const { deviceView } = useResponsiveMode();
 
-  console.log(opacity, hoverOpacity, opacityTransitionDuration);
-
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {

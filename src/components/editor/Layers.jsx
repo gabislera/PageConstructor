@@ -1,29 +1,43 @@
-import { useEditor, Element } from "@craftjs/core";
-import { Box, Grid, Tooltip } from "@mui/material";
+import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Layers as LayersCraft, useLayer } from "@craftjs/layers";
+import { Layers as LayersCraft } from "@craftjs/layers";
+import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
 
 export const Layers = () => {
-  const {
-    connectors: { create },
-  } = useEditor((state, query) => ({
-    enabled: state.options.enabled,
-  }));
+  const { isLayersOpen } = useResponsiveMode();
+
+  const classes = useStyles();
 
   return (
-    <Grid
-      padding={2}
-      width={"100%"}
-      sx={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        height: "100%",
-        backgroundColor: "#27272a",
-        zIndex: 10,
-      }}
-    >
-      <LayersCraft />
-    </Grid>
+    <Box className={classes.root}>
+      <div
+        className={classes.container}
+        style={{
+          overflowX: "hidden",
+          width: isLayersOpen ? "230px" : "0px",
+          transition: "width 0.3s ease-in-out",
+          height: "100%",
+        }}
+      >
+        <LayersCraft expandRootOnLoad />
+      </div>
+    </Box>
   );
 };
+
+const useStyles = makeStyles({
+  root: {
+    height: "100vh",
+    backgroundColor: "#27272a",
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+  },
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    width: "100%",
+    padding: "5px",
+  },
+});

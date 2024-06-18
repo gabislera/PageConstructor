@@ -373,6 +373,7 @@ export const ContainerSettings = () => {
                   }
                   defaultValue={props.hoverBackgroundColor}
                   value={props.hoverBackgroundColor}
+                  hoverOptions
                 />
 
                 <CustomSlider

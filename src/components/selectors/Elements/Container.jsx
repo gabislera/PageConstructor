@@ -1,6 +1,8 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
+import { Box } from "@mui/material";
+import { Add } from "@mui/icons-material";
 
 export const Container = ({
   children,
@@ -90,6 +92,8 @@ export const Container = ({
   const {
     connectors: { connect, drag },
   } = useNode();
+  const childrens = useNode((node) => node.data);
+
   const ContainerTag = htmlTag || "div";
   const { deviceView } = useResponsiveMode();
 
@@ -146,6 +150,7 @@ export const Container = ({
       flexOrder,
       flexShrink,
       flexGrow,
+
       // position,
       // top,
       // left,
@@ -157,10 +162,38 @@ export const Container = ({
 
   const responsiveProps = getResponsiveProps();
 
+  const EmptyContainer = (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        // width: "calc(100% - 8px)",
+        // margin: "4px",
+        width: "100%",
+
+        minHeight: "100px",
+        border: "1px dashed #9da5ae",
+      }}
+    >
+      <Add sx={{ fill: "#9da5ae" }} />
+    </Box>
+  );
+
   const hoverStyles = `
     .container-hover:hover {
-      background-color: ${hoverBackgroundColor} !important;
-      border-style: ${hoverBorderStyle} !important;
+      ${
+        hoverBackgroundColor !== "initial"
+          ? `background-color: ${hoverBackgroundColor} !important;`
+          : ""
+      }
+      ${
+        hoverBorderStyle !== "none"
+          ? `border-style: ${hoverBorderStyle} !important;`
+          : ""
+      }
+
       border-top-width: ${hoverBorderTopWidth} !important;
       border-bottom-width: ${hoverBorderBottomWidth} !important;
       border-right-width: ${hoverBorderRightWidth} !important;
@@ -195,13 +228,13 @@ export const Container = ({
           borderBottomRightRadius,
           borderBottomLeftRadius,
           transition: `background-color ${backgroundcolorTransitionDuration}s ease-in-out, border ${borderTransitionDuration}s ease-in-out`,
-          border: children ? "none" : "1px dashed #B2B2B2",
+          // border: children ? "none" : "1px dashed #B2B2B2",
           backgroundImage: `url(${backgroundImage})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       >
-        {children}
+        {childrens.nodes.length === 0 ? EmptyContainer : children}
       </ContainerTag>
       <style>{hoverStyles}</style>
     </>

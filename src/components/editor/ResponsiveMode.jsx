@@ -45,7 +45,7 @@ export const ResponsiveMode = () => {
 const useStyles = makeStyles({
   root: {
     width: "100%",
-    backgroundColor: "#1f2124",
+    backgroundColor: "#171717",
     transition: "height 0.3s ease-in-out",
     overflow: "hidden",
     display: "flex",

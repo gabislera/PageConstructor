@@ -12,6 +12,9 @@ export const AppComponent = ({
   paddingLeft,
   paddingBottom,
   children,
+  columnGap,
+  rowGap,
+  disp,
 }) => {
   const {
     connectors: { connect, drag },
@@ -33,6 +36,10 @@ export const AppComponent = ({
         paddingRight,
         paddingLeft,
         paddingBottom,
+        columnGap,
+        rowGap,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       {/* <Element id="main_section" is={Container} className="section" canvas /> */}

@@ -1,44 +1,48 @@
-import { ContainerSettings } from "../Settings/ContainerSettings";
-import { Container } from "../Elements/Container";
+import { Grid } from "../Elements/Grid";
+import { GridSettings } from "../Settings/GridSettings";
 
-Container.craft = {
-  displayName: "Container",
+Grid.craft = {
+  displayName: "Grid",
   props: {
     maxWidth: "100%",
-    display: "flex",
+    display: "grid",
+    // gridTemplateRows: "repeat(2, 100px)",
+    // gridTemplateColumns: "repeat(2, auto",
+
+    gridColumns: 3,
+    gridRows: 2,
+
     width: "100%",
     minHeight: "100px",
-    flexDirection: "column",
-    justifyContent: "start",
-    alignItems: "start",
-    rowGap: "0",
-    columnGap: "0",
+    rowGap: "5px",
+    columnGap: "5px",
+
     flexWrap: "nowrap",
     htmlTag: "div",
     url: "",
     backgroundColor: "transparent",
     backgroundImage: "",
     borderStyle: "none",
-    borderTopWidth: "1px",
-    borderRightWidth: "1px",
-    borderBottomWidth: "1px",
-    borderLeftWidth: "1px",
-    borderColor: "initial",
+    borderTopWidth: "0px",
+    borderRightWidth: "0px",
+    borderBottomWidth: "0px",
+    borderLeftWidth: "0px",
+    borderColor: "transparent",
     borderTopLeftRadius: "0px",
     borderTopRightRadius: "0px",
     borderBottomRightRadius: "0px",
     borderBottomLeftRadius: "0px",
     hoverBorderStyle: "none",
-    hoverBorderTopWidth: "0px",
+    hoverBorderTopWidth: "10px",
     hoverBorderRightWidth: "0px",
     hoverBorderBottomWidth: "0px",
     hoverBorderLeftWidth: "0px",
-    hoverBorderColor: "initial",
+    hoverBorderColor: "transparent",
     hoverBorderTopLeftRadius: "0px",
     hoverBorderTopRightRadius: "0px",
     hoverBorderBottomRightRadius: "0px",
     hoverBorderBottomLeftRadius: "0px",
-    hoverBackgroundColor: "initial",
+    hoverBackgroundColor: "transparent",
     backgroundcolorTransitionDuration: "0.3",
     borderTransitionDuration: "0.3",
     marginTop: "0",
@@ -90,8 +94,8 @@ Container.craft = {
     canDrag: () => true,
   },
   related: {
-    settings: ContainerSettings,
+    settings: GridSettings,
   },
 };
 
-export default Container;
+export default Grid;

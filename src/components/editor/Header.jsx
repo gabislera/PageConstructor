@@ -104,7 +104,7 @@ export const Header = ({ isOpen, onClick }) => {
 
 const useStyles = makeStyles({
   root: {
-    background: "#232325",
+    background: "#171717",
     width: "100%",
     height: "45px",
     display: "flex",

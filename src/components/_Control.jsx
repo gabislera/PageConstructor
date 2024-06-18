@@ -31,9 +31,11 @@ import {
   Tv,
   PhoneIphone,
   FormatColorReset,
+  Clear,
 } from "@mui/icons-material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
+
 import { TabPannel } from "./selectors/TabPannel";
 
 import {
@@ -218,6 +220,8 @@ export const CustomLinkedValues = ({
     getValuesForDevice(deviceView, values)
   );
 
+  // console.log(localValues);
+
   useEffect(() => {
     setLocalValues(getValuesForDevice(deviceView, values));
   }, [values, options, deviceView]);
@@ -364,13 +368,13 @@ export const CustomLinkedValues = ({
               type="number"
               value={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
               placeholder={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
@@ -601,8 +605,8 @@ export const CustomSlider = ({
     disableUnits
       ? ""
       : deviceView === "desktop"
-        ? initialConfigs.desktop.unit
-        : initialConfigs.mobile.unit
+      ? initialConfigs.desktop.unit
+      : initialConfigs.mobile.unit
   );
 
   const units = Object.keys(unitConfigs);
@@ -816,7 +820,14 @@ export const CustomSelect = ({
   );
 };
 
-export const ColorControl = ({ name, onChange, value, alpha, tooltipText }) => {
+export const ColorControl = ({
+  name,
+  onChange,
+  value,
+  alpha,
+  tooltipText,
+  hoverOptions,
+}) => {
   const [openFilterColor, setOpenFilterColor] = useState(false);
   const classes = useStyles();
 
@@ -831,12 +842,32 @@ export const ColorControl = ({ name, onChange, value, alpha, tooltipText }) => {
           <Typography variant="caption" gutterBottom color="inherit">
             {name}
           </Typography>
-          <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center" gap="4px">
+            {hoverOptions && (
+              <Tooltip title={"Desabilitar hover"} placement="top">
+                <IconButton
+                  disabled={value === "initial"}
+                  onClick={() => onChange({}, "initial")}
+                  sx={{
+                    padding: 0,
+                    "&:disabled": {
+                      "& svg": {
+                        fill: "rgba(255, 255, 255, 0.3)",
+                      },
+                    },
+                  }}
+                >
+                  <Clear sx={{ color: "#fff", width: 16, height: 16 }} />
+                </IconButton>
+              </Tooltip>
+            )}
             <Tooltip title={"Transparente"} placement="top">
               <IconButton
                 disabled={value === "transparent"}
                 onClick={() => onChange({}, "transparent")}
                 sx={{
+                  padding: 0,
+
                   "&:disabled": {
                     "& svg": {
                       fill: "rgba(255, 255, 255, 0.3)",
@@ -861,6 +892,7 @@ export const ColorControl = ({ name, onChange, value, alpha, tooltipText }) => {
                   width: 16,
                   height: 16,
                   backgroundColor: value,
+                  marginLeft: "2px",
                 }}
               />
             </Tooltip>
