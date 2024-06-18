@@ -149,11 +149,11 @@ const useStyles = makeStyles({
     "& svg": {
       width: "20px",
       height: "20px",
-      fill: "#707070",
+      fill: "#d5d8dc",
     },
   },
   itemDisabled: {
-    opacity: "0.5",
+    opacity: "0.2",
     cursor: "not-allowed",
   },
 });

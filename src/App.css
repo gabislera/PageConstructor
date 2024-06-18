@@ -44,14 +44,9 @@ backdrop-filter: blur(1px);
   margin-top: 0px !important;
 }
 
-/* .craft-layer-node.craft-layer-node-selected {
-  background-color: violet !important;
-} */
-
 .craft-layer-node > div {
   background-color: transparent !important;
-  max-height: 30px !important;
-
+  /* max-height: 30px !important; */
 }
 
 .craft-layer-node a {
@@ -64,10 +59,15 @@ backdrop-filter: blur(1px);
   margin-bottom: 0 !important;
 }
 
-.layer-name a {
+/* .layer-name a {
   height: 2px !important;
-}
+} */
 
 .inner {
   max-height: 25px !important;
 } 
+
+.inner a {
+  height: 28px !important;
+  margin-top: 0px !important;
+}
