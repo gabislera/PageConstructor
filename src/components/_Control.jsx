@@ -47,7 +47,7 @@ import {
 import { useResponsiveMode } from "../contexts/ResponsiveModeContext";
 import { unitConfigs } from "../utils/unitConfigs";
 
-export const FileUpload = ({ value, onChange }) => {
+export const FileUpload = ({ value, onChange, title }) => {
   const classes = useStyles();
 
   const [imagePreviewUrl, setImagePreviewUrl] = useState(value || null);
@@ -65,7 +65,7 @@ export const FileUpload = ({ value, onChange }) => {
   return (
     <Grid item>
       <Typography variant="caption" gutterBottom color="inherit">
-        Escolher imagem
+        {title ? title : "Escolher imagem"}
       </Typography>
 
       <input
@@ -990,8 +990,8 @@ export const CustomSwitch = ({
               padding: 0,
             },
           }}
-          checked={value === "flex"}
-          onChange={(e) => onChange(e.target.checked ? "flex" : "none")}
+          checked={value}
+          onChange={(e) => onChange(e.target.checked)}
           inputProps={{ "aria-label": "custom switch" }}
         />
       </Box>

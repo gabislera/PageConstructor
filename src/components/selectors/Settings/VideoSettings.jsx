@@ -116,6 +116,12 @@ export const VideoSettings = () => {
                     setProp((props) => (props.html = e.target.value));
                   }}
                 />
+              ) : props.typeVideo === "upload_video" ? (
+                <FileUpload
+                  value={props.src}
+                  title={"Selecionar vídeo"}
+                  onChange={(src) => setProp((props) => (props.src = src))}
+                />
               ) : null}
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
               <Box display="flex" flexDirection="column" gap="16px">
@@ -126,55 +132,36 @@ export const VideoSettings = () => {
                   checkedText="Sim"
                   uncheckedText="Não"
                   text="Reprodução automática"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.autoPlay}
+                  onChange={(e) => setProp((props) => (props.autoPlay = e))}
                 />
                 <CustomSwitch
                   checkedText="Sim"
                   uncheckedText="Não"
                   text="Sem som"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.muted}
+                  onChange={(e) => setProp((props) => (props.muted = e))}
                 />
                 <CustomSwitch
                   checkedText="Sim"
                   uncheckedText="Não"
                   text="Repetir"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.loop}
+                  onChange={(e) => setProp((props) => (props.loop = e))}
                 />
                 <CustomSwitch
                   checkedText="Mostrar"
                   uncheckedText="Ocultar"
                   text="Controles do reprodutor"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.controls}
+                  onChange={(e) => setProp((props) => (props.controls = e))}
                 />
                 <CustomSwitch
                   checkedText="Sim"
                   uncheckedText="Não"
                   text="Marca discreta"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
-                />
-                <CustomSwitch
-                  checkedText="Sim"
-                  uncheckedText="Não"
-                  text="Modo de privacidade"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
-                />
-                <Typography className="subtitle">
-                  Quando você ativa o modo de privacidade, o YouTube/Vimeo não
-                  armazena informações sobre os visitantes do seu site, a menos
-                  que eles reproduzam o vídeo.
-                </Typography>
-                <CustomSwitch
-                  checkedText="Sim"
-                  uncheckedText="Não"
-                  text="Carregamento Lento"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
+                  value={props.playsInline}
+                  onChange={(e) => setProp((props) => (props.playsInline = e))}
                 />
               </Box>
             </Box>
@@ -186,54 +173,64 @@ export const VideoSettings = () => {
                 checkedText="Mostrar"
                 uncheckedText="Ocultar"
                 text="Sobreposição de iamgem"
-                value={props.display}
-                onChange={(e) => setProp((props) => (props.display = e))}
+                value={props.imageOverlay}
+                onChange={(e) => setProp((props) => (props.imageOverlay = e))}
               />
-              <FileUpload
-                value={props.src}
-                onChange={(src) => setProp((props) => (props.src = src))}
-              />
-              <CustomSelect
-                text="Resolução de imagem"
-                value={props.typeVideo}
-                onChange={(e) =>
-                  setProp((props) => (props.typeVideo = e.target.value))
-                }
-                options={[
-                  { value: "thumbnail", label: "Thumbnail - 150 x 150" },
-                  { value: "medium", label: "Medium - 300 x 300" },
-                  { value: "medium_large", label: "Medium Large - 768 x 0" },
-                  { value: "large", label: "Large - 1024 x 1024" },
-                  { value: "1536x1536", label: "1536x1536 - 1536 x 1536" },
-                  { value: "2048x2048", label: "2048x2048 - 2048 x 2048" },
-                  {
-                    value: "woocommerce_thumbnail",
-                    label: "Woocommerce Thumbnail - 300 x 300",
-                  },
-                  {
-                    value: "woocommerce_single",
-                    label: "Woocommerce Single - 600 x 0",
-                  },
-                  {
-                    value: "full",
-                    label: "Completo",
-                  },
-                  {
-                    value: "custom",
-                    label: "Personalizado",
-                  },
-                ]}
-              />{" "}
-              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
-              <Box display="flex" flexDirection="column" gap="16px">
-                <CustomSwitch
-                  checkedText="Mostrar"
-                  uncheckedText="Ocultar"
-                  text="Ícone de reprodução"
-                  value={props.display}
-                  onChange={(e) => setProp((props) => (props.display = e))}
-                />
-              </Box>{" "}
+              {props.imageOverlay ? (
+                <>
+                  <FileUpload
+                    value={props.thumbnail}
+                    title={"Selecionar imagem"}
+                    onChange={(src) =>
+                      setProp((props) => (props.thumbnail = src))
+                    }
+                  />
+                  <CustomSelect
+                    text="Resolução de imagem"
+                    value={props.typeVideo}
+                    onChange={(e) =>
+                      setProp((props) => (props.typeVideo = e.target.value))
+                    }
+                    options={[
+                      { value: "thumbnail", label: "Thumbnail - 150 x 150" },
+                      { value: "medium", label: "Medium - 300 x 300" },
+                      {
+                        value: "medium_large",
+                        label: "Medium Large - 768 x 0",
+                      },
+                      { value: "large", label: "Large - 1024 x 1024" },
+                      { value: "1536x1536", label: "1536x1536 - 1536 x 1536" },
+                      { value: "2048x2048", label: "2048x2048 - 2048 x 2048" },
+                      {
+                        value: "woocommerce_thumbnail",
+                        label: "Woocommerce Thumbnail - 300 x 300",
+                      },
+                      {
+                        value: "woocommerce_single",
+                        label: "Woocommerce Single - 600 x 0",
+                      },
+                      {
+                        value: "full",
+                        label: "Completo",
+                      },
+                      {
+                        value: "custom",
+                        label: "Personalizado",
+                      },
+                    ]}
+                  />
+                  <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+                  <Box display="flex" flexDirection="column" gap="16px">
+                    <CustomSwitch
+                      checkedText="Mostrar"
+                      uncheckedText="Ocultar"
+                      text="Ícone de reprodução"
+                      value={props.display}
+                      onChange={(e) => setProp((props) => (props.display = e))}
+                    />
+                  </Box>{" "}
+                </>
+              ) : null}
             </Box>
           </CustomAccordion>
         </Grid>
