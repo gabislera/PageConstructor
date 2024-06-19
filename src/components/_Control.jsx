@@ -596,28 +596,28 @@ export const CustomSlider = ({
   };
 
   const [internalValue, setInternalValue] = useState(
-    deviceView === "desktop" || disableUnits
-      ? initialConfigs.desktop.value
-      : initialConfigs.mobile.value
+    !disableDeviceView && deviceView === "mobile"
+      ? initialConfigs.mobile.value
+      : initialConfigs.desktop.value
   );
 
   const [currentUnit, setCurrentUnit] = useState(
     disableUnits
       ? ""
-      : deviceView === "desktop"
-      ? initialConfigs.desktop.unit
-      : initialConfigs.mobile.unit
+      : !disableDeviceView && deviceView === "mobile"
+      ? initialConfigs.mobile.unit
+      : initialConfigs.desktop.unit
   );
 
   const units = Object.keys(unitConfigs);
 
   useEffect(() => {
     const updatedValue =
-      disableUnits || deviceView === "desktop" ? value : mobileValue;
+      !disableDeviceView && deviceView === "mobile" ? mobileValue : value;
     const updatedUnit = disableUnits ? "" : getDefaultUnit(updatedValue);
     setInternalValue(updatedValue);
     setCurrentUnit(updatedUnit);
-  }, [value, mobileValue, deviceView, disableUnits]);
+  }, [value, mobileValue, deviceView, disableUnits, disableDeviceView]);
 
   const handleChange = (event, newValue) => {
     const formattedValue = disableUnits
@@ -626,7 +626,7 @@ export const CustomSlider = ({
 
     setInternalValue(formattedValue);
 
-    if (disableUnits || deviceView === "desktop") {
+    if (deviceView === "desktop" || disableDeviceView) {
       onChange(event, formattedValue);
     } else {
       mobileOnChange(event, formattedValue);

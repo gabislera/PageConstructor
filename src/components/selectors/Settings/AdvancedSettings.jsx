@@ -57,8 +57,12 @@ export const AdvancedSettings = ({ props, setProp }) => {
           <CustomButtonGroup
             text="Alinhar-se"
             value={props.alignSelf}
+            mobileValue={props.mobileAlignSelf}
             onChange={(e, value) =>
               setProp((props) => (props.alignSelf = value))
+            }
+            mobileOnChange={(e, value) =>
+              setProp((props) => (props.mobileAlignSelf = value))
             }
             options={[
               {

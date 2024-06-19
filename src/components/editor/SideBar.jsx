@@ -100,18 +100,5 @@ const useStyles = makeStyles({
     overflowY: "auto",
 
     // marginRight: "20px",
-
-    "&::-webkit-scrollbar": {
-      width: "5px",
-    },
-    "&::-webkit-scrollbar-track": {
-      boxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.3)",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "darkgrey",
-      outline: "1px solid slategrey",
-
-      borderRadius: "2px",
-    },
   },
 });

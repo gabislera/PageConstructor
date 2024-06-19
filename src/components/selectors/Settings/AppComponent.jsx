@@ -84,57 +84,50 @@ export const AppComponentSettings = () => {
           color={"#fff"}
           sx={{ gap: 2 }}
         >
-          <Grid
-            container
-            flexDirection={"column"}
-            paddingTop={0}
-            color={"#fff"}
-          >
-            <ColorControl
-              name={"Cor de fundo"}
-              onChange={(e, value) => {
-                setProp((props) => (props.backgroundColor = value));
-              }}
-              defaultValue={props.backgroundColor}
-              value={props.backgroundColor}
-            />
+          <ColorControl
+            name={"Cor de fundo"}
+            onChange={(e, value) => {
+              setProp((props) => (props.backgroundColor = value));
+            }}
+            defaultValue={props.backgroundColor}
+            value={props.backgroundColor}
+          />
 
-            <CustomSlider
-              text="Largura do container"
-              value={props.maxWidth}
-              onChange={(e, value) =>
-                setProp((props) => (props.maxWidth = value))
-              }
-              min={0}
-              max={2000}
-              step={10}
-              disableUnits
-              disableDeviceView
-              tooltipText={"Escolha o largura máxima do container"}
-            />
+          <CustomSlider
+            text="Largura do container"
+            value={props.maxWidth}
+            onChange={(e, value) =>
+              setProp((props) => (props.maxWidth = value))
+            }
+            min={0}
+            max={2000}
+            step={10}
+            disableUnits
+            disableDeviceView
+            tooltipText={"Escolha o largura máxima do container"}
+          />
 
-            <CustomLinkedValues
-              text="Padding"
-              values={props}
-              onChange={setProp}
-              options={[
-                { value: "paddingTop", label: "Superior" },
-                { value: "paddingRight", label: "Direita" },
-                { value: "paddingBottom", label: "Inferior" },
-                { value: "paddingLeft", label: "Esquerda" },
-              ]}
-            />
+          <CustomLinkedValues
+            text="Padding"
+            values={props}
+            onChange={setProp}
+            options={[
+              { value: "paddingTop", label: "Superior" },
+              { value: "paddingRight", label: "Direita" },
+              { value: "paddingBottom", label: "Inferior" },
+              { value: "paddingLeft", label: "Esquerda" },
+            ]}
+          />
 
-            <CustomLinkedValues
-              text="Espaçamentos"
-              values={props}
-              onChange={setProp}
-              options={[
-                { value: "columnGap", label: "Coluna" },
-                { value: "rowGap", label: "Linha" },
-              ]}
-            />
-          </Grid>
+          <CustomLinkedValues
+            text="Espaçamentos"
+            values={props}
+            onChange={setProp}
+            options={[
+              { value: "columnGap", label: "Coluna" },
+              { value: "rowGap", label: "Linha" },
+            ]}
+          />
         </Grid>
       </TabPannel>
 
