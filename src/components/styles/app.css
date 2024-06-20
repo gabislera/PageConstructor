@@ -38,3 +38,43 @@ control-title-size {
     transform: scale(1);
   }
 }
+
+.collapsible {
+  display: grid;
+}
+
+.details {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+.details[open] .arrow-collapsible {
+  transform: rotate(180deg);
+}
+
+.details .arrow-collapsible {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  display: grid;
+  transition: all 0.3s;
+  grid-template-rows: 0fr;
+}
+
+details[open] ~ .content {
+  grid-template-rows: 1fr;
+  border-top: 1px solid grey;
+}
+
+.content-inner {
+  overflow: hidden;
+}

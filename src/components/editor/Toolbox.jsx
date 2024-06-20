@@ -8,6 +8,7 @@ import Divider from "../selectors/CraftedComponents/Divider";
 import Image from "../selectors/CraftedComponents/Image";
 import Video from "../selectors/CraftedComponents/Video";
 import Grid from "../selectors/CraftedComponents/Grid";
+import Faq from "../selectors/CraftedComponents/Faq";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -22,7 +23,7 @@ import {
   ImageOutlined,
   OndemandVideo,
   Remove,
-  // Quiz,
+  Quiz,
 } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { CustomAccordion } from "../_Control";
@@ -87,11 +88,10 @@ export const Toolbox = () => {
             <Remove />
             <span>Divider</span>
           </GridItem>
-          {/* 
-          <GridItem element={Text} tooltipText={"Faq"}>
+          <GridItem element={Faq} tooltipText={"Faq"}>
             <Quiz />
             <span>Faq</span>
-          </GridItem> */}
+          </GridItem>
           <GridItem element={Text} tooltipText={"Faq"}>
             <InsightsIcon />
             <span>Barra de progresso</span>
