@@ -13,6 +13,7 @@ import {
   AlignVerticalBottom,
   VerticalAlignBottom,
   VerticalAlignTop,
+  MoreVert,
 } from "@mui/icons-material";
 
 import { ReactComponent as AlignStretch } from "../../iconsControls/align_stretch.svg";
@@ -39,7 +40,6 @@ export const AdvancedSettings = ({ props, setProp }) => {
               { value: "paddingLeft", label: "Esquerda" },
             ]}
           />
-
           <CustomLinkedValues
             text="Margin"
             values={props}
@@ -51,9 +51,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
               { value: "marginLeft", label: "Esquerda" },
             ]}
           />
-
           <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
-
           <CustomButtonGroup
             text="Alinhar-se"
             value={props.alignSelf}
@@ -89,7 +87,6 @@ export const AdvancedSettings = ({ props, setProp }) => {
             tooltipText={"Escolha a direção do item"}
             fullWidth
           />
-
           <CustomButtonGroup
             text="Ordem"
             value={props.order}
@@ -100,19 +97,35 @@ export const AdvancedSettings = ({ props, setProp }) => {
             }
             options={[
               {
-                value: "1",
-                icon: <VerticalAlignTop />,
+                value: "0",
+                icon: <VerticalAlignTop sx={{ transform: "rotate(-90deg)" }} />,
                 tooltip: "Primeiro",
               },
               {
                 value: "999",
-                icon: <VerticalAlignBottom />,
+                icon: (
+                  <VerticalAlignBottom sx={{ transform: "rotate(-90deg)" }} />
+                ),
                 tooltip: "Último",
+              },
+              {
+                value: "more-options",
+                icon: <MoreVert />,
+                tooltip: "Mais opções",
               },
             ]}
             tooltipText={"Escolha a ordem da posição"}
             fullWidth
-          />
+          >
+            <CustomTextInput
+              text="Ordem personalizada"
+              value={props.order}
+              onChange={(e) =>
+                setProp((props) => (props.order = e.target.value))
+              }
+              row
+            />
+          </CustomButtonGroup>
 
           <CustomSelect
             text="Posição"
@@ -128,7 +141,6 @@ export const AdvancedSettings = ({ props, setProp }) => {
             ]}
             tooltipText={"Escolha a posição do item"}
           />
-
           {props.position !== "static" && (
             <Grid item mt={1}>
               <CustomLinkedValues
@@ -144,7 +156,6 @@ export const AdvancedSettings = ({ props, setProp }) => {
               />
             </Grid>
           )}
-
           {props.position !== "static" && (
             <Grid item mt={1}>
               <CustomTextInput

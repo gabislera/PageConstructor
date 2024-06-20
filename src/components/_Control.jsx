@@ -32,6 +32,7 @@ import {
   PhoneIphone,
   FormatColorReset,
   Clear,
+  MoreVert,
 } from "@mui/icons-material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
@@ -439,84 +440,107 @@ export const CustomButtonGroup = ({
   options,
   tooltipText,
   fullWidth,
+  children,
 }) => {
   const { deviceView } = useResponsiveMode();
+  const [showChildren, setShowChildren] = useState(false);
+
   const handleChange = (event, newValue) => {
-    if (deviceView === "mobile") {
-      mobileOnChange(event, newValue);
+    if (newValue === "more-options") {
+      setShowChildren(true);
     } else {
-      onChange(event, newValue);
+      setShowChildren(false);
+      if (deviceView === "mobile") {
+        mobileOnChange(event, newValue);
+      } else {
+        onChange(event, newValue);
+      }
     }
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: fullWidth ? "row" : "column",
-        alignItems: fullWidth ? "center" : "start",
-        justifyContent: fullWidth ? "space-between" : "start",
-      }}
-    >
-      <Box display="flex" alignItems="center">
-        <Tooltip title={tooltipText} placement="top">
-          <Typography variant="caption" gutterBottom color="inherit">
-            {text}
-          </Typography>
-        </Tooltip>
-
-        <DeviceViewSelect />
-      </Box>
-
-      <ToggleButtonGroup
-        value={deviceView === "mobile" ? mobileValue : value}
-        exclusive
-        onChange={handleChange}
+    <>
+      <Box
         sx={{
-          width: fullWidth ? "auto" : "100%",
-          justifyContent: "space-between",
-          "& .Mui-selected": {
-            backgroundColor: "rgba(255, 255, 255, 0.3) !important",
-            borderColor: "rgba(255, 255, 255, 0.3)",
-            cursor: "pointer",
-          },
-          "& .MuiToggleButton-root": {
-            borderColor: "rgba(255, 255, 255, 0.1)",
-            padding: fullWidth ? "5px" : "5px 14px", // TODO: paddingX must not be fixed, it only works in justifyContent props
-            "&.Mui-selected > svg": {
-              fill: "#fff",
-            },
-            "& > svg": {
-              width: "16px",
-              height: "16px",
-              fill: "#d5d8dc",
-            },
-          },
+          display: "flex",
+          flexDirection: fullWidth ? "row" : "column",
+          alignItems: fullWidth ? "center" : "start",
+          justifyContent: fullWidth ? "space-between" : "start",
         }}
       >
-        {options.map((option) => (
-          <Tooltip
-            title={option.tooltip ? option.tooltip : option.value}
-            placement="top"
-            key={option.value}
-          >
-            <ToggleButton
-              value={option.value}
-              aria-label={option.value}
-              selected={
-                deviceView === "mobile"
-                  ? mobileValue === option.value
-                  : value === option.value
-              }
-            >
-              {option.icon}
-            </ToggleButton>
+        <Box display="flex" alignItems="center">
+          <Tooltip title={tooltipText} placement="top">
+            <Typography variant="caption" gutterBottom color="inherit">
+              {text}
+            </Typography>
           </Tooltip>
-        ))}
-      </ToggleButtonGroup>
-    </Box>
+
+          <DeviceViewSelect />
+        </Box>
+
+        <ToggleButtonGroup
+          value={
+            deviceView === "mobile"
+              ? mobileValue === "more-options"
+                ? "more-options"
+                : mobileValue
+              : value === "more-options"
+              ? "more-options"
+              : value
+          }
+          exclusive
+          onChange={handleChange}
+          sx={{
+            width: fullWidth ? "auto" : "100%",
+            justifyContent: "space-between",
+            "& .Mui-selected": {
+              backgroundColor: "rgba(255, 255, 255, 0.3) !important",
+              borderColor: "rgba(255, 255, 255, 0.3)",
+              cursor: "pointer",
+            },
+            "& .MuiToggleButton-root": {
+              borderColor: "rgba(255, 255, 255, 0.1)",
+              padding: fullWidth ? "5px" : "5px 14px", // TODO: paddingX must not be fixed, it only works in justifyContent props
+              "&.Mui-selected > svg": {
+                fill: "#fff",
+              },
+              "& > svg": {
+                width: "16px",
+                height: "16px",
+                fill: "#d5d8dc",
+              },
+            },
+          }}
+        >
+          {options.map((option) => (
+            <Tooltip
+              title={option.tooltip ? option.tooltip : option.value}
+              placement="top"
+              key={option.value}
+            >
+              <ToggleButton
+                value={option.value}
+                aria-label={option.value}
+                selected={
+                  deviceView === "mobile"
+                    ? mobileValue === option.value ||
+                      (showChildren && option.value === "more-options")
+                    : value === option.value ||
+                      (showChildren && option.value === "more-options")
+                }
+              >
+                {option.icon}
+              </ToggleButton>
+            </Tooltip>
+          ))}
+        </ToggleButtonGroup>
+      </Box>
+
+      {showChildren && <Box>{children}</Box>}
+    </>
   );
 };
+
 const BoxShadowDemo = () => {
   const [boxShadow, setBoxShadow] = useState("0px 0px 5px rgba(0, 0, 0, 0.3)");
 

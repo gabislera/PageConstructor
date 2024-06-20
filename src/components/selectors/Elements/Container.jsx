@@ -1,7 +1,7 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
-import { Box, Tooltip } from "@mui/material";
+import { Box } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useState } from "react";
 
