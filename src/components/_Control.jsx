@@ -517,11 +517,6 @@ export const CustomButtonGroup = ({
     </Box>
   );
 };
-const BoxShadowDemo = () => {
-  const [boxShadow, setBoxShadow] = useState("0px 0px 5px rgba(0, 0, 0, 0.3)");
-
-  return <div></div>;
-};
 
 export const CustomTextInput = ({
   text,
@@ -530,7 +525,9 @@ export const CustomTextInput = ({
   tooltipText,
   multiline,
   row,
+  rows,
   placeholder,
+  height,
 }) => {
   const classes = useStyles();
   return (
@@ -554,7 +551,7 @@ export const CustomTextInput = ({
         <TextField
           variant="outlined"
           multiline={multiline ? true : false}
-          rows={multiline ? 4 : 1}
+          rows={multiline ? rows : 1}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
