@@ -2,7 +2,41 @@ import React from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
-export const Template = ({}) => {
+export const Template = ({
+  marginTop,
+  marginRight,
+  marginLeft,
+  marginBottom,
+  paddingTop,
+  paddingRight,
+  paddingLeft,
+  paddingBottom,
+  alignSelf,
+  order,
+  position,
+  top,
+  left,
+  right,
+  bottom,
+  zIndex,
+
+  mobileMarginTop,
+  mobileMarginRight,
+  mobileMarginLeft,
+  mobileMarginBottom,
+  mobilePaddingTop,
+  mobilePaddingRight,
+  mobilePaddingLeft,
+  mobilePaddingBottom,
+  mobileAlignSelf,
+  mobileOrder,
+  mobilePosition,
+  mobileTop,
+  mobileLeft,
+  mobileRight,
+  mobileBottom,
+  mobileZIndex,
+}) => {
   const {
     connectors: { connect, drag },
   } = useNode();
@@ -11,15 +45,44 @@ export const Template = ({}) => {
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {
-        // mobileProps
+        marginTop: mobileMarginTop,
+        marginRight: mobileMarginRight,
+        marginLeft: mobileMarginLeft,
+        marginBottom: mobileMarginBottom,
+        paddingTop: mobilePaddingTop,
+        paddingRight: mobilePaddingRight,
+        paddingLeft: mobilePaddingLeft,
+        paddingBottom: mobilePaddingBottom,
+        alignSelf: mobileAlignSelf,
+        order: mobileOrder,
+        position: mobilePosition,
+        top: mobileTop,
+        left: mobileLeft,
+        right: mobileRight,
+        bottom: mobileBottom,
+        zIndex: mobileZIndex,
       };
     }
 
     return {
-      // props
+      marginTop,
+      marginRight,
+      marginLeft,
+      marginBottom,
+      paddingTop,
+      paddingRight,
+      paddingLeft,
+      paddingBottom,
+      alignSelf,
+      order,
+      position,
+      top,
+      left,
+      right,
+      bottom,
+      zIndex,
     };
   };
-
   const responsiveProps = getResponsiveProps();
 
   return (
