@@ -111,105 +111,114 @@ export const AddItemsComponent = () => {
     <Box
       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      {(props.items || []).map((item, index) => (
-        <Accordion
-          sx={{
-            backgroundColor: "transparent",
-            color: "#d5d8dc",
-            boxShadow: "none",
-            border: "1px solid #3f444b",
-            padding: "0",
-            width: "100%",
-          }}
-          expanded={expanded === `panel${index}`}
-          onChange={handleChange(`panel${index}`)}
-          key={index}
-        >
-          <AccordionSummary
-            id={`panel${index}bh-header`}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          width: "100%",
+        }}
+      >
+        {(props.items || []).map((item, index) => (
+          <Accordion
+            disableGutters
             sx={{
               backgroundColor: "transparent",
-              fontSize: "14px",
-              fontWeight: "700",
+              color: "#d5d8dc",
+              boxShadow: "none",
+              border: "1px solid #3f444b",
               padding: "0",
-              paddingLeft: "10px",
-
-              "& .MuiAccordionSummary-content": {
-                margin: 0,
-              },
-              minHeight: "unset",
-              "&.Mui-expanded": {
+              width: "100%",
+            }}
+            expanded={expanded === `panel${index}`}
+            onChange={handleChange(`panel${index}`)}
+            key={index}
+          >
+            <AccordionSummary
+              id={`panel${index}bh-header`}
+              sx={{
+                backgroundColor: "transparent",
+                fontSize: "14px",
+                fontWeight: "700",
+                padding: "0",
+                paddingLeft: "10px",
+                "& .MuiAccordionSummary-content": {
+                  margin: 0,
+                },
                 minHeight: "unset",
-                borderBottom: "1px solid #3f444b",
-              },
-            }}
-          >
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              width="100%"
+                "&.Mui-expanded": {
+                  minHeight: "unset",
+                  borderBottom: "1px solid #3f444b",
+                },
+              }}
             >
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  fontWeight: "700",
-                }}
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                width="100%"
               >
-                {item.title}
-              </Typography>
-              <Box>
-                <IconButton
+                <Typography
                   sx={{
-                    borderLeft: "1px solid #3f444b",
-                    borderRight: "1px solid #3f444b",
-                    borderRadius: 0,
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    duplicateItem(index); // Chamar a função de duplicar item
+                    fontSize: "14px",
+                    fontWeight: "700",
                   }}
                 >
-                  <ContentCopy
-                    sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
-                  />
-                </IconButton>
-                <IconButton
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    removeItem(index); // Chamar a função de remover item
-                  }}
-                >
-                  <Close
-                    sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
-                  />
-                </IconButton>
+                  {item.title}
+                </Typography>
+                <Box>
+                  <IconButton
+                    sx={{
+                      borderLeft: "1px solid #3f444b",
+                      borderRight: "1px solid #3f444b",
+                      borderRadius: 0,
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      duplicateItem(index);
+                    }}
+                  >
+                    <ContentCopy
+                      sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+                    />
+                  </IconButton>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeItem(index);
+                    }}
+                  >
+                    <Close
+                      sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+                    />
+                  </IconButton>
+                </Box>
               </Box>
-            </Box>
-          </AccordionSummary>
-          <AccordionDetails
-            sx={{
-              display: "block",
-              padding: "10px",
-            }}
-          >
-            <Box display="flex" flexDirection="column" gap="10px">
-              <CustomTextInput
-                text="Title"
-                value={item.title}
-                onChange={(e) => updateItemTitle(index, e.target.value)}
-              />
-              <CustomTextInput
-                text="Content"
-                value={item.content}
-                onChange={(e) => updateItemContent(index, e.target.value)}
-                multiline
-                rows={4}
-              />
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-      ))}
+            </AccordionSummary>
+            <AccordionDetails
+              sx={{
+                display: "block",
+                padding: "10px",
+              }}
+            >
+              <Box display="flex" flexDirection="column" gap="10px">
+                <CustomTextInput
+                  text="Title"
+                  value={item.title}
+                  onChange={(e) => updateItemTitle(index, e.target.value)}
+                />
+                <CustomTextInput
+                  text="Content"
+                  value={item.content}
+                  onChange={(e) => updateItemContent(index, e.target.value)}
+                  multiline
+                  rows={4}
+                />
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Box>
       <Button
         color="primary"
         onClick={addItem}

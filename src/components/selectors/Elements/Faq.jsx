@@ -1,34 +1,6 @@
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
-export const FaqItem = ({ title, content }) => {
-  return (
-    <div className="collapsible">
-      <details className="details">
-        <summary>
-          {title}{" "}
-          <svg
-            class="arrow-collapsible"
-            height="16"
-            stroke-width="4"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-          >
-            <g stroke="#1C1B1F" stroke-width="1" fill="#000">
-              <path d="m4.464 6.05-.707.707L8 11l4.243-4.243-.707-.707L8 9.586z" />
-            </g>
-          </svg>
-        </summary>
-        <div className="content">
-          <div className="content-inner">
-            <span>{content}</span>
-          </div>
-        </div>
-      </details>
-    </div>
-  );
-};
-
 export const Faq = ({
   items = [],
 
@@ -177,26 +149,64 @@ export const Faq = ({
     };
   };
 
-  const getResponsiveContentPadding = () => {
-    if (deviceView === "mobile") {
-      return {
-        paddingTop: mobileContentPaddingTop,
-        paddingRight: mobileContentPaddingRight,
-        paddingLeft: mobileContentPaddingLeft,
-        paddingBottom: mobileContentPaddingBottom,
-      };
-    }
-    return {
-      paddingTop: contentPaddingTop,
-      paddingRight: contentPaddingRight,
-      paddingLeft: contentPaddingLeft,
-      paddingBottom: contentPaddingBottom,
-    };
-  };
-
   const responsiveProps = getResponsiveProps();
   const responsiveTitlePadding = getResponsiveTitlePadding();
-  const responsiveContentPadding = getResponsiveContentPadding();
+
+  const detailsStyles = `
+  .collapsible {
+    display: grid;
+  }
+  
+  .details {
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .details[open] .arrow-collapsible {
+    transform: rotate(180deg);
+  }
+  
+  .details .arrow-collapsible {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .details summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .content {
+    display: grid;
+    transition: all 0.3s;
+    grid-template-rows: 0fr;
+  }
+  
+  details[open] ~ .content {
+    grid-template-rows: 1fr;
+    border-top: ${borderWidth} solid ${borderColor};
+    padding-top: ${
+      deviceView === "mobile" ? mobileContentPaddingTop : contentPaddingTop
+    };
+    padding-right: ${
+      deviceView === "mobile" ? mobileContentPaddingRight : contentPaddingRight
+    };
+    padding-left: ${
+      deviceView === "mobile" ? mobileContentPaddingLeft : contentPaddingLeft
+    };
+    padding-bottom: ${
+      deviceView === "mobile"
+        ? mobileContentPaddingBottom
+        : contentPaddingBottom
+    };
+  }
+
+  .content-inner {
+    overflow: hidden;
+  } 
+  `;
 
   return (
     <div
@@ -245,7 +255,7 @@ export const Faq = ({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
               >
-                <g stroke="#1C1B1F" stroke-width="1" fill="#000">
+                <g stroke={titleColor} stroke-width="1" fill={titleColor}>
                   <path d="m4.464 6.05-.707.707L8 11l4.243-4.243-.707-.707L8 9.586z" />
                 </g>
               </svg>
@@ -255,7 +265,6 @@ export const Faq = ({
             className="content"
             style={{
               backgroundColor: contentBackgroundColor,
-              ...responsiveContentPadding,
             }}
           >
             <div className="content-inner">
@@ -284,6 +293,7 @@ export const Faq = ({
           </div>
         </div>
       ))}
+      <style>{detailsStyles}</style>
     </div>
   );
 };
