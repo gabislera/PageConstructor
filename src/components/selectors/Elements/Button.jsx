@@ -16,6 +16,7 @@ export const Button = ({
   color,
   background,
   width,
+  widthMobile,
   borderRadius,
   type,
   cursor,
@@ -34,6 +35,10 @@ export const Button = ({
   borderTopRightRadius,
   borderBottomRightRadius,
   borderBottomLeftRadius,
+  borderTopLeftRadiusMobile,
+  borderTopRightRadiusMobile,
+  borderBottomRightRadiusMobile,
+  borderBottomLeftRadiusMobile,
   boxShadow,
   lineHeight,
   mobileWidth,
@@ -57,6 +62,7 @@ export const Button = ({
   mobileFlexShrink,
   mobileFlexGrow,
   mobilePosition,
+
   mobileTop,
   mobileLeft,
   mobileRight,
@@ -79,12 +85,18 @@ export const Button = ({
   zIndex,
   boxShadowString,
   textAlign,
+  mobileTextAlign,
+  mobileLineHeight,
+  mobileFontWeight,
+  mobileFontSize,
   display,
   displayMobile,
   pulse,
   delay,
   className,
   animation,
+  mobileLetterSpacing,
+  mobileWordSpacing,
 }) => {
   const {
     connectors: { connect, drag },
@@ -93,11 +105,11 @@ export const Button = ({
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {
-        width: mobileWidth,
+        width: widthMobile,
         minHeight: mobileMinHeight,
         flexDirection: mobileFlexDirection,
         justifyContent: mobileJustifyContent,
-        alignItems: mobileAlignItems,
+
         rowGap: mobileRowGap,
         columnGap: mobileColumnGap,
         flexWrap: mobileFlexWrap,
@@ -120,15 +132,22 @@ export const Button = ({
         bottom: mobileBottom,
         zIndex: mobileZIndex,
         display: displayMobile,
+        lineHeight: mobileLineHeight,
+
+        // borderTopLeftRadius: borderTopLeftRadiusMobile,
+        // borderTopRightRadius: borderTopRightRadiusMobile,
+        // borderBottomRightRadius: borderBottomRightRadiusMobile,
+        // borderBottomLeftRadius: borderBottomLeftRadiusMobile,
       };
     }
 
     return {
       width,
+      fontSize,
       minHeight,
       flexDirection,
       justifyContent,
-      alignItems,
+
       rowGap,
       columnGap,
       flexWrap,
@@ -151,26 +170,31 @@ export const Button = ({
       bottom,
       zIndex,
       display,
+      lineHeight,
     };
   };
+  const getResponsivePropsMobile = () => {
+    if (deviceView === "mobile") {
+      return {
+        fontWeight: mobileFontWeight,
+        fontSize: mobileFontSize,
+        textAlign: mobileTextAlign,
+        letterSpacing: mobileLetterSpacing,
+        wordSpacing: mobileWordSpacing,
+      };
+    }
+
+    return {
+      fontSize,
+      lineHeight,
+      textAlign,
+      letterSpacing,
+      wordSpacing,
+    };
+  };
+
   const responsiveProps = getResponsiveProps();
-
-  // function hasDisableDisplay(deviceView) {
-  //   if (deviceView === "mobile") return displayMobile == "none";
-  //   return display == "none";
-  // }
-
-  // function getClass(deviceView) {
-  //   const isDisabled = hasDisableDisplay(deviceView);
-  //   console.log(
-  //     `getClass: isDisabled=${isDisabled}, pulse=${pulse}, delay=${delay}`
-  //   );
-
-  //   if (isDisabled) return "oscillating";
-  //   if (pulse && delay <= 0) return "pulse-button";
-
-  //   return "";
-  // }
+  const responsivePropsMobile = getResponsivePropsMobile();
 
   return (
     <button
@@ -200,6 +224,7 @@ export const Button = ({
         boxShadow,
         paddingBottom,
         boxShadowString,
+        alignItems,
         animation,
         pulse,
         ...responsiveProps,
@@ -208,15 +233,11 @@ export const Button = ({
       <span
         style={{
           fontFamily,
-          fontWeight,
           fontSize,
           textTransform,
           fontStyle,
           textDecoration,
-          wordSpacing,
-          letterSpacing,
-          lineHeight,
-          textAlign,
+          ...responsivePropsMobile,
         }}
       >
         {text}

@@ -254,8 +254,12 @@ export const ButtonSettings = () => {
               <CustomSlider
                 text={"Tamanho da fonte"}
                 value={props.fontSize}
+                mobileValue={props.mobileFontSize}
                 onChange={(e, value) =>
                   setProp((props) => (props.fontSize = value))
+                }
+                mobileOnChange={(e, value) =>
+                  setProp((props) => (props.mobileFontSize = value))
                 }
                 tooltipText={"Escolha o tamanho da fonte"}
               />
@@ -279,9 +283,7 @@ export const ButtonSettings = () => {
               <CustomSelect
                 text={"Alinhamento da fonte"}
                 value={props.alignItems}
-                onChange={(e) =>
-                  setProp((props) => (props.alignItems = e.target.value))
-                }
+                onChange={(e) => setProp((props) => (props.f = e.target.value))}
                 options={[
                   { label: "Inicial", value: "start" },
                   { label: "Centro", value: "center" },
@@ -335,30 +337,40 @@ export const ButtonSettings = () => {
               <CustomSlider
                 text={"Altura da linha"}
                 value={props.lineHeight}
+                mobileValue={props.mobileLineHeight}
                 onChange={(e, value) =>
                   setProp((props) => (props.lineHeight = value))
+                }
+                mobileOnChange={(e, value) =>
+                  setProp((props) => (props.mobileLineHeight = value))
                 }
                 min={1}
                 max={3}
                 step={0.1}
                 tooltipText={"Escolha a altura da linha"}
               />
-
               <CustomSlider
-                text={"Espaçamento das letras"}
+                text={"Espaçamento entre letras"}
                 value={props.letterSpacing}
+                mobileValue={props.mobileLetterSpacing}
                 onChange={(e, value) =>
                   setProp((props) => (props.letterSpacing = value))
+                }
+                mobileOnChange={(e, value) =>
+                  setProp((props) => (props.mobileLetterSpacing = value))
                 }
                 min={-5}
                 tooltipText={"Escolha a espaçamento das letras"}
               />
-
               <CustomSlider
-                text={"Espaçamento das palavras"}
+                text={"Espaçamento entre palavras"}
                 value={props.wordSpacing}
+                mobileValue={props.mobileWordSpacing}
                 onChange={(e, value) =>
                   setProp((props) => (props.wordSpacing = value))
+                }
+                mobileOnChange={(e, value) =>
+                  setProp((props) => (props.mobileWordSpacing = value))
                 }
                 min={-5}
                 tooltipText={"Escolha a espaçamento das palavras"}
