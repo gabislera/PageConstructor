@@ -8,6 +8,8 @@ import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import UploadIcon from "@mui/icons-material/Upload";
+import SettingsIcon from "@mui/icons-material/Settings";
+
 import {
   CustomSelect,
   CustomTextInput,
@@ -101,9 +103,16 @@ export const ButtonSettings = () => {
           <CustomCollapse
             text="Link"
             placeholder={"Cole a URL ou digite"}
+            value={props.src}
             tooltip={"Opções de link"}
             classes={classes}
+            onChange={(e) => setProp((props) => (props.src = e.target.value))}
             type={"TextField"}
+            optionsButton={[
+              {
+                icon: <SettingsIcon fontSize="small" color="secondary" />,
+              },
+            ]}
           >
             <CustomCheckbox
               options={[
@@ -414,7 +423,6 @@ export const ButtonSettings = () => {
                 />
                 <CustomCollapse
                   type={"button"}
-                  propype="boxShadow"
                   text="Sombra do botão"
                   row={true}
                   remove={true}
@@ -531,7 +539,7 @@ export const ButtonSettings = () => {
                     disableDeviceView
                     tooltipText={"Escolha o tempo da transição"}
                   />
-                )}{" "}
+                )}
               </Grid>
             </TabOptions>
           </CustomAccordion>

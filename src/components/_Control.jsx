@@ -741,7 +741,7 @@ export const CustomTextInput = ({
   row,
   rows,
   placeholder,
-  height,
+  width,
 }) => {
   const classes = useStyles();
   return (
@@ -752,6 +752,7 @@ export const CustomTextInput = ({
           flexDirection: row ? "row" : "column",
           alignItems: row ? "center" : "start",
           justifyContent: row ? "space-between" : "start",
+          width: width ? width : "auto",
         }}
       >
         <Typography
@@ -1525,8 +1526,10 @@ export const CustomCollapse = ({
   icon = <SettingsIcon fontSize="small" color="secondary" />,
   type,
   row = false,
+  optionsButton,
+  onChange,
+  value,
 }) => {
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
 
   return (
@@ -1546,7 +1549,7 @@ export const CustomCollapse = ({
           alignItems: row ? "center" : "flex-start",
         }}
       >
-        <Typography variant="caption" gutterBottom marginBottom={0}>
+        <Typography variant="caption" marginBottom={0}>
           {text}
         </Typography>
         <Box
@@ -1555,32 +1558,43 @@ export const CustomCollapse = ({
           sx={{ width: type === "TextField" ? "100%" : "auto" }}
         >
           {type === "TextField" && (
-            <TextField
-              fullWidth
-              placeholder={placeholder}
-              variant="outlined"
-              className={`${classes.customInput} ${classes.spinButton}`}
+            <CustomTextInput
+              value={value}
+              onChange={onChange}
+              tooltipText={placeholder}
+              width
             />
           )}
-          <Tooltip title={tooltip} placement="top">
-            <IconButton
-              onClick={() => setOpen((prevOpen) => !prevOpen)}
-              sx={{
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                borderRadius: 0,
-                padding: "5px",
-                "& svg": {
-                  width: "16px",
-                  height: "16px",
-                },
-              }}
-            >
-              {icon}
-            </IconButton>
-          </Tooltip>
+          {optionsButton?.map((item) => (
+            <Tooltip title={tooltip} placement="top">
+              <IconButton
+                onClick={() => setOpen((prevOpen) => !prevOpen)}
+                sx={{
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  borderRadius: 0,
+                  padding: "5px",
+                  "& svg": {
+                    width: "16px",
+                    height: "16px",
+                  },
+                }}
+              >
+                {item.icon ? item.icon : icon}
+              </IconButton>
+            </Tooltip>
+          ))}
         </Box>
       </Box>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse
+        in={open}
+        timeout="auto"
+        unmountOnExit
+        sx={{
+          "&:before, &:after": {
+            display: "none",
+          },
+        }}
+      >
         <Box padding={0} sx={{ paddingTop: 1 }}>
           {children}
         </Box>
