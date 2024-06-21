@@ -11,7 +11,7 @@ Button.craft = {
     // pulse: "false",
     cursor: "pointer",
     type: "button",
-
+    action: "redirect_url",
     //props texto
     color: "#fff",
     textAlign: "center",
