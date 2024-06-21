@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles";
 import Container from "../selectors/CraftedComponents/Container";
 import Text from "../selectors/CraftedComponents/Text";
 import Button from "../selectors/CraftedComponents/Button";
+import Countdown from "../selectors/CraftedComponents/Countdown";
 import Divider from "../selectors/CraftedComponents/Divider";
 import Image from "../selectors/CraftedComponents/Image";
 import Video from "../selectors/CraftedComponents/Video";
@@ -100,7 +101,7 @@ export const Toolbox = () => {
             <ContactsIcon />
             <span>Formulário</span>
           </GridItem>
-          <GridItem element={Text} tooltipText={"Form"}>
+          <GridItem element={Countdown} tooltipText={"Countdown"}>
             <AccessTimeIcon />
             <span>Contador regressivo</span>
           </GridItem>

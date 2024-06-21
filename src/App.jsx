@@ -5,6 +5,7 @@ import { Editor, Frame, Element } from "@craftjs/core";
 import Container from "./components/selectors/CraftedComponents/Container.jsx";
 import Button from "./components/selectors/CraftedComponents/Button.jsx";
 import Divider from "./components/selectors/CraftedComponents/Divider.jsx";
+import Countdown from "./components/selectors/CraftedComponents/Countdown.jsx";
 import Text from "./components/selectors/CraftedComponents/Text.jsx";
 import Image from "./components/selectors/CraftedComponents/Image.jsx";
 import Video from "./components/selectors/CraftedComponents/Video.jsx";
@@ -39,6 +40,7 @@ export default function App() {
             Grid,
             Section,
             Faq,
+            Countdown,
             // GridItem,
           }}
         >
