@@ -88,7 +88,6 @@ export const Button = ({
 }) => {
   const {
     connectors: { connect, drag },
-    ...data
   } = useNode();
   const { deviceView } = useResponsiveMode();
   const getResponsiveProps = () => {

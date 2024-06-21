@@ -3,6 +3,7 @@ import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import { Box } from "@mui/material";
 import { Add } from "@mui/icons-material";
+import { useState } from "react";
 
 export const Container = ({
   children,
@@ -33,7 +34,7 @@ export const Container = ({
   mobilePaddingLeft,
   mobilePaddingBottom,
   mobileAlignSelf,
-  mobileFlexOrder,
+  mobileOrder,
   mobileFlexShrink,
   mobileFlexGrow,
   mobilePosition,
@@ -79,7 +80,7 @@ export const Container = ({
   paddingLeft,
   paddingBottom,
   alignSelf,
-  flexOrder,
+  order,
   flexShrink,
   flexGrow,
   position,
@@ -117,7 +118,7 @@ export const Container = ({
         paddingLeft: mobilePaddingLeft,
         paddingBottom: mobilePaddingBottom,
         alignSelf: mobileAlignSelf,
-        flexOrder: mobileFlexOrder,
+        order: mobileOrder,
         flexShrink: mobileFlexShrink,
         flexGrow: mobileFlexGrow,
         // position: mobilePosition,
@@ -147,7 +148,7 @@ export const Container = ({
       paddingLeft,
       paddingBottom,
       alignSelf,
-      flexOrder,
+      order,
       flexShrink,
       flexGrow,
 
@@ -162,22 +163,38 @@ export const Container = ({
 
   const responsiveProps = getResponsiveProps();
 
+  const [tooltip, setTooltip] = useState(false);
+
   const EmptyContainer = (
     <Box
+      onMouseEnter={() => setTooltip(true)}
+      onMouseLeave={() => setTooltip(false)}
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "column",
         height: "100%",
-        // width: "calc(100% - 8px)",
-        // margin: "4px",
         width: "100%",
 
         minHeight: "100px",
         border: "1px dashed #9da5ae",
       }}
     >
-      <Add sx={{ fill: "#9da5ae" }} />
+      {tooltip ? (
+        <p
+          style={{
+            color: "#9da5ae",
+            fontSize: "12px",
+            fontWeight: "semibold",
+            textAlign: "center",
+          }}
+        >
+          Arraste os elementos aqui
+        </p>
+      ) : (
+        <Add sx={{ fill: "#9da5ae" }} />
+      )}
     </Box>
   );
 
@@ -228,13 +245,15 @@ export const Container = ({
           borderBottomRightRadius,
           borderBottomLeftRadius,
           transition: `background-color ${backgroundcolorTransitionDuration}s ease-in-out, border ${borderTransitionDuration}s ease-in-out`,
-          // border: children ? "none" : "1px dashed #B2B2B2",
           backgroundImage: `url(${backgroundImage})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       >
-        {childrens.nodes.length === 0 ? EmptyContainer : children}
+        {childrens.nodes.length === 0 && !backgroundImage
+          ? EmptyContainer
+          : children}
       </ContainerTag>
       <style>{hoverStyles}</style>
     </>

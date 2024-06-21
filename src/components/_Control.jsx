@@ -35,9 +35,7 @@ import {
 } from "@mui/icons-material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
-
 import { TabPannel } from "./selectors/TabPannel";
-
 import {
   CustomAccordionSummary,
   CustomAccordionDetails,
@@ -47,14 +45,14 @@ import {
 import { useResponsiveMode } from "../contexts/ResponsiveModeContext";
 import { unitConfigs } from "../utils/unitConfigs";
 
-export const FileUpload = ({ value, onChange, title }) => {
+export const FileUpload = ({ value, valueVideo, onChange, title }) => {
   const classes = useStyles();
 
   const [imagePreviewUrl, setImagePreviewUrl] = useState(value || null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-
+    console.log("file", file);
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       onChange(imageUrl);
@@ -69,7 +67,7 @@ export const FileUpload = ({ value, onChange, title }) => {
       </Typography>
 
       <input
-        accept="image/*"
+        accept="image/*, video/*"
         id="file-upload"
         type="file"
         className={classes.hiddenInput}
@@ -439,82 +437,104 @@ export const CustomButtonGroup = ({
   options,
   tooltipText,
   fullWidth,
+  children,
 }) => {
   const { deviceView } = useResponsiveMode();
+  const [showChildren, setShowChildren] = useState(false);
+
   const handleChange = (event, newValue) => {
-    if (deviceView === "mobile") {
-      mobileOnChange(event, newValue);
+    if (newValue === "more-options") {
+      setShowChildren(true);
     } else {
-      onChange(event, newValue);
+      setShowChildren(false);
+      if (deviceView === "mobile") {
+        mobileOnChange(event, newValue);
+      } else {
+        onChange(event, newValue);
+      }
     }
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: fullWidth ? "row" : "column",
-        alignItems: fullWidth ? "center" : "start",
-        justifyContent: fullWidth ? "space-between" : "start",
-      }}
-    >
-      <Box display="flex" alignItems="center">
-        <Tooltip title={tooltipText} placement="top">
-          <Typography variant="caption" gutterBottom color="inherit">
-            {text}
-          </Typography>
-        </Tooltip>
-
-        <DeviceViewSelect />
-      </Box>
-
-      <ToggleButtonGroup
-        value={deviceView === "mobile" ? mobileValue : value}
-        exclusive
-        onChange={handleChange}
+    <>
+      <Box
         sx={{
-          width: fullWidth ? "auto" : "100%",
-          justifyContent: "space-between",
-          "& .Mui-selected": {
-            backgroundColor: "rgba(255, 255, 255, 0.3) !important",
-            borderColor: "rgba(255, 255, 255, 0.3)",
-            cursor: "pointer",
-          },
-          "& .MuiToggleButton-root": {
-            borderColor: "rgba(255, 255, 255, 0.1)",
-            padding: fullWidth ? "5px" : "5px 14px", // TODO: paddingX must not be fixed, it only works in justifyContent props
-            "&.Mui-selected > svg": {
-              fill: "#fff",
-            },
-            "& > svg": {
-              width: "16px",
-              height: "16px",
-              fill: "#d5d8dc",
-            },
-          },
+          display: "flex",
+          flexDirection: fullWidth ? "row" : "column",
+          alignItems: fullWidth ? "center" : "start",
+          justifyContent: fullWidth ? "space-between" : "start",
         }}
       >
-        {options.map((option) => (
-          <Tooltip
-            title={option.tooltip ? option.tooltip : option.value}
-            placement="top"
-            key={option.value}
-          >
-            <ToggleButton
-              value={option.value}
-              aria-label={option.value}
-              selected={
-                deviceView === "mobile"
-                  ? mobileValue === option.value
-                  : value === option.value
-              }
-            >
-              {option.icon}
-            </ToggleButton>
+        <Box display="flex" alignItems="center">
+          <Tooltip title={tooltipText} placement="top">
+            <Typography variant="caption" gutterBottom color="inherit">
+              {text}
+            </Typography>
           </Tooltip>
-        ))}
-      </ToggleButtonGroup>
-    </Box>
+
+          <DeviceViewSelect />
+        </Box>
+
+        <ToggleButtonGroup
+          value={
+            deviceView === "mobile"
+              ? mobileValue === "more-options"
+                ? "more-options"
+                : mobileValue
+              : value === "more-options"
+              ? "more-options"
+              : value
+          }
+          exclusive
+          onChange={handleChange}
+          sx={{
+            width: fullWidth ? "auto" : "100%",
+            justifyContent: "space-between",
+            "& .Mui-selected": {
+              backgroundColor: "rgba(255, 255, 255, 0.3) !important",
+              borderColor: "rgba(255, 255, 255, 0.3)",
+              cursor: "pointer",
+            },
+            "& .MuiToggleButton-root": {
+              borderColor: "rgba(255, 255, 255, 0.1)",
+              padding: fullWidth ? "5px" : "5px 14px", // TODO: paddingX must not be fixed, it only works in justifyContent props
+              "&.Mui-selected > svg": {
+                fill: "#fff",
+              },
+              "& > svg": {
+                width: "16px",
+                height: "16px",
+                fill: "#d5d8dc",
+              },
+            },
+          }}
+        >
+          {options.map((option) => (
+            <Tooltip
+              title={option.tooltip ? option.tooltip : option.value}
+              placement="top"
+              key={option.value}
+            >
+              <ToggleButton
+                value={option.value}
+                aria-label={option.value}
+                selected={
+                  deviceView === "mobile"
+                    ? mobileValue === option.value ||
+                      (showChildren && option.value === "more-options")
+                    : value === option.value ||
+                      (showChildren && option.value === "more-options")
+                }
+              >
+                {option.icon}
+              </ToggleButton>
+            </Tooltip>
+          ))}
+        </ToggleButtonGroup>
+      </Box>
+
+      {showChildren && <Box>{children}</Box>}
+    </>
   );
 };
 
@@ -593,28 +613,28 @@ export const CustomSlider = ({
   };
 
   const [internalValue, setInternalValue] = useState(
-    deviceView === "desktop" || disableUnits
-      ? initialConfigs.desktop.value
-      : initialConfigs.mobile.value
+    !disableDeviceView && deviceView === "mobile"
+      ? initialConfigs.mobile.value
+      : initialConfigs.desktop.value
   );
 
   const [currentUnit, setCurrentUnit] = useState(
     disableUnits
       ? ""
-      : deviceView === "desktop"
-      ? initialConfigs.desktop.unit
-      : initialConfigs.mobile.unit
+      : !disableDeviceView && deviceView === "mobile"
+      ? initialConfigs.mobile.unit
+      : initialConfigs.desktop.unit
   );
 
   const units = Object.keys(unitConfigs);
 
   useEffect(() => {
     const updatedValue =
-      disableUnits || deviceView === "desktop" ? value : mobileValue;
+      !disableDeviceView && deviceView === "mobile" ? mobileValue : value;
     const updatedUnit = disableUnits ? "" : getDefaultUnit(updatedValue);
     setInternalValue(updatedValue);
     setCurrentUnit(updatedUnit);
-  }, [value, mobileValue, deviceView, disableUnits]);
+  }, [value, mobileValue, deviceView, disableUnits, disableDeviceView]);
 
   const handleChange = (event, newValue) => {
     const formattedValue = disableUnits
@@ -623,7 +643,7 @@ export const CustomSlider = ({
 
     setInternalValue(formattedValue);
 
-    if (disableUnits || deviceView === "desktop") {
+    if (deviceView === "desktop" || disableDeviceView) {
       onChange(event, formattedValue);
     } else {
       mobileOnChange(event, formattedValue);

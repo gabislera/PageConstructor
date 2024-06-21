@@ -15,6 +15,7 @@ Text.craft = {
     fontSize: "16px",
     fontFamily: "sans-serif",
     additional_css: "",
+
     marginTop: "0px",
     marginRight: "0px",
     marginLeft: "0px",
@@ -23,6 +24,7 @@ Text.craft = {
     paddingRight: "0px",
     paddingLeft: "0px",
     paddingBottom: "0px",
+
     width: "100%",
     hoverColor: "#5D58E8",
     hoverBackgroundColor: "#5D58E8",
@@ -32,7 +34,7 @@ Text.craft = {
     letterSpacing: "0",
     wordSpacing: "0",
     alignSelf: "initial",
-    order: "0",
+    order: "1",
     position: "static",
     top: "0",
     left: "0",
@@ -57,7 +59,7 @@ Text.craft = {
     mobileLetterSpacing: "0",
     mobileWordSpacing: "0",
     mobileAlignSelf: "initial",
-    mobileOrder: "0",
+    mobileOrder: "1",
     mobilePosition: "static",
     mobileTop: "0",
     mobileLeft: "0",

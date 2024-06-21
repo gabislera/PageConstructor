@@ -4,7 +4,6 @@ import { Image } from "../Image";
 // var image_temp =
 //   "https://sendpage.blog/wp-content/plugins/elementor/assets/images/placeholder.png";
 
-
 Image.craft = {
   displayName: "Imagem",
 
@@ -33,7 +32,7 @@ Image.craft = {
     paddingLeft: "2",
     paddingBottom: "2",
     alignSelf: "initial",
-    flexOrder: "0",
+    order: "1",
     flexShrink: "1",
     flexGrow: "0",
     position: "static",
@@ -64,7 +63,7 @@ Image.craft = {
     mobilePaddingLeft: "2",
     mobilePaddingBottom: "2",
     mobileAlignSelf: "initial",
-    mobileFlexOrder: "0",
+    mobileOrder: "1",
     mobileFlexShrink: "1",
     mobileFlexGrow: "0",
     mobilePosition: "static",

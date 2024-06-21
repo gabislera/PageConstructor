@@ -19,7 +19,7 @@ const IndicatorDiv = ({ children, style, onClick }) => (
       alignItems: "center",
       justifyContent: "center",
       gap: 8,
-      borderRadius: "6px",
+      borderRadius: "2px 2px 0 0",
       textAlign: "center",
       ...style,
     }}

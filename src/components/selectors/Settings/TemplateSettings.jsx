@@ -1,30 +1,25 @@
 import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
-import { ColorControl, CustomLinkedValues, CustomSlider } from "../../_Control";
+import { Grid, Box, Tab, Tabs } from "@mui/material";
+import { Settings, Contrast, Edit } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
-import {
-  Settings,
-  Contrast,
-  SpaceDashboardOutlined,
-} from "@mui/icons-material";
-import { Grid, Box, Tab, Tabs } from "@mui/material";
+
 import { AdvancedSettings } from "./AdvancedSettings";
 
-export const AppComponentSettings = () => {
+export const TemplateSettings = () => {
   const {
     actions: { setProp },
     props,
   } = useNode((node) => ({
     props: node.data.props,
   }));
-
   const classes = useStyles();
 
   const [value, setValue] = useState(0);
 
-  const handleChange = (_event, newValue) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -40,8 +35,8 @@ export const AppComponentSettings = () => {
         >
           <Tab
             className={classes.tab}
-            icon={<SpaceDashboardOutlined />}
-            label={<span>Layout</span>}
+            icon={<Edit />}
+            label={<span>Conteúdo</span>}
             disableFocusRipple
             disableRipple
             disableTouchRipple
@@ -71,9 +66,12 @@ export const AppComponentSettings = () => {
         <Grid
           container
           flexDirection={"column"}
+          padding={2}
           color={"#fff"}
           sx={{ gap: 2 }}
-        ></Grid>
+        >
+          {/* content */}
+        </Grid>
       </TabPannel>
 
       <TabPannel value={value} index={1}>
@@ -84,50 +82,7 @@ export const AppComponentSettings = () => {
           color={"#fff"}
           sx={{ gap: 2 }}
         >
-          <ColorControl
-            name={"Cor de fundo"}
-            onChange={(e, value) => {
-              setProp((props) => (props.backgroundColor = value));
-            }}
-            defaultValue={props.backgroundColor}
-            value={props.backgroundColor}
-          />
-
-          <CustomSlider
-            text="Largura do container"
-            value={props.maxWidth}
-            onChange={(e, value) =>
-              setProp((props) => (props.maxWidth = value))
-            }
-            min={0}
-            max={2000}
-            step={10}
-            disableUnits
-            disableDeviceView
-            tooltipText={"Escolha o largura máxima do container"}
-          />
-
-          <CustomLinkedValues
-            text="Padding"
-            values={props}
-            onChange={setProp}
-            options={[
-              { value: "paddingTop", label: "Superior" },
-              { value: "paddingRight", label: "Direita" },
-              { value: "paddingBottom", label: "Inferior" },
-              { value: "paddingLeft", label: "Esquerda" },
-            ]}
-          />
-
-          <CustomLinkedValues
-            text="Espaçamentos"
-            values={props}
-            onChange={setProp}
-            options={[
-              { value: "columnGap", label: "Coluna" },
-              { value: "rowGap", label: "Linha" },
-            ]}
-          />
+          {/* content */}
         </Grid>
       </TabPannel>
 

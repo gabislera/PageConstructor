@@ -3,13 +3,11 @@ import { useNode } from "@craftjs/core";
 import { Box } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
-export const GridItem = () => {
+export const GridItem = ({ children: element }) => {
   const {
     connectors: { connect, drag },
-    isOver,
     children,
   } = useNode((node) => ({
-    isOver: node.events.hovered,
     children: node.data.nodes,
   }));
 
@@ -17,15 +15,28 @@ export const GridItem = () => {
     <Box
       ref={(ref) => connect(drag(ref))}
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100px",
-        margin: "4px",
-        border: isOver ? "1px dashed #4caf50" : "1px dashed #9da5ae",
+        height: "fit-content",
+        // width: "100%",
       }}
     >
-      {children.length === 0 && <Add sx={{ fill: "#9da5ae" }} />}
+      {children.length === 0 ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            width: "100%",
+
+            minHeight: "100px",
+            border: "1px dashed #9da5ae",
+          }}
+        >
+          <Add sx={{ fill: "#9da5ae" }} />
+        </Box>
+      ) : (
+        element
+      )}
     </Box>
   );
 };
