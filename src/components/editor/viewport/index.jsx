@@ -38,7 +38,8 @@ export const Viewport = ({ children }) => {
               margin: "0 auto",
               backgroundColor: "white",
               pt: 8,
-              width:
+              width: "100%",
+              maxWidth:
                 deviceView === "mobile"
                   ? "360px"
                   : deviceView === "tablet"

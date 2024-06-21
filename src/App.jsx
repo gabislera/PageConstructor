@@ -10,6 +10,7 @@ import Image from "./components/selectors/CraftedComponents/Image.jsx";
 import Video from "./components/selectors/CraftedComponents/Video.jsx";
 import AppComponent from "./components/selectors/CraftedComponents/AppComponent.jsx";
 import Grid from "./components/selectors/CraftedComponents/Grid.jsx";
+import Faq from "./components/selectors/CraftedComponents/Faq.jsx";
 import { GridItem } from "./components/selectors/Elements/GridItem.jsx";
 
 import { Viewport } from "./components/editor/viewport";
@@ -34,6 +35,7 @@ export default function App() {
             Video,
             Grid,
             GridItem,
+            Faq,
           }}
         >
           <Viewport>

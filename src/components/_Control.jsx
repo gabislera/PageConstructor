@@ -22,6 +22,10 @@ import {
   Collapse,
   Checkbox,
   FormControlLabel,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Button,
 } from "@mui/material";
 import {
   Link,
@@ -32,6 +36,9 @@ import {
   PhoneIphone,
   FormatColorReset,
   Clear,
+  MoreVert,
+  ContentCopy,
+  Close,
 } from "@mui/icons-material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
@@ -44,6 +51,193 @@ import {
 } from "../components/editor/Toolbox";
 import { useResponsiveMode } from "../contexts/ResponsiveModeContext";
 import { unitConfigs } from "../utils/unitConfigs";
+import { useNode } from "@craftjs/core";
+
+export const AddItemsComponent = () => {
+  const [expanded, setExpanded] = useState(false);
+
+  const {
+    actions: { setProp },
+    props,
+  } = useNode((node) => ({
+    props: node.data.props,
+  }));
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+  const addItem = () => {
+    setProp((props) => {
+      if (!props.items) {
+        props.items = [];
+      }
+      props.items.push({
+        title: `Pergunta ${props.items.length + 1}`,
+        content:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      });
+    });
+  };
+
+  const updateItemTitle = (index, title) => {
+    setProp((props) => {
+      props.items[index].title = title;
+    });
+  };
+
+  const updateItemContent = (index, content) => {
+    setProp((props) => {
+      props.items[index].content = content;
+    });
+  };
+
+  const duplicateItem = (index) => {
+    setProp((props) => {
+      const newItem = { ...props.items[index] };
+      props.items.splice(index + 1, 0, newItem);
+    });
+  };
+
+  const removeItem = (index) => {
+    setProp((props) => {
+      props.items.splice(index, 1);
+    });
+  };
+
+  return (
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          width: "100%",
+        }}
+      >
+        {(props.items || []).map((item, index) => (
+          <Accordion
+            disableGutters
+            sx={{
+              backgroundColor: "transparent",
+              color: "#d5d8dc",
+              boxShadow: "none",
+              border: "1px solid #3f444b",
+              padding: "0",
+              width: "100%",
+            }}
+            expanded={expanded === `panel${index}`}
+            onChange={handleChange(`panel${index}`)}
+            key={index}
+          >
+            <AccordionSummary
+              id={`panel${index}bh-header`}
+              sx={{
+                backgroundColor: "transparent",
+                fontSize: "14px",
+                fontWeight: "700",
+                padding: "0",
+                paddingLeft: "10px",
+                "& .MuiAccordionSummary-content": {
+                  margin: 0,
+                },
+                minHeight: "unset",
+                "&.Mui-expanded": {
+                  minHeight: "unset",
+                  borderBottom: "1px solid #3f444b",
+                },
+              }}
+            >
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                width="100%"
+              >
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: "700",
+                  }}
+                >
+                  {item.title}
+                </Typography>
+                <Box>
+                  <IconButton
+                    sx={{
+                      borderLeft: "1px solid #3f444b",
+                      borderRight: "1px solid #3f444b",
+                      borderRadius: 0,
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      duplicateItem(index);
+                    }}
+                  >
+                    <ContentCopy
+                      sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+                    />
+                  </IconButton>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeItem(index);
+                    }}
+                  >
+                    <Close
+                      sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+                    />
+                  </IconButton>
+                </Box>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails
+              sx={{
+                display: "block",
+                padding: "10px",
+              }}
+            >
+              <Box display="flex" flexDirection="column" gap="10px">
+                <CustomTextInput
+                  text="Title"
+                  value={item.title}
+                  onChange={(e) => updateItemTitle(index, e.target.value)}
+                />
+                <CustomTextInput
+                  text="Content"
+                  value={item.content}
+                  onChange={(e) => updateItemContent(index, e.target.value)}
+                  multiline
+                  rows={4}
+                />
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Box>
+      <Button
+        color="primary"
+        onClick={addItem}
+        sx={{
+          mt: 2,
+          backgroundColor: "#3f444b",
+          color: "#d5d8dc",
+          fontWeight: "600",
+          fontSize: "12px",
+          padding: "6px 16px",
+          "&:hover": {
+            backgroundColor: "#333",
+          },
+          textTransform: "none",
+        }}
+      >
+        Adicionar item
+      </Button>
+    </Box>
+  );
+};
 
 export const FileUpload = ({ value, valueVideo, onChange, title }) => {
   const classes = useStyles();

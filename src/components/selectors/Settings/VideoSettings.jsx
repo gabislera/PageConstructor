@@ -204,8 +204,8 @@ export const VideoSettings = () => {
                   />
                   {props.resolutionVideo === "personalizado" ? <></> : null}
                   {props.typeVideo === "custom" ? <></> : null}
-                  <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
-                  <Box display="flex" flexDirection="column" gap="16px">
+                  {/* <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} /> */}
+                  {/* <Box display="flex" flexDirection="column" gap="16px">
                     <CustomSwitch
                       checkedText="Mostrar"
                       uncheckedText="Ocultar"
@@ -213,7 +213,7 @@ export const VideoSettings = () => {
                       value={props.iconPlay}
                       onChange={(e) => setProp((props) => (props.iconPlay = e))}
                     />
-                  </Box>{" "}
+                  </Box>{" "} */}
                 </>
               ) : null}
             </Box>
