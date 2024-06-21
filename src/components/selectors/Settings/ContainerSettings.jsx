@@ -29,7 +29,6 @@ import {
   TabOptions,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
-
 import { ReactComponent as JustifyCenter } from "../../iconsControls/justify_center.svg";
 import { ReactComponent as JustifyStart } from "../../iconsControls/justify_start.svg";
 import { ReactComponent as JustifyEnd } from "../../iconsControls/justify_end.svg";

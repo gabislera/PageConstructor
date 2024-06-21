@@ -1,9 +1,4 @@
-import {
-  Grid,
-  Box,
-  Tab,
-  Tabs,
-} from "@mui/material";
+import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { useNode } from "@craftjs/core";
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";

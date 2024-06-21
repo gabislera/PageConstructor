@@ -12,9 +12,7 @@ import {
   CustomSelect,
   CustomTextInput,
   FileUpload,
-  ColorControl,
   CustomSlider,
-  TextFieldControl,
 } from "../../_Control";
 
 export const VideoSettings = () => {

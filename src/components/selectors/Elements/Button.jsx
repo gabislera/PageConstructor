@@ -119,6 +119,7 @@ export const Button = ({
         right: mobileRight,
         bottom: mobileBottom,
         zIndex: mobileZIndex,
+        display: displayMobile,
       };
     }
 
@@ -149,32 +150,33 @@ export const Button = ({
       right,
       bottom,
       zIndex,
+      display,
     };
   };
   const responsiveProps = getResponsiveProps();
 
-  function hasDisableDisplay(deviceView) {
-    if (deviceView === "mobile") return displayMobile == "none";
-    return display == "none";
-  }
+  // function hasDisableDisplay(deviceView) {
+  //   if (deviceView === "mobile") return displayMobile == "none";
+  //   return display == "none";
+  // }
 
-  function getClass(deviceView) {
-    const isDisabled = hasDisableDisplay(deviceView);
-    console.log(
-      `getClass: isDisabled=${isDisabled}, pulse=${pulse}, delay=${delay}`
-    );
+  // function getClass(deviceView) {
+  //   const isDisabled = hasDisableDisplay(deviceView);
+  //   console.log(
+  //     `getClass: isDisabled=${isDisabled}, pulse=${pulse}, delay=${delay}`
+  //   );
 
-    if (isDisabled) return "oscillating";
-    if (pulse && delay <= 0) return "pulse-button";
+  //   if (isDisabled) return "oscillating";
+  //   if (pulse && delay <= 0) return "pulse-button";
 
-    return "";
-  }
+  //   return "";
+  // }
 
   return (
     <button
       type={type}
       ref={(ref) => connect(drag(ref))}
-      className={`${className} ${getClass(deviceView)}`}
+      className={`${className}`}
       data-delay={delay}
       style={{
         color,

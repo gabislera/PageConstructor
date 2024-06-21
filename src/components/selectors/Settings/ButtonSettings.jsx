@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
-import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
+import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { useEffect } from "react";
 import { Settings, Contrast } from "@mui/icons-material";
 import CreateIcon from "@mui/icons-material/Create";
