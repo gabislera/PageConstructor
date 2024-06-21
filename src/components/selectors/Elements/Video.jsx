@@ -63,6 +63,7 @@ export const Video = ({
   mobileMaxWidth,
   heightMobile,
   backgroundColor,
+  mobilewidth,
   ...props
 }) => {
   const {
@@ -96,6 +97,7 @@ export const Video = ({
           zIndex: mobileZIndex,
           maxWidth: mobileMaxWidth,
           height: heightMobile,
+          width: mobilewidth,
         }
       : {
           width,
@@ -151,7 +153,7 @@ export const Video = ({
             allowFullScreen
           />
         </ThumbnailVideo>
-      </div>{" "}
+      </div>
     </>
   );
 
@@ -195,8 +197,8 @@ export const Video = ({
         `https://${embedUrl}/watch?v=${videoId}`
       );
       return html
-        .replace(/width="[^"]*"/, "width='100%'")
-        .replace(/height="[^"]*"/, "height='100%'")
+        .replace(/width="[^"]*"/, `width="${width}"`)
+        .replace(/height="[^"]*"/, `height="${height}"`)
         .replace(/src="[^"]*"/, `src="${embedSrc}"`)
         .replace("position:absolute;", "")
         .replace("<iframe", "<iframe style='pointer-events: none;'");
@@ -263,8 +265,9 @@ export const Video = ({
               borderBottomRightRadius,
               borderBottomLeftRadius,
               backgroundColor,
+              ...responsiveProps,
             }}
-          />{" "}
+          />
         </ThumbnailVideo>
       </div>
     );

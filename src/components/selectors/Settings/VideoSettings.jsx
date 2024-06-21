@@ -244,17 +244,17 @@ export const VideoSettings = () => {
               />
 
               <CustomSlider
-                text={"Largura máxima"}
-                value={props.maxWidth}
+                text={"Altura"}
+                value={props.height}
                 max={1200}
-                mobileValue={props.maxWidthMobile}
+                mobileValue={props.heightMobile}
                 onChange={(e, value) =>
-                  setProp((props) => (props.maxWidth = value))
+                  setProp((props) => (props.height = value))
                 }
                 mobileOnChange={(e, value) =>
-                  setProp((props) => (props.maxWidthMobile = value))
+                  setProp((props) => (props.heightMobile = value))
                 }
-                tooltipText={"Escolha a largura máxima do vídeo"}
+                tooltipText={"Escolha a Altura do vídeo"}
               />
             </Box>
           </CustomAccordion>
