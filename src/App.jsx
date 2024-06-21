@@ -12,8 +12,7 @@ import AppComponent from "./components/selectors/CraftedComponents/AppComponent.
 import Grid from "./components/selectors/CraftedComponents/Grid.jsx";
 import Faq from "./components/selectors/CraftedComponents/Faq.jsx";
 import Section from "./components/selectors/CraftedComponents/Section.jsx";
-
-// import { GridItem } from "./components/selectors/Elements/GridItem.jsx";
+import ProgressBar from "./components/selectors/CraftedComponents/ProgressBar.jsx";
 
 import { Viewport } from "./components/editor/viewport";
 import { RenderNode } from "./components/editor/viewport/RenderNode";
@@ -39,7 +38,7 @@ export default function App() {
             Grid,
             Section,
             Faq,
-            // GridItem,
+            ProgressBar,
           }}
         >
           <Viewport>

@@ -30,8 +30,12 @@ export const Footer = () => {
   );
 
   const handlePublish = () => {
-    const json = query.serialize();
-    console.log(json);
+    const currentJson = query.serialize();
+    const parsedJson = JSON.parse(currentJson);
+
+    localStorage.setItem("pageData", parsedJson);
+
+    console.log(parsedJson);
   };
 
   useEffect(() => {

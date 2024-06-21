@@ -85,8 +85,6 @@ export const Text = ({
     setEditable(false);
   }, [selected]);
 
-  console.log(order);
-
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {
