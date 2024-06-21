@@ -121,7 +121,7 @@ export const VideoSettings = () => {
               ) : null}
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
               <Box display="flex" flexDirection="column" gap="16px">
-                <Typography variant="caption" gutterBottom color="inherit">
+                <Typography variant="caption" color="inherit">
                   Opções de vídeo
                 </Typography>
                 <CustomSwitch
@@ -260,7 +260,7 @@ export const VideoSettings = () => {
           </CustomAccordion>
           {/* <CustomAccordion title="Sobreposição de imagem">
             <Box display="flex" flexDirection="column" gap="16px">
-              <Typography variant="caption" gutterBottom color="inherit">
+              <Typography variant="caption" color="inherit">
                 Ícone de Reprodução
               </Typography>
               <ColorControl

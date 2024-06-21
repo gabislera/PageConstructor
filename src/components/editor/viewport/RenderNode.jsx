@@ -103,39 +103,6 @@ export const RenderNode = ({ render }) => {
     <>
       {isHover || isActive
         ? ReactDOM.createPortal(
-            // <div
-            //   className="background-blur"
-            //   style={{
-            //     left: getPos(dom).left,
-            //     top: getPos(dom).top,
-            //     position: "fixed",
-            //     zIndex: 9999,
-            //     padding: 6,
-            //     color: "#FFF",
-            //     height: "24px",
-            //     width: "24px",
-            //     display: "flex",
-            //     alignItems: "center",
-            //     justifyContent: "center",
-            //   }}
-            // >
-            //   {id !== ROOT_NODE && (
-            //     <IconButton
-            //       disableRipple
-            //       disableFocusRipple
-            //       disableTouchRipple
-            //       size="small"
-            //       style={{}}
-            //       onClick={(e) => {
-            //         e.preventDefault();
-            //         e.stopPropagation();
-            //         actions.selectNode(parent);
-            //       }}
-            //     >
-            //       <KeyboardArrowUpIcon />
-            //     </IconButton>
-            //   )}
-            // </div>,
             <IndicatorDiv
               onClick={() => actions.selectNode(id)}
               ref={currentRef}
