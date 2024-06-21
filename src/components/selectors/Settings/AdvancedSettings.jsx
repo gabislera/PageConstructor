@@ -44,6 +44,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
             text="Margin"
             values={props}
             onChange={setProp}
+            disableDeviceView
             options={[
               { value: "marginTop", label: "Superior" },
               { value: "marginRight", label: "Direita" },

@@ -258,10 +258,37 @@ export const FileUpload = ({ value, onChange, title }) => {
 
   return (
     <Grid item>
-      <Typography variant="caption" gutterBottom color="inherit">
-        {title ? title : "Escolher imagem"}
-      </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        mb={1}
+      >
+        <Typography variant="caption" color="inherit" lineHeight={1}>
+          {title ? title : "Escolher imagem"}
+        </Typography>
 
+        <Tooltip title="Remover imagem" placement="right">
+          <IconButton
+            sx={{
+              padding: 0,
+            }}
+            onClick={() => {
+              onChange(null);
+              setImagePreviewUrl(null);
+            }}
+          >
+            <Close
+              sx={{
+                color: "#d5d8dc",
+                width: "14px",
+                height: "14px",
+                padding: 0,
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
       <input
         accept="image/*"
         id="file-upload"
@@ -305,7 +332,7 @@ export const TabOptions = ({ title, children, typeStyle }) => {
       }}
     >
       {title && (
-        <Typography variant="caption" gutterBottom color="inherit">
+        <Typography variant="caption" color="inherit">
           {title}
         </Typography>
       )}
@@ -375,6 +402,8 @@ export const CustomLinkedValues = ({
   options,
   tooltipText,
   nolink,
+  disableUnits = false,
+  disableDeviceView = false,
 }) => {
   const classes = useStyles();
   const { deviceView } = useResponsiveMode();
@@ -413,8 +442,6 @@ export const CustomLinkedValues = ({
   const [localValues, setLocalValues] = useState(() =>
     getValuesForDevice(deviceView, values)
   );
-
-  // console.log(localValues);
 
   useEffect(() => {
     setLocalValues(getValuesForDevice(deviceView, values));
@@ -483,7 +510,7 @@ export const CustomLinkedValues = ({
     <Box width="100%" display="flex" flexDirection="column">
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box alignItems="center">
-          <Typography variant="caption" gutterBottom color="inherit">
+          <Typography variant="caption" color="inherit">
             {text}
           </Typography>
           <DeviceViewSelect />
@@ -663,7 +690,7 @@ export const CustomButtonGroup = ({
       >
         <Box display="flex" alignItems="center">
           <Tooltip title={tooltipText} placement="top">
-            <Typography variant="caption" gutterBottom color="inherit">
+            <Typography variant="caption" color="inherit">
               {text}
             </Typography>
           </Tooltip>
@@ -875,7 +902,7 @@ export const CustomSlider = ({
     <Box width="100%" display="flex" flexDirection="column">
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box alignItems="center">
-          <Typography variant="caption" gutterBottom color="inherit">
+          <Typography variant="caption" color="inherit">
             {text}
           </Typography>
           {!disableDeviceView && <DeviceViewSelect />}
@@ -1056,7 +1083,7 @@ export const ColorControl = ({
     >
       <Box>
         <Box className={classes.box}>
-          <Typography variant="caption" gutterBottom color="inherit">
+          <Typography variant="caption" color="inherit">
             {name}
           </Typography>
           <Box display="flex" alignItems="center" gap="4px">
@@ -1156,7 +1183,7 @@ export const CustomSwitch = ({
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="caption" gutterBottom color="inherit">
+        <Typography variant="caption" color="inherit">
           {text}
         </Typography>
         <Switch
@@ -1325,7 +1352,7 @@ const CustomInput = ({
     flexDirection="column"
     style={{ display: "flex", gap: 5 }}
   >
-    <Typography variant="caption" gutterBottom color="inherit" marginBottom={0}>
+    <Typography variant="caption" color="inherit" marginBottom={0}>
       {text}
     </Typography>
     <Box display="flex" alignItems="center" flexDirection="row" width="100%">
@@ -1379,7 +1406,7 @@ const OptionsList = ({ options, value, onChange }) => (
             />
           }
           label={
-            <Typography variant="caption" gutterBottom color="inherit">
+            <Typography variant="caption" color="inherit">
               {option.label}
             </Typography>
           }
@@ -1400,12 +1427,7 @@ const IconButtonGroup = ({
   <Box width="100%" style={{ display: "flex", flexDirection: "column" }}>
     <Box style={{ display: "flex", justifyContent: "space-between" }}>
       <Box>
-        <Typography
-          variant="caption"
-          gutterBottom
-          color="inherit"
-          marginBottom={0}
-        >
+        <Typography variant="caption" color="inherit" marginBottom={0}>
           {text}
         </Typography>
       </Box>
@@ -1561,7 +1583,7 @@ export const TextFieldControl = ({
   return (
     <>
       <Box>
-        <Typography variant="caption" gutterBottom color="inherit">
+        <Typography variant="caption" color="inherit">
           Código HTML do Vídeo:
         </Typography>
         <Tooltip title={name} placement="top">

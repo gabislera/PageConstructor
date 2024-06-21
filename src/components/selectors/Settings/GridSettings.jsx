@@ -229,7 +229,7 @@ export const GridSettings = () => {
         >
           <Grid item>
             <TabOptions title="Plano de fundo">
-              <Grid item mt={2}>
+              <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
                 <ColorControl
                   name="Cor de Fundo"
                   onChange={(e, value) =>
@@ -247,7 +247,7 @@ export const GridSettings = () => {
                 />
               </Grid>
 
-              <Grid item mt={2}>
+              <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
                 <ColorControl
                   name="Cor de fundo"
                   onChange={(e, value) =>

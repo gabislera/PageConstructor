@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
-import {
-  Settings,
-  Contrast,
-  Edit,
-} from "@mui/icons-material";
+import { Settings, Contrast, Edit } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
@@ -125,7 +121,7 @@ export const VideoSettings = () => {
               ) : null}
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
               <Box display="flex" flexDirection="column" gap="16px">
-                <Typography variant="caption" gutterBottom color="inherit">
+                <Typography variant="caption" color="inherit">
                   Opções de vídeo
                 </Typography>
                 <CustomSwitch
@@ -265,7 +261,7 @@ export const VideoSettings = () => {
           </CustomAccordion>
           <CustomAccordion title="Sobreposição de imagem">
             <Box display="flex" flexDirection="column" gap="16px">
-              <Typography variant="caption" gutterBottom color="inherit">
+              <Typography variant="caption" color="inherit">
                 Ícone de Reprodução
               </Typography>
               <ColorControl

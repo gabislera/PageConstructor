@@ -28,6 +28,7 @@ Faq.craft = {
     titlePaddingTop: "10px",
     titlePaddingRight: "10px",
     titlePaddingLeft: "10px",
+
     titlePaddingBottom: "10px",
 
     mobileTitleFontSize: "16px",
@@ -39,7 +40,7 @@ Faq.craft = {
     contentColor: "#000000",
     contentBackgroundColor: "transparent",
     contentFontFamily: "sans-serif",
-    contentFontSize: "16px",
+    contentFontSize: "14px",
     contentFontWeight: "400",
     contentTextTransform: "none",
     contentFontStyle: "normal",
@@ -55,10 +56,10 @@ Faq.craft = {
     contentPaddingBottom: "0px",
 
     mobileContentFontSize: "14px",
-    mobileContentPaddingTop: "0px",
-    mobileContentPaddingRight: "0px",
+    mobileContentPaddingTop: "5px",
+    mobileContentPaddingRight: "5px",
     mobileContentPaddingLeft: "20px",
-    mobileContentPaddingBottom: "0px",
+    mobileContentPaddingBottom: "5px",
 
     marginTop: "0px",
     marginRight: "0px",

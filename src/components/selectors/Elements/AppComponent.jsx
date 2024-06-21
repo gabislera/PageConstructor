@@ -42,7 +42,6 @@ export const AppComponent = ({
       }}
     >
       {/* <Element id="main_section" is={Container} className="section" canvas /> */}
-
       {children}
     </div>
   );

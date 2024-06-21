@@ -1,17 +1,17 @@
 import React from "react";
-import { useEditor } from "@craftjs/core";
-import { Box } from "@mui/material";
+import { useEditor, Element, ROOT_NODE } from "@craftjs/core";
+import { Box, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import SideBar from "../SideBar";
 import { ResponsiveMode } from "../ResponsiveMode";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import { Layers } from "../Layers";
+import Section from "../../selectors/CraftedComponents/Section.jsx";
 
 export const Viewport = ({ children }) => {
   const classes = useStyles();
   const { deviceView } = useResponsiveMode();
-
-  const { connectors, selected } = useEditor((state) => {
+  const { connectors, selected, actions, query } = useEditor((state) => {
     const [currentNodeId] = state.events.selected;
     if (currentNodeId) {
       return {
@@ -20,6 +20,12 @@ export const Viewport = ({ children }) => {
       };
     }
   });
+
+  const addContainer = () => {
+    const section = <Element canvas is={Section}></Element>;
+    const nodeTree = query.parseReactElement(section).toNodeTree();
+    actions.addNodeTree(nodeTree, ROOT_NODE);
+  };
 
   return (
     <Box className={`${classes.root}`}>
@@ -45,7 +51,6 @@ export const Viewport = ({ children }) => {
                   : deviceView === "tablet"
                   ? "768px"
                   : "1220px",
-              // : "100%",
               height:
                 deviceView === "mobile"
                   ? "736px"
@@ -56,6 +61,24 @@ export const Viewport = ({ children }) => {
             }}
           >
             {children}
+            <Button
+              color="primary"
+              onClick={addContainer}
+              sx={{
+                mt: 2,
+                backgroundColor: "#3f3f46",
+                color: "#fff",
+                fontWeight: "600",
+                fontSize: "12px",
+                padding: "6px 16px",
+                "&:hover": {
+                  backgroundColor: "#27272a",
+                },
+                textTransform: "none",
+              }}
+            >
+              Nova seção
+            </Button>
           </Box>
         </Box>
         <Layers />

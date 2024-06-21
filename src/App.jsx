@@ -11,7 +11,9 @@ import Video from "./components/selectors/CraftedComponents/Video.jsx";
 import AppComponent from "./components/selectors/CraftedComponents/AppComponent.jsx";
 import Grid from "./components/selectors/CraftedComponents/Grid.jsx";
 import Faq from "./components/selectors/CraftedComponents/Faq.jsx";
-import { GridItem } from "./components/selectors/Elements/GridItem.jsx";
+import Section from "./components/selectors/CraftedComponents/Section.jsx";
+
+// import { GridItem } from "./components/selectors/Elements/GridItem.jsx";
 
 import { Viewport } from "./components/editor/viewport";
 import { RenderNode } from "./components/editor/viewport/RenderNode";
@@ -25,6 +27,7 @@ export default function App() {
       <ResponsiveModeProvider>
         <Editor
           onRender={RenderNode}
+          enabled={true}
           resolver={{
             Container,
             Button,
@@ -34,14 +37,15 @@ export default function App() {
             Divider,
             Video,
             Grid,
-            GridItem,
+            Section,
             Faq,
+            // GridItem,
           }}
         >
           <Viewport>
             <Frame>
               <Element is={AppComponent} canvas>
-                <Element is={Container} canvas></Element>
+                <Element is={Section} initialElement={null} canvas></Element>
               </Element>
             </Frame>
           </Viewport>
