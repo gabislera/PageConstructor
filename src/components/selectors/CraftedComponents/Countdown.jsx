@@ -1,6 +1,5 @@
 import { CountdownSettings } from "../Settings/CountdownSettings";
 import { Countdown } from "../Elements/Countdown";
-import { BorderColor } from "@mui/icons-material";
 
 Countdown.craft = {
   displayName: "Contador regressivo",
@@ -13,25 +12,25 @@ Countdown.craft = {
     CountType: "weekly_diary",
     displayWeekly: "monday",
     customText: "false",
-    displayFormat: [
-      { value: true, label: "Dias", type: "days" },
-      { value: true, label: "Horas", type: "hours" },
-      { value: true, label: "Min", type: "minutes" },
-      { value: true, label: "Seg", type: "seconds" },
-    ],
+
+    displayFormatDays: "true",
+    displayFormatHours: "true",
+    displayFormatMin: "true",
+    displayFormatSeconds: "true",
     timezone: "-03:00",
     showAction: "hide",
     gap: "10px",
     gapMobile: "10px",
-    minWidthMobile: "20%",
+    minWidthMobile: "28%",
     minWidth: "20%",
+
     //element estilo props countdown text
     textDays: "Dias",
     textHours: "Horas",
     textMinutes: "Minutos",
     textSeconds: "Segundos",
-    fontSizeText: "43px",
-    mobileFontSizeText: "43px",
+    fontSizeText: "20px",
+    mobileFontSizeText: "12px",
     fontFamilyText: "sans-serif",
     colorText: "#FFFFFF",
     fontWeightText: "400",
@@ -40,7 +39,6 @@ Countdown.craft = {
     textDecorationText: "none",
     lineHeightText: "1.5",
     mobileLineHeightText: "1.5",
-    fontSizeMobileText: "43px",
     letterSpacingText: "0",
     mobileLetterSpacingText: "0",
     //element estilo props countdown timer
@@ -51,8 +49,8 @@ Countdown.craft = {
     letterSpacing: "0",
     mobileLetterSpacing: "0",
     color: "#FFFFFF",
-    fontSize: "14px",
-    mobileFontSize: "14px",
+    fontSize: "34px",
+    mobileFontSize: "34px",
     fontWeight: "400",
     mobileLineHeight: "1.5",
     textAlign: "left",
@@ -71,6 +69,7 @@ Countdown.craft = {
     paddingLeft: "20px",
     paddingBottom: "10px",
     alignSelf: "center",
+
     order: "1",
     position: "static",
     top: "0",
@@ -87,7 +86,7 @@ Countdown.craft = {
     mobilePaddingRight: "0px",
     mobilePaddingLeft: "0px",
     mobilePaddingBottom: "0px",
-    mobileAlignSelf: "center",
+    mobileAlignSelf: "inherit",
     mobileOrder: "1",
     mobilePosition: "static",
     mobileTop: "0",
@@ -105,6 +104,9 @@ Countdown.craft = {
     borderRightWidth: "1px",
     borderBottomWidth: "1px",
     borderLeftWidth: "1px",
+
+    hidden: false,
+    mobileHidden: false,
   },
   related: {
     settings: CountdownSettings,

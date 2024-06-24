@@ -38,6 +38,7 @@ export const Countdown = ({
   background,
   maxWidthMobile,
   maxWidth,
+  //timer
   timerSeconds,
   timerDays,
   timerHours,
@@ -52,6 +53,11 @@ export const Countdown = ({
   textHours,
   textMinutes,
   textSeconds,
+
+  displayFormatDays,
+  displayFormatHours,
+  displayFormatMin,
+  displayFormatSeconds,
   //borda
   borderStyle,
   borderColor,
@@ -96,6 +102,9 @@ export const Countdown = ({
   fontSizeMobileText,
   letterSpacingText,
   mobileLetterSpacingText,
+
+  hidden,
+  mobileHidden,
 }) => {
   const {
     connectors: { connect, drag },
@@ -103,29 +112,35 @@ export const Countdown = ({
   const { deviceView } = useResponsiveMode();
 
   const list = [
-    { id: "days", label: textDays, type: "days", value: timerDays },
-    { id: "hours", label: textHours, type: "hours", value: timerHours },
-    { id: "minutes", label: textMinutes, type: "minutes", value: timerMinutes },
-    { id: "seconds", label: textSeconds, type: "seconds", value: timerSeconds },
+    {
+      id: "days",
+      label: textDays,
+      type: "days",
+      value: timerDays,
+      display: displayFormatDays,
+    },
+    {
+      id: "hours",
+      label: textHours,
+      type: "hours",
+      value: timerHours,
+      display: displayFormatHours,
+    },
+    {
+      id: "minutes",
+      label: textMinutes,
+      type: "minutes",
+      value: timerMinutes,
+      display: displayFormatMin,
+    },
+    {
+      id: "seconds",
+      label: textSeconds,
+      type: "seconds",
+      value: timerSeconds,
+      display: displayFormatSeconds,
+    },
   ];
-  console.log("list", list);
-  // useEffect(() => {
-  //   const calculateTimeRemaining = () => {
-  //     const now = moment().tz(timezone);
-  //     const end = moment(endDate).tz(timezone);
-  //     const duration = moment.duration(end.diff(now));
-
-  //     setTimeRemaining({
-  //       days: Math.floor(duration.asDays()),
-  //       hours: duration.hours(),
-  //       minutes: duration.minutes(),
-  //       seconds: duration.seconds(),
-  //     });
-  //   };
-
-  //   const interval = setInterval(calculateTimeRemaining, 1000);
-  //   return () => clearInterval(interval);
-  // }, [endDate, timezone]);
 
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
@@ -147,6 +162,7 @@ export const Countdown = ({
         bottom: mobileBottom,
         zIndex: mobileZIndex,
         gap: gapMobile,
+        hidden: mobileHidden,
       };
     }
 
@@ -168,6 +184,7 @@ export const Countdown = ({
       bottom,
       zIndex,
       gap,
+      hidden,
     };
   };
   const getResponsiveElementProps = () => {
@@ -176,7 +193,7 @@ export const Countdown = ({
         maxWidth: maxWidthMobile,
 
         minWidth: minWidthMobile,
-
+        background,
         borderTopLeftRadius,
         borderTopRightRadius,
         borderBottomRightRadius,
@@ -192,6 +209,7 @@ export const Countdown = ({
     return {
       maxWidth,
       minWidth,
+
       borderStyle,
       background,
       borderTopLeftRadius,
@@ -228,31 +246,11 @@ export const Countdown = ({
       letterSpacing,
     };
   };
-  const getResponsiveElementTextProps = () => {
-    if (deviceView === "mobile") {
-      return {
-        fontSizeText: mobileFontSizeText,
-        lineHeightText: mobileLineHeightText,
-        letterSpacingText: mobileLetterSpacingText,
-      };
-    }
-
-    return {
-      fontSizeText,
-      fontFamilyText,
-      letterSpacingText,
-      colorText,
-      fontWeightText,
-      textAlignText,
-      fontStyleText,
-      textDecorationText,
-    };
-  };
 
   const responsiveProps = getResponsiveProps();
   const responsiveElementProps = getResponsiveElementProps();
   const responsiveElementValueText = getResponsiveElementValueProps();
-  const responsiveElementText = getResponsiveElementTextProps();
+
   return (
     <div
       className="countdown-container"
@@ -268,11 +266,23 @@ export const Countdown = ({
           key={index}
           value={unit.value}
           id={unit.id}
+          display={unit.display}
           responsiveElementValueText={responsiveElementValueText}
           responsiveElementProps={responsiveElementProps}
-          responsiveElementText={responsiveElementText}
           label={unit.label.charAt(0).toUpperCase() + unit.label.slice(1)}
-          color={color}
+          fontSizeText={fontSizeText}
+          deviceView={deviceView}
+          mobileFontSizeText={mobileFontSizeText}
+          lineHeightText={lineHeightText}
+          mobileLineHeightText={mobileLineHeightText}
+          letterSpacingText={letterSpacingText}
+          mobileLetterSpacingText={mobileLetterSpacingText}
+          fontFamilyText={fontFamilyText}
+          colorText={colorText}
+          fontWeightText={fontWeightText}
+          textAlignText={textAlignText}
+          fontStyleText={fontStyleText}
+          textDecorationText={textDecorationText}
         />
       ))}
     </div>
@@ -283,38 +293,72 @@ const CountdownUnit = ({
   value,
   label,
   id,
-  responsiveElementText,
+  display,
+
   responsiveElementProps,
   responsiveElementValueText,
+  fontSizeText,
+  mobileFontSizeText,
+  lineHeightText,
+  mobileLineHeightText,
+  letterSpacingText,
+  mobileLetterSpacingText,
+  fontFamilyText,
+  colorText,
+  fontWeightText,
+  textAlignText,
+  fontStyleText,
+  textDecorationText,
+  deviceView,
 }) => {
   return (
-    <div
-      className={`countdown-${id}`}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "#fff",
-        padding: "10px 20px",
-        margin: "5px",
-        ...responsiveElementProps,
-      }}
-    >
-      <span
-        style={{
-          ...responsiveElementValueText,
-        }}
-      >
-        {value}
-      </span>
-      <span
-        style={{
-          ...responsiveElementText,
-        }}
-      >
-        {label}
-      </span>
-    </div>
+    <>
+      {display ? (
+        <div
+          className={`countdown-${id}`}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#fff",
+            padding: "10px 20px",
+            margin: "5px",
+            ...responsiveElementProps,
+          }}
+        >
+          <span
+            style={{
+              ...responsiveElementValueText,
+            }}
+          >
+            {value}
+          </span>
+          <span
+            style={{
+              fontSize:
+                deviceView === "mobile" ? mobileFontSizeText : fontSizeText,
+
+              lineHeightText:
+                deviceView === "mobile" ? mobileLineHeightText : lineHeightText,
+
+              letterSpacingText:
+                deviceView === "mobile"
+                  ? mobileLetterSpacingText
+                  : letterSpacingText,
+
+              fontFamily: fontFamilyText,
+              color: colorText,
+              fontWeight: fontWeightText,
+              textAlign: textAlignText,
+              fontStyle: fontStyleText,
+              textDecoration: textDecorationText,
+            }}
+          >
+            {label}
+          </span>
+        </div>
+      ) : null}
+    </>
   );
 };

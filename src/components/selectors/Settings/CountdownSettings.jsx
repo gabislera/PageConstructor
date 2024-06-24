@@ -169,33 +169,36 @@ export const CountdownSettings = () => {
           >
             Formato de Exibição
           </Typography>
+
           <CustomSwitch
             checkedText="Mostrar"
             uncheckedText="Ocultar"
             text="Dias"
-            value={props.display}
-            onChange={(e) => setProp((props) => (props.display = e))}
+            value={props.displayFormatDays}
+            onChange={(e) => setProp((props) => (props.displayFormatDays = e))}
           />
           <CustomSwitch
             checkedText="Mostrar"
             uncheckedText="Ocultar"
             text="Horas"
-            value={props.display}
-            onChange={(e) => setProp((props) => (props.display = e))}
+            value={props.displayFormatHours}
+            onChange={(e) => setProp((props) => (props.displayFormatHours = e))}
           />
           <CustomSwitch
             checkedText="Mostrar"
             uncheckedText="Ocultar"
             text="Minutos"
-            value={props.display}
-            onChange={(e) => setProp((props) => (props.display = e))}
+            value={props.displayFormatMin}
+            onChange={(e) => setProp((props) => (props.displayFormatMin = e))}
           />
           <CustomSwitch
             checkedText="Mostrar"
             uncheckedText="Ocultar"
             text="Segundos"
-            value={props.display}
-            onChange={(e) => setProp((props) => (props.display = e))}
+            value={props.displayFormatSeconds}
+            onChange={(e) =>
+              setProp((props) => (props.displayFormatSeconds = e))
+            }
           />
 
           <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
