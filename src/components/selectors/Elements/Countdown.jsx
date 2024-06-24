@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
-import moment from "moment";
+
 export const Countdown = ({
   marginTop,
   marginRight,
@@ -294,7 +294,6 @@ const CountdownUnit = ({
   label,
   id,
   display,
-
   responsiveElementProps,
   responsiveElementValueText,
   fontSizeText,
@@ -323,7 +322,6 @@ const CountdownUnit = ({
             alignItems: "center",
             color: "#fff",
             padding: "10px 20px",
-            margin: "5px",
             ...responsiveElementProps,
           }}
         >

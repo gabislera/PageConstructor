@@ -251,6 +251,8 @@ export const CountdownSettings = () => {
             </Box>
           ) : null}
           <CustomAutocomplete
+            multiline
+            rows={1}
             text={"Ações após expiração"}
             value={props?.showAction}
             onChange={(e) => setProp((props) => (props.showAction = e))}

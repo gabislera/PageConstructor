@@ -849,10 +849,11 @@ export const CustomAutocomplete = ({
           {text}
         </Typography>
         <Autocomplete
-          multiple
+          rows={multiline ? rows : 1}
+          multiline={multiline ? true : false}
           getOptionLabel={(option) => option.lebel}
-          fullWidth
-          value={options.value || []}
+          fullWidth={row ? false : true}
+          value={options.map((el) => el.value)}
           options={options}
           onChange={(newValue) => {
             onChange(newValue);
@@ -873,8 +874,6 @@ export const CustomAutocomplete = ({
               id={id ? id : ""}
               InputLabelProps={shrink ? true : false}
               variant="outlined"
-              multiline={multiline ? true : false}
-              rows={multiline ? rows : 1}
               placeholder={placeholder}
               onChange={onChange}
               className={classes.customInput}

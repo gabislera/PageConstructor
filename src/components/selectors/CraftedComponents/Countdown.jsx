@@ -12,7 +12,6 @@ Countdown.craft = {
     CountType: "weekly_diary",
     displayWeekly: "monday",
     customText: "false",
-
     displayFormatDays: "true",
     displayFormatHours: "true",
     displayFormatMin: "true",
