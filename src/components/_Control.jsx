@@ -1232,6 +1232,7 @@ export const CustomSwitch = ({
           checked={value}
           onChange={(e) => onChange(e.target.checked)}
           inputProps={{ "aria-label": "custom switch" }}
+          value={value}
         />
       </Box>
     </Tooltip>
