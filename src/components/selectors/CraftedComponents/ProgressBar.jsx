@@ -6,6 +6,7 @@ ProgressBar.craft = {
 
   props: {
     // element props
+    display: "flex",
     title: "Título",
     content: "Conteúdo",
     width: "80",
@@ -14,7 +15,6 @@ ProgressBar.craft = {
 
     backgroundColor: "#625CF3",
     borderRadius: "4px",
-    showPercentage: true,
 
     titleColor: "#000",
     titleFontFamily: "sans-serif",
@@ -72,6 +72,10 @@ ProgressBar.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
+
+    showPercentage: true,
+    hidden: false,
+    mobileHidden: false,
   },
   related: {
     settings: ProgressBarSettings,

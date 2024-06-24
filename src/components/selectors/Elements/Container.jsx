@@ -89,6 +89,9 @@ export const Container = ({
   right,
   bottom,
   zIndex,
+
+  hidden,
+  mobileHidden,
 }) => {
   const {
     connectors: { connect, drag },
@@ -161,6 +164,14 @@ export const Container = ({
     };
   };
 
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
   const [tooltip, setTooltip] = useState(false);
@@ -223,11 +234,13 @@ export const Container = ({
     }
   `;
 
+  // TODO: change logic to render the <a> tag only in api-main
+
   const ContainerElement = (
     <>
       <ContainerTag
         ref={(ref) => connect(drag(ref))}
-        className="container-hover"
+        className={`container-hover ${hiddenElement && "hidden"}`}
         style={{
           ...responsiveProps,
           maxWidth,
@@ -264,7 +277,7 @@ export const Container = ({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ textDecoration: "none", color: "inherit" }}
+      style={{ textDecoration: "none", color: "inherit", width: "100%" }}
     >
       {ContainerElement}
     </a>

@@ -1,5 +1,5 @@
 import { ImageSettings } from "../Settings/ImageSettings";
-import { Image } from "../Image";
+import { Image } from "../Elements/Image";
 
 // var image_temp =
 //   "https://sendpage.blog/wp-content/plugins/elementor/assets/images/placeholder.png";
@@ -74,6 +74,9 @@ Image.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
+
+    hidden: false,
+    mobileHidden: false,
   },
   related: {
     settings: ImageSettings,

@@ -97,6 +97,9 @@ export const Button = ({
   animation,
   mobileLetterSpacing,
   mobileWordSpacing,
+
+  hidden,
+  mobileHidden,
 }) => {
   const {
     connectors: { connect, drag },
@@ -193,6 +196,14 @@ export const Button = ({
     };
   };
 
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
   const responsivePropsMobile = getResponsivePropsMobile();
 
@@ -200,7 +211,7 @@ export const Button = ({
     <button
       type={type}
       ref={(ref) => connect(drag(ref))}
-      className={`${className}`}
+      className={`${className} ${hiddenElement && "hidden"}`}
       data-delay={delay}
       style={{
         color,

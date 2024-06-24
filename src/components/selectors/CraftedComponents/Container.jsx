@@ -87,6 +87,8 @@ Container.craft = {
     mobileZIndex: "0",
 
     notDeletable: false,
+    hidden: false,
+    mobileHidden: false,
   },
   rules: {
     canDrag: () => true,

@@ -44,6 +44,9 @@ export const Divider = ({
   mobilePaddingRight,
   mobilePaddingLeft,
   mobilePaddingBottom,
+
+  hidden,
+  mobileHidden,
 }) => {
   const {
     connectors: { connect, drag },
@@ -97,6 +100,14 @@ export const Divider = ({
     };
   };
 
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
   return (
@@ -108,7 +119,9 @@ export const Divider = ({
         paddingBlockEnd,
         ...responsiveProps,
       }}
-      className={`${delay > 0 ? "oscillating" : ""}`}
+      className={`${delay > 0 ? "oscillating" : ""} ${
+        hiddenElement && "hidden"
+      }`}
     />
   );
 };

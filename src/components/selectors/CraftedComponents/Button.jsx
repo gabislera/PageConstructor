@@ -104,6 +104,9 @@ Button.craft = {
     left: "0",
     right: "0",
     bottom: "0",
+
+    hidden: false,
+    mobileHidden: false,
   },
   related: {
     settings: ButtonSettings,

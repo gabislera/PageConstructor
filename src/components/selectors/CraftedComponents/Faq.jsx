@@ -94,6 +94,9 @@ Faq.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
+
+    hidden: false,
+    mobileHidden: false,
   },
   related: {
     settings: FaqSettings,

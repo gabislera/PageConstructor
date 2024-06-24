@@ -41,6 +41,9 @@ Section.craft = {
 
     notDeletable: false,
   },
+  rules: {
+    canMoveIn: false,
+  },
 };
 
 export default Section;

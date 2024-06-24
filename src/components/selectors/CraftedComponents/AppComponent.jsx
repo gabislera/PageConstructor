@@ -1,5 +1,6 @@
 import { AppComponent } from "../Elements/AppComponent";
 import { AppComponentSettings } from "../Settings/AppComponent";
+import { Button } from "../Elements/Button";
 
 AppComponent.craft = {
   displayName: "Tela",
@@ -22,6 +23,9 @@ AppComponent.craft = {
   },
   related: {
     settings: AppComponentSettings,
+  },
+  rules: {
+    canMoveIn: false,
   },
 };
 

@@ -4,6 +4,7 @@ import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import ContentEditable from "react-contenteditable";
 
 export const ProgressBar = ({
+  display,
   title,
   htmlTag,
   content,
@@ -11,6 +12,9 @@ export const ProgressBar = ({
   height,
   backgroundColor,
   borderRadius,
+
+  hidden,
+  mobileHidden,
 
   titleColor,
   titleFontFamily,
@@ -118,14 +122,23 @@ export const ProgressBar = ({
       zIndex,
     };
   };
+
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
   return (
     <div
-      className="progress-bar-content "
+      className={`${hiddenElement && "hidden"} progress-bar-content `}
       style={{
         ...responsiveProps,
-        display: "flex",
+        display,
         flexDirection: "column",
         width: "100%",
       }}

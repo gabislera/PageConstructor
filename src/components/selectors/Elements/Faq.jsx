@@ -84,6 +84,9 @@ export const Faq = ({
   right,
   bottom,
   zIndex,
+
+  hidden,
+  mobileHidden,
 }) => {
   const {
     connectors: { connect, drag },
@@ -149,6 +152,14 @@ export const Faq = ({
     };
   };
 
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
   const responsiveTitlePadding = getResponsiveTitlePadding();
 
@@ -210,6 +221,7 @@ export const Faq = ({
 
   return (
     <div
+      className={`${hiddenElement && "hidden"}`}
       ref={(ref) => connect(drag(ref))}
       style={{ ...responsiveProps, width: "100%" }}
       onClick={(e) => e.stopPropagation()}
