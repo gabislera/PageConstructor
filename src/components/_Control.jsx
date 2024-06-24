@@ -42,9 +42,7 @@ import {
 } from "@mui/icons-material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
-
 import { TabPannel } from "./selectors/TabPannel";
-
 import {
   CustomAccordionSummary,
   CustomAccordionDetails,
@@ -241,14 +239,14 @@ export const AddItemsComponent = () => {
   );
 };
 
-export const FileUpload = ({ value, onChange, title }) => {
+export const FileUpload = ({ value, valueVideo, onChange, title }) => {
   const classes = useStyles();
 
   const [imagePreviewUrl, setImagePreviewUrl] = useState(value || null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-
+    console.log("file", file);
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       onChange(imageUrl);
@@ -290,7 +288,7 @@ export const FileUpload = ({ value, onChange, title }) => {
         </Tooltip>
       </Box>
       <input
-        accept="image/*"
+        accept="image/*, video/*"
         id="file-upload"
         type="file"
         className={classes.hiddenInput}
@@ -761,12 +759,6 @@ export const CustomButtonGroup = ({
   );
 };
 
-const BoxShadowDemo = () => {
-  const [boxShadow, setBoxShadow] = useState("0px 0px 5px rgba(0, 0, 0, 0.3)");
-
-  return <div></div>;
-};
-
 export const CustomTextInput = ({
   text,
   value,
@@ -774,7 +766,9 @@ export const CustomTextInput = ({
   tooltipText,
   multiline,
   row,
+  rows,
   placeholder,
+  width,
 }) => {
   const classes = useStyles();
   return (
@@ -785,6 +779,7 @@ export const CustomTextInput = ({
           flexDirection: row ? "row" : "column",
           alignItems: row ? "center" : "start",
           justifyContent: row ? "space-between" : "start",
+          width: width ? width : "auto",
         }}
       >
         <Typography
@@ -798,7 +793,7 @@ export const CustomTextInput = ({
         <TextField
           variant="outlined"
           multiline={multiline ? true : false}
-          rows={multiline ? 4 : 1}
+          rows={multiline ? rows : 1}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -1338,7 +1333,7 @@ export const CustomAccordion = ({ title, children, defaultExpanded }) => {
   );
 };
 
-const CustomInput = ({
+export const CustomInput = ({
   text,
   placeholder,
   tooltip,
@@ -1391,89 +1386,54 @@ const CustomInput = ({
   </Box>
 );
 
-const OptionsList = ({ options, value, onChange }) => (
-  <>
-    {options?.map((option, index) => (
-      <Box key={index}>
-        <FormControlLabel
-          style={{ display: "flex", alignItems: "center" }}
-          control={
-            <Checkbox
-              size="small"
-              checked={value}
-              onChange={onChange}
-              value={value}
-            />
-          }
-          label={
-            <Typography variant="caption" color="inherit">
-              {option.label}
-            </Typography>
-          }
-        />
-      </Box>
-    ))}
-  </>
-);
+export const CustomCheckbox = ({ options, value, onChange }) => {
+  const handleChangeCheckbox = (event) => {
+    const newValue = options.reduce((acc, option) => {
+      acc[option.value] = option.value === event.target.value;
+      return acc;
+    }, {});
 
-const IconButtonGroup = ({
-  optionsButton,
-  openCollapse,
-  setOpenCollapse,
-  text,
-  boxShadow,
-  setBoxShadow,
-}) => (
-  <Box width="100%" style={{ display: "flex", flexDirection: "column" }}>
-    <Box style={{ display: "flex", justifyContent: "space-between" }}>
-      <Box>
-        <Typography variant="caption" color="inherit" marginBottom={0}>
-          {text}
-        </Typography>
-      </Box>
-      <Box>
-        {optionsButton?.map((option, index) => (
-          <Tooltip key={index} title={option.label || ""} placement="top">
-            <IconButton
-              onClick={option.onClick}
-              sx={{
-                backgroundColor: option.value === "boxShadow" ? "#3f444b" : "",
-                border:
-                  option.value === "none" || "boxShadow"
-                    ? ""
-                    : "1px solid rgba(255, 255, 255, 0.1)",
-                boxSizing: "border-box",
-                borderRadius: option.value === "boxShadow" ? "3px" : "0px",
-                padding: "5px 5px 4px 4px",
-                "& svg": {
-                  width: "14px",
-                  height: "14px",
-                  transform:
-                    option.value === "none"
-                      ? "translateY(-0%) rotate(-40deg)"
-                      : "",
-                },
-              }}
-            >
-              {option.icon}
-            </IconButton>
-          </Tooltip>
-        ))}{" "}
-      </Box>
-    </Box>
+    onChange(newValue);
+  };
 
-    <Box>
-      <CustomCollapseBoxShadow
-        openCollapse={openCollapse}
-        setOpenCollapse={setOpenCollapse}
-        boxShadow={boxShadow}
-        setBoxShadow={setBoxShadow}
-      />
-    </Box>
-  </Box>
-);
+  return (
+    <>
+      {options?.map((option, index) => (
+        <Box key={index}>
+          <FormControlLabel
+            style={{ display: "flex", alignItems: "center" }}
+            control={
+              <Checkbox
+                size="small"
+                checked={value[option.value] || false}
+                sx={{ color: "#fff", cursor: "pointer" }}
+                onChange={handleChangeCheckbox}
+                value={option.value}
+              />
+            }
+            label={
+              <Typography variant="caption" color="inherit">
+                {option.label}
+              </Typography>
+            }
+          />
+        </Box>
+      ))}
+    </>
+  );
+};
 
-const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
+export const CustomBoxShadow = ({ props, setProp, openCollapse }) => {
+  const initialValueBoxShadow = {
+    horizontal: 0,
+    vertical: 0,
+    blur: 0,
+    spread: 0,
+    color: "transparent",
+    inset: false,
+  };
+  const [boxShadow, setBoxShadow] = useState(initialValueBoxShadow);
+
   const handleColorChange = (color) => {
     setBoxShadow({
       ...boxShadow,
@@ -1487,88 +1447,53 @@ const CustomCollapseBoxShadow = ({ openCollapse, boxShadow, setBoxShadow }) => {
     setBoxShadow({ ...boxShadow, inset: !boxShadow.inset });
   };
 
+  useEffect(() => {
+    const { horizontal, vertical, blur, spread, color, inset } = boxShadow;
+    const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${
+      inset ? " inset" : ""
+    }`;
+
+    setProp((props) => (props.boxShadow = boxShadowString));
+  }, [boxShadow, props, setProp]);
+
   return (
-    <Box style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      <Collapse in={openCollapse} timeout="auto" unmountOnExit>
-        <Grid item mt={2}>
-          <ColorControl
-            name={"Cor da sobra"}
-            onChange={handleColorChange}
-            defaultValue={boxShadow?.color}
-            value={boxShadow?.color}
-          />
-        </Grid>
-        <Grid item mt={2}>
-          <CustomSlider
-            disableUnits
-            disableDeviceView
-            text="Horizontal"
-            value={boxShadow?.horizontal}
-            onChange={handleSliderChange("horizontal")}
-            min={-100}
-            max={100}
-            step={1}
-            tooltipText={"Ajuste o valor horizontal da sombra"}
-          />
-        </Grid>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", gap: 2, paddingTop: 1 }}
+    >
+      <ColorControl
+        name={"Cor da sobra"}
+        onChange={handleColorChange}
+        defaultValue={boxShadow?.color}
+        value={boxShadow?.color}
+      />
 
-        <Grid item mt={2}>
-          <CustomSlider
-            disableUnits
-            disableDeviceView
-            text="Vertical"
-            value={boxShadow?.vertical}
-            onChange={handleSliderChange("vertical")}
-            min={-100}
-            max={100}
-            step={1}
-            tooltipText={"Ajuste o valor vertical da sombra"}
-          />
-        </Grid>
-
-        <Grid item mt={2}>
-          <CustomSlider
-            disableUnits
-            disableDeviceView
-            text="Desfoque"
-            value={boxShadow?.blur}
-            onChange={handleSliderChange("blur")}
-            min={0}
-            max={100}
-            step={1}
-            tooltipText={"Ajuste o valor de desfoque da sombra"}
-          />
-        </Grid>
-
-        <Grid item mt={2}>
-          <CustomSlider
-            disableUnits
-            disableDeviceView
-            text="Distância"
-            value={boxShadow?.spread}
-            onChange={handleSliderChange("spread")}
-            min={-50}
-            max={50}
-            step={1}
-            tooltipText={"Ajuste a distância da sombra"}
-          />
-        </Grid>
-
-        <Grid item mt={2}>
-          <CustomSelect
-            text={"Posição"}
-            value={boxShadow?.inset ? "inset" : ""}
-            onChange={toggleInset}
-            options={[
-              { value: "", label: "Contorno" },
-              { value: "inset", label: "Interno" },
-            ]}
-          />
-        </Grid>
-      </Collapse>
+      {["horizontal", "vertical", "blur", "spread"].map((prop, index) => (
+        <CustomSlider
+          key={index}
+          disableUnits
+          disableDeviceView
+          text={prop.charAt(0).toUpperCase() + prop.slice(1)}
+          value={boxShadow[prop]}
+          onChange={handleSliderChange(prop)}
+          min={prop === "blur" ? 0 : prop === "spread" ? -50 : -100}
+          max={prop === "blur" ? 100 : prop === "spread" ? 50 : 100}
+          step={1}
+          tooltipText={`Ajuste o valor de ${prop} da sombra`}
+        />
+      ))}
+      <CustomSelect
+        text={"Posição"}
+        value={boxShadow?.inset ? "inset" : ""}
+        onChange={toggleInset}
+        options={[
+          { value: "", label: "Contorno" },
+          { value: "inset", label: "Interno" },
+        ]}
+      />
     </Box>
   );
 };
+
 export const TextFieldControl = ({
   name,
   label,
@@ -1621,66 +1546,86 @@ export const TextFieldControl = ({
 };
 
 export const CustomCollapse = ({
+  children,
   text,
-  options,
+  placeholder = "",
+  tooltip = "",
+  icon = <SettingsIcon fontSize="small" color="secondary" />,
   type,
-  value,
-  onChange,
-  tooltip,
-  icon,
-  placeholder,
+  row = false,
   optionsButton,
-  propype,
-  boxShadow,
-  setBoxShadow,
-  onclick,
-  openCollapse,
-  setOpenCollapse,
+  onChange,
+  value,
 }) => {
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
 
   return (
-    <Box style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-      {type === "textField" ? (
-        <CustomInput
-          text={text}
-          placeholder={placeholder}
-          tooltip={tooltip}
-          icon={icon}
-          setOpen={setOpen}
-          open={open}
-          classes={classes}
-        />
-      ) : (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: row ? "row" : "column",
+          width: "100%",
+          justifyContent: "space-between",
+          alignItems: row ? "center" : "flex-start",
+        }}
+      >
+        <Typography variant="caption" marginBottom={0}>
+          {text}
+        </Typography>
         <Box
           display="flex"
-          justifyContent="space-between"
           alignItems="center"
-          flexDirection={"row"}
-          width="100%"
+          sx={{ width: type === "TextField" ? "100%" : "auto" }}
         >
-          <IconButtonGroup
-            optionsButton={optionsButton}
-            setOpen={setOpen}
-            open={open}
-            text={text}
-            propype={propype}
-            openCollapse={openCollapse}
-            setOpenCollapse={setOpenCollapse}
-            boxShadow={boxShadow}
-            setBoxShadow={setBoxShadow}
-          />
-        </Box>
-      )}
-
-      <Box width="100%">
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          {type === "textField" && (
-            <OptionsList options={options} value={value} onChange={onChange} />
+          {type === "TextField" && (
+            <CustomTextInput
+              value={value}
+              onChange={onChange}
+              tooltipText={placeholder}
+              width
+            />
           )}
-        </Collapse>
+          {optionsButton?.map((item) => (
+            <Tooltip title={tooltip} placement="top">
+              <IconButton
+                onClick={() => setOpen((prevOpen) => !prevOpen)}
+                sx={{
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  borderRadius: 0,
+                  padding: "5px",
+                  "& svg": {
+                    width: "16px",
+                    height: "16px",
+                  },
+                }}
+              >
+                {item.icon ? item.icon : icon}
+              </IconButton>
+            </Tooltip>
+          ))}
+        </Box>
       </Box>
+      <Collapse
+        in={open}
+        timeout="auto"
+        unmountOnExit
+        sx={{
+          "&:before, &:after": {
+            display: "none",
+          },
+        }}
+      >
+        <Box padding={0} sx={{ paddingTop: 1 }}>
+          {children}
+        </Box>
+      </Collapse>
     </Box>
   );
 };

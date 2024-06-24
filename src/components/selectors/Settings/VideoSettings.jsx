@@ -12,9 +12,7 @@ import {
   CustomSelect,
   CustomTextInput,
   FileUpload,
-  ColorControl,
   CustomSlider,
-  TextFieldControl,
 } from "../../_Control";
 
 export const VideoSettings = () => {
@@ -104,13 +102,15 @@ export const VideoSettings = () => {
                   placeholder={"Digite seu URL(Youtube)"}
                 />
               ) : props.typeVideo === "Video_embead" ? (
-                <TextFieldControl
+                <CustomTextInput
                   name="Código HTML do Vídeo: "
-                  multiline
                   value={props.html}
                   onChange={(e) => {
                     setProp((props) => (props.html = e.target.value));
                   }}
+                  fullWidth
+                  rows={10}
+                  multiline
                 />
               ) : props.typeVideo === "upload_video" ? (
                 <FileUpload
@@ -183,48 +183,35 @@ export const VideoSettings = () => {
                   />
                   <CustomSelect
                     text="Resolução de imagem"
-                    value={props.typeVideo}
+                    value={props.resolutionVideo}
                     onChange={(e) =>
-                      setProp((props) => (props.typeVideo = e.target.value))
+                      setProp(
+                        (props) => (props.resolutionVideo = e.target.value)
+                      )
                     }
                     options={[
-                      { value: "thumbnail", label: "Thumbnail - 150 x 150" },
-                      { value: "medium", label: "Medium - 300 x 300" },
                       {
-                        value: "medium_large",
-                        label: "Medium Large - 768 x 0",
-                      },
-                      { value: "large", label: "Large - 1024 x 1024" },
-                      { value: "1536x1536", label: "1536x1536 - 1536 x 1536" },
-                      { value: "2048x2048", label: "2048x2048 - 2048 x 2048" },
-                      {
-                        value: "woocommerce_thumbnail",
-                        label: "Woocommerce Thumbnail - 300 x 300",
-                      },
-                      {
-                        value: "woocommerce_single",
-                        label: "Woocommerce Single - 600 x 0",
-                      },
-                      {
-                        value: "full",
+                        value: { with: "100%", height: "auto" },
                         label: "Completo",
                       },
                       {
-                        value: "custom",
+                        value: { with: "100%", height: "100%" },
                         label: "Personalizado",
                       },
                     ]}
                   />
-                  <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
-                  <Box display="flex" flexDirection="column" gap="16px">
+                  {props.resolutionVideo === "personalizado" ? <></> : null}
+                  {props.typeVideo === "custom" ? <></> : null}
+                  {/* <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} /> */}
+                  {/* <Box display="flex" flexDirection="column" gap="16px">
                     <CustomSwitch
                       checkedText="Mostrar"
                       uncheckedText="Ocultar"
                       text="Ícone de reprodução"
-                      value={props.display}
-                      onChange={(e) => setProp((props) => (props.display = e))}
+                      value={props.iconPlay}
+                      onChange={(e) => setProp((props) => (props.iconPlay = e))}
                     />
-                  </Box>{" "}
+                  </Box>{" "} */}
                 </>
               ) : null}
             </Box>
@@ -242,24 +229,36 @@ export const VideoSettings = () => {
         >
           <CustomAccordion title="Vídeo">
             <Box display="flex" flexDirection="column" gap="16px">
-              <CustomSelect
-                text="Proporção da tela"
-                value={props.position}
-                onChange={(e) =>
-                  setProp((props) => (props.position = e.target.value))
+              <CustomSlider
+                text={"Largura"}
+                value={props.width}
+                max={1200}
+                mobileValue={props.mobilewidth}
+                onChange={(e, value) =>
+                  setProp((props) => (props.width = value))
                 }
-                options={[
-                  { value: "11", label: "1:1" },
-                  { value: "32", label: "3:2" },
-                  { value: "43", label: "4:3" },
-                  { value: "169", label: "16:9" },
-                  { value: "219", label: "21:9" },
-                  { value: "916", label: "9:16" },
-                ]}
+                mobileOnChange={(e, value) =>
+                  setProp((props) => (props.mobilewidth = value))
+                }
+                tooltipText={"Escolha a largura do vídeo"}
+              />
+
+              <CustomSlider
+                text={"Altura"}
+                value={props.height}
+                max={1200}
+                mobileValue={props.heightMobile}
+                onChange={(e, value) =>
+                  setProp((props) => (props.height = value))
+                }
+                mobileOnChange={(e, value) =>
+                  setProp((props) => (props.heightMobile = value))
+                }
+                tooltipText={"Escolha a Altura do vídeo"}
               />
             </Box>
           </CustomAccordion>
-          <CustomAccordion title="Sobreposição de imagem">
+          {/* <CustomAccordion title="Sobreposição de imagem">
             <Box display="flex" flexDirection="column" gap="16px">
               <Typography variant="caption" color="inherit">
                 Ícone de Reprodução
@@ -285,7 +284,7 @@ export const VideoSettings = () => {
                 tooltipText={"Escolha o tamanho da fonte"}
               />
             </Box>
-          </CustomAccordion>
+          </CustomAccordion> */}
         </Grid>
       </TabPannel>
 

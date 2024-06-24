@@ -7,7 +7,8 @@ export const Image = ({
   alt,
   display,
   width,
-  maxWidth,
+  // maxWidth,
+  mobilewidth,
   height,
   objectFit,
   caption,
@@ -65,6 +66,7 @@ export const Image = ({
   mobileRight,
   mobileBottom,
   mobileZIndex,
+  mobileMaxWidth,
 }) => {
   const {
     connectors: { connect, drag },
@@ -74,7 +76,8 @@ export const Image = ({
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {
-        width: mobileWidth,
+        width: mobilewidth,
+        // maxWidth: mobileMaxWidth,
         marginTop: mobileMarginTop,
         marginRight: mobileMarginRight,
         marginLeft: mobileMarginLeft,
@@ -116,6 +119,7 @@ export const Image = ({
       right,
       bottom,
       zIndex,
+      // maxWidth,
     };
   };
 
@@ -137,7 +141,7 @@ export const Image = ({
         className="image-hover"
         style={{
           ...responsiveProps,
-          maxWidth,
+
           display,
           height,
           objectFit,

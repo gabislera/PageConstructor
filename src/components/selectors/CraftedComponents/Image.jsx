@@ -17,6 +17,8 @@ Image.craft = {
     display: "block",
     width: "100%",
     maxWidth: "100%",
+    mobilewidth: "100%",
+    mobileMaxWidth: "auto",
     height: "auto",
     objectFit: "initial",
     opacity: "1",

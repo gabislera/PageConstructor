@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
-import { ReactComponent as playVideo } from "../../iconsControls/play.svg";
+import { useEditor } from "@craftjs/core";
 export const Video = ({
   typeVideo,
   url,
@@ -14,200 +14,307 @@ export const Video = ({
   controls,
   playsInline,
   modestBranding,
+  iconPlay,
+  aspectRatio,
   width,
   height,
+  overflow,
   borderTopLeftRadius,
   borderTopRightRadius,
   borderBottomRightRadius,
   borderBottomLeftRadius,
-  overflow,
+  marginTop,
+  marginRight,
+  marginLeft,
+  marginBottom,
+  paddingTop,
+  paddingRight,
+  paddingLeft,
+  paddingBottom,
+  alignSelf,
+  order,
+  flexShrink,
+  flexGrow,
+  position,
+  top,
+  left,
+  right,
+  bottom,
+  zIndex,
+  mobileMarginTop,
+  mobileMarginRight,
+  mobileMarginLeft,
+  mobileMarginBottom,
+  mobilePaddingTop,
+  mobilePaddingRight,
+  mobilePaddingLeft,
+  mobilePaddingBottom,
+  mobileAlignSelf,
+  mobileOrder,
+  mobileFlexShrink,
+  mobileFlexGrow,
+  mobilePosition,
+  mobileTop,
+  mobileLeft,
+  mobileRight,
+  mobileBottom,
+  mobileZIndex,
+  maxWidth,
+  mobileMaxWidth,
+  heightMobile,
+  backgroundColor,
+  mobilewidth,
   ...props
 }) => {
   const {
     connectors: { connect, drag },
-  } = useNode((state) => ({
-    selected: state.events.selected,
-    dragged: state.events.dragged,
+  } = useNode();
+  const { enabled } = useEditor((state, query) => ({
+    enabled: state.options.enabled,
   }));
 
   const { deviceView } = useResponsiveMode();
   const [play, setPlay] = useState(false);
+  const responsiveProps =
+    deviceView === "mobile"
+      ? {
+          marginTop: mobileMarginTop,
+          marginRight: mobileMarginRight,
+          marginLeft: mobileMarginLeft,
+          marginBottom: mobileMarginBottom,
+          paddingTop: mobilePaddingTop,
+          paddingRight: mobilePaddingRight,
+          paddingLeft: mobilePaddingLeft,
+          paddingBottom: mobilePaddingBottom,
+          alignSelf: mobileAlignSelf,
+          flexShrink: mobileFlexShrink,
+          flexGrow: mobileFlexGrow,
+          position: mobilePosition,
+          top: mobileTop,
+          left: mobileLeft,
+          right: mobileRight,
+          bottom: mobileBottom,
+          zIndex: mobileZIndex,
+          maxWidth: mobileMaxWidth,
+          height: heightMobile,
+          width: mobilewidth,
+        }
+      : {
+          width,
+          maxWidth,
+          marginTop,
+          marginRight,
+          marginLeft,
+          marginBottom,
+          paddingTop,
+          paddingRight,
+          paddingLeft,
+          paddingBottom,
+          alignSelf,
+          flexShrink,
+          flexGrow,
+          position,
+          top,
+          left,
+          right,
+          bottom,
+          zIndex,
+          height,
+        };
 
-  const responsiveProps = {
-    autoPlay,
-    muted,
-    loop,
-    controls,
-    playsInline,
-    modestBranding,
-    width,
-    height,
-  };
-
-  const getVideoSource = () => {
-    switch (typeVideo) {
-      case "video_url":
-        return url;
-      case "Video_embead":
-        return html;
-      case "upload_video":
-        return src;
-      default:
-        return null;
-    }
-  };
-
-  const renderIFrameVideo = (videoUrl) => {
-    const extractVideoId = (url) => {
-      const urlObj = new URL(url);
-      const searchParams = new URLSearchParams(urlObj.search);
-
-      if (searchParams.has("v")) {
-        return searchParams.get("v");
-      }
-
-      const pathname = urlObj.pathname;
-      return pathname.substring(pathname.lastIndexOf("/") + 1);
-    };
-
-    const videoId = extractVideoId(videoUrl);
-    if (!videoId) {
-      console.error("ID de vídeo não encontrado na URL fornecida.");
-      return null;
-    }
-
-    const queryParams = [];
-    if (autoPlay) queryParams.push("autoplay=1");
-    if (muted) queryParams.push("mute=1");
-    if (loop) queryParams.push(`loop=1&playlist=${videoId}`);
-    if (!controls) queryParams.push("controls=0");
-    if (playsInline) queryParams.push("playsinline=1");
-    if (modestBranding) queryParams.push("modestbranding=1");
-
-    const srcUrl = `https://www.youtube.com/embed/${videoId}?${queryParams.join(
-      "&"
-    )}`;
-
-    return (
+  const renderIFrame = (src) => (
+    <>
       <div
         style={{
           position: "relative",
-          width,
-          height,
           overflow: "hidden",
           borderTopLeftRadius,
           borderTopRightRadius,
           borderBottomRightRadius,
           borderBottomLeftRadius,
+          backgroundColor: html ? "transparent" : backgroundColor,
+          ...responsiveProps,
         }}
         ref={(ref) => connect(drag(ref))}
-        {...props}
       >
-        {thumbnail && !play ? (
-          <div
-            onClick={() => setPlay(true)}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundImage: `url('${thumbnail}')`,
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              cursor: "pointer",
-              zIndex: 1,
-            }}
-          >
-            <div
-              className="play-icon"
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                zIndex: 2,
-              }}
-            >
-              <playVideo width={"22px"} alt="play_button" zIndex={3} />
-            </div>
-          </div>
-        ) : (
+        <ThumbnailVideo thumbnail={thumbnail} play={play} setPlay={setPlay}>
           <iframe
-            src={srcUrl}
+            src={src}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             title="Video"
             width={width}
             height={height}
+            style={{
+              zIndex: 0,
+              ...responsiveProps,
+            }}
             allowFullScreen
-            style={{ position: "relative", zIndex: 0 }}
           />
-        )}
+        </ThumbnailVideo>
+      </div>
+    </>
+  );
+
+  const extractVideoId = (url) => {
+    const urlObj = new URL(url);
+    const searchParams = new URLSearchParams(urlObj.search);
+
+    if (searchParams.has("v")) {
+      return searchParams.get("v");
+    }
+
+    const pathname = urlObj.pathname;
+    return pathname.substring(pathname.lastIndexOf("/") + 1);
+  };
+
+  const prepareYouTubeEmbedUrl = (url) => {
+    const videoId = extractVideoId(url);
+
+    const queryParams = [
+      autoPlay && "autoplay=1",
+      muted && "mute=1",
+      loop && `loop=1&playlist=${videoId}`,
+      !controls && "controls=0",
+      playsInline && "playsinline=1",
+      modestBranding && "modestbranding=1",
+    ]
+      .filter(Boolean)
+      .join("&");
+
+    return `https://www.youtube.com/embed/${videoId}?${queryParams}`;
+  };
+
+  const renderVideoEmbead = (html) => {
+    const refactorHtml = (html) => {
+      const videoId = extractVideoId(url);
+
+      const iframe = html.split("/");
+      const embedUrl = iframe[2].split("?");
+      console.log("ifra,e", embedUrl);
+      const embedSrc = prepareYouTubeEmbedUrl(
+        `https://${embedUrl}/watch?v=${videoId}`
+      );
+      return html
+        .replace(/width="[^"]*"/, `width="${width}"`)
+        .replace(/height="[^"]*"/, `height="${height}"`)
+        .replace(/src="[^"]*"/, `src="${embedSrc}"`)
+        .replace("position:absolute;", "")
+        .replace("<iframe", "<iframe style='pointer-events: none;'");
+    };
+
+    return (
+      <div
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          borderTopLeftRadius,
+          borderTopRightRadius,
+          borderBottomRightRadius,
+          borderBottomLeftRadius,
+          backgroundColor: html ? "transparent" : backgroundColor,
+          ...responsiveProps,
+        }}
+        ref={(ref) => connect(drag(ref))}
+      >
+        <ThumbnailVideo thumbnail={thumbnail} play={play} setPlay={setPlay}>
+          <div
+            ref={(ref) => connect(drag(ref))}
+            dangerouslySetInnerHTML={{ __html: refactorHtml(html) }}
+            style={{
+              ...responsiveProps,
+              backgroundColor: html ? "transparent" : backgroundColor,
+              borderTopLeftRadius,
+              borderTopRightRadius,
+              borderBottomRightRadius,
+              borderBottomLeftRadius,
+              position,
+            }}
+          />
+        </ThumbnailVideo>
       </div>
     );
   };
 
-  if (typeVideo === "video_url" && url.includes("youtube.com")) {
-    return renderIFrameVideo(url);
-  }
-
-  return (
-    <div
-      style={{
-        position: "relative",
-        width,
-        height,
-      }}
-      {...props}
-      ref={(ref) => connect(drag(ref))}
-    >
-      {thumbnail && !play && (
-        <div
-          onClick={() => setPlay(true)}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: `url('${thumbnail}')`,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            cursor: "pointer",
-            zIndex: 1,
-          }}
-        >
-          <div
-            className="play-icon"
+  const videoUrl = (src) => {
+    return (
+      <div
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          borderTopLeftRadius,
+          borderTopRightRadius,
+          borderBottomRightRadius,
+          borderBottomLeftRadius,
+          backgroundColor: html ? "transparent" : backgroundColor,
+          ...responsiveProps,
+        }}
+      >
+        <ThumbnailVideo thumbnail={thumbnail} play={play} setPlay={setPlay}>
+          <video
+            ref={(ref) => connect(drag(ref))}
+            autoPlay
+            muted
+            loop
+            src={src}
+            type="video/mp4"
             style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              zIndex: 2,
+              borderTopLeftRadius,
+              borderTopRightRadius,
+              borderBottomRightRadius,
+              borderBottomLeftRadius,
+              backgroundColor,
+              ...responsiveProps,
+            }}
+          />
+        </ThumbnailVideo>
+      </div>
+    );
+  };
+  const ThumbnailVideo = ({ thumbnail, play, setPlay, iconPlay, children }) => {
+    return (
+      <>
+        {thumbnail && !play ? (
+          <div
+            onClick={() => (enabled ? setPlay(true) : null)}
+            ref={(ref) => connect(drag(ref))}
+            style={{
+              ...responsiveProps,
+              borderTopLeftRadius,
+              borderTopRightRadius,
+              borderBottomRightRadius,
+              borderBottomLeftRadius,
+              position,
+              overflow,
+              paddingTop,
+              backgroundImage: `url(${thumbnail})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              cursor: "pointer",
             }}
           >
-            <img alt="play_button" src="/play.svg" width={"22px"} />
+            <div className="play-icon">
+              <img alt="play_button" src={"./play.svg"} width={"32px"} />
+            </div>
           </div>
-        </div>
-      )}
-      {play && (
-        <video
-          src={getVideoSource()}
-          autoPlay={responsiveProps.autoPlay}
-          muted={responsiveProps.muted}
-          loop={responsiveProps.loop}
-          controls={responsiveProps.controls}
-          playsInline={responsiveProps.playsInline}
-          width={width}
-          height={height}
-          style={{ position: "relative", zIndex: 0 }}
-        >
-          <track kind="captions" />
-        </video>
-      )}
-    </div>
-  );
+        ) : (
+          <>{children}</>
+        )}
+      </>
+    );
+  };
+
+  switch (typeVideo) {
+    case "video_url":
+      return url.includes("youtube.com")
+        ? renderIFrame(prepareYouTubeEmbedUrl(url))
+        : renderIFrame(url);
+    case "Video_embead":
+      return renderVideoEmbead(html);
+    case "upload_video":
+      return videoUrl(src);
+    default:
+      return null;
+  }
 };

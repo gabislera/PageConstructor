@@ -1,19 +1,8 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
-import ContentEditable from "react-contenteditable";
 
-export const ProgressBar = ({
-  title,
-  htmlTag,
-  content,
-  width,
-  height,
-  backgroundColor,
-  titleColor,
-  contentColor,
-  borderRadius,
-
+export const Countdown = ({
   marginTop,
   marginRight,
   marginLeft,
@@ -30,7 +19,6 @@ export const ProgressBar = ({
   right,
   bottom,
   zIndex,
-
   mobileMarginTop,
   mobileMarginRight,
   mobileMarginLeft,
@@ -52,7 +40,12 @@ export const ProgressBar = ({
     connectors: { connect, drag },
   } = useNode();
   const { deviceView } = useResponsiveMode();
-
+  const list = [
+    { days: "days", value: "2", title: "days" },
+    { days: "hours", value: "2", title: "hours" },
+    { days: "minutes", value: "2", title: "minutes" },
+    { days: "seconds", value: "2", title: "seconds" },
+  ];
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {
@@ -100,40 +93,26 @@ export const ProgressBar = ({
     <div
       style={{
         ...responsiveProps,
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
       }}
       ref={(ref) => connect(drag(ref))}
     >
-      <ContentEditable
-        tagName={htmlTag}
-        html={title}
-        disabled={false}
-        style={{
-          margin: 0,
-          color: titleColor,
-        }}
-        onChange={(e) => {
-          // Handle title change logic here if needed
-        }}
-      />
-      <div
-        style={{
-          width: `${width}%`,
-          height,
-          backgroundColor,
-          color: contentColor,
-          borderRadius,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 10px",
-        }}
-      >
-        <span>{content}</span>
-        <span>{width}%</span>
-      </div>
+      <CountdownSettings />
+    </div>
+  );
+};
+
+const CountdownSettings = (item) => {
+  return (
+    <div
+      style={{
+        width: "50%",
+        background: "#6ec1e4",
+        padding: "20px 0px",
+        maxWidth: "72%",
+      }}
+    >
+      <span>dsadasdas</span>
+      <span>dasdjasjkdja</span>
     </div>
   );
 };
