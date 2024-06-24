@@ -64,6 +64,9 @@ export const Text = ({
   mobileBottom,
   mobileZIndex,
 
+  hidden,
+  mobileHidden,
+
   ...props
 }) => {
   const {
@@ -143,36 +146,46 @@ export const Text = ({
     };
   };
 
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
-  const Content = () => (
-    <ContentEditable
-      html={content}
-      disabled={!editable}
-      onChange={(e) =>
-        setProp(
-          (props) =>
-            (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
-          500
-        )
-      }
-      tagName={htmlTag}
-      style={{
-        ...responsiveProps,
-        color,
-        width,
-      }}
-    />
-  );
+  console.log(hiddenElement);
 
-  // TODO: url is not working
+  // const Content = () => (
+  //   <ContentEditable
+  //     html={content}
+  //     disabled={!editable}
+  //     onChange={(e) =>
+  //       setProp(
+  //         (props) =>
+  //           (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
+  //         500
+  //       )
+  //     }
+  //     tagName={htmlTag}
+  //     style={{
+  //       ...responsiveProps,
+  //       color,
+  //       width,
+  //     }}
+  //   />
+  // );
+
+  // TODO: url is not working, need to make it work with api-main
 
   return (
     <div
+      className={`${hiddenElement && "hidden"} `}
       style={{
         ...responsiveProps,
         display: "inherit",
-        // position,
         width: "fit-content",
         maxWidth: "100%",
         overflowWrap: "break-word",
@@ -181,7 +194,24 @@ export const Text = ({
       ref={(ref) => connect(drag(ref))}
       onClick={() => selected && setEditable(true)}
     >
-      {url ? (
+      <ContentEditable
+        html={content}
+        disabled={!editable}
+        onChange={(e) =>
+          setProp(
+            (props) =>
+              (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
+            500
+          )
+        }
+        tagName={htmlTag}
+        style={{
+          ...responsiveProps,
+          color,
+          width,
+        }}
+      />
+      {/* {url ? (
         <a
           href={url}
           target="_blank"
@@ -191,8 +221,24 @@ export const Text = ({
           <Content />
         </a>
       ) : (
-        <Content />
-      )}
+        <ContentEditable
+          html={content}
+          disabled={!editable}
+          onChange={(e) =>
+            setProp(
+              (props) =>
+                (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
+              500
+            )
+          }
+          tagName={htmlTag}
+          style={{
+            ...responsiveProps,
+            color,
+            width,
+          }}
+        />
+      )} */}
     </div>
   );
 };

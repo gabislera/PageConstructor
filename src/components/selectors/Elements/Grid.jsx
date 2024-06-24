@@ -87,6 +87,9 @@ export const Grid = ({
   mobileRight,
   mobileBottom,
   mobileZIndex,
+
+  hidden,
+  mobileHidden,
 }) => {
   const {
     connectors: { connect, drag },
@@ -98,8 +101,6 @@ export const Grid = ({
     deviceView === "desktop"
       ? gridRows * gridColumns
       : mobileGridRows * mobileGridColumns;
-
-  console.log(paddingBottom, mobilePaddingBottom);
 
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
@@ -159,10 +160,21 @@ export const Grid = ({
     };
   };
 
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
+
+  // TODO: change logic to render the <a> tag only in api-main
 
   const GridElement = (
     <ContainerTag
+      className={`${hiddenElement && "hidden"}`}
       ref={(ref) => connect(drag(ref))}
       style={{
         ...responsiveProps,
@@ -208,7 +220,7 @@ export const Grid = ({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      style={{ textDecoration: "none", color: "inherit" }}
+      style={{ textDecoration: "none", color: "inherit", width: "100%" }}
     >
       {GridElement}
     </a>

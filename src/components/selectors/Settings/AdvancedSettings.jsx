@@ -186,16 +186,16 @@ export const AdvancedSettings = ({ props, setProp }) => {
               checkedText="Mostrar"
               uncheckedText="Ocultar"
               text="Ocultar em Desktop"
-              value={props.display}
-              onChange={(e) => setProp((props) => (props.display = e))}
+              value={props.hidden}
+              onChange={(e) => setProp((props) => (props.hidden = e))}
             />
 
             <CustomSwitch
               text="Ocultar em Dispositivos móveis"
               checkedText={"Mostrar"}
               uncheckedText={"Ocultar"}
-              value={props.displayMobile}
-              onChange={(e) => setProp((props) => (props.displayMobile = e))}
+              value={props.mobileHidden}
+              onChange={(e) => setProp((props) => (props.mobileHidden = e))}
             />
           </Box>
         </Box>

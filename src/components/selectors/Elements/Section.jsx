@@ -10,7 +10,6 @@ export const Section = ({ initialElement }) => {
   const {
     connectors: { connect, drag },
     actions: { setProp },
-    selected,
   } = useNode((node) => ({
     selected: node.events.selected,
   }));

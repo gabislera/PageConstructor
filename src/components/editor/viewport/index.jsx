@@ -21,7 +21,7 @@ export const Viewport = ({ children }) => {
     }
   });
 
-  const addContainer = () => {
+  const addSection = () => {
     const section = <Element canvas is={Section}></Element>;
     const nodeTree = query.parseReactElement(section).toNodeTree();
     actions.addNodeTree(nodeTree, ROOT_NODE);
@@ -63,7 +63,7 @@ export const Viewport = ({ children }) => {
             {children}
             <Button
               color="primary"
-              onClick={addContainer}
+              onClick={addSection}
               sx={{
                 mt: 2,
                 backgroundColor: "#3f3f46",

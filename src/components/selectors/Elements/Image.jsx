@@ -1,6 +1,6 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
-import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
+import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
 export const Image = ({
   src,
@@ -67,6 +67,9 @@ export const Image = ({
   mobileBottom,
   mobileZIndex,
   mobileMaxWidth,
+
+  hidden,
+  mobileHidden,
 }) => {
   const {
     connectors: { connect, drag },
@@ -123,6 +126,14 @@ export const Image = ({
     };
   };
 
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
   const hoverStyles = `
@@ -132,13 +143,15 @@ export const Image = ({
   }
 `;
 
+  // TODO: change logic to render the <a> tag only in api-main
+
   const ImageElement = (
     <>
       <img
         ref={(ref) => connect(drag(ref))}
         src={src}
         alt={alt}
-        className="image-hover"
+        className={`image-hover ${hiddenElement && "hidden"}`}
         style={{
           ...responsiveProps,
 

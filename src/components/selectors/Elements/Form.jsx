@@ -2,7 +2,7 @@ import React from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
-export const Template = ({
+export const Form = ({
   marginTop,
   marginRight,
   marginLeft,
@@ -36,9 +36,6 @@ export const Template = ({
   mobileRight,
   mobileBottom,
   mobileZIndex,
-
-  hidden,
-  mobileHidden,
 }) => {
   const {
     connectors: { connect, drag },
@@ -86,20 +83,10 @@ export const Template = ({
       zIndex,
     };
   };
-
-  const getVisibility = () => {
-    if (deviceView === "mobile") {
-      return mobileHidden;
-    }
-    return hidden;
-  };
-
-  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
   return (
     <div
-      className={`${hiddenElement && "hidden"}`}
       style={{
         ...responsiveProps,
       }}

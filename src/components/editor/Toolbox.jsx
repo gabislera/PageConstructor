@@ -11,6 +11,7 @@ import Video from "../selectors/CraftedComponents/Video";
 import Grid from "../selectors/CraftedComponents/Grid";
 import Faq from "../selectors/CraftedComponents/Faq";
 import ProgressBar from "../selectors/CraftedComponents/ProgressBar";
+import Form from "../selectors/CraftedComponents/Form";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -98,7 +99,7 @@ export const Toolbox = () => {
             <InsightsIcon />
             <span>Barra de progresso</span>
           </GridItem>
-          <GridItem element={Text} tooltipText={"Form"}>
+          <GridItem element={Form} tooltipText={"Form"}>
             <ContactsIcon />
             <span>Formulário</span>
           </GridItem>

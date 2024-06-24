@@ -1,5 +1,5 @@
 import { ChromePicker } from "react-color";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ClickAwayListener } from "@mui/base";
 import { makeStyles } from "@mui/styles";
 import {
@@ -1246,7 +1246,6 @@ export const ColorControl = ({
 export const CustomSwitch = ({
   text,
   value,
-  mobileOnChange,
   onChange,
   tooltipText,
   checkedText,

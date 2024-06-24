@@ -1,8 +1,8 @@
-import { TemplateSettings } from "../Settings/TemplateSettings";
-import { Template } from "../Elements/Template";
+import { FormSettings } from "../Settings/FormSettings";
+import { Form } from "../Elements/Form";
 
-Template.craft = {
-  displayName: "Template",
+Form.craft = {
+  displayName: "Form",
 
   props: {
     // element props
@@ -40,13 +40,10 @@ Template.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
-
-    hidden: false,
-    mobileHidden: false,
   },
   related: {
-    settings: TemplateSettings,
+    settings: FormSettings,
   },
 };
 
-export default Template;
+export default Form;

@@ -6,17 +6,38 @@ ProgressBar.craft = {
 
   props: {
     // element props
+    display: "flex",
     title: "Título",
     content: "Conteúdo",
     width: "80",
     height: "40px",
     htmlTag: "span",
 
-    titleColor: "#000",
-    contentColor: "#fff",
     backgroundColor: "#625CF3",
-    borderRadius: "2px",
-    showPercentage: true,
+    borderRadius: "4px",
+
+    titleColor: "#000",
+    titleFontFamily: "sans-serif",
+    titleFontSize: "16px",
+    titleFontWeight: "500",
+    titleTextTransform: "none",
+    titleFontStyle: "normal",
+    titleTextDecoration: "none",
+    titleLineHeight: "1.5",
+    titleLetterSpacing: "0",
+    titleWordSpacing: "0",
+
+    contentColor: "#fff",
+    contentFontFamily: "sans-serif",
+    contentFontSize: "14px",
+    contentFontWeight: "400",
+    contentTextTransform: "none",
+    contentFontStyle: "normal",
+    contentTextDecoration: "none",
+    contentLineHeight: "1.5",
+    contentLetterSpacing: "0",
+    contentWordSpacing: "0",
+    contentPadding: "10px",
 
     marginTop: "0px",
     marginRight: "0px",
@@ -51,6 +72,10 @@ ProgressBar.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
+
+    showPercentage: true,
+    hidden: false,
+    mobileHidden: false,
   },
   related: {
     settings: ProgressBarSettings,

@@ -4,15 +4,42 @@ import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import ContentEditable from "react-contenteditable";
 
 export const ProgressBar = ({
+  display,
   title,
   htmlTag,
   content,
   width,
   height,
   backgroundColor,
-  titleColor,
-  contentColor,
   borderRadius,
+
+  hidden,
+  mobileHidden,
+
+  titleColor,
+  titleFontFamily,
+  titleFontSize,
+  titleFontWeight,
+  titleTextTransform,
+  titleFontStyle,
+  titleTextDecoration,
+  titleLineHeight,
+  titleLetterSpacing,
+  titleWordSpacing,
+
+  contentColor,
+  contentFontFamily,
+  contentFontSize,
+  contentFontWeight,
+  contentTextTransform,
+  contentFontStyle,
+  contentTextDecoration,
+  contentLineHeight,
+  contentLetterSpacing,
+  contentWordSpacing,
+  contentPadding,
+
+  showPercentage,
 
   marginTop,
   marginRight,
@@ -50,6 +77,7 @@ export const ProgressBar = ({
 }) => {
   const {
     connectors: { connect, drag },
+    actions: { setProp },
   } = useNode();
   const { deviceView } = useResponsiveMode();
 
@@ -94,13 +122,23 @@ export const ProgressBar = ({
       zIndex,
     };
   };
+
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
   return (
     <div
+      className={`${hiddenElement && "hidden"} progress-bar-content `}
       style={{
         ...responsiveProps,
-        display: "flex",
+        display,
         flexDirection: "column",
         width: "100%",
       }}
@@ -113,12 +151,26 @@ export const ProgressBar = ({
         style={{
           margin: 0,
           color: titleColor,
+          fontFamily: titleFontFamily,
+          fontSize: titleFontSize,
+          fontWeight: titleFontWeight,
+          textTransform: titleTextTransform,
+          fontStyle: titleFontStyle,
+          textDecoration: titleTextDecoration,
+          lineHeight: titleLineHeight,
+          letterSpacing: titleLetterSpacing,
+          wordSpacing: titleWordSpacing,
         }}
-        onChange={(e) => {
-          // Handle title change logic here if needed
-        }}
+        onChange={(e) =>
+          setProp(
+            (props) => (
+              (props.title = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")), 500
+            )
+          )
+        }
       />
       <div
+        className="progress-bar-animation"
         style={{
           width: `${width}%`,
           height,
@@ -129,10 +181,35 @@ export const ProgressBar = ({
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 10px",
+          overflow: "hidden",
         }}
       >
-        <span>{content}</span>
-        <span>{width}%</span>
+        <ContentEditable
+          tagName={"span"}
+          html={content}
+          disabled={false}
+          style={{
+            color: contentColor,
+            fontFamily: contentFontFamily,
+            fontSize: contentFontSize,
+            fontWeight: contentFontWeight,
+            textTransform: contentTextTransform,
+            fontStyle: contentFontStyle,
+            textDecoration: contentTextDecoration,
+            lineHeight: contentLineHeight,
+            letterSpacing: contentLetterSpacing,
+            wordSpacing: contentWordSpacing,
+          }}
+          onChange={(e) =>
+            setProp(
+              (props) => (
+                (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
+                500
+              )
+            )
+          }
+        />
+        {showPercentage && <span>{width}%</span>}
       </div>
     </div>
   );

@@ -64,7 +64,9 @@ export const Video = ({
   heightMobile,
   backgroundColor,
   mobilewidth,
-  ...props
+
+  hidden,
+  mobileHidden,
 }) => {
   const {
     connectors: { connect, drag },
@@ -75,6 +77,7 @@ export const Video = ({
 
   const { deviceView } = useResponsiveMode();
   const [play, setPlay] = useState(false);
+
   const responsiveProps =
     deviceView === "mobile"
       ? {
@@ -121,6 +124,15 @@ export const Video = ({
           zIndex,
           height,
         };
+
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+
+  const hiddenElement = getVisibility();
 
   const renderIFrame = (src) => (
     <>
@@ -206,6 +218,7 @@ export const Video = ({
 
     return (
       <div
+        className={`${hiddenElement && "hidden"}`}
         style={{
           position: "relative",
           overflow: "hidden",
@@ -240,6 +253,7 @@ export const Video = ({
   const videoUrl = (src) => {
     return (
       <div
+        className={`${hiddenElement && "hidden"}`}
         style={{
           position: "relative",
           overflow: "hidden",
@@ -277,6 +291,7 @@ export const Video = ({
       <>
         {thumbnail && !play ? (
           <div
+            className={`${hiddenElement && "hidden"}`}
             onClick={() => (enabled ? setPlay(true) : null)}
             ref={(ref) => connect(drag(ref))}
             style={{
