@@ -26,6 +26,8 @@ import {
   AccordionSummary,
   AccordionDetails,
   Button,
+  Autocomplete,
+  Chip,
 } from "@mui/material";
 import {
   Link,
@@ -767,6 +769,9 @@ export const CustomTextInput = ({
   multiline,
   row,
   rows,
+  type,
+  id,
+  shrink,
   placeholder,
   width,
 }) => {
@@ -779,7 +784,6 @@ export const CustomTextInput = ({
           flexDirection: row ? "row" : "column",
           alignItems: row ? "center" : "start",
           justifyContent: row ? "space-between" : "start",
-          width: width ? width : "auto",
         }}
       >
         <Typography
@@ -791,6 +795,9 @@ export const CustomTextInput = ({
           {text}
         </Typography>
         <TextField
+          type={type ? type : ""}
+          id={id ? id : ""}
+          InputLabelProps={shrink ? true : false}
           variant="outlined"
           multiline={multiline ? true : false}
           rows={multiline ? rows : 1}
@@ -798,8 +805,84 @@ export const CustomTextInput = ({
           value={value}
           onChange={onChange}
           className={classes.customInput}
-          sx={{ padding: 0 }}
+          sx={{ padding: 0, width: width ? width : "100%" }}
           fullWidth={row ? false : true}
+        />
+      </Box>
+    </Tooltip>
+  );
+};
+
+export const CustomAutocomplete = ({
+  text,
+  value,
+  onChange,
+  tooltipText,
+  multiline,
+  row,
+  rows,
+  type,
+  id,
+  shrink,
+  placeholder,
+  width,
+  options,
+}) => {
+  const classes = useStyles();
+
+  return (
+    <Tooltip title={tooltipText ? tooltipText : ""} placement="right">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: row ? "row" : "column",
+          alignItems: row ? "center" : "start",
+          justifyContent: row ? "space-between" : "start",
+        }}
+      >
+        <Typography
+          variant="caption"
+          gutterBottom
+          color="inherit"
+          sx={{ mb: 0 }}
+        >
+          {text}
+        </Typography>
+        <Autocomplete
+          multiple
+          getOptionLabel={(option) => option.lebel}
+          fullWidth
+          value={options.value || []}
+          options={options}
+          onChange={(newValue) => {
+            onChange(newValue);
+          }}
+          renderTags={(selectedOptions, getTagProps) =>
+            selectedOptions.map((option, index) => (
+              <Chip
+                variant="outlined"
+                label={option}
+                {...getTagProps({ index })}
+              />
+            ))
+          }
+          renderInput={(params) => (
+            <TextField
+              value={value}
+              type={type ? type : ""}
+              id={id ? id : ""}
+              InputLabelProps={shrink ? true : false}
+              variant="outlined"
+              multiline={multiline ? true : false}
+              rows={multiline ? rows : 1}
+              placeholder={placeholder}
+              onChange={onChange}
+              className={classes.customInput}
+              sx={{ padding: 0, width: width ? width : "100%" }}
+              fullWidth={row ? false : true}
+              {...params}
+            />
+          )}
         />
       </Box>
     </Tooltip>
