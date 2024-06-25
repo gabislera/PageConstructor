@@ -281,6 +281,19 @@ export const Countdown = ({
     alignSelfTimer,
   };
 
+  const handleCountdown = () => {
+    if (CountType === "weekly_diary") {
+    }
+    if (CountType === "specific_date") {
+    }
+    if (CountType === "all_year") {
+    }
+  };
+
+  useEffect(() => {
+    handleCountdown();
+  }, [timerSeconds, timerDays, timerHours, timerMinutes]);
+
   const responsiveProps = getResponsiveProps();
   const responsiveElementProps = getResponsiveElementProps();
   const responsiveElementValueText = getResponsiveElementValueProps();
@@ -353,6 +366,7 @@ const CountdownUnit = ({
           style={{
             width: "100%",
             display: "flex",
+
             paddingTop: paddingTopElement,
             paddingRight: paddingRightElement,
             paddingBottom: paddingBottomElement,

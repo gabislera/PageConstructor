@@ -7,7 +7,7 @@ import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
 import { AdvancedSettings } from "./AdvancedSettings";
 import momentTz from "moment-timezone";
-import TimezoneSelector from "../Timezone/Timezone";
+import TimezoneSelector from "../Functions/Timezone";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import moment from "moment-timezone";
 import {
@@ -110,6 +110,7 @@ export const CountdownSettings = () => {
       props.timerDays = formatNumber(Math.floor(hours / 24));
     });
   };
+
   const handleMinutesChange = (e) => {
     let minutes = parseInt(e.target.value, 10);
     setTimerMinutes(minutes);
