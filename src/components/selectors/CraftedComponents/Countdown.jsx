@@ -20,9 +20,10 @@ Countdown.craft = {
     showAction: "hide",
     gap: "10px",
     gapMobile: "10px",
-    minWidthMobile: "28%",
-    minWidth: "20%",
-
+    // minWidthMobile: "28%",
+    // minWidth: "20%",
+    maxWidth: "70%",
+    maxWidthMobile: "22%",
     //element estilo props countdown text
     textDays: "Dias",
     textHours: "Horas",
@@ -40,6 +41,8 @@ Countdown.craft = {
     mobileLineHeightText: "1.5",
     letterSpacingText: "0",
     mobileLetterSpacingText: "0",
+
+    alignSelfText: "center",
     //element estilo props countdown timer
     timerSeconds: "00",
     timerDays: "10",
@@ -76,7 +79,8 @@ Countdown.craft = {
     right: "0",
     bottom: "0",
     zIndex: "0",
-
+    justifyContent: "center",
+    mobileJustifyContent: "center",
     mobileMarginTop: "0px",
     mobileMarginRight: "0px",
     mobileMarginLeft: "0px",
@@ -85,7 +89,7 @@ Countdown.craft = {
     mobilePaddingRight: "0px",
     mobilePaddingLeft: "0px",
     mobilePaddingBottom: "0px",
-    mobileAlignSelf: "inherit",
+    mobileAlignSelf: "center",
     mobileOrder: "1",
     mobilePosition: "static",
     mobileTop: "0",

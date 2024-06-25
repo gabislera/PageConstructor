@@ -53,7 +53,7 @@ export const Countdown = ({
   textHours,
   textMinutes,
   textSeconds,
-
+  justifyContent,
   displayFormatDays,
   displayFormatHours,
   displayFormatMin,
@@ -87,7 +87,7 @@ export const Countdown = ({
   textDecoration,
   letterSpacing,
   mobileLetterSpacing,
-
+  alignSelfTimer,
   //text
   fontSizeText,
   mobileFontSizeText,
@@ -99,12 +99,12 @@ export const Countdown = ({
   textDecorationText,
   lineHeightText,
   mobileLineHeightText,
-  fontSizeMobileText,
   letterSpacingText,
   mobileLetterSpacingText,
-
+  alignSelfText,
   hidden,
   mobileHidden,
+  mobileJustifyContent,
 }) => {
   const {
     connectors: { connect, drag },
@@ -163,6 +163,7 @@ export const Countdown = ({
         zIndex: mobileZIndex,
         gap: gapMobile,
         hidden: mobileHidden,
+        justifyContent: mobileJustifyContent,
       };
     }
 
@@ -185,13 +186,13 @@ export const Countdown = ({
       zIndex,
       gap,
       hidden,
+      justifyContent,
     };
   };
   const getResponsiveElementProps = () => {
     if (deviceView === "mobile") {
       return {
         maxWidth: maxWidthMobile,
-
         minWidth: minWidthMobile,
         background,
         borderTopLeftRadius,
@@ -209,7 +210,6 @@ export const Countdown = ({
     return {
       maxWidth,
       minWidth,
-
       borderStyle,
       background,
       borderTopLeftRadius,
@@ -256,7 +256,7 @@ export const Countdown = ({
       className="countdown-container"
       style={{
         display: "flex",
-        width: "70%",
+        width: "100%",
         ...responsiveProps,
       }}
       ref={(ref) => connect(drag(ref))}
@@ -282,7 +282,10 @@ export const Countdown = ({
           fontWeightText={fontWeightText}
           textAlignText={textAlignText}
           fontStyleText={fontStyleText}
+          alignSelfText={alignSelfText}
           textDecorationText={textDecorationText}
+          alignSelfTimer={alignSelfTimer}
+          maxWidth={maxWidth}
         />
       ))}
     </div>
@@ -309,6 +312,8 @@ const CountdownUnit = ({
   fontStyleText,
   textDecorationText,
   deviceView,
+  alignSelfText,
+  alignSelfTimer,
 }) => {
   return (
     <>
@@ -316,6 +321,7 @@ const CountdownUnit = ({
         <div
           className={`countdown-${id}`}
           style={{
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -327,6 +333,7 @@ const CountdownUnit = ({
         >
           <span
             style={{
+              alignSelf: alignSelfTimer,
               ...responsiveElementValueText,
             }}
           >
@@ -336,21 +343,19 @@ const CountdownUnit = ({
             style={{
               fontSize:
                 deviceView === "mobile" ? mobileFontSizeText : fontSizeText,
-
-              lineHeightText:
+              lineHeight:
                 deviceView === "mobile" ? mobileLineHeightText : lineHeightText,
-
-              letterSpacingText:
+              letterSpacing:
                 deviceView === "mobile"
                   ? mobileLetterSpacingText
                   : letterSpacingText,
-
               fontFamily: fontFamilyText,
               color: colorText,
               fontWeight: fontWeightText,
               textAlign: textAlignText,
               fontStyle: fontStyleText,
               textDecoration: textDecorationText,
+              alignSelf: alignSelfText,
             }}
           >
             {label}

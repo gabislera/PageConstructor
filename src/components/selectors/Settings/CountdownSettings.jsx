@@ -17,8 +17,15 @@ import {
   CustomSlider,
   ColorControl,
   CustomLinkedValues,
+  CustomButtonGroup,
 } from "../../_Control";
 import Divider from "@mui/material/Divider";
+import { ReactComponent as JustifyCenter } from "../../iconsControls/justify_center.svg";
+import { ReactComponent as JustifyStart } from "../../iconsControls/justify_start.svg";
+import { ReactComponent as JustifyEnd } from "../../iconsControls/justify_end.svg";
+import { ReactComponent as SpaceAround } from "../../iconsControls/space_around.svg";
+import { ReactComponent as SpaceBetween } from "../../iconsControls/space_between.svg";
+import { ReactComponent as SpaceEvenly } from "../../iconsControls/space_evenly.svg";
 
 export const CountdownSettings = () => {
   const {
@@ -315,17 +322,53 @@ export const CountdownSettings = () => {
             <Box display="flex" flexDirection="column" gap="16px">
               <CustomSlider
                 text="Largura dos elementos"
-                value={props.minWidth}
-                mobileValue={props.minWidthMobile}
+                value={props.maxWidth}
+                mobileValue={props.maxWidthMobile}
                 onChange={(e, value) =>
-                  setProp((props) => (props.minWidth = value))
+                  setProp((props) => (props.maxWidth = value))
                 }
                 mobileOnChange={(e, value) =>
-                  setProp((props) => (props.minWidthMobile = value))
+                  setProp((props) => (props.maxWidthMobile = value))
                 }
                 min={1}
                 max={100}
                 step={1}
+              />
+              <CustomButtonGroup
+                text="Justificar conteúdo"
+                value={props.justifyContent}
+                mobileValue={props.mobileJustifyContent}
+                onChange={(e, value) =>
+                  setProp((props) => (props.justifyContent = value))
+                }
+                mobileOnChange={(e, value) =>
+                  setProp((props) => (props.mobileJustifyContent = value))
+                }
+                options={[
+                  { value: "start", icon: <JustifyStart />, tooltip: "Início" },
+                  {
+                    value: "center",
+                    icon: <JustifyCenter />,
+                    tooltip: "Centro",
+                  },
+                  { value: "end", icon: <JustifyEnd />, tooltip: "Fim" },
+                  {
+                    value: "space-between",
+                    icon: <SpaceBetween />,
+                    tooltip: "Espaço entre",
+                  },
+                  {
+                    value: "space-around",
+                    icon: <SpaceAround />,
+                    tooltip: "Espaço ao redor",
+                  },
+                  {
+                    value: "space-evenly",
+                    icon: <SpaceEvenly />,
+                    tooltip: "Espaço uniforme",
+                  },
+                ]}
+                tooltipText={"Escolha a direção do item"}
               />
               <ColorControl
                 name={"Cor dos elementos"}
@@ -462,8 +505,10 @@ export const CountdownSettings = () => {
               />
               <CustomSelect
                 text={"Alinhamento da fonte"}
-                value={props.alignItems}
-                onChange={(e) => setProp((props) => (props.f = e.target.value))}
+                value={props.alignSelfTimer}
+                onChange={(e) =>
+                  setProp((props) => (props.alignSelfTimer = e.target.value))
+                }
                 options={[
                   { label: "Inicial", value: "start" },
                   { label: "Centro", value: "center" },
@@ -520,6 +565,7 @@ export const CountdownSettings = () => {
                 mobileOnChange={(e, value) =>
                   setProp((props) => (props.mobileLineHeight = value))
                 }
+                disableUnits
                 min={1}
                 max={3}
                 step={0.1}
@@ -607,9 +653,9 @@ export const CountdownSettings = () => {
               />
               <CustomSelect
                 text={"Alinhamento da fonte"}
-                value={props.textAlignText}
+                value={props.alignSelfText}
                 onChange={(e) =>
-                  setProp((props) => (props.textAlignText = e.target.value))
+                  setProp((props) => (props.alignSelfText = e.target.value))
                 }
                 options={[
                   { label: "Inicial", value: "start" },
@@ -669,6 +715,7 @@ export const CountdownSettings = () => {
                 mobileOnChange={(e, value) =>
                   setProp((props) => (props.mobileLineHeightText = value))
                 }
+                disableUnits
                 min={1}
                 max={3}
                 step={0.1}
