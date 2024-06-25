@@ -6,11 +6,13 @@ import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
 import { AdvancedSettings } from "./AdvancedSettings";
+import momentTz from "moment-timezone";
+import moment from "moment-timezone";
 import {
   CustomSelect,
   CustomSwitch,
   CustomTextInput,
-  CustomAutocomplete,
+  // CustomAutocomplete,
   CustomAccordion,
   CustomSlider,
   ColorControl,
@@ -26,8 +28,30 @@ export const CountdownSettings = () => {
     props: node.data.props,
   }));
   const classes = useStyles();
-
   const [value, setValue] = useState(0);
+  const now = moment();
+  const timeZone = moment.tz.guess();
+
+  const handleFormatChange = (event) => {
+    const newData = new Date(event);
+    const days = newData.getDate();
+    const hours = newData.getHours();
+    const minutes = newData.getMinutes();
+    const seconds = newData.getSeconds();
+
+    setProp((props) => {
+      props.timerDays = days;
+    });
+    setProp((props) => {
+      props.timerHours = hours;
+    });
+    setProp((props) => {
+      props.timerMinutes = minutes;
+    });
+    setProp((props) => {
+      props.timerSeconds = seconds;
+    });
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -101,9 +125,10 @@ export const CountdownSettings = () => {
                 id="datetime-local"
                 text="Data Alvo"
                 value={props.endDate}
-                onChange={(e) =>
-                  setProp((props) => (props.endDate = e.target.value))
-                }
+                onChange={(e) => {
+                  setProp((props) => (props.endDate = e.target.value));
+                  handleFormatChange(e.target.value);
+                }}
               />
               <Typography
                 sx={{
@@ -112,7 +137,9 @@ export const CountdownSettings = () => {
                   fontStyle: "italic",
                 }}
               >
-                Data definida de acordo com seu fuso horário: América/Sao_Paulo.
+                Data definida de acordo com seu fuso horário:{" "}
+                {momentTz(now).tz(timeZone).format("DD/MM/YYYY [às] HH:mm")} -{" "}
+                {timeZone}
               </Typography>
             </>
           ) : props.CountType === "all_year" ? (
@@ -133,7 +160,7 @@ export const CountdownSettings = () => {
                   fontStyle: "italic",
                 }}
               >
-                Data definida de acordo com seu fuso horário: América/Sao_Paulo.
+                Data definida de acordo com seu fuso horário: .
               </Typography>
             </>
           ) : props.CountType === "weekly_diary" ? (
@@ -177,6 +204,7 @@ export const CountdownSettings = () => {
             value={props.displayFormatDays}
             onChange={(e) => setProp((props) => (props.displayFormatDays = e))}
           />
+
           <CustomSwitch
             checkedText="Mostrar"
             uncheckedText="Ocultar"
@@ -184,6 +212,7 @@ export const CountdownSettings = () => {
             value={props.displayFormatHours}
             onChange={(e) => setProp((props) => (props.displayFormatHours = e))}
           />
+
           <CustomSwitch
             checkedText="Mostrar"
             uncheckedText="Ocultar"
@@ -191,6 +220,7 @@ export const CountdownSettings = () => {
             value={props.displayFormatMin}
             onChange={(e) => setProp((props) => (props.displayFormatMin = e))}
           />
+
           <CustomSwitch
             checkedText="Mostrar"
             uncheckedText="Ocultar"
@@ -250,7 +280,7 @@ export const CountdownSettings = () => {
               />
             </Box>
           ) : null}
-          <CustomAutocomplete
+          {/* <CustomAutocomplete
             multiline
             rows={1}
             text={"Ações após expiração"}
@@ -270,7 +300,7 @@ export const CountdownSettings = () => {
                 value: "show_menssage",
               },
             ]}
-          />
+          /> */}
         </Grid>
       </TabPannel>
       <TabPannel value={value} index={1}>
