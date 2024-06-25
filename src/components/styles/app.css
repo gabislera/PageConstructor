@@ -53,3 +53,20 @@ control-title-size {
   opacity: 0.3 !important;
   border: 1px dashed gray !important;
 }
+
+.country-code-button {
+  padding: 0px !important;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  word-break: keep-all;
+  border: none;
+  text-align: center;
+  min-width: 80px;
+}
+
+.phone-input-outter:focus-within,
+input:focus {
+  outline: 1px solid #625CF3; 
+}

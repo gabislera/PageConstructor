@@ -45,19 +45,21 @@ export const Viewport = ({ children }) => {
               backgroundColor: "white",
               pt: 8,
               width: "100%",
+
               maxWidth:
                 deviceView === "mobile"
                   ? "360px"
                   : deviceView === "tablet"
                   ? "768px"
                   : "1220px",
-              height:
+              minHeight:
                 deviceView === "mobile"
                   ? "736px"
                   : deviceView === "tablet"
                   ? "831px"
                   : "100%",
-              transition: "width 0.3s ease-in-out, height 0.3s ease-in-out",
+              transition:
+                "max-width 0.3s ease-in-out, min-height 0.3s ease-in-out",
             }}
           >
             {children}

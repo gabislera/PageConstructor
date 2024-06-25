@@ -1,5 +1,5 @@
 import { ChromePicker } from "react-color";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ClickAwayListener } from "@mui/base";
 import { makeStyles } from "@mui/styles";
 import {
@@ -28,6 +28,9 @@ import {
   Button,
   Autocomplete,
   Chip,
+  Dialog,
+  DialogContent,
+  Popover,
 } from "@mui/material";
 import {
   Link,
@@ -41,6 +44,7 @@ import {
   MoreVert,
   ContentCopy,
   Close,
+  Edit,
 } from "@mui/icons-material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
@@ -55,7 +59,593 @@ import { useResponsiveMode } from "../contexts/ResponsiveModeContext";
 import { unitConfigs } from "../utils/unitConfigs";
 import { useNode } from "@craftjs/core";
 
-export const AddItemsComponent = () => {
+// export const AddItems2 = ({ values, onChange, type, children }) => {
+//   const [expanded, setExpanded] = useState(false);
+
+//   const handleChange = (panel) => (event, isExpanded) => {
+//     setExpanded(isExpanded ? panel : false);
+//   };
+
+//   const addItem = () => {
+//     const newItem =
+//       type === "faq"
+//         ? {
+//             title: `Pergunta ${values.length + 1}`,
+//             content:
+//               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+//           }
+//         : {
+//             label: `Novo Item`,
+//             placeholder: "Novo item",
+//             required: false,
+//           };
+//     onChange([...values, newItem]);
+//   };
+
+//   const duplicateItem = (index) => {
+//     const newItem = { ...values[index] };
+//     const newValues = [...values];
+//     newValues.splice(index + 1, 0, newItem);
+//     onChange(newValues);
+//   };
+
+//   const removeItem = (index) => {
+//     const newValues = [...values];
+//     newValues.splice(index, 1);
+//     onChange(newValues);
+//   };
+
+//   return (
+//     <Box
+//       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+//     >
+//       <Box
+//         sx={{
+//           display: "flex",
+//           flexDirection: "column",
+//           gap: "10px",
+//           width: "100%",
+//         }}
+//       >
+//         {(values || []).map((item, index) => (
+//           <Accordion
+//             disableGutters
+//             sx={{
+//               backgroundColor: "transparent",
+//               color: "#d5d8dc",
+//               boxShadow: "none",
+//               border: "1px solid #3f444b",
+//               padding: "0",
+//               width: "100%",
+//             }}
+//             expanded={expanded === `panel${index}`}
+//             onChange={handleChange(`panel${index}`)}
+//             key={index}
+//           >
+//             <AccordionSummary
+//               id={`panel${index}bh-header`}
+//               sx={{
+//                 backgroundColor: "transparent",
+//                 fontSize: "14px",
+//                 fontWeight: "700",
+//                 padding: "0",
+//                 paddingLeft: "10px",
+//                 "& .MuiAccordionSummary-content": {
+//                   margin: 0,
+//                 },
+//                 minHeight: "unset",
+//                 "&.Mui-expanded": {
+//                   minHeight: "unset",
+//                   borderBottom: "1px solid #3f444b",
+//                 },
+//               }}
+//             >
+//               <Box
+//                 display="flex"
+//                 alignItems="center"
+//                 justifyContent="space-between"
+//                 width="100%"
+//               >
+//                 <Typography sx={{ fontSize: "14px", fontWeight: "700" }}>
+//                   {type === "faq" ? item.title : item.label}
+//                 </Typography>
+//                 <Box>
+//                   <IconButton
+//                     sx={{
+//                       borderLeft: "1px solid #3f444b",
+//                       borderRight: "1px solid #3f444b",
+//                       borderRadius: 0,
+//                     }}
+//                     onClick={(e) => {
+//                       e.stopPropagation();
+//                       duplicateItem(index);
+//                     }}
+//                   >
+//                     <ContentCopy
+//                       sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+//                     />
+//                   </IconButton>
+//                   <IconButton
+//                     onClick={(e) => {
+//                       e.stopPropagation();
+//                       removeItem(index);
+//                     }}
+//                   >
+//                     <Close
+//                       sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+//                     />
+//                   </IconButton>
+//                 </Box>
+//               </Box>
+//             </AccordionSummary>
+//             <AccordionDetails sx={{ display: "block", padding: "10px" }}>
+//               <Box display="flex" flexDirection="column" gap="10px">
+//                 {React.Children.map(children, (child) =>
+//                   React.cloneElement(child, {
+//                     value: item[child.props.name],
+//                     onChange: (e) => {
+//                       const newValues = [...values];
+//                       newValues[index] = {
+//                         ...item,
+//                         [child.props.name]: e.target ? e.target.value : e,
+//                       };
+//                       onChange(newValues);
+//                     },
+//                   })
+//                 )}
+//               </Box>
+//             </AccordionDetails>
+//           </Accordion>
+//         ))}
+//       </Box>
+//       <Button
+//         color="primary"
+//         onClick={addItem}
+//         sx={{
+//           mt: 2,
+//           backgroundColor: "#3f444b",
+//           color: "#d5d8dc",
+//           fontWeight: "600",
+//           fontSize: "12px",
+//           padding: "6px 16px",
+//           "&:hover": {
+//             backgroundColor: "#333",
+//           },
+//           textTransform: "none",
+//         }}
+//       >
+//         Adicionar item
+//       </Button>
+//     </Box>
+//   );
+// };
+
+// export const AddItems = ({ values, onChange, type }) => {
+//   const [expanded, setExpanded] = useState(false);
+
+//   const handleChange = (panel) => (event, isExpanded) => {
+//     setExpanded(isExpanded ? panel : false);
+//   };
+
+//   const addItem = () => {
+//     const newItem =
+//       type === "faq"
+//         ? {
+//             title: `Pergunta ${values.length + 1}`,
+//             content:
+//               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+//           }
+//         : {
+//             label: `Novo Item`,
+//             placeholder: "Novo item ",
+//             required: false,
+//           };
+//     onChange([...values, newItem]);
+//   };
+
+//   const duplicateItem = (index) => {
+//     const newItem = { ...values[index] };
+//     const newValues = [...values];
+//     newValues.splice(index + 1, 0, newItem);
+//     onChange(newValues);
+//   };
+
+//   const removeItem = (index) => {
+//     const newValues = [...values];
+//     newValues.splice(index, 1);
+//     onChange(newValues);
+//   };
+
+//   return (
+//     <Box
+//       sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+//     >
+//       <Box
+//         sx={{
+//           display: "flex",
+//           flexDirection: "column",
+//           gap: "10px",
+//           width: "100%",
+//         }}
+//       >
+//         {(values || []).map((item, index) => (
+//           <Accordion
+//             disableGutters
+//             sx={{
+//               backgroundColor: "transparent",
+//               color: "#d5d8dc",
+//               boxShadow: "none",
+//               border: "1px solid #3f444b",
+//               padding: "0",
+//               width: "100%",
+//             }}
+//             expanded={expanded === `panel${index}`}
+//             onChange={handleChange(`panel${index}`)}
+//             key={index}
+//           >
+//             <AccordionSummary
+//               id={`panel${index}bh-header`}
+//               sx={{
+//                 backgroundColor: "transparent",
+//                 fontSize: "14px",
+//                 fontWeight: "700",
+//                 padding: "0",
+//                 paddingLeft: "10px",
+//                 "& .MuiAccordionSummary-content": {
+//                   margin: 0,
+//                 },
+//                 minHeight: "unset",
+//                 "&.Mui-expanded": {
+//                   minHeight: "unset",
+//                   borderBottom: "1px solid #3f444b",
+//                 },
+//               }}
+//             >
+//               <Box
+//                 display="flex"
+//                 alignItems="center"
+//                 justifyContent="space-between"
+//                 width="100%"
+//               >
+//                 <Typography
+//                   sx={{
+//                     fontSize: "14px",
+//                     fontWeight: "700",
+//                   }}
+//                 >
+//                   {type === "faq" ? item.title : item.label}
+//                 </Typography>
+//                 <Box>
+//                   <IconButton
+//                     sx={{
+//                       borderLeft: "1px solid #3f444b",
+//                       borderRight: "1px solid #3f444b",
+//                       borderRadius: 0,
+//                     }}
+//                     onClick={(e) => {
+//                       e.stopPropagation();
+//                       duplicateItem(index);
+//                     }}
+//                   >
+//                     <ContentCopy
+//                       sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+//                     />
+//                   </IconButton>
+//                   <IconButton
+//                     onClick={(e) => {
+//                       e.stopPropagation();
+//                       removeItem(index);
+//                     }}
+//                   >
+//                     <Close
+//                       sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+//                     />
+//                   </IconButton>
+//                 </Box>
+//               </Box>
+//             </AccordionSummary>
+//             <AccordionDetails sx={{ display: "block", padding: "10px" }}>
+//               <Box display="flex" flexDirection="column" gap="10px">
+//                 {type === "faq" ? (
+//                   <>
+//                     <CustomTextInput
+//                       text="Title"
+//                       value={item.title}
+//                       onChange={(e) => {
+//                         const newValues = values.map((value, i) =>
+//                           i === index
+//                             ? { ...value, title: e.target.value }
+//                             : value
+//                         );
+//                         onChange(newValues);
+//                       }}
+//                     />
+//                     <CustomTextInput
+//                       text="Content"
+//                       value={item.content}
+//                       onChange={(e) => {
+//                         const newValues = values.map((value, i) =>
+//                           i === index
+//                             ? { ...value, content: e.target.value }
+//                             : value
+//                         );
+//                         onChange(newValues);
+//                       }}
+//                       multiline
+//                       rows={4}
+//                     />
+//                   </>
+//                 ) : (
+//                   <>
+//                     <CustomTextInput
+//                       text="Label"
+//                       value={item.label}
+//                       onChange={(e) => {
+//                         const newValues = values.map((value, i) =>
+//                           i === index
+//                             ? { ...value, label: e.target.value }
+//                             : value
+//                         );
+//                         onChange(newValues);
+//                       }}
+//                       row
+//                     />
+//                     <CustomTextInput
+//                       text="Placeholder"
+//                       value={item.placeholder}
+//                       onChange={(e) => {
+//                         const newValues = values.map((value, i) =>
+//                           i === index
+//                             ? { ...value, placeholder: e.target.value }
+//                             : value
+//                         );
+//                         onChange(newValues);
+//                       }}
+//                       row
+//                     />
+//                     <CustomSwitch
+//                       text="Requerido"
+//                       value={item.required}
+//                       onChange={(e) => {
+//                         const newValues = values.map((value, i) =>
+//                           i === index
+//                             ? { ...value, required: e.target.value }
+//                             : value
+//                         );
+//                         onChange(newValues);
+//                       }}
+//                       checkedText={"Sim"}
+//                       uncheckedText={"Não"}
+//                     />
+//                   </>
+//                 )}
+//               </Box>
+//             </AccordionDetails>
+//           </Accordion>
+//         ))}
+//       </Box>
+//       <Button
+//         color="primary"
+//         onClick={addItem}
+//         sx={{
+//           mt: 2,
+//           backgroundColor: "#3f444b",
+//           color: "#d5d8dc",
+//           fontWeight: "600",
+//           fontSize: "12px",
+//           padding: "6px 16px",
+//           "&:hover": {
+//             backgroundColor: "#333",
+//           },
+//           textTransform: "none",
+//         }}
+//       >
+//         Adicionar item
+//       </Button>
+//     </Box>
+//   );
+// };
+
+export const CustomTypography = ({ type, props, setProp }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  const getPropName = (name) => {
+    if (!type) {
+      return name;
+    }
+    return `${type}${name.charAt(0).toUpperCase() + name.slice(1)}`;
+  };
+
+  return (
+    <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Typography variant="caption" color="inherit" marginBottom={0}>
+        Tipografia
+      </Typography>
+
+      <IconButton onClick={handleClick}>
+        <Edit sx={{ color: "#d5d8dc", width: "16px", height: "16px" }} />
+      </IconButton>
+
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        PaperProps={{
+          sx: {
+            p: 2,
+            width: "272px",
+            backgroundColor: "#27272a",
+            boxShadow: "0px 1px 15px rgba(0, 0, 0, 0.9)",
+            borderRadius: "0px",
+            overflow: "hidden",
+            color: "#fff",
+          },
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: -300,
+        }}
+      >
+        <Box display="flex" flexDirection="column" gap={2}>
+          <ColorControl
+            name={"Cor do texto"}
+            value={props[getPropName("color")]}
+            defaultValue={props[getPropName("color")]}
+            onChange={(e, value) =>
+              setProp((props) => (props[getPropName("color")] = value))
+            }
+          />
+
+          <CustomSelect
+            text={"Fonte"}
+            value={props[getPropName("fontFamily")]}
+            onChange={(e) =>
+              setProp(
+                (props) => (props[getPropName("fontFamily")] = e.target.value)
+              )
+            }
+            options={[
+              { label: "Padrão", value: "sans-serif" },
+              { label: "Serifa", value: "serif" },
+              { label: "Fantasia", value: "fantasy" },
+              { label: "Cursiva", value: "cursive" },
+              { label: "Monoespaçada", value: "monospace" },
+            ]}
+          />
+
+          <CustomSlider
+            text={"Tamanho da fonte"}
+            value={props[getPropName("fontSize")]}
+            onChange={(e, value) =>
+              setProp((props) => (props[getPropName("fontSize")] = value))
+            }
+            disableDeviceView
+            tooltipText={"Escolha o tamanho da fonte"}
+          />
+
+          <CustomSelect
+            text="Peso da fonte"
+            value={props[getPropName("fontWeight")]}
+            onChange={(e) =>
+              setProp(
+                (props) => (props[getPropName("fontWeight")] = e.target.value)
+              )
+            }
+            options={[
+              { value: "300", label: "300" },
+              { value: "400", label: "400" },
+              { value: "500", label: "500" },
+              { value: "600", label: "600" },
+              { value: "700", label: "700" },
+            ]}
+            tooltipText={"Escolha o peso da fonte"}
+          />
+
+          <CustomSelect
+            text="Transformar"
+            value={props[getPropName("textTransform")]}
+            onChange={(e) =>
+              setProp(
+                (props) =>
+                  (props[getPropName("textTransform")] = e.target.value)
+              )
+            }
+            options={[
+              { value: "none", label: "Nenhum" },
+              { value: "capitalize", label: "Capitalizado" },
+              { value: "uppercase", label: "Maiúsculo" },
+              { value: "lowercase", label: "Minúsculo" },
+            ]}
+            tooltipText={"Escolha a transformação do texto"}
+          />
+
+          <CustomSelect
+            text="Estilo"
+            value={props[getPropName("fontStyle")]}
+            onChange={(e) =>
+              setProp(
+                (props) => (props[getPropName("fontStyle")] = e.target.value)
+              )
+            }
+            options={[
+              { value: "normal", label: "Normal" },
+              { value: "italic", label: "Italico" },
+            ]}
+            tooltipText={"Escolha o estilo da fonte"}
+          />
+
+          <CustomSelect
+            text="Decoração"
+            value={props[getPropName("textDecoration")]}
+            onChange={(e) =>
+              setProp(
+                (props) =>
+                  (props[getPropName("textDecoration")] = e.target.value)
+              )
+            }
+            options={[
+              { value: "none", label: "Normal" },
+              { value: "underline", label: "Sublinhado" },
+              { value: "overline", label: "Overline" },
+              { value: "line-through", label: "Riscado" },
+            ]}
+            tooltipText={"Escolha a decoração do texto"}
+          />
+
+          <CustomSlider
+            text={"Altura da linha"}
+            value={props[getPropName("lineHeight")]}
+            onChange={(e, value) =>
+              setProp((props) => (props[getPropName("lineHeight")] = value))
+            }
+            min={1}
+            max={3}
+            step={0.1}
+            disableDeviceView
+            disableUnits
+            tooltipText={"Escolha a altura da linha"}
+          />
+
+          <CustomSlider
+            text={"Espaçamento das letras"}
+            value={props[getPropName("letterSpacing")]}
+            onChange={(e, value) =>
+              setProp((props) => (props[getPropName("letterSpacing")] = value))
+            }
+            min={-5}
+            disableDeviceView
+            tooltipText={"Escolha a espaçamento das letras"}
+          />
+
+          <CustomSlider
+            text={"Espaçamento das palavras"}
+            value={props[getPropName("wordSpacing")]}
+            onChange={(e, value) =>
+              setProp((props) => (props[getPropName("wordSpacing")] = value))
+            }
+            min={-5}
+            disableDeviceView
+            tooltipText={"Escolha a espaçamento das palavras"}
+          />
+        </Box>
+      </Popover>
+    </Box>
+  );
+};
+
+export const AddFaqItems = () => {
   const [expanded, setExpanded] = useState(false);
 
   const {
@@ -75,22 +665,10 @@ export const AddItemsComponent = () => {
         props.items = [];
       }
       props.items.push({
-        title: `Pergunta ${props.items.length + 1}`,
+        title: `Nova pergunta`,
         content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       });
-    });
-  };
-
-  const updateItemTitle = (index, title) => {
-    setProp((props) => {
-      props.items[index].title = title;
-    });
-  };
-
-  const updateItemContent = (index, content) => {
-    setProp((props) => {
-      props.items[index].content = content;
     });
   };
 
@@ -205,14 +783,224 @@ export const AddItemsComponent = () => {
                 <CustomTextInput
                   text="Title"
                   value={item.title}
-                  onChange={(e) => updateItemTitle(index, e.target.value)}
+                  onChange={(e) =>
+                    setProp((props) => {
+                      props.items[index].title = e.target.value;
+                    })
+                  }
                 />
                 <CustomTextInput
                   text="Content"
                   value={item.content}
-                  onChange={(e) => updateItemContent(index, e.target.value)}
+                  onChange={(e) =>
+                    setProp((props) => {
+                      props.items[index].content = e.target.value;
+                    })
+                  }
                   multiline
                   rows={4}
+                />
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Box>
+      <Button
+        color="primary"
+        onClick={addItem}
+        sx={{
+          mt: 2,
+          backgroundColor: "#3f444b",
+          color: "#d5d8dc",
+          fontWeight: "600",
+          fontSize: "12px",
+          padding: "6px 16px",
+          "&:hover": {
+            backgroundColor: "#333",
+          },
+          textTransform: "none",
+        }}
+      >
+        Adicionar item
+      </Button>
+    </Box>
+  );
+};
+
+export const AddFormItems = () => {
+  const [expanded, setExpanded] = useState(false);
+
+  const {
+    actions: { setProp },
+    props,
+  } = useNode((node) => ({
+    props: node.data.props,
+  }));
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+  const addItem = () => {
+    setProp((props) => {
+      if (!props.items) {
+        props.items = [];
+      }
+      props.items.push({
+        type: "text",
+        label: "Novo Item",
+        placeholder: "Novo item",
+        required: false,
+      });
+    });
+  };
+
+  const duplicateItem = (index) => {
+    setProp((props) => {
+      const newItem = { ...props.items[index] };
+      props.items.splice(index + 1, 0, newItem);
+    });
+  };
+
+  const removeItem = (index) => {
+    setProp((props) => {
+      props.items.splice(index, 1);
+    });
+  };
+
+  const updateItem = (index, key, value) => {
+    setProp((props) => {
+      props.items[index][key] = value;
+    });
+  };
+
+  return (
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          width: "100%",
+        }}
+      >
+        {(props.items || []).map((item, index) => (
+          <Accordion
+            disableGutters
+            sx={{
+              backgroundColor: "transparent",
+              color: "#d5d8dc",
+              boxShadow: "none",
+              border: "1px solid #3f444b",
+              padding: "0",
+              width: "100%",
+            }}
+            expanded={expanded === `panel${index}`}
+            onChange={handleChange(`panel${index}`)}
+            key={index}
+          >
+            <AccordionSummary
+              id={`panel${index}bh-header`}
+              sx={{
+                backgroundColor: "transparent",
+                fontSize: "14px",
+                fontWeight: "700",
+                padding: "0",
+                paddingLeft: "10px",
+                "& .MuiAccordionSummary-content": {
+                  margin: 0,
+                },
+                minHeight: "unset",
+                "&.Mui-expanded": {
+                  minHeight: "unset",
+                  borderBottom: "1px solid #3f444b",
+                },
+              }}
+            >
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                width="100%"
+              >
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: "700",
+                  }}
+                >
+                  {item.label}
+                </Typography>
+                <Box>
+                  <IconButton
+                    sx={{
+                      borderLeft: "1px solid #3f444b",
+                      borderRight: "1px solid #3f444b",
+                      borderRadius: 0,
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      duplicateItem(index);
+                    }}
+                  >
+                    <ContentCopy
+                      sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+                    />
+                  </IconButton>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeItem(index);
+                    }}
+                  >
+                    <Close
+                      sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
+                    />
+                  </IconButton>
+                </Box>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails
+              sx={{
+                display: "block",
+                padding: "10px",
+              }}
+            >
+              <Box display="flex" flexDirection="column" gap="10px">
+                <CustomSelect
+                  text="Tipo do input"
+                  value={item.type}
+                  onChange={(e) => updateItem(index, "type", e.target.value)}
+                  options={[
+                    { value: "text", label: "Texto" },
+                    { value: "email", label: "Email" },
+                    { value: "tel", label: "Telefone" },
+                    { value: "custom", label: "Customizado" },
+                  ]}
+                  tooltipText={"Escolha o tipo do input"}
+                />
+                <CustomTextInput
+                  text="Label"
+                  value={item.label}
+                  onChange={(e) => updateItem(index, "label", e.target.value)}
+                  row
+                />
+                <CustomTextInput
+                  text="Placeholder"
+                  value={item.placeholder}
+                  onChange={(e) =>
+                    updateItem(index, "placeholder", e.target.value)
+                  }
+                  row
+                />
+                <CustomSwitch
+                  text="Requerido"
+                  value={item.required}
+                  onChange={(e) =>
+                    updateItem(index, "required", e.target.checked)
+                  }
                 />
               </Box>
             </AccordionDetails>

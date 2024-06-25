@@ -48,6 +48,7 @@ export default function SideBar({ selected }) {
           position: "absolute",
           top: "50%",
           right: "-10px",
+          zIndex: 999,
           transform: "translateY(-50%) rotate(0deg)",
           backgroundColor: "#27272a",
           borderRadius: 0,

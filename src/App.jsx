@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./App.css";
 import { makeStyles } from "@mui/styles";
 import { Editor, Frame, Element } from "@craftjs/core";
@@ -12,12 +12,14 @@ import { ResponsiveModeProvider } from "./contexts/ResponsiveModeContext";
 import "./components/styles/app.css";
 export default function App() {
   const classes = useStyles();
+  const ref = useRef(null);
+  // const html = ref.current.firstChild.firstChild.outerHTML
 
   return (
     <div className={classes.root}>
       <ResponsiveModeProvider>
         <Editor onRender={RenderNode} enabled={true} resolver={Components}>
-          <Viewport>
+          <Viewport ref={ref}>
             <Frame>
               <Element is={AppComponent} canvas>
                 <Element is={Section} initialElement={null} canvas></Element>
