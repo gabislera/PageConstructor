@@ -7,12 +7,12 @@ import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
 import { AdvancedSettings } from "./AdvancedSettings";
 import momentTz from "moment-timezone";
+import TimezoneSelector from "../Timezone/Timezone";
 import moment from "moment-timezone";
 import {
   CustomSelect,
   CustomSwitch,
   CustomTextInput,
-  // CustomAutocomplete,
   CustomAccordion,
   CustomSlider,
   ColorControl,
@@ -38,30 +38,57 @@ export const CountdownSettings = () => {
   const [value, setValue] = useState(0);
   const now = moment();
   const timeZone = moment.tz.guess();
-
-  const handleFormatChange = (event) => {
-    const newData = new Date(event);
-    const days = newData.getDate();
-    const hours = newData.getHours();
-    const minutes = newData.getMinutes();
-    const seconds = newData.getSeconds();
-
-    setProp((props) => {
-      props.timerDays = days;
-    });
-    setProp((props) => {
-      props.timerHours = hours;
-    });
-    setProp((props) => {
-      props.timerMinutes = minutes;
-    });
-    setProp((props) => {
-      props.timerSeconds = seconds;
-    });
+  const [filter, setFilter] = useState({
+    date: "",
+    remaining: "",
+    timezone: "",
+  });
+  const handleDateChange = (filter) => {
+    if (filter && filter.date) {
+      const selectedDate = moment.tz(filter.date, filter.timezone);
+      const now = moment().utc();
+      const duration = moment.duration(selectedDate.diff(now));
+      const daysRemaining = Math.floor(duration.asDays());
+      const hoursRemaining = Math.floor(duration.asHours() % 24);
+      const minutesRemaining = Math.floor(duration.asMinutes() % 60);
+      setFilter({
+        ...filter,
+        remaining: {
+          days: daysRemaining,
+          hours: hoursRemaining,
+          minutes: minutesRemaining,
+        },
+      });
+      setProp(
+        (props) => (props.timerDays = daysRemaining.toString().padStart(2, "0"))
+      );
+      setProp(
+        (props) =>
+          (props.timerHours = hoursRemaining.toString().padStart(2, "0"))
+      );
+      setProp(
+        (props) =>
+          (props.timerMinutes = minutesRemaining.toString().padStart(2, "0"))
+      );
+      setProp((props) => (props.endDate = moment(filter.date).utc().format()));
+    }
   };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const handleTimezoneChange = (newTimezone) => {
+    setProp((props) => {
+      props.timezone = newTimezone;
+    });
+
+    handleDateChange({
+      ...filter,
+      date: moment(props.endDate)
+        .utcOffset(`'${newTimezone}'`)
+        .format("YYYY-MM-DDTHH:mm:ss"),
+      timezone: newTimezone,
+    });
   };
 
   return (
@@ -131,16 +158,44 @@ export const CountdownSettings = () => {
                 type="datetime-local"
                 id="datetime-local"
                 text="Data Alvo"
-                value={props.endDate}
-                onChange={(e) => {
-                  setProp((props) => (props.endDate = e.target.value));
-                  handleFormatChange(e.target.value);
+                value={
+                  props.endDate
+                    ? moment(props.endDate)
+                        .utcOffset(`'${props?.timezone}'`)
+                        .format("YYYY-MM-DDTHH:mm:ss")
+                    : moment(filter.date)
+                        .utcOffset(`'${props?.timezone}'`)
+                        .format("YYYY-MM-DDTHH:mm:ss")
+                }
+                onChange={(event) => {
+                  const selectedDate = event.target.value;
+                  let newDateFormatted = moment(selectedDate).utcOffset(
+                    `'${props?.timezone}'`
+                  );
+
+                  setFilter({
+                    ...filter,
+                    date: newDateFormatted,
+                    timezone: props?.timezone,
+                  });
+                  handleDateChange({
+                    ...filter,
+                    date: newDateFormatted,
+                    timezone: props?.timezone,
+                  });
                 }}
+              />
+              <TimezoneSelector
+                title="Timezone"
+                value={props?.timezone ? props?.timezone : filter.timezone}
+                onChange={handleTimezoneChange}
               />
               <Typography
                 sx={{
                   fontSize: "11px",
                   color: "#9da5ae",
+
+                  textAlign: "center",
                   fontStyle: "italic",
                 }}
               >
