@@ -40,6 +40,8 @@ export const CountdownSettings = () => {
   const now = moment();
   const timeZone = moment.tz.guess();
   const { deviceView } = useResponsiveMode();
+  const [timerHours, setTimerHours] = useState(props.timerHours || 0);
+  const [timerMinutes, setTimerMinutes] = useState(props.timerMinutes || 0);
   const [filter, setFilter] = useState({
     date: "",
     remaining: "",
@@ -54,6 +56,7 @@ export const CountdownSettings = () => {
       const daysRemaining = Math.floor(duration.asDays());
       const hoursRemaining = Math.floor(duration.asHours() % 24);
       const minutesRemaining = Math.floor(duration.asMinutes() % 60);
+
       setFilter({
         ...filter,
         remaining: {
@@ -67,7 +70,7 @@ export const CountdownSettings = () => {
       );
       setProp(
         (props) =>
-          (props.timerHours = hoursRemaining.toString().padStart(2, "0"))
+          (props.timerHours = hoursRemaining.toString().padStart(2, "00"))
       );
       setProp(
         (props) =>
@@ -76,7 +79,9 @@ export const CountdownSettings = () => {
       setProp((props) => (props.endDate = moment(filter.date).utc().format()));
     }
   };
-
+  const formatNumber = (num) => {
+    return num.toString().padStart(2, "0");
+  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -91,6 +96,32 @@ export const CountdownSettings = () => {
         .utcOffset(`'${newTimezone}'`)
         .format("YYYY-MM-DDTHH:mm:ss"),
       timezone: newTimezone,
+    });
+  };
+
+  const handleHoursChange = (e) => {
+    let hours = parseInt(e.target.value, 10);
+    setTimerHours(hours);
+    if (isNaN(hours)) {
+      hours = 0;
+    }
+    setProp((props) => {
+      props.timerHours = formatNumber(hours % 24);
+      props.timerDays = formatNumber(Math.floor(hours / 24));
+    });
+  };
+  const handleMinutesChange = (e) => {
+    let minutes = parseInt(e.target.value, 10);
+    setTimerMinutes(minutes);
+    if (isNaN(minutes)) {
+      minutes = 0;
+    }
+
+    setProp((props) => {
+      const totalMinutes = parseInt(props.timerHours) * 60 + minutes;
+      props.timerHours = formatNumber(Math.floor(totalMinutes / 60) % 24);
+      props.timerDays = formatNumber(Math.floor(totalMinutes / 1440));
+      props.timerMinutes = formatNumber(totalMinutes % 60);
     });
   };
 
@@ -155,7 +186,8 @@ export const CountdownSettings = () => {
             ]}
           />
 
-          {props.CountType === "specific_date" ? (
+          {props.CountType === "specific_date" ||
+          props.CountType === "all_year" ? (
             <>
               <CustomTextInput
                 type="datetime-local"
@@ -189,7 +221,6 @@ export const CountdownSettings = () => {
                 }}
               />
               <TimezoneSelector
-                title="Timezone"
                 value={props?.timezone ? props?.timezone : filter.timezone}
                 onChange={handleTimezoneChange}
               />
@@ -207,47 +238,22 @@ export const CountdownSettings = () => {
                 {timeZone}
               </Typography>
             </>
-          ) : props.CountType === "all_year" ? (
-            <>
-              <CustomTextInput
-                type="datetime-local"
-                id="datetime-local"
-                text="Data Alvo"
-                value={props.endDate}
-                onChange={(e) =>
-                  setProp((props) => (props.endDate = e.target.value))
-                }
-              />
-              <Typography
-                sx={{
-                  fontSize: "11px",
-                  color: "#9da5ae",
-                  fontStyle: "italic",
-                }}
-              >
-                Data definida de acordo com seu fuso horário: .
-              </Typography>
-            </>
           ) : props.CountType === "weekly_diary" ? (
             <>
               <CustomTextInput
                 text="Horas"
                 type="number"
-                value={props.timerHours}
+                value={timerHours}
                 width="30%"
-                onChange={(e) =>
-                  setProp((props) => (props.timerHours = e.target.value))
-                }
+                onChange={handleHoursChange}
                 row
               />
               <CustomTextInput
                 text="Minutos"
                 type="number"
-                value={props.timerMinutes}
+                value={timerMinutes}
                 width="30%"
-                onChange={(e) =>
-                  setProp((props) => (props.timerMinutes = e.target.value))
-                }
+                onChange={handleMinutesChange}
                 row
               />
             </>

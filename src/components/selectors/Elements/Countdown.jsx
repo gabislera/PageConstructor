@@ -353,9 +353,6 @@ const CountdownUnit = ({
           style={{
             width: "100%",
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "#fff",
             paddingTop: paddingTopElement,
             paddingRight: paddingRightElement,
             paddingBottom: paddingBottomElement,
