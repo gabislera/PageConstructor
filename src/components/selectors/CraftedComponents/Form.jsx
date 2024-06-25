@@ -2,10 +2,89 @@ import { FormSettings } from "../Settings/FormSettings";
 import { Form } from "../Elements/Form";
 
 Form.craft = {
-  displayName: "Form",
+  displayName: "Formulário",
 
   props: {
-    // element props
+    items: [
+      {
+        type: "text",
+        label: "Nome",
+        placeholder: "Nome",
+        required: false,
+      },
+      {
+        type: "email",
+        label: "Email",
+        placeholder: "Email",
+        required: false,
+      },
+      {
+        type: "tel",
+        label: "Telefone",
+        placeholder: "(51) 99966 2222",
+        required: false,
+      },
+    ],
+
+    formName: "Form",
+    columnGap: "16px",
+    rowGap: "16px",
+    labelSpacing: "5px",
+    labelColor: "#000000",
+    labelFontFamily: "sans-serif",
+    labelFontSize: "16px",
+    labelFontWeight: "600",
+    labelTextTransform: "none",
+    labelFontStyle: "normal",
+    labelTextDecoration: "none",
+    labelLineHeight: "1.5",
+    labelLetterSpacing: "0",
+    labelWordSpacing: "0",
+
+    inputColor: "#000000",
+    inputBackgroundColor: "#fff",
+    inputFontFamily: "sans-serif",
+    inputFontSize: "12px",
+    inputFontWeight: "400",
+    inputTextTransform: "none",
+    inputFontStyle: "normal",
+    inputTextDecoration: "none",
+    inputLineHeight: "1.5",
+    inputLetterSpacing: "0",
+    inputWordSpacing: "0",
+    inputBorderTopWidth: "1px",
+    inputBorderRightWidth: "1px",
+    inputBorderLeftWidth: "1px",
+    inputBorderBottomWidth: "1px",
+    inputBorderTopLeftRadius: "4px",
+    inputBorderTopRightRadius: "4px",
+    inputBorderBottomRightRadius: "4px",
+    inputBorderBottomLeftRadius: "4px",
+    inputBorderColor: "#ccc",
+
+    inputSize: "medium",
+    buttonSize: "medium",
+    buttonMaxWidth: "100",
+    buttonAlign: "center",
+
+    buttonColor: "#fff",
+    buttonBackgroundColor: "#625CF3",
+    buttonFontFamily: "sans-serif",
+    buttonFontSize: "16px",
+    buttonFontWeight: "600",
+    buttonTextTransform: "none",
+    buttonFontStyle: "normal",
+    buttonTextDecoration: "none",
+    buttonLineHeight: "1.5",
+    buttonLetterSpacing: "0",
+    buttonWordSpacing: "0",
+    buttonBorderTopLeftRadius: "4px",
+    buttonBorderTopRightRadius: "4px",
+    buttonBorderBottomRightRadius: "4px",
+    buttonBorderBottomLeftRadius: "4px",
+
+    showLabel: true,
+    showRequiredIcon: false,
 
     marginTop: "0px",
     marginRight: "0px",
@@ -40,6 +119,9 @@ Form.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
+
+    mobileButtonMaxWidth: "100",
+    mobileButtonAlign: "center",
   },
   related: {
     settings: FormSettings,

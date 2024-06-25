@@ -283,6 +283,7 @@ export const TextSettings = () => {
               min={1}
               max={3}
               step={0.1}
+              disableUnits
               tooltipText={"Escolha a altura da linha"}
             />
           </Grid>

@@ -8,7 +8,7 @@ import { makeStyles } from "@mui/styles";
 
 import { AdvancedSettings } from "./AdvancedSettings";
 import {
-  AddItemsComponent,
+  AddFaqItems,
   ColorControl,
   CustomAccordion,
   CustomLinkedValues,
@@ -28,6 +28,12 @@ export const FaqSettings = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handleItemsChange = (newItems) => {
+    setProp((props) => {
+      props.items = newItems.map((item) => ({ ...item }));
+    });
   };
 
   return (
@@ -87,7 +93,7 @@ export const FaqSettings = () => {
           >
             Itens
           </Typography>
-          <AddItemsComponent />
+          <AddFaqItems />
         </Grid>
       </TabPannel>
 
