@@ -41,7 +41,7 @@ Countdown.craft = {
     mobileLineHeightText: "1.5",
     letterSpacingText: "0",
     mobileLetterSpacingText: "0",
-
+    alignSelfTimer: "center",
     alignSelfText: "center",
     //element estilo props countdown timer
     timerSeconds: "00",
@@ -66,12 +66,19 @@ Countdown.craft = {
     marginRight: "0px",
     marginLeft: "0px",
     marginBottom: "0px",
-    paddingTop: "10px",
-    paddingRight: "20px",
-    paddingLeft: "20px",
-    paddingBottom: "10px",
-    alignSelf: "center",
+    paddingTop: "0px",
+    paddingRight: "0px",
+    paddingLeft: "0px",
+    paddingBottom: "0px",
 
+    paddingTopElement: "20px",
+    paddingRightElement: "10px",
+    paddingBottomElement: "10px",
+    paddingLeftElement: "20px",
+
+    alignSelf: "center",
+    flexDirection: "column",
+    // flexDirectionMobile: "column",
     order: "1",
     position: "static",
     top: "0",

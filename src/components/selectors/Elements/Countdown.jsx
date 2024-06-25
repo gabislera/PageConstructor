@@ -11,6 +11,12 @@ export const Countdown = ({
   paddingRight,
   paddingLeft,
   paddingBottom,
+
+  paddingTopElement,
+  paddingRightElement,
+  paddingBottomElement,
+  paddingLeftElement,
+
   alignSelf,
   order,
   position,
@@ -73,7 +79,8 @@ export const Countdown = ({
   gapMobile,
   minWidth,
   minWidthMobile,
-
+  flexDirection,
+  flexDirectionMobile,
   //value
   fontSize,
   mobileFontSize,
@@ -110,6 +117,14 @@ export const Countdown = ({
     connectors: { connect, drag },
   } = useNode();
   const { deviceView } = useResponsiveMode();
+
+  const getVisibility = () => {
+    if (deviceView === "mobile") {
+      return mobileHidden;
+    }
+    return hidden;
+  };
+  const hiddenElement = getVisibility();
 
   const list = [
     {
@@ -204,6 +219,7 @@ export const Countdown = ({
         borderBottomWidth,
         borderLeftWidth,
         borderColor,
+        flexDirection: flexDirectionMobile,
       };
     }
 
@@ -221,6 +237,7 @@ export const Countdown = ({
       borderBottomWidth,
       borderLeftWidth,
       borderColor,
+      flexDirection,
     };
   };
 
@@ -247,13 +264,30 @@ export const Countdown = ({
     };
   };
 
+  const unitStyles = {
+    fontSizeText,
+    mobileFontSizeText,
+    lineHeightText,
+    mobileLineHeightText,
+    letterSpacingText,
+    mobileLetterSpacingText,
+    fontFamilyText,
+    colorText,
+    fontWeightText,
+    textAlignText,
+    fontStyleText,
+    textDecorationText,
+    alignSelfText,
+    alignSelfTimer,
+  };
+
   const responsiveProps = getResponsiveProps();
   const responsiveElementProps = getResponsiveElementProps();
   const responsiveElementValueText = getResponsiveElementValueProps();
 
   return (
     <div
-      className="countdown-container"
+      className={`countdown-container ${hiddenElement && "hidden"}`}
       style={{
         display: "flex",
         width: "100%",
@@ -270,22 +304,12 @@ export const Countdown = ({
           responsiveElementValueText={responsiveElementValueText}
           responsiveElementProps={responsiveElementProps}
           label={unit.label.charAt(0).toUpperCase() + unit.label.slice(1)}
-          fontSizeText={fontSizeText}
+          unitStyles={unitStyles}
           deviceView={deviceView}
-          mobileFontSizeText={mobileFontSizeText}
-          lineHeightText={lineHeightText}
-          mobileLineHeightText={mobileLineHeightText}
-          letterSpacingText={letterSpacingText}
-          mobileLetterSpacingText={mobileLetterSpacingText}
-          fontFamilyText={fontFamilyText}
-          colorText={colorText}
-          fontWeightText={fontWeightText}
-          textAlignText={textAlignText}
-          fontStyleText={fontStyleText}
-          alignSelfText={alignSelfText}
-          textDecorationText={textDecorationText}
-          alignSelfTimer={alignSelfTimer}
-          maxWidth={maxWidth}
+          paddingTopElement={paddingTopElement}
+          paddingRightElement={paddingRightElement}
+          paddingBottomElement={paddingBottomElement}
+          paddingLeftElement={paddingLeftElement}
         />
       ))}
     </div>
@@ -297,23 +321,29 @@ const CountdownUnit = ({
   label,
   id,
   display,
+  deviceView,
+  paddingTopElement,
+  paddingRightElement,
+  paddingBottomElement,
+  paddingLeftElement,
   responsiveElementProps,
   responsiveElementValueText,
-  fontSizeText,
-  mobileFontSizeText,
-  lineHeightText,
-  mobileLineHeightText,
-  letterSpacingText,
-  mobileLetterSpacingText,
-  fontFamilyText,
-  colorText,
-  fontWeightText,
-  textAlignText,
-  fontStyleText,
-  textDecorationText,
-  deviceView,
-  alignSelfText,
-  alignSelfTimer,
+  unitStyles: {
+    fontSizeText,
+    mobileFontSizeText,
+    lineHeightText,
+    mobileLineHeightText,
+    letterSpacingText,
+    mobileLetterSpacingText,
+    fontFamilyText,
+    colorText,
+    fontWeightText,
+    textAlignText,
+    fontStyleText,
+    textDecorationText,
+    alignSelfText,
+    alignSelfTimer,
+  },
 }) => {
   return (
     <>
@@ -323,11 +353,13 @@ const CountdownUnit = ({
           style={{
             width: "100%",
             display: "flex",
-            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             color: "#fff",
-            padding: "10px 20px",
+            paddingTop: paddingTopElement,
+            paddingRight: paddingRightElement,
+            paddingBottom: paddingBottomElement,
+            paddingLeft: paddingLeftElement,
             ...responsiveElementProps,
           }}
         >

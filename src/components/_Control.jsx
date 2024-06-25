@@ -1079,12 +1079,39 @@ export const CustomSlider = ({
 export const CustomSelect = ({
   text,
   value,
+  // mobileValue = "0px",
+  // mobileOnChange,
   onChange,
   options,
   tooltipText,
   column,
 }) => {
   const classes = useStyles();
+
+  // const initialConfigs = {
+  //   desktop: {
+  //     value,
+  //   },
+  //   mobile: {
+  //     value: mobileValue,
+  //   },
+  // };
+
+  // const [internalValue, setInternalValue] = useState(
+  //   deviceView === "mobile"
+  //     ? initialConfigs.mobile.value
+  //     : initialConfigs.desktop.value
+  // );
+
+  // const handleChange = (e) => {
+  //   setInternalValue(e.target.value);
+  //   if (deviceView === "desktop") {
+  //     onChange(e);
+  //   } else {
+  //     mobileOnChange(e);
+  //   }
+  // };
+
   return (
     <Tooltip title={tooltipText ? tooltipText : ""} placement="right">
       <Box

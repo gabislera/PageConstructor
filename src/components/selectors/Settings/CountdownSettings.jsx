@@ -8,6 +8,7 @@ import { makeStyles } from "@mui/styles";
 import { AdvancedSettings } from "./AdvancedSettings";
 import momentTz from "moment-timezone";
 import TimezoneSelector from "../Timezone/Timezone";
+import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import moment from "moment-timezone";
 import {
   CustomSelect,
@@ -38,11 +39,13 @@ export const CountdownSettings = () => {
   const [value, setValue] = useState(0);
   const now = moment();
   const timeZone = moment.tz.guess();
+  const { deviceView } = useResponsiveMode();
   const [filter, setFilter] = useState({
     date: "",
     remaining: "",
     timezone: "",
   });
+
   const handleDateChange = (filter) => {
     if (filter && filter.date) {
       const selectedDate = moment.tz(filter.date, filter.timezone);
@@ -250,6 +253,19 @@ export const CountdownSettings = () => {
             </>
           ) : null}
           <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+          {deviceView === "desktop" ? (
+            <CustomSelect
+              text={"Direcionamento"}
+              value={props.flexDirection}
+              onChange={(e) =>
+                setProp((props) => (props.flexDirection = e.target.value))
+              }
+              options={[
+                { value: "column", label: "Coluna" },
+                { value: "row", label: "Lado a Lado" },
+              ]}
+            />
+          ) : null}
           <Typography
             sx={{
               fontSize: "12px",
@@ -498,10 +514,10 @@ export const CountdownSettings = () => {
                 values={props}
                 onChange={setProp}
                 options={[
-                  { value: "paddingTop", label: "Superior" },
-                  { value: "paddingRight", label: "Direita" },
-                  { value: "paddingLeft", label: "Inferior" },
-                  { value: "paddingBottom", label: "Esquerda" },
+                  { value: "paddingTopElement", label: "Superior" },
+                  { value: "paddingRightElement", label: "Direita" },
+                  { value: "paddingLeftElement", label: "Inferior" },
+                  { value: "paddingBottomElement", label: "Esquerda" },
                 ]}
               />
             </Box>
