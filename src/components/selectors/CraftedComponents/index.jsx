@@ -11,6 +11,7 @@ import ProgressBar from "./ProgressBar";
 import Section from "./Section";
 import Text from "./Text";
 import Video from "./Video";
+import Title from "./Title";
 
 const Components = {
   Container,
@@ -26,6 +27,7 @@ const Components = {
   ProgressBar,
   Countdown,
   Form,
+  Title,
 };
 
 export default Components;

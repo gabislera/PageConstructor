@@ -10,6 +10,7 @@ import Image from "../selectors/CraftedComponents/Image";
 import Video from "../selectors/CraftedComponents/Video";
 import Grid from "../selectors/CraftedComponents/Grid";
 import Faq from "../selectors/CraftedComponents/Faq";
+import Title from "../selectors/CraftedComponents/Title";
 import ProgressBar from "../selectors/CraftedComponents/ProgressBar";
 import Form from "../selectors/CraftedComponents/Form";
 import Accordion from "@mui/material/Accordion";
@@ -27,6 +28,8 @@ import {
   OndemandVideo,
   Remove,
   Quiz,
+  TextFields,
+  FormatAlignLeft,
 } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { CustomAccordion } from "../_Control";
@@ -64,46 +67,50 @@ export const Toolbox = () => {
 
           <GridItem element={Grid} tooltipText={"Grid"}>
             <CalendarViewMonth />
-            <span>Grid</span>
+            <span>Grade</span>
           </GridItem>
         </MaterialGrid>
       </CustomAccordion>
 
       <CustomAccordion title="Básico" defaultExpanded>
         <MaterialGrid container rowSpacing={1} justifyContent="space-between">
-          <GridItem element={Button} tooltipText={"Button"}>
+          <GridItem element={Title} tooltipText={"Título"}>
+            <TextFields />
+            <span>Título</span>
+          </GridItem>
+          <GridItem element={Text} tooltipText={"Editor de texto"}>
+            <FormatAlignLeft />
+            <span>Editor de texto</span>
+          </GridItem>
+          <GridItem element={Button} tooltipText={"Botão"}>
             <SmartButton />
-            <span>Button</span>
+            <span>Botão</span>
           </GridItem>
-          <GridItem element={Text} tooltipText={"Text"}>
-            <FormatQuote />
-            <span>Text</span>
-          </GridItem>
-          <GridItem element={Image} tooltipText={"Image"}>
+          <GridItem element={Image} tooltipText={"Imagem"}>
             <ImageOutlined />
-            <span>Image</span>
+            <span>Imagem</span>
           </GridItem>
           <GridItem element={Video} tooltipText={"Video"}>
             <OndemandVideo />
             <span>Video</span>
           </GridItem>
-          <GridItem element={Divider} tooltipText={"Divider"}>
+          <GridItem element={Divider} tooltipText={"Divisor"}>
             <Remove />
-            <span>Divider</span>
+            <span>Divisor</span>
           </GridItem>
           <GridItem element={Faq} tooltipText={"Faq"}>
             <Quiz />
             <span>Faq</span>
           </GridItem>
-          <GridItem element={ProgressBar} tooltipText={"Faq"}>
+          <GridItem element={ProgressBar} tooltipText={"Barra de progresso"}>
             <InsightsIcon />
             <span>Barra de progresso</span>
           </GridItem>
-          <GridItem element={Form} tooltipText={"Form"}>
+          <GridItem element={Form} tooltipText={"Formulário"}>
             <ContactsIcon />
             <span>Formulário</span>
           </GridItem>
-          <GridItem element={Countdown} tooltipText={"Countdown"}>
+          <GridItem element={Countdown} tooltipText={"Contador regressivo"}>
             <AccessTimeIcon />
             <span>Contador regressivo</span>
           </GridItem>

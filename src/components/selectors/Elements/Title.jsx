@@ -3,7 +3,7 @@ import ContentEditable from "react-contenteditable";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
-export const Text = ({
+export const Title = ({
   content,
   url,
   htmlTag,
@@ -156,6 +156,30 @@ export const Text = ({
   const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
+  console.log(hiddenElement);
+
+  // const Content = () => (
+  //   <ContentEditable
+  //     html={content}
+  //     disabled={!editable}
+  //     onChange={(e) =>
+  //       setProp(
+  //         (props) =>
+  //           (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
+  //         500
+  //       )
+  //     }
+  //     tagName={htmlTag}
+  //     style={{
+  //       ...responsiveProps,
+  //       color,
+  //       width,
+  //     }}
+  //   />
+  // );
+
+  // TODO: url is not working, need to make it work with api-main
+
   return (
     <div
       className={`${hiddenElement && "hidden"} `}
@@ -187,6 +211,34 @@ export const Text = ({
           width,
         }}
       />
+      {/* {url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Content />
+        </a>
+      ) : (
+        <ContentEditable
+          html={content}
+          disabled={!editable}
+          onChange={(e) =>
+            setProp(
+              (props) =>
+                (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
+              500
+            )
+          }
+          tagName={htmlTag}
+          style={{
+            ...responsiveProps,
+            color,
+            width,
+          }}
+        />
+      )} */}
     </div>
   );
 };
