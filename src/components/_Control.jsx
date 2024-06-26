@@ -641,7 +641,7 @@ export const FileUpload = ({ value, valueVideo, onChange, title }) => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log("file", file);
+    // console.log("file", file);
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       onChange(imageUrl);
@@ -1295,8 +1295,6 @@ export const CustomSlider = ({
 }) => {
   const classes = useStyles();
   const { deviceView } = useResponsiveMode();
-
-  console.log(value, mobileValue);
 
   const getDefaultUnit = (val) => val?.match(/[a-zA-Z%]+$/)?.[0] || "px";
 

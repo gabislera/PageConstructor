@@ -204,7 +204,7 @@ export const Video = ({
 
       const iframe = html.split("/");
       const embedUrl = iframe[2].split("?");
-      console.log("ifra,e", embedUrl);
+      // console.log("ifra,e", embedUrl);
       const embedSrc = prepareYouTubeEmbedUrl(
         `https://${embedUrl}/watch?v=${videoId}`
       );

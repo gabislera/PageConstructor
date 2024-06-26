@@ -183,8 +183,6 @@ export const Form = ({
   const inputSizes = getInputSize(inputSize);
   const buttonSizes = getInputSize(buttonSize);
 
-  console.log(buttonLetterSpacing);
-
   return (
     <form
       name={formName}

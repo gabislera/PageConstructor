@@ -156,8 +156,6 @@ export const Title = ({
   const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
-  console.log(hiddenElement);
-
   // const Content = () => (
   //   <ContentEditable
   //     html={content}
