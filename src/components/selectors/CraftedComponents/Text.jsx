@@ -10,10 +10,11 @@ Text.craft = {
     htmlTag: "h2",
     textAlign: "left",
     lineHeight: "1.5",
+    fontFamily: "sans-serif",
     fontWeight: "400",
     color: "#000000",
     fontSize: "16px",
-    fontFamily: "sans-serif",
+
     additional_css: "",
 
     marginTop: "0px",

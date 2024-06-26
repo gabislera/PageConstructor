@@ -166,6 +166,7 @@ export const AdvancedSettings = ({ props, setProp }) => {
                   setProp((props) => (props.zIndex = e.target.value))
                 }
                 row
+                width={"30%"}
                 tooltipText={"z-index"}
               />
             </Grid>
