@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
-
+import { useRef } from "react";
 export const Countdown = ({
   marginTop,
   marginRight,
@@ -118,6 +118,7 @@ export const Countdown = ({
   } = useNode();
   const { deviceView } = useResponsiveMode();
 
+  // const intervalRef = useRef(null);
   const getVisibility = () => {
     if (deviceView === "mobile") {
       return mobileHidden;
@@ -156,6 +157,10 @@ export const Countdown = ({
       display: displayFormatSeconds,
     },
   ];
+
+  // const clearTimer = () => {
+  //   clearInterval(intervalRef.current);
+  // };
 
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
@@ -281,18 +286,73 @@ export const Countdown = ({
     alignSelfTimer,
   };
 
-  const handleCountdown = () => {
-    if (CountType === "weekly_diary") {
-    }
-    if (CountType === "specific_date") {
-    }
-    if (CountType === "all_year") {
-    }
-  };
+  // const handleCountdown = () => {
+  //   setLoaded(true);
+  //   clearTimer();
 
-  useEffect(() => {
-    handleCountdown();
-  }, [timerSeconds, timerDays, timerHours, timerMinutes]);
+  //   if (CountType === "weekly_diary") {
+  //     weeklyDiary();
+  //   }
+  //   if (CountType === "specific_date") {
+  //     specificDate();
+  //   }
+  //   if (CountType === "all_year") {
+  //   }
+  // };
+
+  // const weeklyDiary = () => {
+  //   var timeInterval = setInterval(function () {
+  //     var totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+  //     if (totalSeconds > 0) {
+  //       totalSeconds--;
+  //       var hoursTime = Math.floor(totalSeconds / 3600);
+  //       var minutesTime = Math.floor((totalSeconds % 3600) / 60);
+  //       var secondsTime = totalSeconds % 60;
+
+  //       setTimerHours(hoursTime < 10 ? "0" + hoursTime : hoursTime);
+  //       setTimerMinutes(minutesTime < 10 ? "0" + minutesTime : minutesTime);
+  //       setTimerSeconds(secondsTime < 10 ? "0" + secondsTime : secondsTime);
+  //     } else {
+  //       setTimerHours(hoursTime < 10 ? "0" + hoursTime : hoursTime);
+  //       setTimerMinutes(minutesTime < 10 ? "0" + minutesTime : minutesTime);
+  //       setTimerSeconds(secondsTime < 10 ? "0" + secondsTime : secondsTime);
+  //     }
+  //     setLoaded(false);
+  //   }, 1000);
+  // };
+
+  // const specificDate = () => {
+  //   var date = new Date(endDate);
+
+  //   var timeInterval = setInterval(function () {
+  //     var nowWithTimezone = new Date();
+  //     var difference = date - nowWithTimezone;
+
+  //     if (difference <= 0) {
+  //       clearInterval(timeInterval);
+  //       return;
+  //     }
+
+  //     var days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  //     var hours = Math.floor(
+  //       (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  //     );
+  //     var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  //     var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+  //     setTimerDays(days < 10 ? "0" + days : days);
+  //     setTimerHours(hours < 10 ? "0" + hours : hours);
+  //     setTimerMinutes(minutes < 10 ? "0" + minutes : minutes);
+  //     setTimerSeconds(seconds < 10 ? "0" + seconds : seconds);
+  //     setLoaded(false);
+  //   }, 1000);
+  // };
+
+  // useEffect(() => {
+  //   handleCountdown();
+  //   return clearTimer();
+  // }, [CountType]);
 
   const responsiveProps = getResponsiveProps();
   const responsiveElementProps = getResponsiveElementProps();
