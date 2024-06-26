@@ -23,10 +23,7 @@ import {
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-
-export const TextSettings = () => {
+export const TitleSettings = () => {
   const {
     actions: { setProp },
     props,
@@ -34,47 +31,13 @@ export const TextSettings = () => {
     props: node.data.props,
   }));
 
+  const classes = useStyles();
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const classes = useStyles();
-
-  const modules = {
-    toolbar: [
-      [{ header: "1" }, { header: "2" }, { font: [] }],
-      [
-        { align: "" },
-        { align: "center" },
-        { align: "right" },
-        { align: "justify" },
-      ],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"],
-      [{ color: [] }, { background: [] }],
-      ["clean"],
-    ],
-  };
-
-  const formats = [
-    "header",
-    "font",
-    "align",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "link",
-    "image",
-    "color",
-    "background",
-  ];
 
   return (
     <Grid color={"#fff"}>
@@ -124,15 +87,15 @@ export const TextSettings = () => {
           sx={{ gap: 2 }}
         >
           <Grid item>
-            <ReactQuill
-              value={props.content || ""}
-              onChange={(content) =>
-                setProp((props) => (props.content = content))
+            <CustomTextInput
+              text="Texto"
+              value={props.content}
+              onChange={(e) =>
+                setProp((props) => (props.content = e.target.value))
               }
-              modules={modules}
-              formats={formats}
-              className={classes.editor}
-              theme="snow"
+              tooltipText={"Conteúdo do texto"}
+              multiline
+              rows={4}
             />
           </Grid>
 
@@ -242,41 +205,6 @@ const useStyles = makeStyles({
       fontSize: "10px",
       color: "#d5d8dc",
       textTransform: "none",
-    },
-  },
-  editor: {
-    display: "flex",
-    flexDirection: "column",
-    height: "auto",
-    "& .ql-toolbar": {
-      backgroundColor: "#333",
-      border: "none",
-      borderBottom: "1px solid #555",
-    },
-    "& .ql-container": {
-      border: "none",
-      backgroundColor: "#fff",
-      color: "#000",
-      minHeight: "200px",
-    },
-    "& .ql-editor": {
-      color: "#000",
-      minHeight: "200px",
-    },
-    "& .ql-snow .ql-stroke": {
-      stroke: "#fff",
-    },
-    "& .ql-snow .ql-fill": {
-      fill: "#fff",
-    },
-    "& .ql-snow .ql-picker": {
-      color: "#fff",
-    },
-    "& .ql-snow .ql-picker-label": {
-      color: "#fff",
-    },
-    "& .ql-snow .ql-picker-item": {
-      color: "#fff",
     },
   },
 });

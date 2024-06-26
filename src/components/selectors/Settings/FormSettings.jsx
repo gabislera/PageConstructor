@@ -101,6 +101,7 @@ export const FormSettings = () => {
                   })
                 }
               />
+
               <AddFormItems />
 
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
@@ -243,8 +244,17 @@ export const FormSettings = () => {
 
           <CustomAccordion title="Rótulos">
             <Box display="flex" flexDirection="column" gap={2}>
+              <CustomTypography
+                props={props}
+                setProp={setProp}
+                type="label"
+                disableDeviceView
+              />
+
+              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
               <ColorControl
-                name={"Cor do rótulo"}
+                name={"Cor do texto"}
                 value={props.labelColor}
                 defaultValue={props.labelColor}
                 onChange={(e, value) => {
@@ -260,143 +270,20 @@ export const FormSettings = () => {
                   setProp((props) => (props.inputBackgroundColor = value));
                 }}
               />
-
-              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
-
-              <CustomSelect
-                text={"Fonte"}
-                value={props.labelFontFamily}
-                onChange={(e) =>
-                  setProp((props) => (props.labelFontFamily = e.target.value))
-                }
-                options={[
-                  { label: "Padrão", value: "sans-serif" },
-                  { label: "Serifa", value: "serif" },
-                  { label: "Fantasia", value: "fantasy" },
-                  { label: "Cursiva", value: "cursive" },
-                  { label: "Monoespaçada", value: "monospace" },
-                ]}
-              />
-
-              <CustomSlider
-                text={"Tamanho da fonte"}
-                value={props.labelFontSize}
-                onChange={(e, value) =>
-                  setProp((props) => (props.labelFontSize = value))
-                }
-                disableDeviceView
-                tooltipText={"Escolha o tamanho da fonte"}
-              />
-
-              <CustomSelect
-                text="Peso da fonte"
-                value={props.labelFontWeight}
-                onChange={(e) =>
-                  setProp((props) => (props.labelFontWeight = e.target.value))
-                }
-                options={[
-                  { value: "300", label: "300" },
-                  { value: "400", label: "400" },
-                  { value: "500", label: "500" },
-                  { value: "600", label: "600" },
-                  { value: "700", label: "700" },
-                ]}
-                tooltipText={"Escolha o peso da fonte"}
-              />
-
-              <CustomSelect
-                text="Transformar"
-                value={props.labelTextTransform}
-                onChange={(e) =>
-                  setProp(
-                    (props) => (props.labelTextTransform = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "none", label: "Nenhum" },
-                  { value: "capitalize", label: "Capitalizado" },
-                  { value: "uppercase", label: "Maiúsculo" },
-                  { value: "lowercase", label: "Minúsculo" },
-                ]}
-                tooltipText={"Escolha a transformação do texto"}
-              />
-
-              <CustomSelect
-                text="Estilo"
-                value={props.labelFontStyle}
-                mobileValue={props.mobilelabelFontStyle}
-                onChange={(e) =>
-                  setProp((props) => (props.labelFontStyle = e.target.value))
-                }
-                mobileOnChange={(e) =>
-                  setProp(
-                    (props) => (props.mobilelabelFontStyle = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "normal", label: "Normal" },
-                  { value: "italic", label: "Italico" },
-                ]}
-                tooltipText={"Escolha o estilo da fonte"}
-              />
-
-              <CustomSelect
-                text="Decoração"
-                value={props.labelTextDecoration}
-                onChange={(e) =>
-                  setProp(
-                    (props) => (props.labelTextDecoration = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "none", label: "Normal" },
-                  { value: "underline", label: "Sublinhado" },
-                  { value: "overline", label: "Overline" },
-                  { value: "line-through", label: "Riscado" },
-                ]}
-                tooltipText={"Escolha a decoração do texto"}
-              />
-
-              <CustomSlider
-                text={"Altura da linha"}
-                value={props.labelLineHeight}
-                onChange={(e, value) =>
-                  setProp((props) => (props.labelLineHeight = value))
-                }
-                min={1}
-                max={3}
-                step={0.1}
-                disableDeviceView
-                disableUnits
-                tooltipText={"Escolha a altura da linha"}
-              />
-
-              <CustomSlider
-                text={"Espaçamento das letras"}
-                value={props.labelLetterSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.labelLetterSpacing = value))
-                }
-                min={-5}
-                disableDeviceView
-                tooltipText={"Escolha a espaçamento das letras"}
-              />
-
-              <CustomSlider
-                text={"Espaçamento das palavras"}
-                value={props.labelWordSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.labelWordSpacing = value))
-                }
-                min={-5}
-                disableDeviceView
-                tooltipText={"Escolha a espaçamento das palavras"}
-              />
             </Box>
           </CustomAccordion>
 
           <CustomAccordion title="Campos">
             <Box display="flex" flexDirection="column" gap={2}>
+              <CustomTypography
+                props={props}
+                setProp={setProp}
+                type="input"
+                disableDeviceView
+              />
+
+              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
               <ColorControl
                 name={"Cor do texto"}
                 value={props.inputColor}
@@ -413,138 +300,6 @@ export const FormSettings = () => {
                 onChange={(e, value) => {
                   setProp((props) => (props.inputBackgroundColor = value));
                 }}
-              />
-
-              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
-
-              <CustomSelect
-                text={"Fonte"}
-                value={props.inputFontFamily}
-                onChange={(e) =>
-                  setProp((props) => (props.inputFontFamily = e.target.value))
-                }
-                options={[
-                  { label: "Padrão", value: "sans-serif" },
-                  { label: "Serifa", value: "serif" },
-                  { label: "Fantasia", value: "fantasy" },
-                  { label: "Cursiva", value: "cursive" },
-                  { label: "Monoespaçada", value: "monospace" },
-                ]}
-              />
-
-              <CustomSlider
-                text={"Tamanho da fonte"}
-                value={props.inputFontSize}
-                onChange={(e, value) =>
-                  setProp((props) => (props.inputFontSize = value))
-                }
-                disableDeviceView
-                tooltipText={"Escolha o tamanho da fonte"}
-              />
-
-              <CustomSelect
-                text="Peso da fonte"
-                value={props.inputFontWeight}
-                onChange={(e) =>
-                  setProp((props) => (props.inputFontWeight = e.target.value))
-                }
-                options={[
-                  { value: "300", label: "300" },
-                  { value: "400", label: "400" },
-                  { value: "500", label: "500" },
-                  { value: "600", label: "600" },
-                  { value: "700", label: "700" },
-                ]}
-                tooltipText={"Escolha o peso da fonte"}
-              />
-
-              <CustomSelect
-                text="Transformar"
-                value={props.inputTextTransform}
-                onChange={(e) =>
-                  setProp(
-                    (props) => (props.inputTextTransform = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "none", label: "Nenhum" },
-                  { value: "capitalize", label: "Capitalizado" },
-                  { value: "uppercase", label: "Maiúsculo" },
-                  { value: "lowercase", label: "Minúsculo" },
-                ]}
-                tooltipText={"Escolha a transformação do texto"}
-              />
-
-              <CustomSelect
-                text="Estilo"
-                value={props.inputFontStyle}
-                mobileValue={props.mobilelabelFontStyle}
-                onChange={(e) =>
-                  setProp((props) => (props.inputFontStyle = e.target.value))
-                }
-                mobileOnChange={(e) =>
-                  setProp(
-                    (props) => (props.mobilelabelFontStyle = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "normal", label: "Normal" },
-                  { value: "italic", label: "Italico" },
-                ]}
-                tooltipText={"Escolha o estilo da fonte"}
-              />
-
-              <CustomSelect
-                text="Decoração"
-                value={props.inputTextDecoration}
-                onChange={(e) =>
-                  setProp(
-                    (props) => (props.inputTextDecoration = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "none", label: "Normal" },
-                  { value: "underline", label: "Sublinhado" },
-                  { value: "overline", label: "Overline" },
-                  { value: "line-through", label: "Riscado" },
-                ]}
-                tooltipText={"Escolha a decoração do texto"}
-              />
-
-              <CustomSlider
-                text={"Altura da linha"}
-                value={props.inputLineHeight}
-                onChange={(e, value) =>
-                  setProp((props) => (props.inputLineHeight = value))
-                }
-                min={1}
-                max={3}
-                step={0.1}
-                disableDeviceView
-                disableUnits
-                tooltipText={"Escolha a altura da linha"}
-              />
-
-              <CustomSlider
-                text={"Espaçamento das letras"}
-                value={props.inputLetterSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.inputLetterSpacing = value))
-                }
-                min={-5}
-                disableDeviceView
-                tooltipText={"Escolha a espaçamento das letras"}
-              />
-
-              <CustomSlider
-                text={"Espaçamento das palavras"}
-                value={props.inputWordSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.inputWordSpacing = value))
-                }
-                min={-5}
-                disableDeviceView
-                tooltipText={"Escolha a espaçamento das palavras"}
               />
 
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
@@ -585,6 +340,15 @@ export const FormSettings = () => {
 
           <CustomAccordion title="Botão">
             <Box display="flex" flexDirection="column" gap={2}>
+              <CustomTypography
+                props={props}
+                setProp={setProp}
+                type="button"
+                disableDeviceView
+              />
+
+              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
               <ColorControl
                 name={"Cor do texto"}
                 value={props.buttonColor}
@@ -601,138 +365,6 @@ export const FormSettings = () => {
                 onChange={(e, value) => {
                   setProp((props) => (props.buttonBackgroundColor = value));
                 }}
-              />
-
-              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
-
-              <CustomSelect
-                text={"Fonte"}
-                value={props.buttonFontFamily}
-                onChange={(e) =>
-                  setProp((props) => (props.buttonFontFamily = e.target.value))
-                }
-                options={[
-                  { label: "Padrão", value: "sans-serif" },
-                  { label: "Serifa", value: "serif" },
-                  { label: "Fantasia", value: "fantasy" },
-                  { label: "Cursiva", value: "cursive" },
-                  { label: "Monoespaçada", value: "monospace" },
-                ]}
-              />
-
-              <CustomSlider
-                text={"Tamanho da fonte"}
-                value={props.buttonFontSize}
-                onChange={(e, value) =>
-                  setProp((props) => (props.buttonFontSize = value))
-                }
-                disableDeviceView
-                tooltipText={"Escolha o tamanho da fonte"}
-              />
-
-              <CustomSelect
-                text="Peso da fonte"
-                value={props.buttonFontWeight}
-                onChange={(e) =>
-                  setProp((props) => (props.buttonFontWeight = e.target.value))
-                }
-                options={[
-                  { value: "300", label: "300" },
-                  { value: "400", label: "400" },
-                  { value: "500", label: "500" },
-                  { value: "600", label: "600" },
-                  { value: "700", label: "700" },
-                ]}
-                tooltipText={"Escolha o peso da fonte"}
-              />
-
-              <CustomSelect
-                text="Transformar"
-                value={props.buttonTextTransform}
-                onChange={(e) =>
-                  setProp(
-                    (props) => (props.buttonTextTransform = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "none", label: "Nenhum" },
-                  { value: "capitalize", label: "Capitalizado" },
-                  { value: "uppercase", label: "Maiúsculo" },
-                  { value: "lowercase", label: "Minúsculo" },
-                ]}
-                tooltipText={"Escolha a transformação do texto"}
-              />
-
-              <CustomSelect
-                text="Estilo"
-                value={props.buttonFontStyle}
-                mobileValue={props.mobilebuttonFontStyle}
-                onChange={(e) =>
-                  setProp((props) => (props.buttonFontStyle = e.target.value))
-                }
-                mobileOnChange={(e) =>
-                  setProp(
-                    (props) => (props.mobilebuttonFontStyle = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "normal", label: "Normal" },
-                  { value: "italic", label: "Italico" },
-                ]}
-                tooltipText={"Escolha o estilo da fonte"}
-              />
-
-              <CustomSelect
-                text="Decoração"
-                value={props.buttonTextDecoration}
-                onChange={(e) =>
-                  setProp(
-                    (props) => (props.buttonTextDecoration = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "none", label: "Normal" },
-                  { value: "underline", label: "Sublinhado" },
-                  { value: "overline", label: "Overline" },
-                  { value: "line-through", label: "Riscado" },
-                ]}
-                tooltipText={"Escolha a decoração do texto"}
-              />
-
-              <CustomSlider
-                text={"Altura da linha"}
-                value={props.buttonLineHeight}
-                onChange={(e, value) =>
-                  setProp((props) => (props.buttonLineHeight = value))
-                }
-                min={1}
-                max={3}
-                step={0.1}
-                disableDeviceView
-                disableUnits
-                tooltipText={"Escolha a altura da linha"}
-              />
-
-              <CustomSlider
-                text={"Espaçamento das letras"}
-                value={props.buttonLetterSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.buttonLetterSpacing = value))
-                }
-                min={-5}
-                disableDeviceView
-                tooltipText={"Escolha a espaçamento das letras"}
-              />
-
-              <CustomSlider
-                text={"Espaçamento das palavras"}
-                value={props.buttonWordSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.buttonWordSpacing = value))
-                }
-                min={-5}
-                disableDeviceView
-                tooltipText={"Escolha a espaçamento das palavras"}
               />
 
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
