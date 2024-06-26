@@ -35,7 +35,7 @@ export const Footer = () => {
 
     localStorage.setItem("pageData", parsedJson);
 
-    console.log(parsedJson);
+    // console.log(parsedJson);
   };
 
   useEffect(() => {

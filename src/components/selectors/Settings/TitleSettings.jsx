@@ -96,6 +96,7 @@ export const TitleSettings = () => {
               tooltipText={"Conteúdo do texto"}
               multiline
               rows={4}
+              fullWidth
             />
           </Grid>
 
@@ -105,6 +106,7 @@ export const TitleSettings = () => {
               value={props.url}
               onChange={(e) => setProp((props) => (props.url = e.target.value))}
               tooltipText={"Link para onde o texto redireciona"}
+              fullWidth
             />
           </Grid>
 

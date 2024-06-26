@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import { Tooltip } from "@mui/material";
 
 export const Form = ({
   items = [],
-
   inputSize,
   buttonSize,
   buttonMaxWidth,
   buttonAlign,
-
   marginTop,
   marginRight,
   marginLeft,
@@ -27,7 +25,6 @@ export const Form = ({
   right,
   bottom,
   zIndex,
-
   mobileMarginTop,
   mobileMarginRight,
   mobileMarginLeft,
@@ -46,7 +43,6 @@ export const Form = ({
   mobileZIndex,
   mobileButtonAlign,
   mobileButtonMaxWidth,
-
   showLabel,
   showRequiredIcon,
   formName,
@@ -63,7 +59,6 @@ export const Form = ({
   labelLineHeight,
   labelLetterSpacing,
   labelWordSpacing,
-
   inputColor,
   inputFontFamily,
   inputFontSize,
@@ -84,7 +79,6 @@ export const Form = ({
   inputBorderBottomRightRadius,
   inputBorderBottomLeftRadius,
   inputBorderColor,
-
   buttonColor,
   buttonBackgroundColor,
   buttonFontFamily,
@@ -103,6 +97,7 @@ export const Form = ({
 }) => {
   const {
     connectors: { connect, drag },
+    actions: { setProp },
   } = useNode();
   const { deviceView } = useResponsiveMode();
   const code = "BR";
@@ -148,40 +143,39 @@ export const Form = ({
       zIndex,
     };
   };
+
   const responsiveProps = getResponsiveProps();
 
   const getInputSize = (size) => {
-    switch (size) {
-      case "extra-small":
-        return {
-          minHeight: "33px",
-          padding: "4px 12px",
-        };
-      case "small":
-        return {
-          minHeight: "40px",
-          padding: "5px 14px",
-        };
-      case "medium":
-        return {
-          minHeight: "47px",
-          padding: "6px 16px",
-        };
-      case "large":
-        return {
-          minHeight: "59px",
-          padding: "7px 20px",
-        };
-      case "extra-large":
-        return {
-          minHeight: "72px",
-          padding: "8px 24px",
-        };
-    }
+    const sizeMapping = {
+      "extra-small": { minHeight: "33px", padding: "4px 12px" },
+      small: { minHeight: "40px", padding: "5px 14px" },
+      medium: { minHeight: "47px", padding: "6px 16px" },
+      large: { minHeight: "59px", padding: "7px 20px" },
+      "extra-large": { minHeight: "72px", padding: "8px 24px" },
+    };
+    return sizeMapping[size] || {};
   };
 
   const inputSizes = getInputSize(inputSize);
   const buttonSizes = getInputSize(buttonSize);
+
+  const formatPhoneNumber = (value) => {
+    value = value.replace(/\D/g, "");
+    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+    value = value.replace(/(\d)(\d{4})$/, "$1-$2");
+    return value;
+  };
+
+  const handleInputChange = (index, itemType, rawValue) => {
+    const formattedValue =
+      itemType === "tel" ? formatPhoneNumber(rawValue) : rawValue;
+    setProp((props) => {
+      props.items[index].value = formattedValue;
+    });
+  };
+
+  console.log(items);
 
   return (
     <form
@@ -208,7 +202,7 @@ export const Form = ({
         >
           {showLabel && (
             <label
-              htmlFor={item.label}
+              htmlFor={`input-${index}`}
               style={{
                 color: labelColor,
                 fontFamily: labelFontFamily,
@@ -255,19 +249,20 @@ export const Form = ({
                 title="Após a publicação da página, o DDI se ajusta automaticamente ao país do usuário."
                 placement="bottom"
               >
-                <button
-                  type="button"
-                  className="country-code-button"
-                  // style={{ color: inputColor }}
-                >
+                <button type="button" className="country-code-button">
                   {code} +55
                 </button>
               </Tooltip>
             )}
             <input
-              id={item.label}
+              id={`input-${index}`}
               type={item.type}
+              required={item.required}
               placeholder={item.placeholder}
+              value={item.value}
+              onChange={(e) =>
+                handleInputChange(index, item.type, e.target.value)
+              }
               style={{
                 ...inputSizes,
                 border: "none",

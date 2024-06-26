@@ -602,10 +602,10 @@ export const AddFormItems = () => {
                 />
                 <CustomSwitch
                   text="Requerido"
-                  value={item.required}
-                  onChange={(e) =>
-                    updateItem(index, "required", e.target.checked)
-                  }
+                  checkedText="Sim"
+                  uncheckedText="Não"
+                  value={props.required}
+                  onChange={(checked) => updateItem(index, "required", checked)}
                 />
               </Box>
             </AccordionDetails>
@@ -1160,7 +1160,7 @@ export const CustomTextInput = ({
   onChange,
   tooltipText,
   multiline,
-  row,
+  fullWidth,
   rows,
   type,
   id,
@@ -1174,9 +1174,9 @@ export const CustomTextInput = ({
       <Box
         sx={{
           display: "flex",
-          flexDirection: row ? "row" : "column",
-          alignItems: row ? "center" : "start",
-          justifyContent: row ? "space-between" : "start",
+          flexDirection: fullWidth ? "column" : "row",
+          alignItems: fullWidth ? "start" : "center",
+          justifyContent: fullWidth ? "start" : "space-between",
         }}
       >
         <Typography
@@ -1198,8 +1198,11 @@ export const CustomTextInput = ({
           value={value}
           onChange={onChange}
           className={classes.customInput}
-          sx={{ padding: 0, width: width ? width : "100%" }}
-          fullWidth={row ? false : true}
+          sx={{
+            padding: 0,
+            width: fullWidth ? "100%" : width ? width : "50%",
+          }}
+          fullWidth={fullWidth}
         />
       </Box>
     </Tooltip>
@@ -1699,7 +1702,7 @@ export const CustomSwitch = ({
                   opacity: 1,
                   border: 0,
                   "&:before": {
-                    content: `'${checkedText}'`,
+                    content: `'${checkedText || "On"}'`,
                     display: "block",
                     lineHeight: "18px",
                     color: "#d5d8dc",
@@ -1714,7 +1717,7 @@ export const CustomSwitch = ({
                 opacity: 1,
                 border: 0,
                 "&:before": {
-                  content: `'${uncheckedText}'`,
+                  content: `'${uncheckedText || "Off"}'`,
                   display: "block",
                   lineHeight: "18px",
                   color: "#d5d8dc",
