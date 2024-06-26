@@ -7,8 +7,7 @@ Button.craft = {
     //props botão
     text: "Clique aqui",
     className: "icon-button",
-    // pulseMobile: "true",
-    // pulse: "false",
+    pulse: "false",
     cursor: "pointer",
     type: "button",
     action: "redirect_url",

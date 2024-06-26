@@ -35,10 +35,10 @@ export const Button = ({
   borderTopRightRadius,
   borderBottomRightRadius,
   borderBottomLeftRadius,
-  borderTopLeftRadiusMobile,
-  borderTopRightRadiusMobile,
-  borderBottomRightRadiusMobile,
-  borderBottomLeftRadiusMobile,
+  // borderTopLeftRadiusMobile,
+  // borderTopRightRadiusMobile,
+  // borderBottomRightRadiusMobile,
+  // borderBottomLeftRadiusMobile,
   boxShadow,
   lineHeight,
   mobileWidth,
@@ -211,7 +211,9 @@ export const Button = ({
     <button
       type={type}
       ref={(ref) => connect(drag(ref))}
-      className={`${className} ${hiddenElement && "hidden"}`}
+      className={`${className} ${hiddenElement && "hidden"} ${
+        pulse === "true" && "pulse-button"
+      }`}
       data-delay={delay}
       style={{
         color,

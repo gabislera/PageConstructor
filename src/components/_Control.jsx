@@ -1572,6 +1572,7 @@ export const CustomTextInput = ({
           flexDirection: row ? "row" : "column",
           alignItems: row ? "center" : "start",
           justifyContent: row ? "space-between" : "start",
+          width: "100%",
         }}
       >
         <Typography
@@ -2449,6 +2450,7 @@ export const CustomCollapse = ({
   icon = <SettingsIcon fontSize="small" color="secondary" />,
   type,
   row = false,
+
   optionsButton,
   onChange,
   value,
