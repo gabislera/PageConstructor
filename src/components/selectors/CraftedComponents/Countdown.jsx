@@ -5,8 +5,7 @@ Countdown.craft = {
   displayName: "Contador regressivo",
 
   props: {
-    //element props countdown geral
-    background: "#6EC1E4",
+    background: "#625BF3",
     borderStyle: "none",
     endDate: "2024-05-25T21:02:00Z",
     CountType: "weekly_diary",
@@ -24,14 +23,13 @@ Countdown.craft = {
     // minWidth: "20%",
     maxWidth: "70%",
     maxWidthMobile: "22%",
-    //element estilo props countdown text
+
     textDays: "Dias",
     textHours: "Horas",
     textMinutes: "Minutos",
     textSeconds: "Segundos",
     textTextTransform: "none",
     textFontSize: "19px",
-    mobileFontSize: "12px",
     textFontFamily: "sans-serif",
     textColor: "#FFFFFF",
     textFontWeight: "400",
@@ -44,7 +42,6 @@ Countdown.craft = {
     textMobileLetterSpacing: "0",
     textAlignSelf: "center",
 
-    //element estilo props countdown timer
     alignSelfTimer: "center",
     timerSeconds: "00",
     timerDays: "10",
@@ -63,7 +60,6 @@ Countdown.craft = {
     textTransform: "none",
     fontStyle: "normal",
     textDecoration: "none",
-    // element props
 
     marginTop: "0px",
     marginRight: "0px",
@@ -73,7 +69,6 @@ Countdown.craft = {
     paddingRight: "0px",
     paddingLeft: "0px",
     paddingBottom: "0px",
-
     paddingTopElement: "20px",
     paddingRightElement: "10px",
     paddingBottomElement: "10px",
@@ -107,7 +102,7 @@ Countdown.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
-    //border
+
     borderTopLeftRadius: "0px",
     borderTopRightRadius: "0px",
     borderBottomRightRadius: "0px",
@@ -117,6 +112,7 @@ Countdown.craft = {
     borderRightWidth: "1px",
     borderBottomWidth: "1px",
     borderLeftWidth: "1px",
+
     boxShadow: "none",
     hidden: false,
     mobileHidden: false,

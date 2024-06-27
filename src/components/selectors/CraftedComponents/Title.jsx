@@ -5,14 +5,14 @@ Title.craft = {
   displayName: "Title",
 
   props: {
-    content: "Digite seu texto aqui",
+    content: "Adicione o texto do seu título aqui​",
     url: "",
     htmlTag: "h2",
     textAlign: "left",
     lineHeight: "1.5",
-    fontWeight: "400",
-    color: "#000000",
-    fontSize: "16px",
+    fontWeight: "600",
+    color: "#5D58E8",
+    fontSize: "30px",
     fontFamily: "sans-serif",
     additional_css: "",
 
@@ -67,6 +67,7 @@ Title.craft = {
     mobileBottom: "0",
     mobileZIndex: "0",
     pulse: "false",
+    textShadow: "none",
     hidden: false,
     mobileHidden: false,
   },

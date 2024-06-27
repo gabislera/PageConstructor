@@ -256,11 +256,12 @@ export const CustomTypography = ({
   );
 };
 
-export const CustomBoxShadowModal = ({ props, setProp }) => {
+export const CustomBoxShadowModal = ({ title, props, setProp, type }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  console.log("type", type);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -269,7 +270,7 @@ export const CustomBoxShadowModal = ({ props, setProp }) => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const initialValueBoxShadow = {
+  const initialBoxShadow = {
     horizontal: 0,
     vertical: 0,
     blur: 0,
@@ -277,34 +278,52 @@ export const CustomBoxShadowModal = ({ props, setProp }) => {
     color: "rgba(0, 0, 0, 0.5)",
     inset: false,
   };
-  const [boxShadow, setBoxShadow] = useState(initialValueBoxShadow);
+  //
+  const initialTextShadow = {
+    horizontal: 0,
+    vertical: 0,
+    blur: 0,
+    color: "rgba(0, 0, 0, 0.5)",
+  };
+
+  const [shadow, setShadow] = useState(
+    type === "text" ? initialTextShadow : initialBoxShadow
+  );
   const classes = useStyles();
 
   const handleColorChange = (color) => {
-    setBoxShadow({
-      ...boxShadow,
+    setShadow({
+      ...shadow,
       color: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`,
     });
   };
+
   const handleSliderChange = (prop) => (event, newValue) => {
-    setBoxShadow({ ...boxShadow, [prop]: newValue });
+    setShadow({ ...shadow, [prop]: newValue });
   };
+
   const toggleInset = () => {
-    setBoxShadow({ ...boxShadow, inset: !boxShadow.inset });
+    setShadow({ ...shadow, inset: !shadow.inset });
   };
 
   useEffect(() => {
-    const { horizontal, vertical, blur, spread, color, inset } = boxShadow;
-    const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${
-      inset ? " inset" : ""
-    }`;
+    if (type === "text") {
+      const { horizontal, vertical, blur, color } = shadow;
+      const textShadowString = `${horizontal}px ${vertical}px ${blur}px ${color}`;
+      setProp((props) => (props.textShadow = textShadowString));
+    } else {
+      const { horizontal, vertical, blur, spread, color, inset } = shadow;
+      const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${
+        inset ? " inset" : ""
+      }`;
+      setProp((props) => (props.boxShadow = boxShadowString));
+    }
+  }, [shadow, props, setProp, type]);
 
-    setProp((props) => (props.boxShadow = boxShadowString));
-  }, [boxShadow, props, setProp]);
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between">
       <Typography variant="caption" color="inherit" marginBottom={0}>
-        Sombra da borda
+        {title}
       </Typography>
 
       <IconButton
@@ -346,34 +365,40 @@ export const CustomBoxShadowModal = ({ props, setProp }) => {
           <ColorControl
             name={"Cor da sombra"}
             onChange={handleColorChange}
-            defaultValue={boxShadow?.color}
-            value={boxShadow?.color}
+            defaultValue={shadow?.color}
+            value={shadow.color}
             popertation={true}
           />
 
-          {["horizontal", "vertical", "blur", "spread"].map((prop, index) => (
+          {[
+            "horizontal",
+            "vertical",
+            "blur",
+            ...(type !== "text" ? ["spread"] : []),
+          ].map((prop, index) => (
             <CustomSlider
               key={index}
               disableUnits
               disableDeviceView
               text={prop.charAt(0).toUpperCase() + prop.slice(1)}
-              value={boxShadow[prop]}
+              value={shadow[prop]}
               onChange={handleSliderChange(prop)}
               min={prop === "blur" ? 0 : prop === "spread" ? -50 : -100}
               max={prop === "blur" ? 100 : prop === "spread" ? 50 : 100}
               step={1}
-              tooltipText={`Ajuste o valor de ${prop} da sombra`}
             />
           ))}
-          <CustomSelect
-            text={"Posição"}
-            value={boxShadow?.inset ? "inset" : ""}
-            onChange={toggleInset}
-            options={[
-              { value: "false", label: "Contorno" },
-              { value: "inset", label: "Interno" },
-            ]}
-          />
+          {type !== "text" && (
+            <CustomSelect
+              text={"Posição"}
+              value={shadow?.inset ? "inset" : ""}
+              onChange={toggleInset}
+              options={[
+                { value: "false", label: "Contorno" },
+                { value: "inset", label: "Interno" },
+              ]}
+            />
+          )}
         </Box>
       </Popover>
     </Box>

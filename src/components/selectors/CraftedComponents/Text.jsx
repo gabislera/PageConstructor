@@ -69,6 +69,7 @@ Text.craft = {
     mobileBottom: "0",
     mobileZIndex: "0",
     pulse: "false",
+    textShadow: "none",
     hidden: false,
     mobileHidden: false,
   },

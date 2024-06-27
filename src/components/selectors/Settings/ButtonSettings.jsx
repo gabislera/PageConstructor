@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { Settings, Contrast } from "@mui/icons-material";
@@ -32,7 +32,6 @@ export const ButtonSettings = () => {
   } = useNode((node) => ({
     props: node.data.props,
   }));
-
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
@@ -327,7 +326,11 @@ export const ButtonSettings = () => {
                 { value: "borderBottomLeftRadius", label: "Esquerda" },
               ]}
             />
-            <CustomBoxShadowModal props={props} setProp={setProp} />
+            <CustomBoxShadowModal
+              title={"Cor da sombra"}
+              props={props}
+              setProp={setProp}
+            />
             <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
             <CustomLinkedValues
               text="Preenchimento" //padding

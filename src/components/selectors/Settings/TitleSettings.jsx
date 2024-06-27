@@ -20,6 +20,7 @@ import {
   CustomTextInput,
   ColorControl,
   CustomTypography,
+  CustomBoxShadowModal,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 
@@ -184,8 +185,13 @@ export const TitleSettings = () => {
             defaultValue={props.color}
             value={props.color}
           />
-
-          <CustomTypography props={props} setProp={setProp} />
+          <CustomTypography props={props} setProp={setProp} />{" "}
+          <CustomBoxShadowModal
+            title={"Sombra do texto"}
+            props={props}
+            setProp={setProp}
+            type="text"
+          />
         </Grid>
       </TabPannel>
 

@@ -38,7 +38,7 @@ export const Title = ({
   right,
   bottom,
   zIndex,
-
+  textShadow,
   mobileTextAlign,
   mobileLineHeight,
   mobileFontWeight,
@@ -116,6 +116,7 @@ export const Title = ({
         right: mobileRight,
         bottom: mobileBottom,
         zIndex: mobileZIndex,
+        textShadow,
       };
     }
 
@@ -143,6 +144,7 @@ export const Title = ({
       left,
       right,
       bottom,
+      textShadow,
       zIndex,
     };
   };

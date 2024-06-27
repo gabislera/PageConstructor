@@ -38,7 +38,7 @@ export const Text = ({
   right,
   bottom,
   zIndex,
-
+  textShadow,
   mobileTextAlign,
   mobileLineHeight,
   mobileFontWeight,
@@ -116,6 +116,7 @@ export const Text = ({
         right: mobileRight,
         bottom: mobileBottom,
         zIndex: mobileZIndex,
+        textShadow,
       };
     }
 
@@ -144,6 +145,7 @@ export const Text = ({
       right,
       bottom,
       zIndex,
+      textShadow,
     };
   };
 
