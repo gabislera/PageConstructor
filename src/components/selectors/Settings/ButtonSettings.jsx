@@ -276,7 +276,12 @@ export const ButtonSettings = () => {
               ]}
               // defaultOpenSection="color"
             />
-
+            <CustomBoxShadowModal
+              title={"Sombra do texto"}
+              props={props}
+              setProp={setProp}
+              type="text"
+            />
             <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
             <CustomSelect
               text="Tipo da borda"

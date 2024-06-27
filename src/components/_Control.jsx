@@ -1809,8 +1809,9 @@ export const CustomTypeColorGradient = ({ props, setProp }) => {
       }}
     >
       <Typography className={"subtitle"} paddingBottom={2} paddingTop={2}>
-        Defina as localizações e o ângulo de cada ponto de interrupção para
-        garantir que o gradiente se adapte a diferentes tamanhos de tela.
+        Determine as posições exatas e os ângulos para cada ponto de
+        interrupção, garantindo assim que o gradiente se ajuste adequadamente a
+        telas de vários tamanhos.
       </Typography>
 
       {renderColorSection(

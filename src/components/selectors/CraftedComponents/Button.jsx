@@ -107,6 +107,7 @@ Button.craft = {
     right: "0",
     bottom: "0",
     typeColor: "linear",
+    textShadow: "none",
     hidden: false,
     mobileHidden: false,
   },

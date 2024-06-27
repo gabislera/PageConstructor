@@ -106,6 +106,7 @@ export const Button = ({
   mobileWordSpacing,
   hidden,
   mobileHidden,
+  textShadow,
 }) => {
   const {
     connectors: { connect, drag },
@@ -176,6 +177,7 @@ export const Button = ({
         textDecoration,
         backgroundColor,
         backgroundImage,
+        textShadow,
       };
     }
 
@@ -237,6 +239,7 @@ export const Button = ({
       backgroundColor,
       maxWidth,
       backgroundImage,
+      textShadow,
     };
   };
 

@@ -74,7 +74,7 @@ export const ProgressBar = ({
   mobileRight,
   mobileBottom,
   mobileZIndex,
-
+  textShadow,
   pulse,
 }) => {
   const {
@@ -154,6 +154,7 @@ export const ProgressBar = ({
         disabled={false}
         style={{
           margin: 0,
+          textShadow: textShadow,
           color: titleColor,
           fontFamily: titleFontFamily,
           fontSize: titleFontSize,
