@@ -11,18 +11,21 @@ Form.craft = {
         label: "Nome",
         placeholder: "Nome",
         required: false,
+        value: "",
       },
       {
         type: "email",
         label: "Email",
         placeholder: "Email",
         required: false,
+        value: "",
       },
       {
         type: "tel",
         label: "Telefone",
         placeholder: "(51) 99966 2222",
         required: false,
+        value: "",
       },
     ],
 

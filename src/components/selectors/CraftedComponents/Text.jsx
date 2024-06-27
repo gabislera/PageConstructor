@@ -13,6 +13,7 @@ Text.craft = {
     fontFamily: "sans-serif",
     fontWeight: "400",
     color: "#000000",
+    backgroundColor: "transparent",
     fontSize: "16px",
 
     additional_css: "",

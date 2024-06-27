@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
-import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
+import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { Settings, Contrast } from "@mui/icons-material";
 import CreateIcon from "@mui/icons-material/Create";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
-import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
-import UploadIcon from "@mui/icons-material/Upload";
 import SettingsIcon from "@mui/icons-material/Settings";
 import {
   CustomSelect,
@@ -269,8 +267,7 @@ export const ButtonSettings = () => {
                     />
                   ),
                   content: (
-                    <></>
-                    // <CustomTypeColorGradient props={props} setProp={setProp} />
+                    <CustomTypeColorGradient props={props} setProp={setProp} />
                   ),
                 },
               ]}

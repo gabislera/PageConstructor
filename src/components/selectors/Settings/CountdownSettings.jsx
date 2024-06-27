@@ -394,8 +394,8 @@ export const CountdownSettings = () => {
           container
           flexDirection={"column"}
           padding={2}
+          paddingTop={0}
           color={"#fff"}
-          sx={{ gap: 2 }}
         >
           <CustomAccordion title="Boxes">
             <Box display="flex" flexDirection="column" gap="16px">

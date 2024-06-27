@@ -44,18 +44,21 @@ export const TextSettings = () => {
 
   const modules = {
     toolbar: [
-      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [
+        { header: [1, 2, 3, false] },
+        "bold",
+        "italic",
+        "underline",
+        { list: "bullet" },
+        { list: "ordered" },
+      ],
       [
         { align: "" },
         { align: "center" },
         { align: "right" },
         { align: "justify" },
       ],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"],
-      [{ color: [] }, { background: [] }],
-      ["clean"],
+      ["link", , { color: [] }, { background: [] }, "clean"],
     ],
   };
 
@@ -249,9 +252,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     height: "auto",
     "& .ql-toolbar": {
-      backgroundColor: "#333",
-      border: "none",
-      borderBottom: "1px solid #555",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
     },
     "& .ql-container": {
       border: "none",
@@ -264,7 +265,7 @@ const useStyles = makeStyles({
       minHeight: "200px",
     },
     "& .ql-snow .ql-stroke": {
-      stroke: "#fff",
+      stroke: "#d5d8dc",
     },
     "& .ql-snow .ql-fill": {
       fill: "#fff",
@@ -274,9 +275,17 @@ const useStyles = makeStyles({
     },
     "& .ql-snow .ql-picker-label": {
       color: "#fff",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
     },
     "& .ql-snow .ql-picker-item": {
-      color: "#fff",
+      color: "#000",
+    },
+    "& .ql-snow .ql-active .ql-stroke": {
+      stroke: "#625CF3 !important ",
+    },
+    "& .ql-snow .ql-formats button:hover ": {
+      stroke: "#625CF3 !important ",
+      color: "#625CF3 !important ",
     },
   },
 });

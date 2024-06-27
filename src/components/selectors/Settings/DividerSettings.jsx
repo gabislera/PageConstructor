@@ -28,7 +28,7 @@ export const DividerSettings = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  console.log(props);
+
   return (
     <Grid color="#fff">
       <Box width="100%" sx={{ borderBottom: 1, borderColor: "divider" }}>
