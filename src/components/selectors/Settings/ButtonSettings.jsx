@@ -23,7 +23,8 @@ import { AdvancedSettings } from "./AdvancedSettings";
 import Divider from "@mui/material/Divider";
 import { ReactComponent as Gradient } from "../../iconsControls/gradient.svg";
 import { ReactComponent as Brush } from "../../iconsControls/brush.svg";
-
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import BlockIcon from "@mui/icons-material/Block";
 export const ButtonSettings = () => {
   const {
     actions: { setProp },
@@ -101,46 +102,56 @@ export const ButtonSettings = () => {
             placeholder={"Cole a URL ou digite"}
             value={props.src}
             tooltip={"Opções de link"}
-            width={"100%"}
             classes={classes}
             onChange={(e) => setProp((props) => (props.src = e.target.value))}
             type={"TextField"}
-            optionsButton={[
+            buttons={[
               {
-                icon: <SettingsIcon fontSize="small" color="secondary" />,
+                tooltip: "Opções de link",
+                icon: (
+                  <SettingsIcon
+                    fontSize="small"
+                    color="secondary"
+                    width={"14px"}
+                    height={"14px"}
+                  />
+                ),
+                content: (
+                  <Box style={{ padding: 2 }}>
+                    <CustomCheckbox
+                      options={[
+                        {
+                          value: "redirect_url",
+                          label: "Redirecionar para um link",
+                        },
+                        {
+                          value: "redirect_project_page",
+                          label: "Redirecionar para uma página",
+                        },
+                        {
+                          value: "scroll_to_block",
+                          label: "Focar outro bloco da página",
+                        },
+                        {
+                          value: "close_modal",
+                          label: "Fechar o modal",
+                        },
+                        {
+                          value: "window_modal_open",
+                          label: "Abrir em uma nova janela",
+                        },
+                      ]}
+                      defaultValue={props.action}
+                      value={props.action}
+                      onChange={(value) => {
+                        setProp((props) => (props.action = value));
+                      }}
+                    />
+                  </Box>
+                ),
               },
             ]}
-          >
-            <CustomCheckbox
-              options={[
-                {
-                  value: "redirect_url",
-                  label: "Redirecionar para um link",
-                },
-                {
-                  value: "redirect_project_page",
-                  label: "Redirecionar para uma página",
-                },
-                {
-                  value: "scroll_to_block",
-                  label: "Focar outro bloco da página",
-                },
-                {
-                  value: "close_modal",
-                  label: "Fechar o modal",
-                },
-                {
-                  value: "window_modal_open",
-                  label: "Abrir em uma nova janela",
-                },
-              ]}
-              defaultValue={props.action}
-              value={props.action}
-              onChange={(value) => {
-                setProp((props) => (props.action = value));
-              }}
-            />
-          </CustomCollapse>
+          />
 
           <CustomCollapse
             text="Icone"
@@ -153,24 +164,20 @@ export const ButtonSettings = () => {
             type={"Button"}
             tooltip={"Icone"}
             remove={true}
-            // optionsButton={[
-            //   {
-            //     value: "redirect_url",
-            //     label: "Nenhum icone",
-            //     icon: <DoNotDisturbAltIcon color="secondary" />,
-            //     onclick: () => {
-            //       setUpload(true);
-            //     },
-            //   },
-            //   {
-            //     value: "redirect_project_page",
-            //     label: "Carregar imagem",
-            //     icon: <UploadIcon color="secondary" />,
-            //     onclick: () => {
-            //       setUpload(true);
-            //     },
-            //   },
-            // ]}
+            buttons={[
+              {
+                value: "redirect_url",
+                tooltip: "Nenhum icone",
+                icon: <BlockIcon sx={{ width: "18px", height: "18px" }} />,
+                content: <Box style={{ padding: 2 }}></Box>,
+              },
+              {
+                value: "redirect_project_page",
+                tooltip: "Carregar imagem",
+                icon: <FileUploadIcon sx={{ width: "18px", height: "18px" }} />,
+                content: <></>,
+              },
+            ]}
           />
 
           <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
@@ -241,17 +248,16 @@ export const ButtonSettings = () => {
                   value: "color",
                   tooltip: "Clássico",
                   icon: (
-                    <Brush
-                      sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
-                    />
+                    <Brush width={"18px"} height={"18px"} color="#d5d8dc" />
                   ),
                   content: (
                     <Box style={{ padding: 2 }}>
                       <ColorControl
                         name={"Cor"}
-                        onChange={(e, value) =>
-                          setProp((props) => (props.backgroundColor = value))
-                        }
+                        onChange={(e, value) => {
+                          setProp((props) => (props.backgroundImage = "none"));
+                          setProp((props) => (props.backgroundColor = value));
+                        }}
                         defaultValue={props.backgroundColor}
                         value={props.backgroundColor}
                       />
@@ -262,16 +268,14 @@ export const ButtonSettings = () => {
                   value: "gradient",
                   tooltip: "Gradiente",
                   icon: (
-                    <Gradient
-                      sx={{ color: "#d5d8dc", width: "16px", height: "16px" }}
-                    />
+                    <Gradient width={"18px"} height={"18px"} color="#d5d8dc" />
                   ),
                   content: (
                     <CustomTypeColorGradient props={props} setProp={setProp} />
                   ),
                 },
               ]}
-              defaultOpenSection="color"
+              // defaultOpenSection="color"
             />
 
             <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />

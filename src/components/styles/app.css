@@ -4,12 +4,12 @@
   line-height: 1.4 !important;
   color: #9da5ae !important;
 }
-control-title-size {
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1;
-  color: #9da5ae;
-  max-width: 60%;
+.control-title-size {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: #c9cdd1 !important;
+  max-width: 60% !important;
 }
 
 .oscillating {

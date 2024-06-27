@@ -12,7 +12,7 @@ export const ProgressBar = ({
   height,
   backgroundColor,
   borderRadius,
-
+  color,
   hidden,
   mobileHidden,
 
@@ -173,47 +173,70 @@ export const ProgressBar = ({
           )
         }
       />
-      <div
-        className="progress-bar-animation"
-        style={{
-          width: `${width}%`,
-          height,
-          backgroundColor,
-          color: contentColor,
-          borderRadius,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 10px",
-          overflow: "hidden",
-        }}
-      >
-        <ContentEditable
-          tagName={"span"}
-          html={content}
-          disabled={false}
+      <div style={{ width: "100%", backgroundColor, borderRadius }}>
+        <div
+          className="progress-bar-animation"
           style={{
+            width: `${width}%`,
+            height,
+            backgroundColor: color,
             color: contentColor,
-            fontFamily: contentFontFamily,
-            fontSize: contentFontSize,
-            fontWeight: contentFontWeight,
-            textTransform: contentTextTransform,
-            fontStyle: contentFontStyle,
-            textDecoration: contentTextDecoration,
-            lineHeight: contentLineHeight,
-            letterSpacing: contentLetterSpacing,
-            wordSpacing: contentWordSpacing,
+            borderTopLeftRadius: borderRadius,
+            borderBottomLeftRadius: borderRadius,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0 10px",
+            overflow: "hidden",
           }}
-          onChange={(e) =>
-            setProp(
-              (props) => (
-                (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
-                500
+        >
+          <ContentEditable
+            tagName={"span"}
+            html={content}
+            disabled={false}
+            style={{
+              color: contentColor,
+              fontFamily: contentFontFamily,
+              fontSize: contentFontSize,
+              fontWeight: contentFontWeight,
+              textTransform: contentTextTransform,
+              fontStyle: contentFontStyle,
+              textDecoration: contentTextDecoration,
+              lineHeight: contentLineHeight,
+              letterSpacing: contentLetterSpacing,
+              wordSpacing: contentWordSpacing,
+            }}
+            onChange={(e) =>
+              setProp(
+                (props) => (
+                  (props.content = e.target.value.replace(
+                    /<\/?[^>]+(>|$)/g,
+                    ""
+                  )),
+                  500
+                )
               )
-            )
-          }
-        />
-        {showPercentage && <span>{width}%</span>}
+            }
+          />
+          {showPercentage && (
+            <span
+              style={{
+                color: contentColor,
+                fontFamily: contentFontFamily,
+                fontSize: contentFontSize,
+                fontWeight: contentFontWeight,
+                textTransform: contentTextTransform,
+                fontStyle: contentFontStyle,
+                textDecoration: contentTextDecoration,
+                lineHeight: contentLineHeight,
+                letterSpacing: contentLetterSpacing,
+                wordSpacing: contentWordSpacing,
+              }}
+            >
+              {width}%
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

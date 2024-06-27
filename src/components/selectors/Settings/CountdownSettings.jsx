@@ -274,12 +274,7 @@ export const CountdownSettings = () => {
               ]}
             />
           ) : null}
-          <Typography
-            sx={{
-              fontSize: "12px",
-              color: "#9da5ae",
-            }}
-          >
+          <Typography className={"control-title-size"}>
             Formato de Exibição
           </Typography>
 

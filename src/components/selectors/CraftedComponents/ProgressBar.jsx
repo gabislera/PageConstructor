@@ -12,7 +12,7 @@ ProgressBar.craft = {
     width: "80",
     height: "40px",
     htmlTag: "span",
-
+    color: "#fff",
     backgroundColor: "#625CF3",
     borderRadius: "4px",
 

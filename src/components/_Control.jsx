@@ -28,8 +28,6 @@ import {
   Button,
   Autocomplete,
   Chip,
-  Dialog,
-  DialogContent,
   Popover,
   Icon,
 } from "@mui/material";
@@ -42,7 +40,6 @@ import {
   PhoneIphone,
   FormatColorReset,
   Clear,
-  MoreVert,
   ContentCopy,
   Close,
   Edit,
@@ -68,6 +65,8 @@ export const CustomTypography = ({
   assistant,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const classes = useStyles();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -109,16 +108,10 @@ export const CustomTypography = ({
       </Typography>
 
       <IconButton
+        className={classes.border}
         onClick={handleClick}
         sx={{
-          height: "27px",
-          width: "27px",
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
-          borderRadius: "3px",
           padding: 0.2,
-          "&:hover": {
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
-          },
         }}
       >
         <Edit sx={{ color: "#d5d8dc", width: "16px", height: "16px" }} />
@@ -285,6 +278,7 @@ export const CustomBoxShadowModal = ({ props, setProp }) => {
     inset: false,
   };
   const [boxShadow, setBoxShadow] = useState(initialValueBoxShadow);
+  const classes = useStyles();
 
   const handleColorChange = (color) => {
     setBoxShadow({
@@ -307,7 +301,6 @@ export const CustomBoxShadowModal = ({ props, setProp }) => {
 
     setProp((props) => (props.boxShadow = boxShadowString));
   }, [boxShadow, props, setProp]);
-
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between">
       <Typography variant="caption" color="inherit" marginBottom={0}>
@@ -316,15 +309,9 @@ export const CustomBoxShadowModal = ({ props, setProp }) => {
 
       <IconButton
         onClick={handleClick}
+        className={classes.border}
         sx={{
-          height: "27px",
-          width: "27px",
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
-          borderRadius: "3px",
           padding: 0.2,
-          "&:hover": {
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
-          },
         }}
       >
         <Edit sx={{ color: "#d5d8dc", width: "16px", height: "16px" }} />
@@ -1919,6 +1906,7 @@ export const ColorControl = ({
                   onClick={() => onChange({}, "initial")}
                   sx={{
                     padding: 0,
+
                     "&:disabled": {
                       "& svg": {
                         fill: "rgba(255, 255, 255, 0.3)",
@@ -1936,6 +1924,7 @@ export const ColorControl = ({
                 onClick={() => onChange({}, "transparent")}
                 sx={{
                   padding: 0,
+
                   "&:disabled": {
                     "& svg": {
                       fill: "rgba(255, 255, 255, 0.3)",
@@ -1950,19 +1939,26 @@ export const ColorControl = ({
             </Tooltip>
             <Tooltip title={tooltipText ? tooltipText : value} placement="top">
               <div
+                className={classes.border}
+                style={{
+                  cursor: "pointer",
+                  position: "relative",
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
                 onClick={() => {
                   setOpenFilterColor(!openFilterColor);
                 }}
-                style={{
-                  border: "1px solid rgba(255, 255, 255, 0.3)",
-                  cursor: "pointer",
-                  position: "relative",
-                  width: 16,
-                  height: 16,
-                  backgroundColor: value,
-                  marginLeft: "2px",
-                }}
-              />
+              >
+                <div
+                  style={{
+                    width: 12,
+                    height: 12,
+                    backgroundColor: value,
+                  }}
+                />
+              </div>
             </Tooltip>
           </Box>
         </Box>
@@ -2315,13 +2311,11 @@ export const CustomCollapse = ({
   icon = <SettingsIcon fontSize="small" color="secondary" />,
   type,
   row = false,
-
-  optionsButton,
   onChange,
   value,
 }) => {
   const [openSection, setOpenSection] = useState(defaultOpenSection);
-
+  const classes = useStyles();
   const handleClick = (buttonValue) => {
     setOpenSection((prevOpenSection) =>
       prevOpenSection === buttonValue ? null : buttonValue
@@ -2338,38 +2332,34 @@ export const CustomCollapse = ({
           width: "100%",
         }}
       >
-        <Typography variant="caption" marginBottom={0}>
+        <Typography
+          variant="caption"
+          gutterBottom
+          color="inherit"
+          sx={{ mb: 0 }}
+        >
           {text}
         </Typography>
-        <Box
-          display="flex"
-          alignItems="center"
-          sx={{ width: type === "TextField" ? "100%" : "auto" }}
-        >
+        <Box display="flex" alignItems="center">
           {type === "TextField" && (
             <CustomTextInput
               value={value}
               onChange={onChange}
               tooltipText={placeholder}
-              width
+              fullWidth
             />
           )}
+
           {buttons.map((button, index) => (
             <Tooltip key={index} title={button.tooltip} placement="top">
               <IconButton
+                className={classes.border}
                 onClick={() => handleClick(button.value)}
                 sx={{
-                  height: "25px",
-                  width: "25px",
-
-                  borderRadius: "3px",
                   padding: 0.4,
-                  "&:hover": {
-                    backgroundColor: "rgba(255, 255, 255, 0.2)",
-                  },
                 }}
               >
-                {button.icon}
+                <Icon sx={{ color: "#fff" }}>{button.icon}</Icon>
               </IconButton>
             </Tooltip>
           ))}
@@ -2388,22 +2378,6 @@ export const CustomCollapse = ({
           </Box>
         </Collapse>
       ))}
-      {!buttons && (
-        <Collapse
-          in={openSection}
-          timeout="auto"
-          unmountOnExit
-          sx={{
-            "&:before, &:after": {
-              display: "none",
-            },
-          }}
-        >
-          <Box padding={0} sx={{ paddingTop: 1 }}>
-            {children}
-          </Box>
-        </Collapse>
-      )}
     </Box>
   );
 };
@@ -2504,6 +2478,12 @@ const useStyles = makeStyles({
     height: "100%",
     objectFit: "cover",
     borderRadius: "2px",
+  },
+  border: {
+    height: "27px",
+    width: "27px",
+    border: "1px solid #3f444b !important",
+    borderRadius: "3px !important",
   },
 });
 

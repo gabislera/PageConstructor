@@ -121,7 +121,7 @@ export const VideoSettings = () => {
               ) : null}
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
               <Box display="flex" flexDirection="column" gap="16px">
-                <Typography variant="caption" color="inherit">
+                <Typography className={"control-title-size"}>
                   Opções de vídeo
                 </Typography>
                 <CustomSwitch
