@@ -31,6 +31,7 @@ import {
   Dialog,
   DialogContent,
   Popover,
+  Icon,
 } from "@mui/material";
 import {
   Link,
@@ -64,6 +65,7 @@ export const CustomTypography = ({
   props,
   setProp,
   disableDeviceView = false,
+  assistant,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -81,6 +83,7 @@ export const CustomTypography = ({
     if (!type) {
       return name;
     }
+
     return `${type}${name.charAt(0).toUpperCase() + name.slice(1)}`;
   };
 
@@ -105,7 +108,19 @@ export const CustomTypography = ({
         Tipografia
       </Typography>
 
-      <IconButton onClick={handleClick} sx={{ padding: 0 }}>
+      <IconButton
+        onClick={handleClick}
+        sx={{
+          height: "27px",
+          width: "27px",
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          borderRadius: "3px",
+          padding: 0.2,
+          "&:hover": {
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
+          },
+        }}
+      >
         <Edit sx={{ color: "#d5d8dc", width: "16px", height: "16px" }} />
       </IconButton>
 
@@ -181,10 +196,8 @@ export const CustomTypography = ({
 
           <CustomSelect
             text="Estilo"
-            value={props[getPropName("textTransform")]}
-            onChange={(e) =>
-              handleDesktopChange("textTransform", e.target.value)
-            }
+            value={props[getPropName("fontStyle")]}
+            onChange={(e) => handleDesktopChange("fontStyle", e.target.value)}
             options={[
               { value: "normal", label: "Normal" },
               { value: "italic", label: "Italico" },
@@ -243,6 +256,136 @@ export const CustomTypography = ({
             min={-5}
             disableDeviceView={disableDeviceView}
             tooltipText={"Escolha a espaçamento das palavras"}
+          />
+        </Box>
+      </Popover>
+    </Box>
+  );
+};
+
+export const CustomBoxShadowModal = ({ props, setProp }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  const initialValueBoxShadow = {
+    horizontal: 0,
+    vertical: 0,
+    blur: 0,
+    spread: 0,
+    color: "rgba(0, 0, 0, 0.5)",
+    inset: false,
+  };
+  const [boxShadow, setBoxShadow] = useState(initialValueBoxShadow);
+
+  const handleColorChange = (color) => {
+    setBoxShadow({
+      ...boxShadow,
+      color: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`,
+    });
+  };
+  const handleSliderChange = (prop) => (event, newValue) => {
+    setBoxShadow({ ...boxShadow, [prop]: newValue });
+  };
+  const toggleInset = () => {
+    setBoxShadow({ ...boxShadow, inset: !boxShadow.inset });
+  };
+
+  useEffect(() => {
+    const { horizontal, vertical, blur, spread, color, inset } = boxShadow;
+    const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${
+      inset ? " inset" : ""
+    }`;
+
+    setProp((props) => (props.boxShadow = boxShadowString));
+  }, [boxShadow, props, setProp]);
+
+  return (
+    <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Typography variant="caption" color="inherit" marginBottom={0}>
+        Sombra da borda
+      </Typography>
+
+      <IconButton
+        onClick={handleClick}
+        sx={{
+          height: "27px",
+          width: "27px",
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          borderRadius: "3px",
+          padding: 0.2,
+          "&:hover": {
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
+          },
+        }}
+      >
+        <Edit sx={{ color: "#d5d8dc", width: "16px", height: "16px" }} />
+      </IconButton>
+
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        PaperProps={{
+          sx: {
+            p: 2,
+            width: "272px",
+            backgroundColor: "#27272a",
+            boxShadow: "0px 1px 15px rgba(0, 0, 0, 0.9)",
+            borderRadius: "0px",
+            overflow: "hidden",
+            color: "#fff",
+          },
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: -300,
+        }}
+      >
+        <Box display="flex" flexDirection="column" gap={1}>
+          <ColorControl
+            name={"Cor da sombra"}
+            onChange={handleColorChange}
+            defaultValue={boxShadow?.color}
+            value={boxShadow?.color}
+            popertation={true}
+          />
+
+          {["horizontal", "vertical", "blur", "spread"].map((prop, index) => (
+            <CustomSlider
+              key={index}
+              disableUnits
+              disableDeviceView
+              text={prop.charAt(0).toUpperCase() + prop.slice(1)}
+              value={boxShadow[prop]}
+              onChange={handleSliderChange(prop)}
+              min={prop === "blur" ? 0 : prop === "spread" ? -50 : -100}
+              max={prop === "blur" ? 100 : prop === "spread" ? 50 : 100}
+              step={1}
+              tooltipText={`Ajuste o valor de ${prop} da sombra`}
+            />
+          ))}
+          <CustomSelect
+            text={"Posição"}
+            value={boxShadow?.inset ? "inset" : ""}
+            onChange={toggleInset}
+            options={[
+              { value: "false", label: "Contorno" },
+              { value: "inset", label: "Interno" },
+            ]}
           />
         </Box>
       </Popover>
@@ -1297,7 +1440,7 @@ export const CustomSlider = ({
   const classes = useStyles();
   const { deviceView } = useResponsiveMode();
 
-  console.log(value, mobileValue);
+  // console.log(value, mobileValue);
 
   const getDefaultUnit = (val) => val?.match(/[a-zA-Z%]+$/)?.[0] || "px";
 
@@ -1563,7 +1706,185 @@ export const CustomSelect = ({
     </Tooltip>
   );
 };
+export const CustomTypeColorGradient = ({ props, setProp }) => {
+  const initialValueBackgroundImage = {
+    colorOne: "rgba(0, 0, 0, 1)",
+    localizationOne: 0,
+    colorTwo: "rgba(0, 0, 0, 1)",
+    localizationTwo: 0,
+    angle: 0,
+    position: "center center",
+  };
 
+  const [backgroundImage, setBackgroundImage] = useState(
+    initialValueBackgroundImage
+  );
+
+  const handleColorChange = (name, color) => {
+    if (color && color.rgb) {
+      setBackgroundImage((prev) => ({
+        ...prev,
+        [name]: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`,
+      }));
+    }
+  };
+
+  const handleSliderChange = (name, value) => {
+    setBackgroundImage((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    const {
+      colorOne,
+      localizationOne,
+      colorTwo,
+      localizationTwo,
+      angle,
+      position,
+    } = backgroundImage;
+    if (!colorOne || !colorTwo) return;
+    const loc1 = Math.min(100, Math.max(0, localizationOne));
+    const loc2 = Math.min(100, Math.max(0, localizationTwo));
+    const ang = Math.min(360, Math.max(0, angle));
+
+    const backgroundImageString = `${
+      props?.typeColor === "linear"
+        ? `linear-gradient(${ang}deg, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
+        : `radial-gradient(at ${position}, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
+    }`;
+
+    setProp((props) => (props.backgroundImage = backgroundImageString));
+  }, [backgroundImage, setProp]);
+
+  const renderColorSection = (
+    name,
+    key,
+    backgroundColor,
+    localization,
+    keyLocation
+  ) => (
+    <Box display="flex" flexDirection="column" gap={1}>
+      <ColorControl
+        name={name}
+        onChange={(e) => handleColorChange(key, e)}
+        defaultValue={backgroundColor}
+        value={backgroundColor}
+      />
+      <CustomSlider
+        text={"Localização"}
+        min={0}
+        max={100}
+        value={localization}
+        onChange={(val) => handleSliderChange(keyLocation, val.target.value)}
+        step={1}
+        disableUnits
+        tooltipText={"Escolha a altura da linha"}
+      />
+    </Box>
+  );
+  return (
+    <Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+        padding: 2,
+      }}
+    >
+      <Typography className={"subtitle"} paddingBottom={2} paddingTop={2}>
+        Defina as localizações e o ângulo de cada ponto de interrupção para
+        garantir que o gradiente se adapte a diferentes tamanhos de tela.
+      </Typography>
+
+      {renderColorSection(
+        "Primeira cor",
+        "colorOne",
+        backgroundImage.colorOne,
+        backgroundImage.localizationOne,
+        "localizationOne"
+      )}
+
+      {renderColorSection(
+        "Segunda cor",
+        "colorTwo",
+        backgroundImage.colorTwo,
+        backgroundImage.localizationTwo,
+        "localizationTwo"
+      )}
+
+      <CustomSelect
+        text="Tipo"
+        value={props.typeColor}
+        onChange={(e) => setProp((props) => (props.typeColor = e.target.value))}
+        options={[
+          { value: "linear", label: "Linear" },
+          { value: "radical", label: "Radical" },
+        ]}
+      />
+      {props.typeColor === "linear" ? (
+        <CustomSlider
+          text={"Ângulo"}
+          min={0}
+          max={360}
+          step={1}
+          value={backgroundImage.angle}
+          onChange={(e, val) => handleSliderChange("angle", val)}
+          disableUnits
+          tooltipText={"Escolha o ângulo do gradiente"}
+        />
+      ) : null}
+      {props.typeColor === "radical" ? (
+        <CustomSelect
+          text="Posição"
+          value={backgroundImage.position}
+          onChange={(e) =>
+            setBackgroundImage((prev) => ({
+              ...prev,
+              position: e.target.value,
+            }))
+          }
+          options={[
+            {
+              value: "center center",
+              label: "Centro ao centro",
+            },
+            {
+              value: "center left",
+              label: "Centro à esquerda",
+            },
+            {
+              value: "center right",
+              label: "Centro à direita",
+            },
+
+            {
+              value: "top center",
+              label: "Superior ao centro",
+            },
+            { value: "top left", label: "Superior à esquerda" },
+            { value: "topRight", label: "Superior à direita" },
+
+            {
+              value: "bottom center",
+              label: "Inferiror ao centro",
+            },
+            {
+              value: "bottom left",
+              label: "Inferiror à esquerda",
+            },
+            {
+              value: "bottom right",
+              label: "Inferiror à direita",
+            },
+          ]}
+        />
+      ) : null}
+    </Box>
+  );
+};
 export const ColorControl = ({
   name,
   onChange,
@@ -1571,14 +1892,16 @@ export const ColorControl = ({
   alpha,
   tooltipText,
   hoverOptions,
+  popertation,
 }) => {
-  const [openFilterColor, setOpenFilterColor] = useState(false);
-  const classes = useStyles();
+  const [openFilterColor, setOpenFilterColor] = useState(null);
 
+  const classes = useStyles();
+  console.log("popertation", popertation);
   return (
     <ClickAwayListener
       onClickAway={() => {
-        setOpenFilterColor(false);
+        setOpenFilterColor(null);
       }}
     >
       <Box>
@@ -1611,7 +1934,6 @@ export const ColorControl = ({
                 onClick={() => onChange({}, "transparent")}
                 sx={{
                   padding: 0,
-
                   "&:disabled": {
                     "& svg": {
                       fill: "rgba(255, 255, 255, 0.3)",
@@ -1627,7 +1949,7 @@ export const ColorControl = ({
             <Tooltip title={tooltipText ? tooltipText : value} placement="top">
               <div
                 onClick={() => {
-                  setOpenFilterColor(true);
+                  setOpenFilterColor(!openFilterColor);
                 }}
                 style={{
                   border: "1px solid rgba(255, 255, 255, 0.3)",
@@ -1642,13 +1964,16 @@ export const ColorControl = ({
             </Tooltip>
           </Box>
         </Box>
-        {openFilterColor && (
+        {openFilterColor ? (
           <Grow in={openFilterColor}>
             <div
               // onMouseLeave={() => {
               //   setOpenFilterColor(false);
               // }}
-              className={classes.pickerWrapper}
+
+              className={
+                popertation ? classes.pickerWrapperPop : classes.pickerWrapper
+              }
             >
               <ChromePicker
                 color={value}
@@ -1659,7 +1984,7 @@ export const ColorControl = ({
               />
             </div>
           </Grow>
-        )}
+        ) : null}
       </Box>
     </ClickAwayListener>
   );
@@ -1927,77 +2252,6 @@ export const CustomCheckbox = ({ options, value, onChange }) => {
   );
 };
 
-export const CustomBoxShadow = ({ props, setProp, openCollapse }) => {
-  const initialValueBoxShadow = {
-    horizontal: 0,
-    vertical: 0,
-    blur: 0,
-    spread: 0,
-    color: "transparent",
-    inset: false,
-  };
-  const [boxShadow, setBoxShadow] = useState(initialValueBoxShadow);
-
-  const handleColorChange = (color) => {
-    setBoxShadow({
-      ...boxShadow,
-      color: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`,
-    });
-  };
-  const handleSliderChange = (prop) => (event, newValue) => {
-    setBoxShadow({ ...boxShadow, [prop]: newValue });
-  };
-  const toggleInset = () => {
-    setBoxShadow({ ...boxShadow, inset: !boxShadow.inset });
-  };
-
-  useEffect(() => {
-    const { horizontal, vertical, blur, spread, color, inset } = boxShadow;
-    const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${
-      inset ? " inset" : ""
-    }`;
-
-    setProp((props) => (props.boxShadow = boxShadowString));
-  }, [boxShadow, props, setProp]);
-
-  return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", gap: 2, paddingTop: 1 }}
-    >
-      <ColorControl
-        name={"Cor da sobra"}
-        onChange={handleColorChange}
-        defaultValue={boxShadow?.color}
-        value={boxShadow?.color}
-      />
-
-      {["horizontal", "vertical", "blur", "spread"].map((prop, index) => (
-        <CustomSlider
-          key={index}
-          disableUnits
-          disableDeviceView
-          text={prop.charAt(0).toUpperCase() + prop.slice(1)}
-          value={boxShadow[prop]}
-          onChange={handleSliderChange(prop)}
-          min={prop === "blur" ? 0 : prop === "spread" ? -50 : -100}
-          max={prop === "blur" ? 100 : prop === "spread" ? 50 : 100}
-          step={1}
-          tooltipText={`Ajuste o valor de ${prop} da sombra`}
-        />
-      ))}
-      <CustomSelect
-        text={"Posição"}
-        value={boxShadow?.inset ? "inset" : ""}
-        onChange={toggleInset}
-        options={[
-          { value: "", label: "Contorno" },
-          { value: "inset", label: "Interno" },
-        ]}
-      />
-    </Box>
-  );
-};
-
 export const TextFieldControl = ({
   name,
   label,
@@ -2052,6 +2306,8 @@ export const TextFieldControl = ({
 export const CustomCollapse = ({
   children,
   text,
+  buttons = [],
+  defaultOpenSection = null,
   placeholder = "",
   tooltip = "",
   icon = <SettingsIcon fontSize="small" color="secondary" />,
@@ -2062,23 +2318,22 @@ export const CustomCollapse = ({
   onChange,
   value,
 }) => {
-  const [open, setOpen] = useState(false);
+  const [openSection, setOpenSection] = useState(defaultOpenSection);
+
+  const handleClick = (buttonValue) => {
+    setOpenSection((prevOpenSection) =>
+      prevOpenSection === buttonValue ? null : buttonValue
+    );
+  };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-      }}
-    >
+    <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
       <Box
         sx={{
           display: "flex",
-          flexDirection: row ? "row" : "column",
-          width: "100%",
           justifyContent: "space-between",
-          alignItems: row ? "center" : "flex-start",
+          alignItems: "center",
+          width: "100%",
         }}
       >
         <Typography variant="caption" marginBottom={0}>
@@ -2097,40 +2352,56 @@ export const CustomCollapse = ({
               width
             />
           )}
-          {optionsButton?.map((item) => (
-            <Tooltip title={tooltip} placement="top">
+          {buttons.map((button, index) => (
+            <Tooltip key={index} title={button.tooltip} placement="top">
               <IconButton
-                onClick={() => setOpen((prevOpen) => !prevOpen)}
+                onClick={() => handleClick(button.value)}
                 sx={{
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  borderRadius: 0,
-                  padding: "5px",
-                  "& svg": {
-                    width: "16px",
-                    height: "16px",
+                  height: "25px",
+                  width: "25px",
+
+                  borderRadius: "3px",
+                  padding: 0.4,
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.2)",
                   },
                 }}
               >
-                {item.icon ? item.icon : icon}
+                {button.icon}
               </IconButton>
             </Tooltip>
           ))}
         </Box>
       </Box>
-      <Collapse
-        in={open}
-        timeout="auto"
-        unmountOnExit
-        sx={{
-          "&:before, &:after": {
-            display: "none",
-          },
-        }}
-      >
-        <Box padding={0} sx={{ paddingTop: 1 }}>
-          {children}
-        </Box>
-      </Collapse>
+      {buttons.map((button, index) => (
+        <Collapse
+          key={index}
+          in={openSection === button.value}
+          timeout="auto"
+          unmountOnExit
+          sx={{ "&:before, &:after": { display: "none" } }}
+        >
+          <Box padding={0} sx={{ paddingTop: 1 }}>
+            {button.content}
+          </Box>
+        </Collapse>
+      ))}
+      {!buttons && (
+        <Collapse
+          in={openSection}
+          timeout="auto"
+          unmountOnExit
+          sx={{
+            "&:before, &:after": {
+              display: "none",
+            },
+          }}
+        >
+          <Box padding={0} sx={{ paddingTop: 1 }}>
+            {children}
+          </Box>
+        </Collapse>
+      )}
     </Box>
   );
 };
@@ -2159,6 +2430,13 @@ const useStyles = makeStyles({
     position: "absolute",
     zIndex: 4,
     top: 160,
+    right: 15,
+    backgroundColor: "#232325",
+  },
+  pickerWrapperPop: {
+    position: "absolute",
+    zIndex: 4,
+    top: 40,
     right: 15,
     backgroundColor: "#232325",
   },

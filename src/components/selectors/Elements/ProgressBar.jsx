@@ -74,6 +74,8 @@ export const ProgressBar = ({
   mobileRight,
   mobileBottom,
   mobileZIndex,
+
+  pulse,
 }) => {
   const {
     connectors: { connect, drag },
@@ -135,7 +137,9 @@ export const ProgressBar = ({
 
   return (
     <div
-      className={`${hiddenElement && "hidden"} progress-bar-content `}
+      className={`${hiddenElement && "hidden"} progress-bar-content ${
+        pulse === "true" && "pulse-button"
+      } `}
       style={{
         ...responsiveProps,
         display,

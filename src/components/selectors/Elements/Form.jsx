@@ -46,7 +46,7 @@ export const Form = ({
   mobileZIndex,
   mobileButtonAlign,
   mobileButtonMaxWidth,
-
+  pulse,
   showLabel,
   showRequiredIcon,
   formName,

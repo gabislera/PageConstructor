@@ -220,7 +220,7 @@ export const TextSettings = () => {
             value={props.color}
           />
 
-          <CustomTypography props={props} setProp={setProp} />
+          <CustomTypography props={props} setProp={setProp} type={"dsad"} />
         </Grid>
       </TabPannel>
 

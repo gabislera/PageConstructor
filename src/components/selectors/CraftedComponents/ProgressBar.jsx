@@ -74,6 +74,7 @@ ProgressBar.craft = {
     mobileZIndex: "0",
 
     showPercentage: true,
+    pulse: "false",
     hidden: false,
     mobileHidden: false,
   },

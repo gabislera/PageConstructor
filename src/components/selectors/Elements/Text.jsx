@@ -64,6 +64,7 @@ export const Text = ({
   mobileBottom,
   mobileZIndex,
 
+  pulse,
   hidden,
   mobileHidden,
 
@@ -158,7 +159,9 @@ export const Text = ({
 
   return (
     <div
-      className={`${hiddenElement && "hidden"} `}
+      className={`${hiddenElement && "hidden"} ${
+        pulse === "true" && "pulse-button"
+      }`}
       style={{
         ...responsiveProps,
         display: "inherit",

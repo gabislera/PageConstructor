@@ -91,7 +91,7 @@ Video.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
-
+    pulse: "false",
     hidden: false,
     mobileHidden: false,
   },

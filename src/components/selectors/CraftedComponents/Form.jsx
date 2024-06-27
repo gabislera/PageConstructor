@@ -122,6 +122,7 @@ Form.craft = {
 
     mobileButtonMaxWidth: "100",
     mobileButtonAlign: "center",
+    pulse: "false",
   },
   related: {
     settings: FormSettings,

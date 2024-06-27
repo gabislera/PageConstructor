@@ -44,7 +44,7 @@ export const Divider = ({
   mobilePaddingRight,
   mobilePaddingLeft,
   mobilePaddingBottom,
-
+  pulse,
   hidden,
   mobileHidden,
 }) => {
@@ -121,7 +121,7 @@ export const Divider = ({
       }}
       className={`${delay > 0 ? "oscillating" : ""} ${
         hiddenElement && "hidden"
-      }`}
+      } ${pulse === "true" && "pulse-button"}`}
     />
   );
 };

@@ -36,7 +36,7 @@ export const FaqItem = ({
   mobileRight,
   mobileBottom,
   mobileZIndex,
-
+  pulse,
   title,
   content,
 }) => {

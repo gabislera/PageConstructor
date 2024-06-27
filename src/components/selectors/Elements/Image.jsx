@@ -68,6 +68,7 @@ export const Image = ({
   mobileZIndex,
   mobileMaxWidth,
 
+  pulse,
   hidden,
   mobileHidden,
 }) => {
@@ -151,7 +152,9 @@ export const Image = ({
         ref={(ref) => connect(drag(ref))}
         src={src}
         alt={alt}
-        className={`image-hover ${hiddenElement && "hidden"}`}
+        className={`image-hover ${hiddenElement && "hidden"} ${
+          pulse === "true" && "pulse-button"
+        }`}
         style={{
           ...responsiveProps,
 

@@ -65,6 +65,7 @@ export const Video = ({
   backgroundColor,
   mobilewidth,
 
+  pulse,
   hidden,
   mobileHidden,
 }) => {
@@ -148,6 +149,9 @@ export const Video = ({
           ...responsiveProps,
         }}
         ref={(ref) => connect(drag(ref))}
+        className={`${hiddenElement && "hidden"} video-element ${
+          pulse === "true" && "pulse-button"
+        } `}
       >
         <ThumbnailVideo thumbnail={thumbnail} play={play} setPlay={setPlay}>
           <iframe

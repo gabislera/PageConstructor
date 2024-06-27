@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
-import { useRef } from "react";
 export const Countdown = ({
   marginTop,
   marginRight,
@@ -95,23 +94,28 @@ export const Countdown = ({
   letterSpacing,
   mobileLetterSpacing,
   alignSelfTimer,
+
   //text
-  fontSizeText,
-  mobileFontSizeText,
-  fontFamilyText,
-  colorText,
-  fontWeightText,
+  textColor,
   textAlignText,
-  fontStyleText,
-  textDecorationText,
-  lineHeightText,
-  mobileLineHeightText,
-  letterSpacingText,
-  mobileLetterSpacingText,
-  alignSelfText,
+  textAlignSelf,
+  mobileJustifyContent,
+  textTextTransform,
+  textTextDecoration,
+  textFontSize,
+  textMobileFontSize,
+  textFontFamily,
+  textFontWeight,
+  textFontStyle,
+  textLineHeight,
+  textMobileLineHeight,
+  textLetterSpacing,
+  textMobileLetterSpacing,
+
+  //
+  pulse,
   hidden,
   mobileHidden,
-  mobileJustifyContent,
 }) => {
   const {
     connectors: { connect, drag },
@@ -270,20 +274,20 @@ export const Countdown = ({
   };
 
   const unitStyles = {
-    fontSizeText,
-    mobileFontSizeText,
-    lineHeightText,
-    mobileLineHeightText,
-    letterSpacingText,
-    mobileLetterSpacingText,
-    fontFamilyText,
-    colorText,
-    fontWeightText,
+    textFontSize,
+    textMobileFontSize,
+    textFontFamily,
+    textFontWeight,
+    textFontStyle,
+    textLineHeight,
+    textMobileLineHeight,
+    textLetterSpacing,
+    textMobileLetterSpacing,
+    textTextDecoration,
+    textTextTransform,
+    textColor,
     textAlignText,
-    fontStyleText,
-    textDecorationText,
-    alignSelfText,
-    alignSelfTimer,
+    textAlignSelf,
   };
 
   // const handleCountdown = () => {
@@ -360,7 +364,9 @@ export const Countdown = ({
 
   return (
     <div
-      className={`countdown-container ${hiddenElement && "hidden"}`}
+      className={`countdown-container ${hiddenElement && "hidden"} ${
+        pulse === "true" && "pulse-button"
+      }`}
       style={{
         display: "flex",
         width: "100%",
@@ -383,6 +389,7 @@ export const Countdown = ({
           paddingRightElement={paddingRightElement}
           paddingBottomElement={paddingBottomElement}
           paddingLeftElement={paddingLeftElement}
+          alignSelfTimer={alignSelfTimer}
         />
       ))}
     </div>
@@ -394,6 +401,7 @@ const CountdownUnit = ({
   label,
   id,
   display,
+  alignSelfTimer,
   deviceView,
   paddingTopElement,
   paddingRightElement,
@@ -402,22 +410,23 @@ const CountdownUnit = ({
   responsiveElementProps,
   responsiveElementValueText,
   unitStyles: {
-    fontSizeText,
-    mobileFontSizeText,
-    lineHeightText,
-    mobileLineHeightText,
-    letterSpacingText,
-    mobileLetterSpacingText,
-    fontFamilyText,
-    colorText,
-    fontWeightText,
+    textFontSize,
+    textMobileFontSize,
+    textFontFamily,
+    textFontWeight,
+    textFontStyle,
+    textTextDecoration,
+    textLineHeight,
+    textMobileLineHeight,
+    textLetterSpacing,
+    textMobileLetterSpacing,
+    textTextTransform,
+    textColor,
     textAlignText,
-    fontStyleText,
-    textDecorationText,
-    alignSelfText,
-    alignSelfTimer,
+    textAlignSelf,
   },
 }) => {
+  console.log("textFontSize", textFontSize);
   return (
     <>
       {display ? (
@@ -442,23 +451,25 @@ const CountdownUnit = ({
           >
             {value}
           </span>
+
           <span
             style={{
               fontSize:
-                deviceView === "mobile" ? mobileFontSizeText : fontSizeText,
+                deviceView === "mobile" ? textMobileFontSize : textFontSize,
               lineHeight:
-                deviceView === "mobile" ? mobileLineHeightText : lineHeightText,
+                deviceView === "mobile" ? textMobileLineHeight : textLineHeight,
               letterSpacing:
                 deviceView === "mobile"
-                  ? mobileLetterSpacingText
-                  : letterSpacingText,
-              fontFamily: fontFamilyText,
-              color: colorText,
-              fontWeight: fontWeightText,
-              textAlign: textAlignText,
-              fontStyle: fontStyleText,
-              textDecoration: textDecorationText,
-              alignSelf: alignSelfText,
+                  ? textMobileLetterSpacing
+                  : textLetterSpacing,
+              fontFamily: textFontFamily,
+              color: textColor,
+              fontWeight: textFontWeight,
+              textAlign: textAlignText, //
+              fontStyle: textFontStyle,
+              textDecoration: textTextDecoration,
+              alignSelf: textAlignSelf,
+              textTransform: textTextTransform,
             }}
           >
             {label}
