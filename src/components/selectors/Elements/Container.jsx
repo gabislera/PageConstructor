@@ -186,9 +186,9 @@ export const Container = ({
         alignItems: "center",
         flexDirection: "column",
         height: "100%",
+        minHeight: deviceView === "mobile" ? mobileMinHeight : minHeight,
         width: "100%",
 
-        minHeight: "100px",
         border: "1px dashed #9da5ae",
       }}
     >

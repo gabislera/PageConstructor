@@ -13,13 +13,10 @@ export const AppComponent = ({
   children,
   columnGap,
   rowGap,
-  disp,
 }) => {
   const {
     connectors: { connect, drag },
-  } = useNode((node) => ({
-    notDeletable: node.data.props.notDeletable,
-  }));
+  } = useNode();
 
   return (
     <div
@@ -41,7 +38,6 @@ export const AppComponent = ({
         flexDirection: "column",
       }}
     >
-      {/* <Element id="main_section" is={Container} className="section" canvas /> */}
       {children}
     </div>
   );

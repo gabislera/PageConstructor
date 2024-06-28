@@ -79,15 +79,7 @@ export const Text = ({
     dragged: state.events.dragged,
   }));
 
-  const [editable, setEditable] = useState(false);
   const { deviceView } = useResponsiveMode();
-
-  useEffect(() => {
-    if (selected) {
-      return;
-    }
-    setEditable(false);
-  }, [selected]);
 
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
@@ -149,14 +141,7 @@ export const Text = ({
     };
   };
 
-  const getVisibility = () => {
-    if (deviceView === "mobile") {
-      return mobileHidden;
-    }
-    return hidden;
-  };
-
-  const hiddenElement = getVisibility();
+  const hiddenElement = deviceView === "mobile" ? mobileHidden : hidden;
   const responsiveProps = getResponsiveProps();
 
   return (
@@ -173,7 +158,6 @@ export const Text = ({
       }}
       {...props}
       ref={(ref) => connect(drag(ref))}
-      onClick={() => selected && setEditable(true)}
     >
       <div
         dangerouslySetInnerHTML={{ __html: content }}

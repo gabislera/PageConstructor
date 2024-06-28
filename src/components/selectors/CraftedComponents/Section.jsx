@@ -42,7 +42,8 @@ Section.craft = {
     notDeletable: false,
   },
   rules: {
-    canMoveIn: false,
+    canMoveIn: () => true,
+    canDrag: () => true,
   },
 };
 

@@ -44,15 +44,22 @@ export const RenderNode = ({ render }) => {
     parent,
     props,
     isLinkedNode,
-  } = useNode((node) => ({
-    isHover: node.events.hovered,
-    dom: node.dom,
-    name: node.data.custom.displayName || node.data.displayName,
-    moveable: query.node(node.id).isDraggable(),
-    deletable: query.node(node.id).isDeletable(),
-    parent: node.data.parent,
-    props: node.data.props,
-  }));
+  } = useNode((node) => {
+    const isDraggable = query.node(node.id).isDraggable();
+    const isDeletable = query.node(node.id).isDeletable();
+    // console.log(
+    //   `Node ID: ${node.id}, isDraggable: ${isDraggable}, isDeletable: ${isDeletable}`
+    // );
+    return {
+      isHover: node.events.hovered,
+      dom: node.dom,
+      name: node.data.custom.displayName || node.data.displayName,
+      moveable: isDraggable,
+      deletable: isDeletable,
+      parent: node.data.parent,
+      props: node.data.props,
+    };
+  });
 
   const currentRef = useRef();
 

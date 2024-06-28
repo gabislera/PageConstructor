@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+p {
+  margin: 0;
+}
+
 ::-webkit-scrollbar {
   width: 5px; 
   height: 10px;

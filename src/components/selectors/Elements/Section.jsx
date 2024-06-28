@@ -6,7 +6,7 @@ import Grid from "../CraftedComponents/Grid";
 import { IconButton } from "@mui/material";
 import { useEffect } from "react";
 
-export const Section = ({ initialElement }) => {
+export const Section = () => {
   const {
     connectors: { connect, drag },
     actions: { setProp },
@@ -15,7 +15,7 @@ export const Section = ({ initialElement }) => {
   }));
   const { actions } = useEditor();
 
-  const [element, setElement] = useState(initialElement || null);
+  const [element, setElement] = useState(null);
 
   useEffect(() => {
     setProp((props) => {

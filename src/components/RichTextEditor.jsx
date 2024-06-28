@@ -1,5 +1,11 @@
-import { useState, useCallback, useRef, useEffect } from "react";
-import { EditorState, convertToRaw, ContentState } from "draft-js";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+import {
+  EditorState,
+  convertToRaw,
+  ContentState,
+  RichUtils,
+  getDefaultKeyBinding,
+} from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
@@ -90,7 +96,24 @@ const ColorPickerWrapper = ({ type, onChange }) => {
   );
 };
 
-// Main Rich Text Editor Component
+// Handle key command for inserting a <br> tag
+const handleKeyCommand = (command, editorState, setEditorState) => {
+  if (command === "insert-br") {
+    const newState = RichUtils.insertSoftNewline(editorState);
+    setEditorState(newState);
+    return "handled";
+  }
+  return "not-handled";
+};
+
+// Custom key binding for Enter key to insert <br>
+const keyBindingFunction = (e) => {
+  if (e.keyCode === 13) {
+    return "insert-br";
+  }
+  return getDefaultKeyBinding(e);
+};
+
 const RichTextEditor = ({ content, onContentChange }) => {
   const [editorState, setEditorState] = useState(() =>
     initializeEditorState(content)
@@ -176,19 +199,21 @@ const RichTextEditor = ({ content, onContentChange }) => {
           maxHeight: "300px",
           overflowY: "scroll",
         }}
+        handleKeyCommand={(command, editorState) =>
+          handleKeyCommand(command, editorState, setEditorState)
+        }
+        keyBindingFn={keyBindingFunction}
       />
     </div>
   );
 };
 
-// Custom styles
 const useStyles = makeStyles(() => ({
   buttonColorPicker: {
     "&:hover": {
       boxShadow: "1px 1px 1px rgba(16, 16, 16, 0.27)",
     },
   },
-
   pickerWrapper: {
     position: "absolute",
     zIndex: 4,
