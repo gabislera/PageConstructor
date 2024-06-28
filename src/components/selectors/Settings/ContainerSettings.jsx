@@ -24,14 +24,14 @@ import {
   CustomLinkedValues,
   CustomSelect,
   CustomSlider,
-  CustomTextInput,
   FileUpload,
   TabOptions,
-  CustomAccordion,
   CustomBoxShadowModal,
   CustomCollapse,
   CustomTypeColorGradient,
+  CustomCheckbox,
 } from "../../_Control";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { AdvancedSettings } from "./AdvancedSettings";
 import { ReactComponent as JustifyCenter } from "../../iconsControls/justify_center.svg";
 import { ReactComponent as JustifyStart } from "../../iconsControls/justify_start.svg";
@@ -331,15 +331,6 @@ export const ContainerSettings = () => {
               tooltipText={"Escolha a tag HTML para o container"}
             />
           </Grid>
-
-          <Grid item>
-            <CustomTextInput
-              text="Link"
-              value={props.url}
-              onChange={(e) => setProp((props) => (props.url = e.target.value))}
-              tooltipText={"Link para onde o container redireciona"}
-            />
-          </Grid>
         </Grid>
       </TabPannel>
 
@@ -356,6 +347,7 @@ export const ContainerSettings = () => {
               <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
                 <CustomCollapse
                   text="Tipo de plano de fundo"
+                  row
                   buttons={[
                     {
                       value: "color",

@@ -1336,6 +1336,7 @@ export const CustomTextInput = ({
           flexDirection: fullWidth ? "column" : "row",
           alignItems: fullWidth ? "start" : "center",
           justifyContent: fullWidth ? "start" : "space-between",
+          width: fullWidth ? "100%" : "50%",
         }}
       >
         <Typography
@@ -2338,7 +2339,9 @@ export const CustomCollapse = ({
   defaultOpenSection = null,
   placeholder = "",
   tooltip = "",
-  icon = <SettingsIcon fontSize="small" color="secondary" />,
+  icon = (
+    <SettingsIcon color="secondary" sx={{ width: "28px", height: "0px" }} />
+  ),
   type,
   row = false,
   onChange,
@@ -2357,8 +2360,9 @@ export const CustomCollapse = ({
       <Box
         sx={{
           display: "flex",
+          flexDirection: row ? "row" : "column",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: row ? "center" : "",
           width: "100%",
         }}
       >
@@ -2375,7 +2379,7 @@ export const CustomCollapse = ({
             <CustomTextInput
               value={value}
               onChange={onChange}
-              tooltipText={placeholder}
+              placeholder={placeholder}
               fullWidth
             />
           )}
@@ -2383,11 +2387,17 @@ export const CustomCollapse = ({
           {buttons.map((button, index) => (
             <Tooltip key={index} title={button.tooltip} placement="top">
               <IconButton
-                className={classes.border}
                 onClick={() => handleClick(button.value)}
                 sx={{
                   backgroundColor:
                     openSection === button.value ? "#3f444b" : "",
+                  color: openSection ? "#d5d8dc" : "grey",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  boxSizing: "border-box",
+                  borderRadius: "3px",
+                  padding: "5px 5px 4px 4px",
+                  width: "28px",
+                  height: "28px",
                 }}
               >
                 <Icon sx={{ color: "#fff" }}>{button.icon}</Icon>
