@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { useNode } from "@craftjs/core";
-import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import {
   Edit,
@@ -16,7 +16,6 @@ import { a11yProps } from "../../../utils/a11yProps";
 import {
   CustomButtonGroup,
   CustomSelect,
-  CustomSlider,
   CustomTextInput,
   ColorControl,
   CustomTypography,
@@ -25,10 +24,7 @@ import {
   CustomCheckbox,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
-import SettingsIcon from "@mui/icons-material/Settings";
-
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import RichTextEditor from "../../RichTextEditor";
 
 export const TextSettings = () => {
   const {
@@ -39,49 +35,11 @@ export const TextSettings = () => {
   }));
 
   const [value, setValue] = useState(0);
+  const classes = useStyles();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const classes = useStyles();
-
-  const modules = {
-    toolbar: [
-      [
-        { header: [1, 2, 3, false] },
-        "bold",
-        "italic",
-        "underline",
-        { list: "bullet" },
-        { list: "ordered" },
-      ],
-      [
-        { align: "" },
-        { align: "center" },
-        { align: "right" },
-        { align: "justify" },
-      ],
-      ["link", , { color: [] }, { background: [] }, "clean"],
-    ],
-  };
-
-  const formats = [
-    "header",
-    "font",
-    "align",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "link",
-    "image",
-    "color",
-    "background",
-  ];
 
   return (
     <Grid color={"#fff"}>
@@ -130,89 +88,11 @@ export const TextSettings = () => {
           color={"#fff"}
           sx={{ gap: 2 }}
         >
-          <ReactQuill
-            value={props.content || ""}
-            onChange={(content) =>
-              setProp((props) => (props.content = content))
+          <RichTextEditor
+            content={props.content}
+            onContentChange={(htmlContent) =>
+              setProp((props) => (props.content = htmlContent))
             }
-            modules={modules}
-            formats={formats}
-            className={classes.editor}
-            theme="snow"
-          />
-
-          <CustomCollapse
-            text="Link"
-            placeholder={"Cole a URL ou digite"}
-            value={props.src}
-            tooltip={"Opções de link"}
-            classes={classes}
-            onChange={(e) => setProp((props) => (props.src = e.target.value))}
-            type={"TextField"}
-            buttons={[
-              {
-                tooltip: "Opções de link",
-                icon: (
-                  <SettingsIcon
-                    fontSize="small"
-                    color="secondary"
-                    style={{ width: "18px" }}
-                  />
-                ),
-                content: (
-                  <Box style={{ padding: 2 }}>
-                    <CustomCheckbox
-                      options={[
-                        {
-                          value: "redirect_url",
-                          label: "Redirecionar para um link",
-                        },
-                        {
-                          value: "redirect_project_page",
-                          label: "Redirecionar para uma página",
-                        },
-                        {
-                          value: "scroll_to_block",
-                          label: "Focar outro bloco da página",
-                        },
-                        {
-                          value: "close_modal",
-                          label: "Fechar o modal",
-                        },
-                        {
-                          value: "window_modal_open",
-                          label: "Abrir em uma nova janela",
-                        },
-                      ]}
-                      defaultValue={props.url}
-                      value={props.url}
-                      onChange={(value) => {
-                        setProp((props) => (props.url = value));
-                      }}
-                    />
-                  </Box>
-                ),
-              },
-            ]}
-          />
-
-          <CustomSelect
-            text={"Tag HTML"}
-            value={props.htmlTag}
-            onChange={(e) =>
-              setProp((props) => (props.htmlTag = e.target.value))
-            }
-            options={[
-              { value: "h1", label: "h1" },
-              { value: "h2", label: "h2" },
-              { value: "h3", label: "h3" },
-              { value: "h4", label: "h4" },
-              { value: "h5", label: "h5" },
-              { value: "h6", label: "h6" },
-              { value: "p", label: "p" },
-              { value: "span", label: "span" },
-            ]}
-            tooltipText={"Escolha a tag HTML para o texto"}
           />
         </Grid>
       </TabPannel>
@@ -236,11 +116,7 @@ export const TextSettings = () => {
               setProp((props) => (props.mobileTextAlign = value))
             }
             options={[
-              {
-                value: "left",
-                icon: <FormatAlignLeft />,
-                tooltip: "Esquerda",
-              },
+              { value: "left", icon: <FormatAlignLeft />, tooltip: "Esquerda" },
               {
                 value: "center",
                 icon: <FormatAlignCenter />,
@@ -262,9 +138,7 @@ export const TextSettings = () => {
           />
           <ColorControl
             name={"Cor do texto"}
-            onChange={(e, value) => {
-              setProp((props) => (props.color = value));
-            }}
+            onChange={(e, value) => setProp((props) => (props.color = value))}
             defaultValue={props.color}
             value={props.color}
           />
@@ -296,47 +170,6 @@ const useStyles = makeStyles({
       fontSize: "10px",
       color: "#d5d8dc",
       textTransform: "none",
-    },
-  },
-  editor: {
-    display: "flex",
-    flexDirection: "column",
-    height: "auto",
-    "& .ql-toolbar": {
-      border: "1px solid rgba(255, 255, 255, 0.1)",
-    },
-    "& .ql-container": {
-      border: "none",
-      backgroundColor: "#fff",
-      color: "#000",
-      minHeight: "200px",
-    },
-    "& .ql-editor": {
-      color: "#000",
-      minHeight: "200px",
-    },
-    "& .ql-snow .ql-stroke": {
-      stroke: "#d5d8dc",
-    },
-    "& .ql-snow .ql-fill": {
-      fill: "#fff",
-    },
-    "& .ql-snow .ql-picker": {
-      color: "#fff",
-    },
-    "& .ql-snow .ql-picker-label": {
-      color: "#fff",
-      border: "1px solid rgba(255, 255, 255, 0.1)",
-    },
-    "& .ql-snow .ql-picker-item": {
-      color: "#000",
-    },
-    "& .ql-snow .ql-active .ql-stroke": {
-      stroke: "#625CF3 !important ",
-    },
-    "& .ql-snow .ql-formats button:hover ": {
-      stroke: "#625CF3 !important ",
-      color: "#625CF3 !important ",
     },
   },
 });
