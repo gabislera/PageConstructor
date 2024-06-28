@@ -91,7 +91,6 @@ export const ButtonSettings = () => {
             text="Texto"
             row={true}
             value={props.text}
-            width={"50%"}
             onChange={(e) => setProp((props) => (props.text = e.target.value))}
             tooltipText={"Link para onde o botáo redireciona"}
           />
@@ -241,6 +240,7 @@ export const ButtonSettings = () => {
             />
             <CustomCollapse
               text="Cor do fundo"
+              row
               buttons={[
                 {
                   value: "color",

@@ -13,10 +13,10 @@ import {
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
+import Title from "../../selectors/CraftedComponents/Title";
 import {
   CustomButtonGroup,
   CustomSelect,
-  CustomSlider,
   CustomCheckbox,
   CustomTextInput,
   ColorControl,
@@ -230,11 +230,16 @@ export const TitleSettings = () => {
             defaultValue={props.color}
             value={props.color}
           />
-          <CustomTypography props={props} setProp={setProp} />{" "}
+          <CustomTypography
+            props={props}
+            setProp={setProp}
+            valueReset={Title}
+          />
           <CustomBoxShadowModal
             title={"Sombra do texto"}
             props={props}
             setProp={setProp}
+            valueReset={Title}
             type="text"
           />
         </Grid>

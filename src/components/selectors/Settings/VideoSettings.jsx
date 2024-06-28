@@ -95,6 +95,7 @@ export const VideoSettings = () => {
               {props.typeVideo === "video_url" ? (
                 <CustomTextInput
                   text="Link"
+                  fullWidth
                   value={props.url}
                   onChange={(e) =>
                     setProp((props) => (props.url = e.target.value))
@@ -152,6 +153,22 @@ export const VideoSettings = () => {
                   value={props.controls}
                   onChange={(e) => setProp((props) => (props.controls = e))}
                 />
+                {/* <CustomSwitch
+                  checkedText="Mostrar"
+                  uncheckedText="Ocultar"
+                  text="Modo de privacidade"
+                  value={props.privacy}
+                  onChange={(e) => setProp((props) => (props.controls = e))}
+                /> */}
+                {props.typeVideo !== "upload_video" ? (
+                  <CustomSwitch
+                    checkedText="Sim"
+                    uncheckedText="Não"
+                    text="Sugestões de vídeos"
+                    value={props.rel}
+                    onChange={(e) => setProp((props) => (props.rel = e))}
+                  />
+                ) : null}
                 <CustomSwitch
                   checkedText="Sim"
                   uncheckedText="Não"
@@ -224,40 +241,37 @@ export const VideoSettings = () => {
           container
           flexDirection={"column"}
           padding={2}
-          paddingTop={0}
+          paddingTop={2}
           color={"#fff"}
         >
-          <CustomAccordion title="Vídeo">
-            <Box display="flex" flexDirection="column" gap="16px">
-              <CustomSlider
-                text={"Largura"}
-                value={props.width}
-                max={1200}
-                mobileValue={props.mobilewidth}
-                onChange={(e, value) =>
-                  setProp((props) => (props.width = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobilewidth = value))
-                }
-                tooltipText={"Escolha a largura do vídeo"}
-              />
+          <Box display="flex" flexDirection="column" gap="16px">
+            <CustomSlider
+              text={"Largura"}
+              value={props.width}
+              max={1200}
+              mobileValue={props.mobilewidth}
+              onChange={(e, value) => setProp((props) => (props.width = value))}
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.mobilewidth = value))
+              }
+              tooltipText={"Escolha a largura do vídeo"}
+            />
 
-              <CustomSlider
-                text={"Altura"}
-                value={props.height}
-                max={1200}
-                mobileValue={props.heightMobile}
-                onChange={(e, value) =>
-                  setProp((props) => (props.height = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.heightMobile = value))
-                }
-                tooltipText={"Escolha a Altura do vídeo"}
-              />
-            </Box>
-          </CustomAccordion>
+            <CustomSlider
+              text={"Altura"}
+              value={props.height}
+              max={1200}
+              mobileValue={props.heightMobile}
+              onChange={(e, value) =>
+                setProp((props) => (props.height = value))
+              }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.heightMobile = value))
+              }
+              tooltipText={"Escolha a Altura do vídeo"}
+            />
+          </Box>
+
           {/* <CustomAccordion title="Sobreposição de imagem">
             <Box display="flex" flexDirection="column" gap="16px">
               <Typography variant="caption" color="inherit">

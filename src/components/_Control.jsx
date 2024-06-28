@@ -2,6 +2,9 @@ import { ChromePicker } from "react-color";
 import React, { useState, useEffect } from "react";
 import { ClickAwayListener } from "@mui/base";
 import { makeStyles } from "@mui/styles";
+import CloseIcon from "@mui/icons-material/Close";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+
 import {
   Tooltip,
   TextField,
@@ -63,6 +66,7 @@ export const CustomTypography = ({
   setProp,
   disableDeviceView = false,
   assistant,
+  valueReset,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
@@ -99,6 +103,12 @@ export const CustomTypography = ({
           )
         ] = value)
     );
+  };
+
+  const resetValues = () => {
+    setProp((props) => {
+      Object.assign(props, valueReset.craft.props);
+    });
   };
 
   return (
@@ -139,6 +149,7 @@ export const CustomTypography = ({
           horizontal: -300,
         }}
       >
+        <ButtonAssistant resetValues={resetValues} handleClose={handleClose} />
         <Box display="flex" flexDirection="column" gap={2}>
           <CustomSelect
             text="Família da fonte"
@@ -257,12 +268,18 @@ export const CustomTypography = ({
   );
 };
 
-export const CustomBoxShadowModal = ({ title, props, setProp, type }) => {
+export const CustomBoxShadowModal = ({
+  title,
+  props,
+  setProp,
+  type,
+  valueReset,
+  typeValue,
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  console.log("type", type);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -317,9 +334,27 @@ export const CustomBoxShadowModal = ({ title, props, setProp, type }) => {
       const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${
         inset ? " inset" : ""
       }`;
+
       setProp((props) => (props.boxShadow = boxShadowString));
     }
   }, [shadow, props, setProp, type]);
+
+  const resetValues = () => {
+    setShadow(() => {
+      return type === "text" ? initialTextShadow : initialBoxShadow;
+    });
+    setProp((props) => {
+      Object.assign(props, valueReset.craft.props);
+    });
+  };
+
+  const getPropName = (name) => {
+    if (!typeValue) {
+      return name;
+    }
+
+    return `${typeValue}${name.charAt(0).toUpperCase() + name.slice(1)}`;
+  };
 
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between">
@@ -352,7 +387,7 @@ export const CustomBoxShadowModal = ({ title, props, setProp, type }) => {
             zIndex: 2,
             p: 2,
             width: "272px",
-            height: "auto",
+            height: "310px",
             backgroundColor: "#27272a",
             boxShadow: "0px 1px 15px rgba(0, 0, 0, 0.9)",
             borderRadius: "0px",
@@ -365,6 +400,7 @@ export const CustomBoxShadowModal = ({ title, props, setProp, type }) => {
           horizontal: -300,
         }}
       >
+        <ButtonAssistant resetValues={resetValues} handleClose={handleClose} />
         <Box display="flex" flexDirection="column" gap={1}>
           <ColorControl
             name={"Cor da sombra"}
@@ -963,7 +999,6 @@ export const CustomLinkedValues = ({
 
   const capitalizeFirstLetter = (string) =>
     string.charAt(0).toUpperCase() + string.slice(1);
-
   const initialUnitDesktop =
     (options[0]?.value &&
       values[options[0]?.value]?.toString().match(/[a-zA-Z%]+$/)?.[0]) ||
@@ -1057,7 +1092,7 @@ export const CustomLinkedValues = ({
   };
 
   const units = ["px", "%", "rem", "vw"];
-
+  console.log(options);
   return (
     <Box width="100%" display="flex" flexDirection="column">
       <Box display="flex" alignItems="center" justifyContent="space-between">
@@ -1336,7 +1371,7 @@ export const CustomTextInput = ({
           flexDirection: fullWidth ? "column" : "row",
           alignItems: fullWidth ? "start" : "center",
           justifyContent: fullWidth ? "start" : "space-between",
-          width: fullWidth ? "100%" : "50%",
+          width: fullWidth ? "100%" : "auto",
         }}
       >
         <Typography
@@ -1917,7 +1952,6 @@ export const ColorControl = ({
   const [openFilterColor, setOpenFilterColor] = useState(null);
 
   const classes = useStyles();
-  console.log("popertation", popertation);
   return (
     <ClickAwayListener
       onClickAway={() => {
@@ -1996,10 +2030,6 @@ export const ColorControl = ({
         {openFilterColor ? (
           <Grow in={openFilterColor}>
             <div
-              // onMouseLeave={() => {
-              //   setOpenFilterColor(false);
-              // }}
-
               className={
                 popertation ? classes.pickerWrapperPop : classes.pickerWrapper
               }
@@ -2329,6 +2359,29 @@ export const TextFieldControl = ({
         </Tooltip>
       </Box>
     </>
+  );
+};
+export const ButtonAssistant = ({ resetValues, handleClose }) => {
+  return (
+    <Box
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingBottom: "10px",
+      }}
+    >
+      <Tooltip title="Restaurar" placement="right">
+        <IconButton color="secondary" onClick={resetValues}>
+          <RestartAltIcon sx={{ width: "18px", height: "18px" }} />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Fechar" onClick={handleClose} placement="right">
+        <IconButton color="secondary">
+          <CloseIcon sx={{ width: "18px", height: "18px" }} />
+        </IconButton>
+      </Tooltip>
+    </Box>
   );
 };
 

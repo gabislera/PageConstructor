@@ -29,9 +29,7 @@ import {
   CustomBoxShadowModal,
   CustomCollapse,
   CustomTypeColorGradient,
-  CustomCheckbox,
 } from "../../_Control";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { AdvancedSettings } from "./AdvancedSettings";
 import { ReactComponent as JustifyCenter } from "../../iconsControls/justify_center.svg";
 import { ReactComponent as JustifyStart } from "../../iconsControls/justify_start.svg";
@@ -42,7 +40,6 @@ import { ReactComponent as SpaceEvenly } from "../../iconsControls/space_evenly.
 import { ReactComponent as AlignStretch } from "../../iconsControls/align_stretch.svg";
 import { ReactComponent as Gradient } from "../../iconsControls/gradient.svg";
 import { ReactComponent as Brush } from "../../iconsControls/brush.svg";
-import FilterIcon from "@mui/icons-material/Filter";
 import ImageIcon from "@mui/icons-material/Image";
 export const ContainerSettings = () => {
   const {
