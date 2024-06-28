@@ -175,8 +175,6 @@ export const Form = ({
     });
   };
 
-  console.log(items);
-
   return (
     <form
       name={formName}

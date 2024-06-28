@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { useNode } from "@craftjs/core";
-import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import {
   Edit,
@@ -16,15 +16,12 @@ import { a11yProps } from "../../../utils/a11yProps";
 import {
   CustomButtonGroup,
   CustomSelect,
-  CustomSlider,
   CustomTextInput,
   ColorControl,
   CustomTypography,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
-
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import RichTextEditor from "../../RichTextEditor";
 
 export const TextSettings = () => {
   const {
@@ -35,49 +32,11 @@ export const TextSettings = () => {
   }));
 
   const [value, setValue] = useState(0);
+  const classes = useStyles();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const classes = useStyles();
-
-  const modules = {
-    toolbar: [
-      [
-        { header: [1, 2, 3, false] },
-        "bold",
-        "italic",
-        "underline",
-        { list: "bullet" },
-        { list: "ordered" },
-      ],
-      [
-        { align: "" },
-        { align: "center" },
-        { align: "right" },
-        { align: "justify" },
-      ],
-      ["link", , { color: [] }, { background: [] }, "clean"],
-    ],
-  };
-
-  const formats = [
-    "header",
-    "font",
-    "align",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "link",
-    "image",
-    "color",
-    "background",
-  ];
 
   return (
     <Grid color={"#fff"}>
@@ -126,48 +85,12 @@ export const TextSettings = () => {
           color={"#fff"}
           sx={{ gap: 2 }}
         >
-          <Grid item>
-            <ReactQuill
-              value={props.content || ""}
-              onChange={(content) =>
-                setProp((props) => (props.content = content))
-              }
-              modules={modules}
-              formats={formats}
-              className={classes.editor}
-              theme="snow"
-            />
-          </Grid>
-
-          <Grid item>
-            <CustomTextInput
-              text="Link"
-              value={props.url}
-              onChange={(e) => setProp((props) => (props.url = e.target.value))}
-              tooltipText={"Link para onde o texto redireciona"}
-            />
-          </Grid>
-
-          <Grid item>
-            <CustomSelect
-              text={"Tag HTML"}
-              value={props.htmlTag}
-              onChange={(e) =>
-                setProp((props) => (props.htmlTag = e.target.value))
-              }
-              options={[
-                { value: "h1", label: "h1" },
-                { value: "h2", label: "h2" },
-                { value: "h3", label: "h3" },
-                { value: "h4", label: "h4" },
-                { value: "h5", label: "h5" },
-                { value: "h6", label: "h6" },
-                { value: "p", label: "p" },
-                { value: "span", label: "span" },
-              ]}
-              tooltipText={"Escolha a tag HTML para o texto"}
-            />
-          </Grid>
+          <RichTextEditor
+            content={props.content}
+            onContentChange={(htmlContent) =>
+              setProp((props) => (props.content = htmlContent))
+            }
+          />
         </Grid>
       </TabPannel>
 
@@ -190,11 +113,7 @@ export const TextSettings = () => {
               setProp((props) => (props.mobileTextAlign = value))
             }
             options={[
-              {
-                value: "left",
-                icon: <FormatAlignLeft />,
-                tooltip: "Esquerda",
-              },
+              { value: "left", icon: <FormatAlignLeft />, tooltip: "Esquerda" },
               {
                 value: "center",
                 icon: <FormatAlignCenter />,
@@ -216,13 +135,10 @@ export const TextSettings = () => {
           />
           <ColorControl
             name={"Cor do texto"}
-            onChange={(e, value) => {
-              setProp((props) => (props.color = value));
-            }}
+            onChange={(e, value) => setProp((props) => (props.color = value))}
             defaultValue={props.color}
             value={props.color}
           />
-
           <CustomTypography props={props} setProp={setProp} />
         </Grid>
       </TabPannel>
@@ -245,47 +161,6 @@ const useStyles = makeStyles({
       fontSize: "10px",
       color: "#d5d8dc",
       textTransform: "none",
-    },
-  },
-  editor: {
-    display: "flex",
-    flexDirection: "column",
-    height: "auto",
-    "& .ql-toolbar": {
-      border: "1px solid rgba(255, 255, 255, 0.1)",
-    },
-    "& .ql-container": {
-      border: "none",
-      backgroundColor: "#fff",
-      color: "#000",
-      minHeight: "200px",
-    },
-    "& .ql-editor": {
-      color: "#000",
-      minHeight: "200px",
-    },
-    "& .ql-snow .ql-stroke": {
-      stroke: "#d5d8dc",
-    },
-    "& .ql-snow .ql-fill": {
-      fill: "#fff",
-    },
-    "& .ql-snow .ql-picker": {
-      color: "#fff",
-    },
-    "& .ql-snow .ql-picker-label": {
-      color: "#fff",
-      border: "1px solid rgba(255, 255, 255, 0.1)",
-    },
-    "& .ql-snow .ql-picker-item": {
-      color: "#000",
-    },
-    "& .ql-snow .ql-active .ql-stroke": {
-      stroke: "#625CF3 !important ",
-    },
-    "& .ql-snow .ql-formats button:hover ": {
-      stroke: "#625CF3 !important ",
-      color: "#625CF3 !important ",
     },
   },
 });

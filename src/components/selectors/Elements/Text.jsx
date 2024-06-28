@@ -170,21 +170,11 @@ export const Text = ({
       ref={(ref) => connect(drag(ref))}
       onClick={() => selected && setEditable(true)}
     >
-      <ContentEditable
-        html={content}
-        disabled={!editable}
-        onChange={(e) =>
-          setProp(
-            (props) =>
-              (props.content = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
-            500
-          )
-        }
-        tagName={htmlTag}
+      <div
+        dangerouslySetInnerHTML={{ __html: content }}
         style={{
-          ...responsiveProps,
           color,
-          width,
+          ...responsiveProps,
         }}
       />
     </div>
