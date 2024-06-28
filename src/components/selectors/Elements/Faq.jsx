@@ -84,7 +84,7 @@ export const Faq = ({
   right,
   bottom,
   zIndex,
-
+  pulse,
   hidden,
   mobileHidden,
 }) => {
@@ -221,7 +221,9 @@ export const Faq = ({
 
   return (
     <div
-      className={`${hiddenElement && "hidden"}`}
+      className={`${hiddenElement && "hidden"} ${
+        pulse === "true" && "pulse-button"
+      }`}
       ref={(ref) => connect(drag(ref))}
       style={{ ...responsiveProps, width: "100%" }}
       onClick={(e) => e.stopPropagation()}

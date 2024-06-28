@@ -94,6 +94,7 @@ export const ImageSettings = () => {
           <CustomTextInput
             text="Texto alternativo"
             value={props.alt}
+            width={"50%"}
             onChange={(e) => setProp((props) => (props.alt = e.target.value))}
             tooltipText={"Texto alternativo para a imagem"}
             row

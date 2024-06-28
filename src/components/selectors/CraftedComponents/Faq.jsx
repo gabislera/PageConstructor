@@ -97,6 +97,7 @@ Faq.craft = {
 
     hidden: false,
     mobileHidden: false,
+    pulse: "false",
   },
   related: {
     settings: FaqSettings,

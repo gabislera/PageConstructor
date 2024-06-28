@@ -50,6 +50,7 @@ Divider.craft = {
 
     hidden: false,
     mobileHidden: false,
+    pulse: "false",
   },
   related: {
     settings: DividerSettings,

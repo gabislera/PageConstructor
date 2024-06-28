@@ -19,6 +19,7 @@ import {
   CustomTextInput,
   ColorControl,
   CustomTypography,
+  CustomBoxShadowModal,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 import RichTextEditor from "../../RichTextEditor";
@@ -140,6 +141,12 @@ export const TextSettings = () => {
             value={props.color}
           />
           <CustomTypography props={props} setProp={setProp} />
+          <CustomBoxShadowModal
+            title={"Sombra do texto"}
+            props={props}
+            setProp={setProp}
+            type="text"
+          />
         </Grid>
       </TabPannel>
 

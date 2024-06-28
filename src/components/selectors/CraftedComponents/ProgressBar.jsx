@@ -12,10 +12,9 @@ ProgressBar.craft = {
     width: "80",
     height: "40px",
     htmlTag: "span",
-
-    backgroundColor: "#625CF3",
+    color: "#625CF3",
+    backgroundColor: "#EEEE",
     borderRadius: "4px",
-
     titleColor: "#000",
     titleFontFamily: "sans-serif",
     titleFontSize: "16px",
@@ -73,7 +72,9 @@ ProgressBar.craft = {
     mobileBottom: "0",
     mobileZIndex: "0",
 
+    textShadow: "none",
     showPercentage: true,
+    pulse: "false",
     hidden: false,
     mobileHidden: false,
   },

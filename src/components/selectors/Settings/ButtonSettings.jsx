@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { Settings, Contrast } from "@mui/icons-material";
@@ -6,10 +6,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
-import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
-import UploadIcon from "@mui/icons-material/Upload";
 import SettingsIcon from "@mui/icons-material/Settings";
-
 import {
   CustomSelect,
   CustomTextInput,
@@ -17,16 +14,17 @@ import {
   CustomSlider,
   ColorControl,
   CustomLinkedValues,
-  CustomAccordion,
-  TabOptions,
   CustomCheckbox,
-  CustomBoxShadow,
+  CustomBoxShadowModal,
+  CustomTypography,
 } from "../../_Control";
-
+import { CustomTypeColorGradient } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 import Divider from "@mui/material/Divider";
-import { ReactComponent as Replay } from "../../iconsControls/replay.svg";
-
+import { ReactComponent as Gradient } from "../../iconsControls/gradient.svg";
+import { ReactComponent as Brush } from "../../iconsControls/brush.svg";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import BlockIcon from "@mui/icons-material/Block";
 export const ButtonSettings = () => {
   const {
     actions: { setProp },
@@ -34,11 +32,8 @@ export const ButtonSettings = () => {
   } = useNode((node) => ({
     props: node.data.props,
   }));
-
   const classes = useStyles();
   const [value, setValue] = useState(0);
-  const [upload, setUpload] = useState(false);
-  const [openCollapse, setOpenCollapse] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -96,6 +91,7 @@ export const ButtonSettings = () => {
             text="Texto"
             row={true}
             value={props.text}
+            width={"50%"}
             onChange={(e) => setProp((props) => (props.text = e.target.value))}
             tooltipText={"Link para onde o botáo redireciona"}
           />
@@ -108,42 +104,53 @@ export const ButtonSettings = () => {
             classes={classes}
             onChange={(e) => setProp((props) => (props.src = e.target.value))}
             type={"TextField"}
-            optionsButton={[
+            buttons={[
               {
-                icon: <SettingsIcon fontSize="small" color="secondary" />,
+                tooltip: "Opções de link",
+                icon: (
+                  <SettingsIcon
+                    fontSize="small"
+                    color="secondary"
+                    width={"14px"}
+                    height={"14px"}
+                  />
+                ),
+                content: (
+                  <Box style={{ padding: 2 }}>
+                    <CustomCheckbox
+                      options={[
+                        {
+                          value: "redirect_url",
+                          label: "Redirecionar para um link",
+                        },
+                        {
+                          value: "redirect_project_page",
+                          label: "Redirecionar para uma página",
+                        },
+                        {
+                          value: "scroll_to_block",
+                          label: "Focar outro bloco da página",
+                        },
+                        {
+                          value: "close_modal",
+                          label: "Fechar o modal",
+                        },
+                        {
+                          value: "window_modal_open",
+                          label: "Abrir em uma nova janela",
+                        },
+                      ]}
+                      defaultValue={props.action}
+                      value={props.action}
+                      onChange={(value) => {
+                        setProp((props) => (props.action = value));
+                      }}
+                    />
+                  </Box>
+                ),
               },
             ]}
-          >
-            <CustomCheckbox
-              options={[
-                {
-                  value: "redirect_url",
-                  label: "Redirecionar para um link",
-                },
-                {
-                  value: "redirect_project_page",
-                  label: "Redirecionar para uma página",
-                },
-                {
-                  value: "scroll_to_block",
-                  label: "Focar outro bloco da página",
-                },
-                {
-                  value: "close_modal",
-                  label: "Fechar o modal",
-                },
-                {
-                  value: "window_modal_open",
-                  label: "Abrir em uma nova janela",
-                },
-              ]}
-              defaultValue={props.action}
-              value={props.action}
-              onChange={(value) => {
-                setProp((props) => (props.action = value));
-              }}
-            />
-          </CustomCollapse>
+          />
 
           <CustomCollapse
             text="Icone"
@@ -156,22 +163,18 @@ export const ButtonSettings = () => {
             type={"Button"}
             tooltip={"Icone"}
             remove={true}
-            optionsButton={[
+            buttons={[
               {
                 value: "redirect_url",
-                label: "Nenhum icone",
-                icon: <DoNotDisturbAltIcon color="secondary" />,
-                onclick: () => {
-                  setUpload(true);
-                },
+                tooltip: "Nenhum icone",
+                icon: <BlockIcon sx={{ width: "18px", height: "18px" }} />,
+                content: <Box style={{ padding: 2 }}></Box>,
               },
               {
                 value: "redirect_project_page",
-                label: "Carregar imagem",
-                icon: <UploadIcon color="secondary" />,
-                onclick: () => {
-                  setUpload(true);
-                },
+                tooltip: "Carregar imagem",
+                icon: <FileUploadIcon sx={{ width: "18px", height: "18px" }} />,
+                content: <></>,
               },
             ]}
           />
@@ -209,354 +212,131 @@ export const ButtonSettings = () => {
           container
           flexDirection={"column"}
           padding={2}
-          paddingTop={1}
+          paddingTop={2}
           color={"#fff"}
         >
-          <CustomSlider
-            text="Largura"
-            value={props.width}
-            mobileValue={props.widthMobile}
-            onChange={(e, value) => setProp((props) => (props.width = value))}
-            mobileOnChange={(e, value) =>
-              setProp((props) => (props.widthMobile = value))
-            }
-            min={8}
-            max={1000}
-            step={1}
-          />
+          <Box display="flex" flexDirection="column" gap="16px">
+            <CustomSlider
+              text="Largura"
+              value={props.maxWidth}
+              mobileValue={props.maxWidthMobile}
+              onChange={(e, value) =>
+                setProp((props) => (props.maxWidth = value))
+              }
+              mobileOnChange={(e, value) =>
+                setProp((props) => (props.maxWidthMobile = value))
+              }
+              min={0}
+              max={100}
+              step={1}
+            />
 
-          <CustomAccordion title="Tipografia">
-            <Box display="flex" flexDirection="column" gap="16px">
+            <CustomTypography props={props} setProp={setProp} />
+            <ColorControl
+              name={"Cor do texto"}
+              onChange={(e, value) => {
+                setProp((props) => (props.color = value));
+              }}
+              defaultValue={props.color}
+              value={props.color}
+            />
+            <CustomCollapse
+              text="Cor do fundo"
+              buttons={[
+                {
+                  value: "color",
+                  tooltip: "Clássico",
+                  icon: (
+                    <Brush width={"18px"} height={"18px"} color="#d5d8dc" />
+                  ),
+                  content: (
+                    <Box style={{ padding: 2 }}>
+                      <ColorControl
+                        name={"Cor"}
+                        onChange={(e, value) => {
+                          setProp((props) => (props.backgroundImage = "none"));
+                          setProp((props) => (props.backgroundColor = value));
+                        }}
+                        defaultValue={props.backgroundColor}
+                        value={props.backgroundColor}
+                      />
+                    </Box>
+                  ),
+                },
+                {
+                  value: "gradient",
+                  tooltip: "Gradiente",
+                  icon: (
+                    <Gradient width={"18px"} height={"18px"} color="#d5d8dc" />
+                  ),
+                  content: (
+                    <CustomTypeColorGradient props={props} setProp={setProp} />
+                  ),
+                },
+              ]}
+              // defaultOpenSection="color"
+            />
+            <CustomBoxShadowModal
+              title={"Sombra do texto"}
+              props={props}
+              setProp={setProp}
+              type="text"
+            />
+            <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+            <CustomSelect
+              text="Tipo da borda"
+              value={props.borderStyle}
+              onChange={(e) =>
+                setProp((props) => (props.borderStyle = e.target.value))
+              }
+              options={[
+                { value: "none", label: "Padrão" },
+                { value: "solid", label: "Solido" },
+                { value: "dashed", label: "Tracejado" },
+                { value: "dotted", label: "Pontilhado" },
+              ]}
+            />
+            {props.borderStyle !== "none" && (
+              <CustomLinkedValues
+                text="Largura da borda"
+                values={props}
+                onChange={setProp}
+                options={[
+                  { value: "borderTopWidth", label: "Superior" },
+                  { value: "borderRightWidth", label: "Direita" },
+                  { value: "borderBottomWidth", label: "Inferior" },
+                  { value: "borderLeftWidth", label: "Esquerda" },
+                ]}
+              />
+            )}
+
+            {props.borderStyle !== "none" && (
               <ColorControl
-                name={"Cor do texto"}
+                name={"Cor da borda"}
                 onChange={(e, value) => {
-                  setProp((props) => (props.color = value));
+                  setProp((props) => (props.hoverBorderColor = value));
                 }}
-                defaultValue={props.color}
-                value={props.color}
+                defaultValue={props.hoverBorderColor}
+                value={props.hoverBorderColor}
               />
-
-              <CustomSelect
-                text={"Fonte"}
-                value={props.fontFamily}
-                onChange={(e) =>
-                  setProp((props) => (props.fontFamily = e.target.value))
-                }
-                options={[
-                  { label: "Padrão", value: "sans-serif" },
-                  { label: "Serifa", value: "serif" },
-                  { label: "Fantasia", value: "fantasy" },
-                  { label: "Cursiva", value: "cursive" },
-                  { label: "Monoespaçada", value: "monospace" },
-                ]}
-              />
-
-              <CustomSlider
-                text={"Tamanho da fonte"}
-                value={props.fontSize}
-                mobileValue={props.mobileFontSize}
-                onChange={(e, value) =>
-                  setProp((props) => (props.fontSize = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileFontSize = value))
-                }
-                tooltipText={"Escolha o tamanho da fonte"}
-              />
-
-              <CustomSelect
-                text="Peso da fonte"
-                value={props.fontWeight}
-                onChange={(e) =>
-                  setProp((props) => (props.fontWeight = e.target.value))
-                }
-                options={[
-                  { value: "300", label: "300" },
-                  { value: "400", label: "400" },
-                  { value: "500", label: "500" },
-                  { value: "600", label: "600" },
-                  { value: "700", label: "700" },
-                ]}
-                tooltipText={"Escolha o peso da fonte"}
-              />
-
-              <CustomSelect
-                text={"Alinhamento da fonte"}
-                value={props.alignItems}
-                onChange={(e) => setProp((props) => (props.f = e.target.value))}
-                options={[
-                  { label: "Inicial", value: "start" },
-                  { label: "Centro", value: "center" },
-                  { label: "Final", value: "end" },
-                ]}
-              />
-
-              <CustomSelect
-                text="Transformar"
-                value={props.textTransform}
-                onChange={(e) =>
-                  setProp((props) => (props.textTransform = e.target.value))
-                }
-                options={[
-                  { value: "none", label: "Nenhum" },
-                  { value: "capitalize", label: "Capitalizado" },
-                  { value: "uppercase", label: "Maiúsculo" },
-                  { value: "lowercase", label: "Minúsculo" },
-                ]}
-                tooltipText={"Escolha a transformação do texto"}
-              />
-
-              <CustomSelect
-                text="Estilo"
-                value={props.fontStyle}
-                onChange={(e) =>
-                  setProp((props) => (props.fontStyle = e.target.value))
-                }
-                options={[
-                  { value: "normal", label: "Normal" },
-                  { value: "italic", label: "Italico" },
-                ]}
-                tooltipText={"Escolha o estilo da fonte"}
-              />
-
-              <CustomSelect
-                text="Decoração"
-                value={props.textDecoration}
-                onChange={(e) =>
-                  setProp((props) => (props.textDecoration = e.target.value))
-                }
-                options={[
-                  { value: "none", label: "Normal" },
-                  { value: "underline", label: "Sublinhado" },
-                  { value: "overline", label: "Overline" },
-                  { value: "line-through", label: "Riscado" },
-                ]}
-                tooltipText={"Escolha a decoração do texto"}
-              />
-
-              <CustomSlider
-                text={"Altura da linha"}
-                value={props.lineHeight}
-                mobileValue={props.mobileLineHeight}
-                onChange={(e, value) =>
-                  setProp((props) => (props.lineHeight = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileLineHeight = value))
-                }
-                min={1}
-                max={3}
-                step={0.1}
-                tooltipText={"Escolha a altura da linha"}
-              />
-              <CustomSlider
-                text={"Espaçamento entre letras"}
-                value={props.letterSpacing}
-                mobileValue={props.mobileLetterSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.letterSpacing = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileLetterSpacing = value))
-                }
-                min={-5}
-                tooltipText={"Escolha a espaçamento das letras"}
-              />
-              <CustomSlider
-                text={"Espaçamento entre palavras"}
-                value={props.wordSpacing}
-                mobileValue={props.mobileWordSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.wordSpacing = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileWordSpacing = value))
-                }
-                min={-5}
-                tooltipText={"Escolha a espaçamento das palavras"}
-              />
-            </Box>
-          </CustomAccordion>
-          <CustomAccordion title="Borda">
-            <TabOptions title="Borda">
-              <Grid
-                item
-                mt={2}
-                display={"flex"}
-                flexDirection={"column"}
-                sx={{ gap: 2 }}
-              >
-                <CustomSelect
-                  text="Tipo da borda"
-                  value={props.borderStyle}
-                  onChange={(e) =>
-                    setProp((props) => (props.borderStyle = e.target.value))
-                  }
-                  options={[
-                    { value: "none", label: "Padrão" },
-                    { value: "solid", label: "Solido" },
-                    { value: "dashed", label: "Tracejado" },
-                    { value: "dotted", label: "Pontilhado" },
-                  ]}
-                />
-                {props.borderStyle !== "none" && (
-                  <CustomLinkedValues
-                    text="Largura da borda"
-                    values={props}
-                    onChange={setProp}
-                    options={[
-                      { value: "borderTopWidth", label: "Superior" },
-                      { value: "borderRightWidth", label: "Direita" },
-                      { value: "borderBottomWidth", label: "Inferior" },
-                      { value: "borderLeftWidth", label: "Esquerda" },
-                    ]}
-                  />
-                )}
-                {props.borderStyle !== "none" && (
-                  <ColorControl
-                    name={"Cor da borda"}
-                    onChange={(e, value) => {
-                      setProp((props) => (props.borderColor = value));
-                    }}
-                    defaultValue={props.borderColor}
-                    value={props.borderColor}
-                  />
-                )}
-                <CustomLinkedValues
-                  text="Raio da borda"
-                  values={props}
-                  onChange={setProp}
-                  options={[
-                    { value: "borderTopLeftRadius", label: "Superior" },
-                    { value: "borderTopRightRadius", label: "Direita" },
-                    { value: "borderBottomRightRadius", label: "Inferior" },
-                    { value: "borderBottomLeftRadius", label: "Esquerda" },
-                  ]}
-                />
-                <CustomCollapse
-                  type={"button"}
-                  text="Sombra do botão"
-                  row={true}
-                  remove={true}
-                  optionsButton={[
-                    {
-                      value: "none",
-                      label: "Voltar para o padrão",
-                      icon: <Replay />,
-                    },
-                    {
-                      value: "boxShadow",
-                      icon: <CreateIcon color="secondary" />,
-                    },
-                  ]}
-                  tooltipText={"Escolha a ordem da posição"}
-                >
-                  <CustomBoxShadow props={props} setProp={setProp} />
-                </CustomCollapse>
-              </Grid>
-
-              <Grid
-                item
-                mt={2}
-                display={"flex"}
-                flexDirection={"column"}
-                sx={{ gap: 2 }}
-              >
-                <CustomSelect
-                  text="Tipo da borda"
-                  value={props.hoverBorderStyle}
-                  onChange={(e) =>
-                    setProp(
-                      (props) => (props.hoverBorderStyle = e.target.value)
-                    )
-                  }
-                  options={[
-                    { value: "none", label: "Padrão" },
-                    { value: "solid", label: "Solido" },
-                    { value: "dashed", label: "Tracejado" },
-                    { value: "dotted", label: "Pontilhado" },
-                  ]}
-                />
-                {props.hoverBorderStyle !== "none" && (
-                  <CustomLinkedValues
-                    text="Largura da borda"
-                    values={props}
-                    onChange={setProp}
-                    options={[
-                      { value: "hoverBorderTopWidth", label: "Superior" },
-                      { value: "hoverBorderRightWidth", label: "Direita" },
-                      { value: "hoverBorderBottomWidth", label: "Inferior" },
-                      { value: "hoverBorderLeftWidth", label: "Esquerda" },
-                    ]}
-                  />
-                )}
-                {props.hoverBorderStyle !== "none" && (
-                  <ColorControl
-                    name={"Cor da borda"}
-                    onChange={(e, value) => {
-                      setProp((props) => (props.hoverBorderColor = value));
-                    }}
-                    defaultValue={props.hoverBorderColor}
-                    value={props.hoverBorderColor}
-                  />
-                )}
-                <CustomLinkedValues
-                  text="Raio da borda"
-                  values={props}
-                  onChange={setProp}
-                  options={[
-                    { value: "hoverBorderTopLeftRadius", label: "Superior" },
-                    { value: "hoverBorderTopRightRadius", label: "Direita" },
-                    {
-                      value: "hoverBorderBottomRightRadius",
-                      label: "Inferior",
-                    },
-                    { value: "hoverBorderBottomLeftRadius", label: "Esquerda" },
-                  ]}
-                />
-                <CustomCollapse
-                  type={"button"}
-                  propype="boxShadow"
-                  text="Sombra do botão"
-                  openCollapse={openCollapse}
-                  setOpenCollapse={setOpenCollapse}
-                  remove={true}
-                  optionsButton={[
-                    {
-                      value: "none",
-                      label: "Voltar para o padrão",
-                      icon: <Replay />,
-                    },
-                    {
-                      value: "boxShadow",
-                      icon: <CreateIcon color="secondary" />,
-                      onClick: () => setOpenCollapse(!openCollapse),
-                    },
-                  ]}
-                  tooltipText={"Escolha a ordem da posição"}
-                />
-                {props.hoverBorderStyle !== "none" && (
-                  <CustomSlider
-                    text="Duração da transição"
-                    value={props.borderTransitionDuration}
-                    onChange={(e, value) =>
-                      setProp(
-                        (props) => (props.borderTransitionDuration = value)
-                      )
-                    }
-                    min={0}
-                    max={3}
-                    step={0.1}
-                    disableUnits
-                    disableDeviceView
-                    tooltipText={"Escolha o tempo da transição"}
-                  />
-                )}
-              </Grid>
-            </TabOptions>
-          </CustomAccordion>
-
-          <CustomAccordion title="Preenchimento">
+            )}
+            <CustomLinkedValues
+              text="Raio da borda"
+              values={props}
+              onChange={setProp}
+              options={[
+                { value: "borderTopLeftRadius", label: "Superior" },
+                { value: "borderTopRightRadius", label: "Direita" },
+                { value: "borderBottomRightRadius", label: "Inferior" },
+                { value: "borderBottomLeftRadius", label: "Esquerda" },
+              ]}
+            />
+            <CustomBoxShadowModal
+              title={"Cor da sombra"}
+              props={props}
+              setProp={setProp}
+            />
+            <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
             <CustomLinkedValues
               text="Preenchimento" //padding
               values={props}
@@ -568,7 +348,7 @@ export const ButtonSettings = () => {
                 { value: "paddingBottom", label: "Esquerda" },
               ]}
             />
-          </CustomAccordion>
+          </Box>
         </Grid>
       </TabPannel>
 

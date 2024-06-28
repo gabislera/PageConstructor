@@ -38,7 +38,7 @@ export const Title = ({
   right,
   bottom,
   zIndex,
-
+  textShadow,
   mobileTextAlign,
   mobileLineHeight,
   mobileFontWeight,
@@ -64,6 +64,7 @@ export const Title = ({
   mobileBottom,
   mobileZIndex,
 
+  pulse,
   hidden,
   mobileHidden,
 
@@ -115,6 +116,7 @@ export const Title = ({
         right: mobileRight,
         bottom: mobileBottom,
         zIndex: mobileZIndex,
+        textShadow,
       };
     }
 
@@ -142,6 +144,7 @@ export const Title = ({
       left,
       right,
       bottom,
+      textShadow,
       zIndex,
     };
   };
@@ -180,7 +183,9 @@ export const Title = ({
 
   return (
     <div
-      className={`${hiddenElement && "hidden"} `}
+      className={`${hiddenElement && "hidden"} ${
+        pulse === "true" && "pulse-button"
+      }`}
       style={{
         ...responsiveProps,
         display: "inherit",

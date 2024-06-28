@@ -38,7 +38,7 @@ export const Text = ({
   right,
   bottom,
   zIndex,
-
+  textShadow,
   mobileTextAlign,
   mobileLineHeight,
   mobileFontWeight,
@@ -64,6 +64,7 @@ export const Text = ({
   mobileBottom,
   mobileZIndex,
 
+  pulse,
   hidden,
   mobileHidden,
 
@@ -115,6 +116,7 @@ export const Text = ({
         right: mobileRight,
         bottom: mobileBottom,
         zIndex: mobileZIndex,
+        textShadow,
       };
     }
 
@@ -143,6 +145,7 @@ export const Text = ({
       right,
       bottom,
       zIndex,
+      textShadow,
     };
   };
 
@@ -158,7 +161,9 @@ export const Text = ({
 
   return (
     <div
-      className={`${hiddenElement && "hidden"} `}
+      className={`${hiddenElement && "hidden"} ${
+        pulse === "true" && "pulse-button"
+      }`}
       style={{
         ...responsiveProps,
         display: "inherit",

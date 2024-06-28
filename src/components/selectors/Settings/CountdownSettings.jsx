@@ -19,6 +19,7 @@ import {
   ColorControl,
   CustomLinkedValues,
   CustomButtonGroup,
+  CustomTypography,
 } from "../../_Control";
 import Divider from "@mui/material/Divider";
 import { ReactComponent as JustifyCenter } from "../../iconsControls/justify_center.svg";
@@ -273,12 +274,7 @@ export const CountdownSettings = () => {
               ]}
             />
           ) : null}
-          <Typography
-            sx={{
-              fontSize: "12px",
-              color: "#9da5ae",
-            }}
-          >
+          <Typography className={"control-title-size"}>
             Formato de Exibição
           </Typography>
 
@@ -530,8 +526,11 @@ export const CountdownSettings = () => {
             </Box>
           </CustomAccordion>
 
-          <CustomAccordion title="Timer">
+          <CustomAccordion title="Texto">
             <Box display="flex" flexDirection="column" gap="16px">
+              <Typography style={{ fontSize: "12px", fontWeight: "700" }}>
+                Timer
+              </Typography>
               <ColorControl
                 name={"Cor do texto"}
                 onChange={(e, value) => {
@@ -540,291 +539,21 @@ export const CountdownSettings = () => {
                 defaultValue={props.color}
                 value={props.color}
               />
-              <CustomSelect
-                text={"Fonte"}
-                value={props.fontFamily}
-                onChange={(e) =>
-                  setProp((props) => (props.fontFamily = e.target.value))
-                }
-                options={[
-                  { label: "Padrão", value: "sans-serif" },
-                  { label: "Serifa", value: "serif" },
-                  { label: "Fantasia", value: "fantasy" },
-                  { label: "Cursiva", value: "cursive" },
-                  { label: "Monoespaçada", value: "monospace" },
-                ]}
-              />
-              <CustomSlider
-                text={"Tamanho da fonte"}
-                value={props.fontSize}
-                mobileValue={props.mobileFontSize}
-                onChange={(e, value) =>
-                  setProp((props) => (props.fontSize = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileFontSize = value))
-                }
-                tooltipText={"Escolha o tamanho da fonte"}
-              />
-              <CustomSelect
-                text="Peso da fonte"
-                value={props.fontWeight}
-                onChange={(e) =>
-                  setProp((props) => (props.fontWeight = e.target.value))
-                }
-                options={[
-                  { value: "300", label: "300" },
-                  { value: "400", label: "400" },
-                  { value: "500", label: "500" },
-                  { value: "600", label: "600" },
-                  { value: "700", label: "700" },
-                ]}
-                tooltipText={"Escolha o peso da fonte"}
-              />
-              <CustomSelect
-                text={"Alinhamento da fonte"}
-                value={props.alignSelfTimer}
-                onChange={(e) =>
-                  setProp((props) => (props.alignSelfTimer = e.target.value))
-                }
-                options={[
-                  { label: "Inicial", value: "start" },
-                  { label: "Centro", value: "center" },
-                  { label: "Final", value: "end" },
-                ]}
-              />
-              {/* <CustomSelect
-                text="Transformar"
-                value={props.textTransform}
-                onChange={(e) =>
-                  setProp((props) => (props.textTransform = e.target.value))
-                }
-                options={[
-                  { value: "none", label: "Nenhum" },
-                  { value: "capitalize", label: "Capitalizado" },
-                  { value: "uppercase", label: "Maiúsculo" },
-                  { value: "lowercase", label: "Minúsculo" },
-                ]}
-                tooltipText={"Escolha a transformação do texto"}
-              /> */}
-              <CustomSelect
-                text="Estilo"
-                value={props.fontStyle}
-                onChange={(e) =>
-                  setProp((props) => (props.fontStyle = e.target.value))
-                }
-                options={[
-                  { value: "normal", label: "Normal" },
-                  { value: "italic", label: "Italico" },
-                ]}
-                tooltipText={"Escolha o estilo da fonte"}
-              />
-              <CustomSelect
-                text="Decoração"
-                value={props.textDecoration}
-                onChange={(e) =>
-                  setProp((props) => (props.textDecoration = e.target.value))
-                }
-                options={[
-                  { value: "none", label: "Normal" },
-                  { value: "underline", label: "Sublinhado" },
-                  { value: "overline", label: "Overline" },
-                  { value: "line-through", label: "Riscado" },
-                ]}
-                tooltipText={"Escolha a decoração do texto"}
-              />
-              <CustomSlider
-                text={"Altura da linha"}
-                value={props.lineHeight}
-                mobileValue={props.mobileLineHeight}
-                onChange={(e, value) =>
-                  setProp((props) => (props.lineHeight = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileLineHeight = value))
-                }
-                disableUnits
-                min={1}
-                max={3}
-                step={0.1}
-                tooltipText={"Escolha a altura da linha"}
-              />
-              <CustomSlider
-                text={"Espaçamento entre letras"}
-                value={props.letterSpacing}
-                mobileValue={props.mobileLetterSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.letterSpacing = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileLetterSpacing = value))
-                }
-                min={-5}
-                tooltipText={"Escolha a espaçamento das letras"}
-              />
-              {/* <CustomSlider
-                text={"Espaçamento entre palavras"}
-                value={props.wordSpacing}
-                mobileValue={props.mobileWordSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.wordSpacing = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileWordSpacing = value))
-                }
-                min={-5}
-                tooltipText={"Escolha a espaçamento das palavras"}
-              /> */}
-            </Box>
-          </CustomAccordion>
 
-          <CustomAccordion title="Texto">
-            <Box display="flex" flexDirection="column" gap="16px">
+              <CustomTypography props={props} setProp={setProp} />
+              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+              <Typography style={{ fontSize: "12px", fontWeight: "700" }}>
+                Texto
+              </Typography>
               <ColorControl
                 name={"Cor do texto"}
                 onChange={(e, value) => {
-                  setProp((props) => (props.colorText = value));
+                  setProp((props) => (props.textColor = value));
                 }}
-                defaultValue={props.colorText}
-                value={props.colorText}
+                defaultValue={props.textColor}
+                value={props.textColor}
               />
-              <CustomSelect
-                text={"Fonte"}
-                value={props.fontFamilyText}
-                onChange={(e) =>
-                  setProp((props) => (props.fontFamilyText = e.target.value))
-                }
-                options={[
-                  { label: "Padrão", value: "sans-serif" },
-                  { label: "Serifa", value: "serif" },
-                  { label: "Fantasia", value: "fantasy" },
-                  { label: "Cursiva", value: "cursive" },
-                  { label: "Monoespaçada", value: "monospace" },
-                ]}
-              />
-              <CustomSlider
-                text={"Tamanho da fonte"}
-                value={props.fontSizeText}
-                mobileValue={props.mobileFontSizeText}
-                onChange={(e, value) =>
-                  setProp((props) => (props.fontSizeText = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileFontSizeText = value))
-                }
-                tooltipText={"Escolha o tamanho da fonte"}
-              />
-              <CustomSelect
-                text="Peso da fonte"
-                value={props.fontWeightText}
-                onChange={(e) =>
-                  setProp((props) => (props.fontWeightText = e.target.value))
-                }
-                options={[
-                  { value: "300", label: "300" },
-                  { value: "400", label: "400" },
-                  { value: "500", label: "500" },
-                  { value: "600", label: "600" },
-                  { value: "700", label: "700" },
-                ]}
-                tooltipText={"Escolha o peso da fonte"}
-              />
-              <CustomSelect
-                text={"Alinhamento da fonte"}
-                value={props.alignSelfText}
-                onChange={(e) =>
-                  setProp((props) => (props.alignSelfText = e.target.value))
-                }
-                options={[
-                  { label: "Inicial", value: "start" },
-                  { label: "Centro", value: "center" },
-                  { label: "Final", value: "end" },
-                ]}
-              />
-              {/* <CustomSelect
-                text="Transformar"
-                value={props.textTransform}
-                onChange={(e) =>
-                  setProp((props) => (props.textTransform = e.target.value))
-                }
-                options={[
-                  { value: "none", label: "Nenhum" },
-                  { value: "capitalize", label: "Capitalizado" },
-                  { value: "uppercase", label: "Maiúsculo" },
-                  { value: "lowercase", label: "Minúsculo" },
-                ]}
-                tooltipText={"Escolha a transformação do texto"}
-              /> */}
-              <CustomSelect
-                text="Estilo"
-                value={props.fontStyleText}
-                onChange={(e) =>
-                  setProp((props) => (props.fontStyleText = e.target.value))
-                }
-                options={[
-                  { value: "normal", label: "Normal" },
-                  { value: "italic", label: "Italico" },
-                ]}
-                tooltipText={"Escolha o estilo da fonte"}
-              />
-              <CustomSelect
-                text="Decoração"
-                value={props.textDecorationText}
-                onChange={(e) =>
-                  setProp(
-                    (props) => (props.textDecorationText = e.target.value)
-                  )
-                }
-                options={[
-                  { value: "none", label: "Normal" },
-                  { value: "underline", label: "Sublinhado" },
-                  { value: "overline", label: "Overline" },
-                  { value: "line-through", label: "Riscado" },
-                ]}
-                tooltipText={"Escolha a decoração do texto"}
-              />
-              <CustomSlider
-                text={"Altura da linha"}
-                value={props.lineHeightText}
-                mobileValue={props.mobileLineHeightText}
-                onChange={(e, value) =>
-                  setProp((props) => (props.lineHeightText = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileLineHeightText = value))
-                }
-                disableUnits
-                min={1}
-                max={3}
-                step={0.1}
-                tooltipText={"Escolha a altura da linha"}
-              />
-              <CustomSlider
-                text={"Espaçamento entre letras"}
-                value={props.letterSpacingText}
-                mobileValue={props.mobileLetterSpacingText}
-                onChange={(e, value) =>
-                  setProp((props) => (props.letterSpacingText = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileLetterSpacingText = value))
-                }
-                min={-5}
-                tooltipText={"Escolha a espaçamento das letras"}
-              />
-              {/* <CustomSlider
-                text={"Espaçamento entre palavras"}
-                value={props.wordSpacing}
-                mobileValue={props.mobileWordSpacing}
-                onChange={(e, value) =>
-                  setProp((props) => (props.wordSpacing = value))
-                }
-                mobileOnChange={(e, value) =>
-                  setProp((props) => (props.mobileWordSpacing = value))
-                }
-                min={-5}
-                tooltipText={"Escolha a espaçamento das palavras"}
-              />{" "} */}
+              <CustomTypography props={props} setProp={setProp} type={"text"} />
             </Box>
           </CustomAccordion>
         </Grid>
