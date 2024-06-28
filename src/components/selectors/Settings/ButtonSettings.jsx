@@ -111,8 +111,7 @@ export const ButtonSettings = () => {
                   <SettingsIcon
                     fontSize="small"
                     color="secondary"
-                    width={"14px"}
-                    height={"14px"}
+                    style={{ width: "18px", height: "18px" }}
                   />
                 ),
                 content: (

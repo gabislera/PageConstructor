@@ -56,14 +56,27 @@ export const Divider = ({
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {
-        marginBottom: marginBottomMobile,
-        marginTop: marginTopMobile,
-        marginLeft: marginLeftMobile,
-        marginRight: marginRightMobile,
         borderBottomColor: borderBottomColorMobile,
         borderBottomStyle: borderBottomStyleMobile,
         borderBottomWidth: borderBottomWidthMobile,
         width: widthMobile,
+      };
+    }
+    return {
+      borderBottomColor,
+      borderBottomStyle,
+      borderBottomWidth,
+      width,
+    };
+  };
+
+  const getResponsiveContainerProps = () => {
+    if (deviceView === "mobile") {
+      return {
+        marginBottom: marginBottomMobile,
+        marginTop: marginTopMobile,
+        marginLeft: marginLeftMobile,
+        marginRight: marginRightMobile,
         alignSelf: mobileAlignSelf,
         zIndex: mobileZIndex,
         top: mobileTop,
@@ -78,13 +91,6 @@ export const Divider = ({
       };
     }
     return {
-      marginBottom,
-      marginTop,
-      marginLeft,
-      marginRight,
-      borderBottomColor,
-      borderBottomStyle,
-      borderBottomWidth,
       width,
       alignSelf,
       position,
@@ -97,6 +103,10 @@ export const Divider = ({
       paddingRight,
       paddingLeft,
       paddingBottom,
+      marginBottom,
+      marginTop,
+      marginLeft,
+      marginRight,
     };
   };
 
@@ -109,19 +119,28 @@ export const Divider = ({
 
   const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
+  const responsiveContainerProps = getResponsiveContainerProps();
 
   return (
-    <span
+    <div
       ref={(ref) => connect(drag(ref))}
       data-delay={delay}
       style={{
         paddingBlockStart,
         paddingBlockEnd,
-        ...responsiveProps,
+        maxwidth: "100%",
+        ...responsiveContainerProps,
       }}
-      className={`${delay > 0 ? "oscillating" : ""} ${
-        hiddenElement && "hidden"
-      } ${pulse === "true" && "pulse-button"}`}
-    />
+    >
+      <span
+        style={{
+          display: "block",
+          ...responsiveProps,
+        }}
+        className={`${delay > 0 ? "oscillating" : ""} ${
+          hiddenElement && "hidden"
+        } ${pulse === "true" && "pulse-button"}`}
+      />
+    </div>
   );
 };

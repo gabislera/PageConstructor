@@ -112,6 +112,7 @@ export const CustomTypography = ({
         onClick={handleClick}
         sx={{
           padding: 0.2,
+          backgroundColor: anchorEl !== null ? "#3f444b" : "",
         }}
       >
         <Edit sx={{ color: "#d5d8dc", width: "16px", height: "16px" }} />
@@ -331,6 +332,7 @@ export const CustomBoxShadowModal = ({ title, props, setProp, type }) => {
         className={classes.border}
         sx={{
           padding: 0.2,
+          backgroundColor: anchorEl !== null ? "#3f444b" : "",
         }}
       >
         <Edit sx={{ color: "#d5d8dc", width: "16px", height: "16px" }} />
@@ -347,8 +349,10 @@ export const CustomBoxShadowModal = ({ title, props, setProp, type }) => {
         }}
         PaperProps={{
           sx: {
+            zIndex: 2,
             p: 2,
             width: "272px",
+            height: "auto",
             backgroundColor: "#27272a",
             boxShadow: "0px 1px 15px rgba(0, 0, 0, 0.9)",
             borderRadius: "0px",
@@ -796,7 +800,7 @@ export const FileUpload = ({ value, valueVideo, onChange, title }) => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    // console.log("file", file);
+
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       onChange(imageUrl);
@@ -1919,7 +1923,7 @@ export const ColorControl = ({
         setOpenFilterColor(null);
       }}
     >
-      <Box>
+      <Box zIndex={3}>
         <Box className={classes.box}>
           <Typography variant="caption" color="inherit">
             {name}
@@ -2382,7 +2386,8 @@ export const CustomCollapse = ({
                 className={classes.border}
                 onClick={() => handleClick(button.value)}
                 sx={{
-                  padding: 0.4,
+                  backgroundColor:
+                    openSection === button.value ? "#3f444b" : "",
                 }}
               >
                 <Icon sx={{ color: "#fff" }}>{button.icon}</Icon>

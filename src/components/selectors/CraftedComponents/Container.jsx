@@ -85,10 +85,12 @@ Container.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
-
+    boxShadow: "none",
+    typeImage: "color",
     notDeletable: false,
     hidden: false,
     mobileHidden: false,
+    pulse: false,
   },
   rules: {
     canDrag: () => true,

@@ -88,7 +88,7 @@ export const VideoSettings = () => {
                 }
                 options={[
                   { value: "video_url", label: "Youtube" },
-                  { value: "Video_embead", label: "Embead" },
+                  { value: "Video_embed", label: "Embed" },
                   { value: "upload_video", label: "Auto-hospedado" },
                 ]}
               />
@@ -101,7 +101,7 @@ export const VideoSettings = () => {
                   }
                   placeholder={"Digite seu URL(Youtube)"}
                 />
-              ) : props.typeVideo === "Video_embead" ? (
+              ) : props.typeVideo === "Video_embed" ? (
                 <CustomTextInput
                   name="Código HTML do Vídeo: "
                   value={props.html}

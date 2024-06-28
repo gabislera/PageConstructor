@@ -202,7 +202,7 @@ export const Video = ({
     return `https://www.youtube.com/embed/${videoId}?${queryParams}`;
   };
 
-  const renderVideoEmbead = (html) => {
+  const renderVideoEmbed = (html) => {
     const refactorHtml = (html) => {
       const videoId = extractVideoId(url);
 
@@ -329,8 +329,8 @@ export const Video = ({
       return url.includes("youtube.com")
         ? renderIFrame(prepareYouTubeEmbedUrl(url))
         : renderIFrame(url);
-    case "Video_embead":
-      return renderVideoEmbead(html);
+    case "Video_embed":
+      return renderVideoEmbed(html);
     case "upload_video":
       return videoUrl(src);
     default:

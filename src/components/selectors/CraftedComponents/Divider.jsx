@@ -46,7 +46,6 @@ Divider.craft = {
     mobileLeft: "0",
     mobileRight: "0",
     mobileBottom: "0",
-    display: "flex",
 
     hidden: false,
     mobileHidden: false,

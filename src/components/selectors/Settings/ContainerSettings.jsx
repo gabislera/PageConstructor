@@ -27,6 +27,10 @@ import {
   CustomTextInput,
   FileUpload,
   TabOptions,
+  CustomAccordion,
+  CustomBoxShadowModal,
+  CustomCollapse,
+  CustomTypeColorGradient,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 import { ReactComponent as JustifyCenter } from "../../iconsControls/justify_center.svg";
@@ -36,7 +40,10 @@ import { ReactComponent as SpaceAround } from "../../iconsControls/space_around.
 import { ReactComponent as SpaceBetween } from "../../iconsControls/space_between.svg";
 import { ReactComponent as SpaceEvenly } from "../../iconsControls/space_evenly.svg";
 import { ReactComponent as AlignStretch } from "../../iconsControls/align_stretch.svg";
-
+import { ReactComponent as Gradient } from "../../iconsControls/gradient.svg";
+import { ReactComponent as Brush } from "../../iconsControls/brush.svg";
+import FilterIcon from "@mui/icons-material/Filter";
+import ImageIcon from "@mui/icons-material/Image";
 export const ContainerSettings = () => {
   const {
     actions: { setProp },
@@ -347,20 +354,74 @@ export const ContainerSettings = () => {
           <Grid item>
             <TabOptions title="Plano de fundo">
               <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
-                <ColorControl
-                  name="Cor de Fundo"
-                  onChange={(e, value) =>
-                    setProp((props) => (props.backgroundColor = value))
-                  }
-                  defaultValue={props.backgroundColor}
-                  value={props.backgroundColor}
-                />
-
-                <FileUpload
-                  value={props.backgroundImage}
-                  onChange={(imageUrl) =>
-                    setProp((props) => (props.backgroundImage = imageUrl))
-                  }
+                <CustomCollapse
+                  text="Tipo de plano de fundo"
+                  buttons={[
+                    {
+                      value: "color",
+                      tooltip: "Clássico",
+                      icon: (
+                        <Brush width={"18px"} height={"18px"} color="#d5d8dc" />
+                      ),
+                      content: (
+                        <Box style={{ padding: 2 }}>
+                          <ColorControl
+                            name={"Cor"}
+                            onChange={(e, value) => {
+                              setProp(
+                                (props) => (props.backgroundImage = "none")
+                              );
+                              setProp(
+                                (props) => (props.backgroundColor = value)
+                              );
+                            }}
+                            defaultValue={props.backgroundColor}
+                            value={props.backgroundColor}
+                          />
+                        </Box>
+                      ),
+                    },
+                    {
+                      value: "gradient",
+                      tooltip: "Gradiente",
+                      icon: (
+                        <Gradient
+                          width={"18px"}
+                          height={"18px"}
+                          color="#d5d8dc"
+                        />
+                      ),
+                      content: (
+                        <CustomTypeColorGradient
+                          props={props}
+                          setProp={setProp}
+                        />
+                      ),
+                    },
+                    {
+                      value: "image",
+                      tooltip: "Imagem",
+                      icon: (
+                        <ImageIcon
+                          style={{ width: "18px", height: "18px" }}
+                          color="#d5d8dc"
+                        />
+                      ),
+                      content: (
+                        <>
+                          <FileUpload
+                            value={props.backgroundImage}
+                            onChange={(imageUrl) =>
+                              setProp(
+                                (props) => (props.backgroundImage = imageUrl)
+                              )
+                            }
+                          />
+                        </>
+                      ),
+                    },
+                  ]}
+                  // defaultOpenSection="color"
                 />
               </Grid>
 
@@ -415,7 +476,6 @@ export const ContainerSettings = () => {
                     { value: "dotted", label: "Pontilhado" },
                   ]}
                 />
-
                 {props.borderStyle !== "none" && (
                   <CustomLinkedValues
                     text="Largura da borda"
@@ -429,7 +489,6 @@ export const ContainerSettings = () => {
                     ]}
                   />
                 )}
-
                 {props.borderStyle !== "none" && (
                   <ColorControl
                     name={"Cor da borda"}
@@ -440,7 +499,6 @@ export const ContainerSettings = () => {
                     value={props.borderColor}
                   />
                 )}
-
                 <CustomLinkedValues
                   text="Raio da borda"
                   values={props}
@@ -451,6 +509,11 @@ export const ContainerSettings = () => {
                     { value: "borderBottomRightRadius", label: "Inferior" },
                     { value: "borderBottomLeftRadius", label: "Esquerda" },
                   ]}
+                />
+                <CustomBoxShadowModal
+                  title={"Cor da sombra"}
+                  props={props}
+                  setProp={setProp}
                 />
               </Grid>
 
@@ -513,7 +576,10 @@ export const ContainerSettings = () => {
                       value: "hoverBorderBottomRightRadius",
                       label: "Inferior",
                     },
-                    { value: "hoverBorderBottomLeftRadius", label: "Esquerda" },
+                    {
+                      value: "hoverBorderBottomLeftRadius",
+                      label: "Esquerda",
+                    },
                   ]}
                 />
 
