@@ -89,15 +89,15 @@ export const Container = ({
   right,
   bottom,
   zIndex,
-
+  boxShadow,
   hidden,
   mobileHidden,
+  pulse,
 }) => {
   const {
     connectors: { connect, drag },
   } = useNode();
   const childrens = useNode((node) => node.data);
-
   const ContainerTag = htmlTag || "div";
   const { deviceView } = useResponsiveMode();
 
@@ -124,6 +124,7 @@ export const Container = ({
         order: mobileOrder,
         flexShrink: mobileFlexShrink,
         flexGrow: mobileFlexGrow,
+        boxShadow,
         // position: mobilePosition,
         // top: mobileTop,
         // left: mobileLeft,
@@ -154,7 +155,7 @@ export const Container = ({
       order,
       flexShrink,
       flexGrow,
-
+      boxShadow,
       // position,
       // top,
       // left,
@@ -169,6 +170,16 @@ export const Container = ({
       return mobileHidden;
     }
     return hidden;
+  };
+
+  const getBackgroundColor = () => {
+    const value = backgroundImage?.split(":")[1];
+
+    if (value === "http") {
+      return `url(${backgroundImage})`;
+    } else {
+      return backgroundImage;
+    }
   };
 
   const hiddenElement = getVisibility();
@@ -234,13 +245,13 @@ export const Container = ({
     }
   `;
 
-  // TODO: change logic to render the <a> tag only in api-main
-
   const ContainerElement = (
     <>
       <ContainerTag
         ref={(ref) => connect(drag(ref))}
-        className={`container-hover ${hiddenElement && "hidden"}`}
+        className={`container-hover ${hiddenElement && "hidden"} ${
+          pulse === "true" && "pulse-button"
+        }`}
         style={{
           ...responsiveProps,
           maxWidth,
@@ -258,7 +269,7 @@ export const Container = ({
           borderBottomRightRadius,
           borderBottomLeftRadius,
           transition: `background-color ${backgroundcolorTransitionDuration}s ease-in-out, border ${borderTransitionDuration}s ease-in-out`,
-          backgroundImage: `url(${backgroundImage})`,
+          backgroundImage: getBackgroundColor(),
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",

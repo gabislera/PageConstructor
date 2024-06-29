@@ -84,6 +84,7 @@ export const ProgressBarSettings = () => {
             value={props.title}
             onChange={(e) => setProp((props) => (props.title = e.target.value))}
             tooltipText={"Defina o título da barra de progresso"}
+            fullWidth
           />
 
           <CustomSelect
@@ -130,6 +131,7 @@ export const ProgressBarSettings = () => {
           <CustomTextInput
             text="Texto interno"
             value={props.content}
+            fullWidth
             onChange={(e) =>
               setProp((props) => (props.content = e.target.value))
             }

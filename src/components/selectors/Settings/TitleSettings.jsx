@@ -13,15 +13,19 @@ import {
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
+import Title from "../../selectors/CraftedComponents/Title";
 import {
   CustomButtonGroup,
   CustomSelect,
-  CustomSlider,
+  CustomCheckbox,
   CustomTextInput,
   ColorControl,
   CustomTypography,
   CustomBoxShadowModal,
+  CustomCollapse,
 } from "../../_Control";
+import SettingsIcon from "@mui/icons-material/Settings";
+
 import { AdvancedSettings } from "./AdvancedSettings";
 
 export const TitleSettings = () => {
@@ -87,50 +91,91 @@ export const TitleSettings = () => {
           color={"#fff"}
           sx={{ gap: 2 }}
         >
-          <Grid item>
-            <CustomTextInput
-              text="Texto"
-              value={props.content}
-              onChange={(e) =>
-                setProp((props) => (props.content = e.target.value))
-              }
-              tooltipText={"Conteúdo do texto"}
-              multiline
-              rows={4}
-              fullWidth
-            />
-          </Grid>
+          <CustomTextInput
+            text="Texto"
+            value={props.content}
+            onChange={(e) =>
+              setProp((props) => (props.content = e.target.value))
+            }
+            tooltipText={"Conteúdo do texto"}
+            multiline
+            rows={4}
+            fullWidth
+          />
 
-          <Grid item>
-            <CustomTextInput
-              text="Link"
-              value={props.url}
-              onChange={(e) => setProp((props) => (props.url = e.target.value))}
-              tooltipText={"Link para onde o texto redireciona"}
-              fullWidth
-            />
-          </Grid>
+          <CustomCollapse
+            text="Link"
+            placeholder={"Cole a URL ou digite"}
+            value={props.src}
+            tooltip={"Opções de link"}
+            classes={classes}
+            onChange={(e) => setProp((props) => (props.src = e.target.value))}
+            type={"TextField"}
+            buttons={[
+              {
+                tooltip: "Opções de link",
+                icon: (
+                  <SettingsIcon
+                    fontSize="small"
+                    color="secondary"
+                    style={{ width: "18px" }}
+                  />
+                ),
+                content: (
+                  <Box style={{ padding: 2 }}>
+                    <CustomCheckbox
+                      options={[
+                        {
+                          value: "redirect_url",
+                          label: "Redirecionar para um link",
+                        },
+                        {
+                          value: "redirect_project_page",
+                          label: "Redirecionar para uma página",
+                        },
+                        {
+                          value: "scroll_to_block",
+                          label: "Focar outro bloco da página",
+                        },
+                        {
+                          value: "close_modal",
+                          label: "Fechar o modal",
+                        },
+                        {
+                          value: "window_modal_open",
+                          label: "Abrir em uma nova janela",
+                        },
+                      ]}
+                      defaultValue={props.url}
+                      value={props.url}
+                      onChange={(value) => {
+                        setProp((props) => (props.url = value));
+                      }}
+                    />
+                  </Box>
+                ),
+              },
+            ]}
+          />
 
-          <Grid item>
-            <CustomSelect
-              text={"Tag HTML"}
-              value={props.htmlTag}
-              onChange={(e) =>
-                setProp((props) => (props.htmlTag = e.target.value))
-              }
-              options={[
-                { value: "h1", label: "h1" },
-                { value: "h2", label: "h2" },
-                { value: "h3", label: "h3" },
-                { value: "h4", label: "h4" },
-                { value: "h5", label: "h5" },
-                { value: "h6", label: "h6" },
-                { value: "p", label: "p" },
-                { value: "span", label: "span" },
-              ]}
-              tooltipText={"Escolha a tag HTML para o texto"}
-            />
-          </Grid>
+          <CustomSelect
+            text={"Tag HTML"}
+            value={props.htmlTag}
+            onChange={(e) =>
+              setProp((props) => (props.htmlTag = e.target.value))
+            }
+            options={[
+              { value: "h1", label: "h1" },
+              { value: "h2", label: "h2" },
+              { value: "h3", label: "h3" },
+              { value: "h4", label: "h4" },
+              { value: "h5", label: "h5" },
+              { value: "h6", label: "h6" },
+              { value: "p", label: "p" },
+              { value: "span", label: "span" },
+            ]}
+            tooltipText={"Escolha a tag HTML para o texto"}
+          />
         </Grid>
       </TabPannel>
 
@@ -185,11 +230,16 @@ export const TitleSettings = () => {
             defaultValue={props.color}
             value={props.color}
           />
-          <CustomTypography props={props} setProp={setProp} />{" "}
+          <CustomTypography
+            props={props}
+            setProp={setProp}
+            valueReset={Title}
+          />
           <CustomBoxShadowModal
             title={"Sombra do texto"}
             props={props}
             setProp={setProp}
+            valueReset={Title}
             type="text"
           />
         </Grid>

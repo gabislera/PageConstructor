@@ -12,6 +12,7 @@ import {
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import { AdvancedSettings } from "./AdvancedSettings";
 import {
@@ -23,6 +24,8 @@ import {
   CustomTextInput,
   FileUpload,
   TabOptions,
+  CustomCheckbox,
+  CustomCollapse,
 } from "../../_Control";
 
 export const ImageSettings = () => {
@@ -107,11 +110,59 @@ export const ImageSettings = () => {
             }
             row
           /> */}
-          <CustomTextInput
+          <CustomCollapse
             text="Link"
-            value={props.url}
-            onChange={(e) => setProp((props) => (props.url = e.target.value))}
-            tooltipText={"Link para onde o texto redireciona"}
+            placeholder={"Cole a URL ou digite"}
+            value={props.src}
+            tooltip={"Opções de link"}
+            classes={classes}
+            onChange={(e) => setProp((props) => (props.src = e.target.value))}
+            type={"TextField"}
+            buttons={[
+              {
+                tooltip: "Opções de link",
+                icon: (
+                  <SettingsIcon
+                    fontSize="small"
+                    color="secondary"
+                    style={{ width: "18px", height: "18px" }}
+                  />
+                ),
+                content: (
+                  <Box style={{ padding: 2 }}>
+                    <CustomCheckbox
+                      options={[
+                        {
+                          value: "redirect_url",
+                          label: "Redirecionar para um link",
+                        },
+                        {
+                          value: "redirect_project_page",
+                          label: "Redirecionar para uma página",
+                        },
+                        {
+                          value: "scroll_to_block",
+                          label: "Focar outro bloco da página",
+                        },
+                        {
+                          value: "close_modal",
+                          label: "Fechar o modal",
+                        },
+                        {
+                          value: "window_modal_open",
+                          label: "Abrir em uma nova janela",
+                        },
+                      ]}
+                      defaultValue={props.url}
+                      value={props.url}
+                      onChange={(value) => {
+                        setProp((props) => (props.url = value));
+                      }}
+                    />
+                  </Box>
+                ),
+              },
+            ]}
           />
         </Grid>
       </TabPannel>

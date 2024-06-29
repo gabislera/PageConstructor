@@ -63,7 +63,6 @@ export const Title = ({
   mobileRight,
   mobileBottom,
   mobileZIndex,
-
   pulse,
   hidden,
   mobileHidden,

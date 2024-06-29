@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import { useEditor } from "@craftjs/core";
@@ -10,6 +10,7 @@ export const Video = ({
   thumbnail,
   autoPlay,
   muted,
+  rel,
   loop,
   controls,
   playsInline,
@@ -71,6 +72,7 @@ export const Video = ({
 }) => {
   const {
     connectors: { connect, drag },
+    actions: { setProp },
   } = useNode();
   const { enabled } = useEditor((state, query) => ({
     enabled: state.options.enabled,
@@ -195,6 +197,7 @@ export const Video = ({
       !controls && "controls=0",
       playsInline && "playsinline=1",
       modestBranding && "modestbranding=1",
+      !rel && "rel=0",
     ]
       .filter(Boolean)
       .join("&");
@@ -202,13 +205,13 @@ export const Video = ({
     return `https://www.youtube.com/embed/${videoId}?${queryParams}`;
   };
 
-  const renderVideoEmbead = (html) => {
+  const renderVideoEmbed = (html) => {
     const refactorHtml = (html) => {
       const videoId = extractVideoId(url);
 
-      const iframe = html.split("/");
-      const embedUrl = iframe[2].split("?");
-      // console.log("ifra,e", embedUrl);
+      const iframe = html?.split("/");
+      const embedUrl = iframe[2]?.split("?");
+
       const embedSrc = prepareYouTubeEmbedUrl(
         `https://${embedUrl}/watch?v=${videoId}`
       );
@@ -217,8 +220,9 @@ export const Video = ({
         .replace(/height="[^"]*"/, `height="${height}"`)
         .replace(/src="[^"]*"/, `src="${embedSrc}"`)
         .replace("position:absolute;", "")
-        .replace("<iframe", "<iframe style='pointer-events: none;'");
+        .replace("<iframe", "<iframe style='pointer-events: pointer;'");
     };
+    console.log("html", html);
 
     return (
       <div
@@ -290,7 +294,7 @@ export const Video = ({
       </div>
     );
   };
-  const ThumbnailVideo = ({ thumbnail, play, setPlay, iconPlay, children }) => {
+  const ThumbnailVideo = ({ thumbnail, play, setPlay, children }) => {
     return (
       <>
         {thumbnail && !play ? (
@@ -329,8 +333,8 @@ export const Video = ({
       return url.includes("youtube.com")
         ? renderIFrame(prepareYouTubeEmbedUrl(url))
         : renderIFrame(url);
-    case "Video_embead":
-      return renderVideoEmbead(html);
+    case "Video_embed":
+      return renderVideoEmbed(html);
     case "upload_video":
       return videoUrl(src);
     default:

@@ -15,8 +15,6 @@ import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import {
   CustomButtonGroup,
-  CustomSelect,
-  CustomTextInput,
   ColorControl,
   CustomTypography,
   CustomBoxShadowModal,

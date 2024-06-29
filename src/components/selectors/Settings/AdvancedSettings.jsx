@@ -15,7 +15,6 @@ import {
   VerticalAlignTop,
   MoreVert,
 } from "@mui/icons-material";
-
 import { ReactComponent as AlignStretch } from "../../iconsControls/align_stretch.svg";
 
 export const AdvancedSettings = ({ props, setProp }) => {
