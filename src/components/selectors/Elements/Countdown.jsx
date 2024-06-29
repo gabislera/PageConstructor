@@ -364,9 +364,8 @@ export const Countdown = ({
 
   return (
     <div
-      className={`countdown-container ${hiddenElement && "hidden"} ${
-        pulse === "true" && "pulse-button"
-      }`}
+      className={`countdown-container ${hiddenElement && "hidden"} ${pulse === "true" && "pulse-button"
+        }`}
       style={{
         display: "flex",
         width: "100%",
@@ -426,7 +425,7 @@ const CountdownUnit = ({
     textAlignSelf,
   },
 }) => {
-  console.log("textFontSize", textFontSize);
+  // console.log("textFontSize", textFontSize);
   return (
     <>
       {display ? (

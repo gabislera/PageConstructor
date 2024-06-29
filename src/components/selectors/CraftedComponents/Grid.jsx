@@ -99,6 +99,8 @@ Grid.craft = {
     notDeletable: false,
     hidden: false,
     mobileHidden: false,
+    hasBackgroundHover: false,
+    hasBorderHover: false,
   },
   rules: {
     canDrag: () => true,

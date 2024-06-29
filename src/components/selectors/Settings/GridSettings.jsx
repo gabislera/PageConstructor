@@ -20,6 +20,7 @@ import {
   TabOptions,
   CustomCheckbox,
   CustomCollapse,
+  CustomSwitch,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 
@@ -320,6 +321,14 @@ export const GridSettings = () => {
                   disableDeviceView
                   tooltipText={"Escolha o tempo da transição"}
                 />
+
+                <CustomSwitch
+                  text={"Habilitar hover"}
+                  value={props.hasBackgroundHover}
+                  onChange={(e) => setProp((props) => (props.hasBackgroundHover = e))}
+                  checkedText={"Sim"}
+                  uncheckedText={"Não"}
+                />
               </Grid>
             </TabOptions>
 
@@ -446,23 +455,30 @@ export const GridSettings = () => {
                   ]}
                 />
 
-                {props.hoverBorderStyle !== "none" && (
-                  <CustomSlider
-                    text="Duração da transição"
-                    value={props.borderTransitionDuration}
-                    onChange={(e, value) =>
-                      setProp(
-                        (props) => (props.borderTransitionDuration = value)
-                      )
-                    }
-                    min={0}
-                    max={3}
-                    step={0.1}
-                    disableUnits
-                    disableDeviceView
-                    tooltipText={"Escolha o tempo da transição"}
-                  />
-                )}
+                <CustomSlider
+                  text="Duração da transição"
+                  value={props.borderTransitionDuration}
+                  onChange={(e, value) =>
+                    setProp(
+                      (props) => (props.borderTransitionDuration = value)
+                    )
+                  }
+                  min={0}
+                  max={3}
+                  step={0.1}
+                  disableUnits
+                  disableDeviceView
+                  tooltipText={"Escolha o tempo da transição"}
+                />
+
+                <CustomSwitch
+                  text={"Habilitar hover"}
+                  value={props.hasBorderHover}
+                  onChange={(e) => setProp((props) => (props.hasBorderHover = e))}
+                  checkedText={"Sim"}
+                  uncheckedText={"Não"}
+                />
+
               </Grid>
             </TabOptions>
           </Grid>

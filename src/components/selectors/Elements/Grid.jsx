@@ -39,8 +39,10 @@ export const Grid = ({
   hoverBorderBottomRightRadius,
   hoverBorderBottomLeftRadius,
   hoverBackgroundColor,
+
   backgroundcolorTransitionDuration,
   borderTransitionDuration,
+
   marginTop,
   marginRight,
   marginLeft,
@@ -90,9 +92,12 @@ export const Grid = ({
 
   hidden,
   mobileHidden,
+  hasBackgroundHover,
+  hasBorderHover
 }) => {
   const {
     connectors: { connect, drag },
+    id
   } = useNode();
   const { deviceView } = useResponsiveMode();
 
@@ -170,11 +175,33 @@ export const Grid = ({
   const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
+  const hoverBackgroundStyles = hasBackgroundHover
+    ? ` .grid-hover-${id}:hover {
+      background-color: ${hoverBackgroundColor} !important;
+    }`
+    : "";
+
+  const hoverBorderStyles = hasBorderHover
+    ? ` .grid-hover-${id}:hover {
+      border-style: ${hoverBorderStyle} !important;
+      border-top-width: ${hoverBorderTopWidth} !important;
+      border-bottom-width: ${hoverBorderBottomWidth} !important;
+      border-right-width: ${hoverBorderRightWidth} !important;
+      border-left-width: ${hoverBorderLeftWidth} !important;
+      border-color: ${hoverBorderColor} !important;
+      border-top-left-radius: ${hoverBorderTopLeftRadius} !important;
+      border-top-right-radius: ${hoverBorderTopRightRadius} !important;
+      border-bottom-right-radius: ${hoverBorderBottomRightRadius} !important;
+      border-bottom-left-radius: ${hoverBorderBottomLeftRadius} !important;
+    }`
+    : "";
+
   // TODO: change logic to render the <a> tag only in api-main
+
 
   const GridElement = (
     <ContainerTag
-      className={`${hiddenElement && "hidden"}`}
+      className={`grid-hover-${id} ${hiddenElement && "hidden"}`}
       ref={(ref) => connect(drag(ref))}
       style={{
         ...responsiveProps,
@@ -196,7 +223,7 @@ export const Grid = ({
         borderBottomRightRadius,
         borderBottomLeftRadius,
 
-        // transition: `background-color ${backgroundcolorTransitionDuration}s ease-in-out, border ${borderTransitionDuration}s ease-in-out`,
+        transition: `background-color ${backgroundcolorTransitionDuration}s ease-in-out, border ${borderTransitionDuration}s ease-in-out`,
         backgroundImage: `url(${backgroundImage})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -211,6 +238,8 @@ export const Grid = ({
           canvas
         ></Element>
       ))}
+      <style>{hoverBackgroundStyles} {hoverBorderStyles}</style>
+
     </ContainerTag>
   );
 

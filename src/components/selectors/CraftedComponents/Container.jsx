@@ -18,6 +18,7 @@ Container.craft = {
     url: "",
     backgroundColor: "transparent",
     backgroundImage: "",
+
     borderStyle: "none",
     borderTopWidth: "1px",
     borderRightWidth: "1px",
@@ -28,6 +29,7 @@ Container.craft = {
     borderTopRightRadius: "0px",
     borderBottomRightRadius: "0px",
     borderBottomLeftRadius: "0px",
+
     hoverBorderStyle: "none",
     hoverBorderTopWidth: "0px",
     hoverBorderRightWidth: "0px",
@@ -38,9 +40,11 @@ Container.craft = {
     hoverBorderTopRightRadius: "0px",
     hoverBorderBottomRightRadius: "0px",
     hoverBorderBottomLeftRadius: "0px",
-    hoverBackgroundColor: "initial",
+    hoverBackgroundColor: "transparent",
+
     backgroundcolorTransitionDuration: "0.3",
     borderTransitionDuration: "0.3",
+
     marginTop: "0px",
     marginRight: "0px",
     marginLeft: "0px",
@@ -59,6 +63,7 @@ Container.craft = {
     right: "0",
     bottom: "0",
     zIndex: "0",
+
     mobileWidth: "100%",
     mobileMinHeight: "100px",
     mobileFlexDirection: "column",
@@ -85,12 +90,16 @@ Container.craft = {
     mobileRight: "0",
     mobileBottom: "0",
     mobileZIndex: "0",
+
     boxShadow: "none",
     typeImage: "color",
+
     notDeletable: false,
     hidden: false,
     mobileHidden: false,
     pulse: false,
+    hasBackgroundHover: false,
+    hasBorderHover: false,
   },
   rules: {
     canDrag: () => true,

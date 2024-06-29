@@ -46,6 +46,7 @@ import {
   ContentCopy,
   Close,
   Edit,
+  Brush,
 } from "@mui/icons-material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
@@ -1092,7 +1093,7 @@ export const CustomLinkedValues = ({
   };
 
   const units = ["px", "%", "rem", "vw"];
-  console.log(options);
+  // console.log(options);
   return (
     <Box width="100%" display="flex" flexDirection="column">
       <Box display="flex" alignItems="center" justifyContent="space-between">
@@ -1301,8 +1302,8 @@ export const CustomButtonGroup = ({
             width: fullWidth ? "auto" : "100%",
             justifyContent: "space-between",
             "& .Mui-selected": {
-              backgroundColor: "rgba(255, 255, 255, 0.3) !important",
-              borderColor: "rgba(255, 255, 255, 0.3)",
+              backgroundColor: "#3f444b !important",
+              borderColor: "rgba(255, 255, 255, 0.1)",
               cursor: "pointer",
             },
             "& .MuiToggleButton-root": {
@@ -1945,7 +1946,6 @@ export const ColorControl = ({
   value,
   alpha,
   tooltipText,
-  hoverOptions,
   popertation,
 }) => {
   const [openFilterColor, setOpenFilterColor] = useState(null);
@@ -1963,25 +1963,7 @@ export const ColorControl = ({
             {name}
           </Typography>
           <Box display="flex" alignItems="center" gap="4px">
-            {hoverOptions && (
-              <Tooltip title={"Desabilitar hover"} placement="top">
-                <IconButton
-                  disabled={value === "initial"}
-                  onClick={() => onChange({}, "initial")}
-                  sx={{
-                    padding: 0,
 
-                    "&:disabled": {
-                      "& svg": {
-                        fill: "rgba(255, 255, 255, 0.3)",
-                      },
-                    },
-                  }}
-                >
-                  <Clear sx={{ color: "#fff", width: 16, height: 16 }} />
-                </IconButton>
-              </Tooltip>
-            )}
             <Tooltip title={"Transparente"} placement="top">
               <IconButton
                 disabled={value === "transparent"}
@@ -2425,6 +2407,7 @@ export const CustomCollapse = ({
         >
           {text}
         </Typography>
+
         <Box display="flex" alignItems="center">
           {type === "TextField" && (
             <CustomTextInput
@@ -2435,26 +2418,44 @@ export const CustomCollapse = ({
             />
           )}
 
-          {buttons.map((button, index) => (
-            <Tooltip key={index} title={button.tooltip} placement="top">
-              <IconButton
-                onClick={() => handleClick(button.value)}
-                sx={{
-                  backgroundColor:
-                    openSection === button.value ? "#3f444b" : "",
-                  color: openSection ? "#d5d8dc" : "grey",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  boxSizing: "border-box",
-                  borderRadius: "3px",
-                  padding: "5px 5px 4px 4px",
-                  width: "28px",
-                  height: "28px",
-                }}
-              >
-                <Icon sx={{ color: "#fff" }}>{button.icon}</Icon>
-              </IconButton>
-            </Tooltip>
-          ))}
+          <Box display="flex" alignItems="center" sx={{
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            borderRadius: "3px",
+          }}>
+
+            {buttons.map((button, index) => (
+              <Tooltip key={index} title={button.tooltip} placement="top">
+                <IconButton
+                  disableFocusRipple
+                  disableRipple
+                  onClick={() => handleClick(button.value)}
+                  sx={{
+                    backgroundColor:
+                      openSection === button.value ? "#3f444b" : "",
+                    borderLeft: openSection === button.value ? "1px solid transparent" : "1px solid rgba(255, 255, 255, 0.1)",
+                    borderRadius: "0px",
+                    padding: "6px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+
+                    "& > svg": {
+                      width: "16px",
+                      height: "16px",
+                      fill: "#d5d8dc",
+                    },
+
+                    "&:first-of-type": {
+                      borderLeft: "none",
+                    },
+                  }}
+                >
+                  {button.icon}
+                </IconButton>
+              </Tooltip>
+            ))}
+          </Box>
+
         </Box>
       </Box>
       {buttons.map((button, index) => (

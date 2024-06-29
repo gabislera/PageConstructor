@@ -93,12 +93,17 @@ export const Container = ({
   hidden,
   mobileHidden,
   pulse,
+  hasBackgroundHover,
+  hasBorderHover,
 }) => {
   const {
     connectors: { connect, drag },
+    id,
   } = useNode();
   const childrens = useNode((node) => node.data);
   const ContainerTag = htmlTag || "div";
+  const [tooltip, setTooltip] = useState(false);
+
   const { deviceView } = useResponsiveMode();
 
   const getResponsiveProps = () => {
@@ -185,8 +190,6 @@ export const Container = ({
   const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
-  const [tooltip, setTooltip] = useState(false);
-
   const EmptyContainer = (
     <Box
       onMouseEnter={() => setTooltip(true)}
@@ -220,38 +223,33 @@ export const Container = ({
     </Box>
   );
 
-  const hoverStyles = `
-    .container-hover:hover {
-      ${
-        hoverBackgroundColor !== "initial"
-          ? `background-color: ${hoverBackgroundColor} !important;`
-          : ""
-      }
-      ${
-        hoverBorderStyle !== "none"
-          ? `border-style: ${hoverBorderStyle} !important;`
-          : ""
-      }
+  const hoverBackgroundStyles = hasBackgroundHover
+    ? ` .container-hover-${id}:hover {
+        background-color: ${hoverBackgroundColor} !important;
+      }`
+    : "";
 
-      border-top-width: ${hoverBorderTopWidth} !important;
-      border-bottom-width: ${hoverBorderBottomWidth} !important;
-      border-right-width: ${hoverBorderRightWidth} !important;
-      border-left-width: ${hoverBorderLeftWidth} !important;
-      border-color: ${hoverBorderColor} !important;
-      border-top-left-radius: ${hoverBorderTopLeftRadius} !important;
-      border-top-right-radius: ${hoverBorderTopRightRadius} !important;
-      border-bottom-right-radius: ${hoverBorderBottomRightRadius} !important;
-      border-bottom-left-radius: ${hoverBorderBottomLeftRadius} !important;
-    }
-  `;
+  const hoverBorderStyles = hasBorderHover
+    ? ` .container-hover-${id}:hover {
+        border-style: ${hoverBorderStyle} !important;
+        border-top-width: ${hoverBorderTopWidth} !important;
+        border-bottom-width: ${hoverBorderBottomWidth} !important;
+        border-right-width: ${hoverBorderRightWidth} !important;
+        border-left-width: ${hoverBorderLeftWidth} !important;
+        border-color: ${hoverBorderColor} !important;
+        border-top-left-radius: ${hoverBorderTopLeftRadius} !important;
+        border-top-right-radius: ${hoverBorderTopRightRadius} !important;
+        border-bottom-right-radius: ${hoverBorderBottomRightRadius} !important;
+        border-bottom-left-radius: ${hoverBorderBottomLeftRadius} !important;
+      }`
+    : "";
 
   const ContainerElement = (
     <>
       <ContainerTag
         ref={(ref) => connect(drag(ref))}
-        className={`container-hover ${hiddenElement && "hidden"} ${
-          pulse === "true" && "pulse-button"
-        }`}
+        className={`container-hover-${id} ${hiddenElement && "hidden"} ${pulse === "true" && "pulse-button"
+          }`}
         style={{
           ...responsiveProps,
           maxWidth,
@@ -269,6 +267,8 @@ export const Container = ({
           borderBottomRightRadius,
           borderBottomLeftRadius,
           transition: `background-color ${backgroundcolorTransitionDuration}s ease-in-out, border ${borderTransitionDuration}s ease-in-out`,
+
+
           backgroundImage: getBackgroundColor(),
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -279,7 +279,7 @@ export const Container = ({
           ? EmptyContainer
           : children}
       </ContainerTag>
-      <style>{hoverStyles}</style>
+      <style>{hoverBackgroundStyles} {hoverBorderStyles}</style>
     </>
   );
 

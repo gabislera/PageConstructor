@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
-import { Grid, Box, Tab, Tabs, Divider } from "@mui/material";
+import { Grid, Box, Tab, Tabs, Divider, Tooltip, IconButton } from "@mui/material";
 import {
   Settings,
   Contrast,
@@ -14,6 +14,7 @@ import {
   AlignVerticalBottom,
   Start,
   WrapText,
+  Clear,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
@@ -29,6 +30,7 @@ import {
   CustomBoxShadowModal,
   CustomCollapse,
   CustomTypeColorGradient,
+  CustomSwitch,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 import { ReactComponent as JustifyCenter } from "../../iconsControls/justify_center.svg";
@@ -350,7 +352,7 @@ export const ContainerSettings = () => {
                       value: "color",
                       tooltip: "Clássico",
                       icon: (
-                        <Brush width={"18px"} height={"18px"} color="#d5d8dc" />
+                        <Brush />
                       ),
                       content: (
                         <Box style={{ padding: 2 }}>
@@ -374,11 +376,7 @@ export const ContainerSettings = () => {
                       value: "gradient",
                       tooltip: "Gradiente",
                       icon: (
-                        <Gradient
-                          width={"18px"}
-                          height={"18px"}
-                          color="#d5d8dc"
-                        />
+                        <Gradient />
                       ),
                       content: (
                         <CustomTypeColorGradient
@@ -391,10 +389,7 @@ export const ContainerSettings = () => {
                       value: "image",
                       tooltip: "Imagem",
                       icon: (
-                        <ImageIcon
-                          style={{ width: "18px", height: "18px" }}
-                          color="#d5d8dc"
-                        />
+                        <ImageIcon />
                       ),
                       content: (
                         <>
@@ -410,7 +405,7 @@ export const ContainerSettings = () => {
                       ),
                     },
                   ]}
-                  // defaultOpenSection="color"
+                  defaultOpenSection="color"
                 />
               </Grid>
 
@@ -441,10 +436,19 @@ export const ContainerSettings = () => {
                   disableDeviceView
                   tooltipText={"Escolha o tempo da transição"}
                 />
+
+                <CustomSwitch
+                  text={"Habilitar hover"}
+                  value={props.hasBackgroundHover}
+                  onChange={(e) => setProp((props) => (props.hasBackgroundHover = e))}
+                  checkedText={"Sim"}
+                  uncheckedText={"Não"}
+                />
+
               </Grid>
             </TabOptions>
 
-            <TabOptions title="Borda">
+            <TabOptions title="Borda" onChange={setProp}>
               <Grid
                 item
                 mt={2}
@@ -572,23 +576,29 @@ export const ContainerSettings = () => {
                   ]}
                 />
 
-                {props.hoverBorderStyle !== "none" && (
-                  <CustomSlider
-                    text="Duração da transição"
-                    value={props.borderTransitionDuration}
-                    onChange={(e, value) =>
-                      setProp(
-                        (props) => (props.borderTransitionDuration = value)
-                      )
-                    }
-                    min={0}
-                    max={3}
-                    step={0.1}
-                    disableUnits
-                    disableDeviceView
-                    tooltipText={"Escolha o tempo da transição"}
-                  />
-                )}
+                <CustomSlider
+                  text="Duração da transição"
+                  value={props.borderTransitionDuration}
+                  onChange={(e, value) =>
+                    setProp(
+                      (props) => (props.borderTransitionDuration = value)
+                    )
+                  }
+                  min={0}
+                  max={3}
+                  step={0.1}
+                  disableUnits
+                  disableDeviceView
+                  tooltipText={"Escolha o tempo da transição"}
+                />
+
+                <CustomSwitch
+                  text={"Habilitar hover"}
+                  value={props.hasBorderHover}
+                  onChange={(e) => setProp((props) => (props.hasBorderHover = e))}
+                  checkedText={"Sim"}
+                  uncheckedText={"Não"}
+                />
               </Grid>
             </TabOptions>
           </Grid>
