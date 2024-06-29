@@ -137,9 +137,8 @@ export const ProgressBar = ({
 
   return (
     <div
-      className={`${hiddenElement && "hidden"} progress-bar-content ${
-        pulse === "true" && "pulse-button"
-      } `}
+      className={`${hiddenElement && "hidden"} progress-bar-content ${pulse === "true" && "pulse-button"
+        } `}
       style={{
         ...responsiveProps,
         display,
@@ -169,7 +168,7 @@ export const ProgressBar = ({
         onChange={(e) =>
           setProp(
             (props) => (
-              (props.title = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")), 500
+              (props.title = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")) // removed de 500 delay, it was needed?
             )
           )
         }
@@ -213,8 +212,7 @@ export const ProgressBar = ({
                   (props.content = e.target.value.replace(
                     /<\/?[^>]+(>|$)/g,
                     ""
-                  )),
-                  500
+                  )) // removed de 500 delay, it was needed?
                 )
               )
             }

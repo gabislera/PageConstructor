@@ -12,7 +12,6 @@ import {
   ColorControl,
   CustomAccordion,
   CustomLinkedValues,
-  CustomSelect,
   CustomSlider,
 } from "../../_Control";
 
@@ -30,11 +29,11 @@ export const FaqSettings = () => {
     setValue(newValue);
   };
 
-  const handleItemsChange = (newItems) => {
-    setProp((props) => {
-      props.items = newItems.map((item) => ({ ...item }));
-    });
-  };
+  // const handleItemsChange = (newItems) => {
+  //   setProp((props) => {
+  //     props.items = newItems.map((item) => ({ ...item }));
+  //   });
+  // };
 
   return (
     <Grid color="#fff">

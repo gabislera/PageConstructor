@@ -97,11 +97,11 @@ export const CustomTypography = ({
   const handleMobileChange = (propName, value) => {
     setProp(
       (props) =>
-        (props[
-          getPropName(
-            `mobile${propName.charAt(0).toUpperCase() + propName.slice(1)}`
-          )
-        ] = value)
+      (props[
+        getPropName(
+          `mobile${propName.charAt(0).toUpperCase() + propName.slice(1)}`
+        )
+      ] = value)
     );
   };
 
@@ -331,9 +331,8 @@ export const CustomBoxShadowModal = ({
       setProp((props) => (props.textShadow = textShadowString));
     } else {
       const { horizontal, vertical, blur, spread, color, inset } = shadow;
-      const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${
-        inset ? " inset" : ""
-      }`;
+      const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${inset ? " inset" : ""
+        }`;
 
       setProp((props) => (props.boxShadow = boxShadowString));
     }
@@ -348,13 +347,13 @@ export const CustomBoxShadowModal = ({
     });
   };
 
-  const getPropName = (name) => {
-    if (!typeValue) {
-      return name;
-    }
+  // const getPropName = (name) => {
+  //   if (!typeValue) {
+  //     return name;
+  //   }
 
-    return `${typeValue}${name.charAt(0).toUpperCase() + name.slice(1)}`;
-  };
+  //   return `${typeValue}${name.charAt(0).toUpperCase() + name.slice(1)}`;
+  // };
 
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between">
@@ -387,7 +386,6 @@ export const CustomBoxShadowModal = ({
             zIndex: 2,
             p: 2,
             width: "272px",
-            height: "310px",
             backgroundColor: "#27272a",
             boxShadow: "0px 1px 15px rgba(0, 0, 0, 0.9)",
             borderRadius: "0px",
@@ -582,6 +580,7 @@ export const AddFaqItems = () => {
               <Box display="flex" flexDirection="column" gap="10px">
                 <CustomTextInput
                   text="Title"
+                  fullWidth
                   value={item.title}
                   onChange={(e) =>
                     setProp((props) => {
@@ -591,6 +590,7 @@ export const AddFaqItems = () => {
                 />
                 <CustomTextInput
                   text="Content"
+                  fullWidth
                   value={item.content}
                   onChange={(e) =>
                     setProp((props) => {
@@ -1176,13 +1176,13 @@ export const CustomLinkedValues = ({
               type="number"
               value={
                 parseFloat(localValues[option.value]) ||
-                localValues[option.value] === 0
+                  localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
               placeholder={
                 parseFloat(localValues[option.value]) ||
-                localValues[option.value] === 0
+                  localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
@@ -1292,8 +1292,8 @@ export const CustomButtonGroup = ({
                 ? "more-options"
                 : mobileValue
               : value === "more-options"
-              ? "more-options"
-              : value
+                ? "more-options"
+                : value
           }
           exclusive
           onChange={handleChange}
@@ -1331,9 +1331,9 @@ export const CustomButtonGroup = ({
                 selected={
                   deviceView === "mobile"
                     ? mobileValue === option.value ||
-                      (showChildren && option.value === "more-options")
+                    (showChildren && option.value === "more-options")
                     : value === option.value ||
-                      (showChildren && option.value === "more-options")
+                    (showChildren && option.value === "more-options")
                 }
               >
                 {option.icon}
@@ -1519,8 +1519,8 @@ export const CustomSlider = ({
     disableUnits
       ? ""
       : !disableDeviceView && deviceView === "mobile"
-      ? initialConfigs.mobile.unit
-      : initialConfigs.desktop.unit
+        ? initialConfigs.mobile.unit
+        : initialConfigs.desktop.unit
   );
 
   const units = Object.keys(unitConfigs);
@@ -1804,11 +1804,10 @@ export const CustomTypeColorGradient = ({ props, setProp }) => {
     const loc2 = Math.min(100, Math.max(0, localizationTwo));
     const ang = Math.min(360, Math.max(0, angle));
 
-    const backgroundImageString = `${
-      props?.typeColor === "linear"
-        ? `linear-gradient(${ang}deg, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
-        : `radial-gradient(at ${position}, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
-    }`;
+    const backgroundImageString = `${props?.typeColor === "linear"
+      ? `linear-gradient(${ang}deg, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
+      : `radial-gradient(at ${position}, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
+      }`;
 
     setProp((props) => (props.backgroundImage = backgroundImageString));
   }, [backgroundImage, setProp]);
@@ -2401,7 +2400,6 @@ export const CustomCollapse = ({
   value,
 }) => {
   const [openSection, setOpenSection] = useState(defaultOpenSection);
-  const classes = useStyles();
   const handleClick = (buttonValue) => {
     setOpenSection((prevOpenSection) =>
       prevOpenSection === buttonValue ? null : buttonValue

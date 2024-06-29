@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import { useEditor } from "@craftjs/core";
@@ -72,7 +72,6 @@ export const Video = ({
 }) => {
   const {
     connectors: { connect, drag },
-    actions: { setProp },
   } = useNode();
   const { enabled } = useEditor((state, query) => ({
     enabled: state.options.enabled,
@@ -84,49 +83,49 @@ export const Video = ({
   const responsiveProps =
     deviceView === "mobile"
       ? {
-          marginTop: mobileMarginTop,
-          marginRight: mobileMarginRight,
-          marginLeft: mobileMarginLeft,
-          marginBottom: mobileMarginBottom,
-          paddingTop: mobilePaddingTop,
-          paddingRight: mobilePaddingRight,
-          paddingLeft: mobilePaddingLeft,
-          paddingBottom: mobilePaddingBottom,
-          alignSelf: mobileAlignSelf,
-          flexShrink: mobileFlexShrink,
-          flexGrow: mobileFlexGrow,
-          position: mobilePosition,
-          top: mobileTop,
-          left: mobileLeft,
-          right: mobileRight,
-          bottom: mobileBottom,
-          zIndex: mobileZIndex,
-          maxWidth: mobileMaxWidth,
-          height: heightMobile,
-          width: mobilewidth,
-        }
+        marginTop: mobileMarginTop,
+        marginRight: mobileMarginRight,
+        marginLeft: mobileMarginLeft,
+        marginBottom: mobileMarginBottom,
+        paddingTop: mobilePaddingTop,
+        paddingRight: mobilePaddingRight,
+        paddingLeft: mobilePaddingLeft,
+        paddingBottom: mobilePaddingBottom,
+        alignSelf: mobileAlignSelf,
+        flexShrink: mobileFlexShrink,
+        flexGrow: mobileFlexGrow,
+        position: mobilePosition,
+        top: mobileTop,
+        left: mobileLeft,
+        right: mobileRight,
+        bottom: mobileBottom,
+        zIndex: mobileZIndex,
+        maxWidth: mobileMaxWidth,
+        height: heightMobile,
+        width: mobilewidth,
+      }
       : {
-          width,
-          maxWidth,
-          marginTop,
-          marginRight,
-          marginLeft,
-          marginBottom,
-          paddingTop,
-          paddingRight,
-          paddingLeft,
-          paddingBottom,
-          alignSelf,
-          flexShrink,
-          flexGrow,
-          position,
-          top,
-          left,
-          right,
-          bottom,
-          zIndex,
-          height,
-        };
+        width,
+        maxWidth,
+        marginTop,
+        marginRight,
+        marginLeft,
+        marginBottom,
+        paddingTop,
+        paddingRight,
+        paddingLeft,
+        paddingBottom,
+        alignSelf,
+        flexShrink,
+        flexGrow,
+        position,
+        top,
+        left,
+        right,
+        bottom,
+        zIndex,
+        height,
+      };
 
   const getVisibility = () => {
     if (deviceView === "mobile") {
@@ -151,9 +150,8 @@ export const Video = ({
           ...responsiveProps,
         }}
         ref={(ref) => connect(drag(ref))}
-        className={`${hiddenElement && "hidden"} video-element ${
-          pulse === "true" && "pulse-button"
-        } `}
+        className={`${hiddenElement && "hidden"} video-element ${pulse === "true" && "pulse-button"
+          } `}
       >
         <ThumbnailVideo thumbnail={thumbnail} play={play} setPlay={setPlay}>
           <iframe

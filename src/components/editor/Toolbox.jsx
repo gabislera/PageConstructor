@@ -21,7 +21,6 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import {
   CropLandscapeSharp,
-  FormatQuote,
   SmartButton,
   CalendarViewMonth,
   ImageOutlined,

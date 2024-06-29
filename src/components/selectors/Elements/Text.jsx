@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import ContentEditable from "react-contenteditable";
+import React from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 
@@ -72,8 +71,6 @@ export const Text = ({
 }) => {
   const {
     connectors: { connect, drag },
-    selected,
-    actions: { setProp },
   } = useNode((state) => ({
     selected: state.events.selected,
     dragged: state.events.dragged,
@@ -146,9 +143,8 @@ export const Text = ({
 
   return (
     <div
-      className={`${hiddenElement && "hidden"} ${
-        pulse === "true" && "pulse-button"
-      }`}
+      className={`${hiddenElement && "hidden"} ${pulse === "true" && "pulse-button"
+        }`}
       style={{
         ...responsiveProps,
         display: "inherit",

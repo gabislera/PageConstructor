@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNode } from "@craftjs/core";
 import { useResponsiveMode } from "../../../contexts/ResponsiveModeContext";
 import { Tooltip } from "@mui/material";
@@ -228,7 +228,6 @@ export const Form = ({
               alignItems: "center",
               gap: 0,
               width: "100%",
-              backgroundColor: "#fff",
               backgroundColor: inputBackgroundColor,
               borderTopWidth: inputBorderTopWidth,
               borderRightWidth: inputBorderRightWidth,

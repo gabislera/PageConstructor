@@ -1,4 +1,4 @@
-import { SectionSettings } from "../Settings/SectionSettings";
+// import { SectionSettings } from "../Settings/SectionSettings";
 import { Section } from "../Elements/Section";
 
 Section.craft = {

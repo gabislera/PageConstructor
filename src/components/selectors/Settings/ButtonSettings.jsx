@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Grid, Box, Tab, Tabs } from "@mui/material";
 import { Settings, Contrast } from "@mui/icons-material";
@@ -273,7 +273,7 @@ export const ButtonSettings = () => {
                   ),
                 },
               ]}
-              // defaultOpenSection="color"
+            // defaultOpenSection="color"
             />
             <CustomBoxShadowModal
               title={"Sombra do texto"}
