@@ -185,7 +185,6 @@ export const Grid = ({
         overflow,
 
         backgroundColor,
-        backgroundImage,
         borderStyle,
         borderTopWidth,
         borderRightWidth,
