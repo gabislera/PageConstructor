@@ -9,8 +9,11 @@ import {
   RemoveRedEye,
   Layers,
   Settings,
+  ExpandLess,
+  Save,
+  Folder,
 } from "@mui/icons-material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useResponsiveMode } from "../../contexts/ResponsiveModeContext";
 
 export const Footer = () => {
@@ -28,6 +31,7 @@ export const Footer = () => {
       canRedo: query.history.canRedo(),
     })
   );
+  const [saveOptions, setSaveOptions] = useState(false);
 
   const handlePublish = () => {
     const currentJson = query.serialize();
@@ -59,85 +63,208 @@ export const Footer = () => {
     actions.selectNode("ROOT");
   };
 
+  const toggleSaveOptions = () => {
+    setSaveOptions((prev) => !prev);
+  };
+
   return (
-    <Box className={classes.root}>
-      <Box display="flex" justifyContent="center" width={"100%"}>
-        <Tooltip title="Configurações" placement="bottom">
-          <IconButton
-            onClick={handleSelectAppComponent}
-            className={classes.item}
-          >
-            <Settings />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Camadas" placement="bottom">
-          <IconButton
-            onClick={() => setIsLayersOpen(!isLayersOpen)}
-            className={classes.item}
-          >
-            <Layers />
-          </IconButton>
-        </Tooltip>
-        {enabled && (
-          <>
-            <Tooltip title="Desfazer" placement="bottom">
-              <IconButton
-                className={clsx(classes.item, {
-                  [classes.itemDisabled]: !canUndo,
-                })}
-                onClick={() => actions.history.undo()}
-                disabled={!canUndo}
-              >
-                <Undo />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Refazer" placement="bottom">
-              <IconButton
-                className={clsx(classes.item, {
-                  [classes.itemDisabled]: !canRedo,
-                })}
-                onClick={() => actions.history.redo()}
-                disabled={!canRedo}
-              >
-                <Redo />
-              </IconButton>
-            </Tooltip>
-          </>
-        )}
-        <Tooltip title="Modo responsivo" placement="bottom">
-          <IconButton
-            className={classes.item}
-            onClick={() => setIsResponsiveMode(!isResponsiveMode)}
-          >
-            <Devices />
-          </IconButton>
-        </Tooltip>
+    <Box className={classes.footer}>
+      {saveOptions && (
+        <Box className={classes.saveOptions}>
+          <Button
+            startIcon={<Save sx={{ width: "16px", height: "16px" }} />
+            }
+            onClick={handlePublish}
+            sx={{
+              justifyContent: "flex-start",
+              textTransform: "none",
+              border: "1px solid #3f444b",
+              padding: "8px 20px",
+              fontSize: "12px",
+              borderRadius: "2px",
+              width: "100%",
+              color: "#fff",
 
-        <Tooltip title="Preview" placement="bottom">
-          <IconButton
-            className={classes.item}
-            onClick={() => actions.history.undo()}
-            disabled={!canUndo}
+              "&:hover": {
+                backgroundColor: "#3f444b",
+              },
+            }}
           >
-            <RemoveRedEye />
-          </IconButton>
-        </Tooltip>
+            Salvar rascunho
+          </Button>
+
+          <Button
+            startIcon={<Folder sx={{ width: "16px", height: "16px" }} />
+            }
+            onClick={handlePublish}
+            sx={{
+              justifyContent: "flex-start",
+              textTransform: "none",
+              border: "1px solid #3f444b",
+              padding: "8px 20px",
+              borderRadius: "2px",
+              width: "100%",
+              color: "#fff",
+              fontSize: "12px",
+
+              "&:hover": {
+                backgroundColor: "#3f444b",
+              },
+            }}
+          >
+            Salvar como modelo
+          </Button>
+        </Box>
+      )}
+
+      <Box className={classes.root}>
+        <Box display="flex" justifyContent="center" width={"100%"}>
+          <Tooltip title="Configurações" placement="bottom">
+            <IconButton
+              onClick={handleSelectAppComponent}
+              className={classes.item}
+            >
+              <Settings />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Camadas" placement="bottom">
+            <IconButton
+              onClick={() => setIsLayersOpen(!isLayersOpen)}
+              className={classes.item}
+            >
+              <Layers />
+            </IconButton>
+          </Tooltip>
+          {enabled && (
+            <>
+              <Tooltip title="Desfazer" placement="bottom">
+                <IconButton
+                  className={clsx(classes.item, {
+                    [classes.itemDisabled]: !canUndo,
+                  })}
+                  onClick={() => actions.history.undo()}
+                  disabled={!canUndo}
+                >
+                  <Undo />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Refazer" placement="bottom">
+                <IconButton
+                  className={clsx(classes.item, {
+                    [classes.itemDisabled]: !canRedo,
+                  })}
+                  onClick={() => actions.history.redo()}
+                  disabled={!canRedo}
+                >
+                  <Redo />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
+          <Tooltip title="Modo responsivo" placement="bottom">
+            <IconButton
+              className={classes.item}
+              onClick={() => setIsResponsiveMode(!isResponsiveMode)}
+            >
+              <Devices />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Preview" placement="bottom">
+            <IconButton
+              className={classes.item}
+              onClick={() => actions.history.undo()}
+              disabled={!canUndo}
+            >
+              <RemoveRedEye />
+            </IconButton>
+          </Tooltip>
+        </Box>
+
+        <Box display="flex" alignItems="center">
+          <Tooltip title="Publicar" placement="bottom">
+            <Button
+              onClick={handlePublish}
+              sx={{
+                color: "white",
+                borderRadius: 0,
+                textTransform: "capitalize",
+                backgroundColor: "#625cf3",
+                minHeight: "40px",
+                paddingX: "0px",
+                fontSize: "12px",
+
+                "&:hover": {
+                  backgroundColor: "#615cf3c5",
+                },
+              }}
+            >
+              Publicar
+            </Button>
+          </Tooltip>
+          <Tooltip title="Expandir opçoes de salvamento" placement="bottom">
+            <IconButton
+              onClick={toggleSaveOptions}
+              sx={{
+                backgroundColor: "#625cf3",
+                borderRadius: "0px",
+                paddingX: "0px",
+                color: "white",
+                borderLeft: "1px solid rgba(255, 255, 255, 0.1)",
+
+                "&:hover": {
+                  backgroundColor: "#615cf3c5",
+                },
+              }}
+            >
+              <ExpandLess sx={{
+                transform: saveOptions ? 'rotate(180deg)' : 'rotate(0deg)',
+                transition: 'all 0.3s ease',
+              }} />
+            </IconButton>
+          </Tooltip>
+        </Box>
       </Box>
-
-      <Tooltip title="Publish" placement="bottom">
-        <Button
-          onClick={handlePublish}
-          variant="contained"
-          sx={{ color: "white", borderRadius: 0, textTransform: "capitalize" }}
-        >
-          Publish
-        </Button>
-      </Tooltip>
     </Box>
   );
 };
 
 const useStyles = makeStyles({
+  footer: {
+    display: "flex",
+    flexDirection: 'column',
+    height: "40px",
+    position: "relative",
+  },
+  saveOptions: {
+    borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+    backgroundColor: "#27272a",
+    height: "120px",
+    width: "100%",
+    padding: "16px",
+    position: "absolute",
+    bottom: "40px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+
+    left: "0",
+    zIndex: 10,
+  },
+  saveButton: {
+    color: "white",
+    borderRadius: 0,
+    textTransform: "capitalize",
+    backgroundColor: "#625cf3",
+    minHeight: "40px",
+    paddingX: "0px",
+    fontSize: "12px",
+
+    "&:hover": {
+      backgroundColor: "#615cf3c5",
+    },
+  },
   root: {
     background: "#171717",
     width: "100%",

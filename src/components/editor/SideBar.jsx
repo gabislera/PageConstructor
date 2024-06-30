@@ -99,6 +99,7 @@ const useStyles = makeStyles({
     paddingBottom: "36px",
 
     overflowY: "auto",
+    overflowX: "hidden",
 
     // marginRight: "20px",
   },
