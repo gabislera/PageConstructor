@@ -2,7 +2,7 @@ import { ProgressBarSettings } from "../Settings/ProgressBarSettings";
 import { ProgressBar } from "../Elements/ProgressBar";
 
 ProgressBar.craft = {
-  displayName: "ProgressBar",
+  displayName: "Barra de progresso",
 
   props: {
     // element props

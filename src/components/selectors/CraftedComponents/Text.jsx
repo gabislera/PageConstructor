@@ -2,7 +2,7 @@ import { TextSettings } from "../Settings/TextSettings";
 import { Text } from "../Elements/Text";
 
 Text.craft = {
-  displayName: "Text",
+  displayName: "Texto",
 
   props: {
     content: "Digite seu texto aqui",

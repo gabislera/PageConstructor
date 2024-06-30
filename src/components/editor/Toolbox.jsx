@@ -16,9 +16,9 @@ import Form from "../selectors/CraftedComponents/Form";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import InsightsIcon from "@mui/icons-material/Insights";
-import ContactsIcon from "@mui/icons-material/Contacts";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+// import InsightsIcon from "@mui/icons-material/Insights";
+// import ContactsIcon from "@mui/icons-material/Contacts";
+// import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import {
   CropLandscapeSharp,
   SmartButton,
@@ -29,6 +29,9 @@ import {
   Quiz,
   TextFields,
   FormatAlignLeft,
+  Insights,
+  Contacts,
+  AccessTime
 } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { CustomAccordion } from "../_Control";
@@ -102,15 +105,15 @@ export const Toolbox = () => {
             <span>Faq</span>
           </GridItem>
           <GridItem element={ProgressBar} tooltipText={"Barra de progresso"}>
-            <InsightsIcon />
+            <Insights />
             <span>Barra de progresso</span>
           </GridItem>
           <GridItem element={Form} tooltipText={"Formulário"}>
-            <ContactsIcon />
+            <Contacts />
             <span>Formulário</span>
           </GridItem>
           <GridItem element={Countdown} tooltipText={"Contador regressivo"}>
-            <AccessTimeIcon />
+            <AccessTime />
             <span>Contador regressivo</span>
           </GridItem>
         </MaterialGrid>

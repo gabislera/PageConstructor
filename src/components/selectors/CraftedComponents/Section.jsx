@@ -2,7 +2,7 @@
 import { Section } from "../Elements/Section";
 
 Section.craft = {
-  displayName: "Section",
+  displayName: "Seção",
 
   props: {
     marginTop: "0px",

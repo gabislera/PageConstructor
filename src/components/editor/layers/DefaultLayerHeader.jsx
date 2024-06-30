@@ -1,23 +1,74 @@
-import { useEditor } from '@craftjs/core';
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import { useEditor } from "@craftjs/core";
+import { useLayer } from "@craftjs/layers";
+import { EditableLayerName } from "./EditableLayerName";
+import {
+  CropLandscapeSharp,
+  SmartButton,
+  CalendarViewMonth,
+  ImageOutlined,
+  OndemandVideo,
+  Remove,
+  Quiz,
+  TextFields,
+  FormatAlignLeft,
+  Insights,
+  Contacts,
+  AccessTime,
+  KeyboardArrowDown,
+  Visibility,
+  Link,
+} from "@mui/icons-material";
 
-import { EditableLayerName } from './EditableLayerName';
+// Mapeamento dos componentes para ícones
+const componentIconMap = {
+  container: CropLandscapeSharp,
+  grid: CalendarViewMonth,
+  título: TextFields,
+  texto: FormatAlignLeft,
+  botão: SmartButton,
+  imagem: ImageOutlined,
+  vídeo: OndemandVideo,
+  divisor: Remove,
+  perguntas_frequentes: Quiz,
+  barra_de_progresso: Insights,
+  formulário: Contacts,
+  contador_regressivo: AccessTime,
+};
 
-import { KeyboardArrowDown, Visibility, Link } from '@mui/icons-material';
-import { useLayer } from '@craftjs/layers';
+// Função para normalizar o nome dos componentes
+const normalizeComponentName = (name) => {
+  return name.replace(/\s+/g, "_").toLowerCase();
+};
+
+const getElementIcon = (component) => {
+  const normalizedComponent = normalizeComponentName(component);
+  const Icon = componentIconMap[normalizedComponent];
+  return Icon ? <Icon /> : null;
+};
+
+const LayerIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+
+  svg {
+    width: 16px;
+  }
+`;
 
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0px 10px;
-  background: ${(props) => (props.selected ? '#625CF3' : 'transparent')};
+  background: ${(props) => (props.selected ? "#625CF3" : "transparent")};
   border-radius: 4px;
-  color: ${(props) => (props.selected ? '#fff' : 'inherit')};
+  color: ${(props) => (props.selected ? "#fff" : "inherit")};
 
   svg {
-    fill: ${(props) => (props.selected ? '#fff' : '#d5d8dc')};
+    fill: ${(props) => (props.selected ? "#fff" : "#d5d8dc")};
   }
   .inner {
     flex: 1;
@@ -25,12 +76,11 @@ const StyledDiv = styled.div`
       padding: 0px;
       flex: 1;
       display: flex;
-      margin-left: ${(props) => props.depth * 10}px;
       align-items: center;
       div.layer-name {
         flex: 1;
         h2 {
-          font-size: 12px;
+          font-size: 11px;
         }
       }
     }
@@ -62,20 +112,20 @@ const Hide = styled.a`
     width: 100%;
     height: 100%;
     object-fit: contain;
-    opacity: ${(props) => (props.isHidden ? 0.2 : 1)};
+    opacity: ${(props) => (props.isHidden ? 0.2 : 1)}; 
   }
   &:after {
-    content: ' ';
+    content: " ";
     width: 2px;
     height: ${(props) => (props.isHidden ? 100 : 0)}%;
     position: absolute;
     left: 2px;
     top: 3px;
-    background: ${(props) => (props.selected ? '#fff' : '#808184')};
+    background: ${(props) => (props.selected ? "#fff" : "#808184")};
     transform: rotate(-45deg);
     transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     transform-origin: 0% 0%;
-    opacity: ${(props) => (props.isHidden ? 0.4 : 1)};
+    opacity: ${(props) => (props.isHidden ? 0.4 : 1)}; 
   }
 `;
 
@@ -103,16 +153,19 @@ export const DefaultLayerHeader = () => {
     };
   });
 
-  const { hidden, actions, selected, topLevel } = useEditor((state, query) => {
-    // TODO: handle multiple selected elements
-    const selected = query.getEvent('selected').first() === id;
+  const { hidden, actions, selected, topLevel, nodeType } = useEditor(
+    (state, query) => {
+      const selected = query.getEvent("selected").first() === id;
+      const node = state.nodes[id];
 
-    return {
-      hidden: state.nodes[id] && state.nodes[id].data.hidden,
-      selected,
-      topLevel: query.node(id).isTopLevelCanvas(),
-    };
-  });
+      return {
+        hidden: node && node.data.hidden,
+        selected,
+        topLevel: query.node(id).isTopLevelCanvas(),
+        nodeType: node && node.data.displayName,
+      };
+    }
+  );
 
   return (
     <StyledDiv selected={selected} ref={drag} depth={depth}>
@@ -130,7 +183,7 @@ export const DefaultLayerHeader = () => {
               <Link />
             </TopLevelIndicator>
           ) : null}
-
+          <LayerIconWrapper>{getElementIcon(nodeType)}</LayerIconWrapper>
           <div className="layer-name s">
             <EditableLayerName />
           </div>

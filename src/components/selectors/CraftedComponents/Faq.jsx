@@ -2,7 +2,7 @@ import { FaqSettings } from "../Settings/FaqSettings";
 import { Faq } from "../Elements/Faq";
 
 Faq.craft = {
-  displayName: "Faq",
+  displayName: "Perguntas frequentes",
   props: {
     items: [
       {

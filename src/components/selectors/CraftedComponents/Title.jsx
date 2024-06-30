@@ -2,7 +2,7 @@ import { TitleSettings } from "../Settings/TitleSettings";
 import { Title } from "../Elements/Title";
 
 Title.craft = {
-  displayName: "Title",
+  displayName: "Título",
 
   props: {
     content: "Adicione o texto do seu título aqui​",

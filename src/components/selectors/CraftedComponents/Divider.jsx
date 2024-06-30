@@ -2,6 +2,8 @@ import { Divider } from "../Elements/Divider";
 import { DividerSettings } from "../Settings/DividerSettings";
 
 Divider.craft = {
+  displayName: "Divisor",
+
   props: {
     marginBottom: "5px",
     marginTop: "5px",
