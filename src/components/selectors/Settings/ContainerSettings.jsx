@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
-import { Grid, Box, Tab, Tabs, Divider, Tooltip, IconButton } from "@mui/material";
+import { Grid, Box, Tab, Tabs, Divider } from "@mui/material";
 import {
   Settings,
   Contrast,
@@ -14,7 +14,6 @@ import {
   AlignVerticalBottom,
   Start,
   WrapText,
-  Clear,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";

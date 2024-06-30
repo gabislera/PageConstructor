@@ -32,7 +32,6 @@ import {
   Autocomplete,
   Chip,
   Popover,
-  Icon,
 } from "@mui/material";
 import {
   Link,
@@ -42,11 +41,9 @@ import {
   Tv,
   PhoneIphone,
   FormatColorReset,
-  Clear,
   ContentCopy,
   Close,
   Edit,
-  Brush,
 } from "@mui/icons-material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { a11yProps } from "../utils/a11yProps";
@@ -2369,7 +2366,7 @@ export const ButtonAssistant = ({ resetValues, handleClose }) => {
 export const CustomCollapse = ({
   children,
   text,
-  buttons = [],
+  options = [],
   defaultOpenSection = null,
   placeholder = "",
   tooltip = "",
@@ -2423,7 +2420,7 @@ export const CustomCollapse = ({
             borderRadius: "3px",
           }}>
 
-            {buttons.map((button, index) => (
+            {options.map((button, index) => (
               <Tooltip key={index} title={button.tooltip} placement="top">
                 <IconButton
                   disableFocusRipple
@@ -2434,7 +2431,7 @@ export const CustomCollapse = ({
                       openSection === button.value ? "#3f444b" : "",
                     borderLeft: openSection === button.value ? "1px solid transparent" : "1px solid rgba(255, 255, 255, 0.1)",
                     borderRadius: "0px",
-                    padding: "6px",
+                    padding: "5px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -2458,7 +2455,7 @@ export const CustomCollapse = ({
 
         </Box>
       </Box>
-      {buttons.map((button, index) => (
+      {options.map((button, index) => (
         <Collapse
           key={index}
           in={openSection === button.value}
@@ -2466,7 +2463,7 @@ export const CustomCollapse = ({
           unmountOnExit
           sx={{ "&:before, &:after": { display: "none" } }}
         >
-          <Box padding={0} sx={{ paddingTop: 1 }}>
+          <Box padding={0} sx={{ mt: 2 }}>
             {button.content}
           </Box>
         </Collapse>

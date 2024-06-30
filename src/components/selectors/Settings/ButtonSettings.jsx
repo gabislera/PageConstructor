@@ -17,6 +17,8 @@ import {
   CustomCheckbox,
   CustomBoxShadowModal,
   CustomTypography,
+  CustomSwitch,
+  TabOptions,
 } from "../../_Control";
 import { CustomTypeColorGradient } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
@@ -92,7 +94,7 @@ export const ButtonSettings = () => {
             row={true}
             value={props.text}
             onChange={(e) => setProp((props) => (props.text = e.target.value))}
-            tooltipText={"Link para onde o botáo redireciona"}
+            tooltipText={"Texto do botão"}
           />
 
           <CustomCollapse
@@ -103,48 +105,46 @@ export const ButtonSettings = () => {
             classes={classes}
             onChange={(e) => setProp((props) => (props.src = e.target.value))}
             type={"TextField"}
-            buttons={[
+            options={[
               {
                 tooltip: "Opções de link",
                 icon: (
                   <SettingsIcon
                     fontSize="small"
                     color="secondary"
-                    style={{ width: "18px", height: "18px" }}
+                    style={{ width: "16px", height: "16px" }}
                   />
                 ),
                 content: (
-                  <Box style={{ padding: 2 }}>
-                    <CustomCheckbox
-                      options={[
-                        {
-                          value: "redirect_url",
-                          label: "Redirecionar para um link",
-                        },
-                        {
-                          value: "redirect_project_page",
-                          label: "Redirecionar para uma página",
-                        },
-                        {
-                          value: "scroll_to_block",
-                          label: "Focar outro bloco da página",
-                        },
-                        {
-                          value: "close_modal",
-                          label: "Fechar o modal",
-                        },
-                        {
-                          value: "window_modal_open",
-                          label: "Abrir em uma nova janela",
-                        },
-                      ]}
-                      defaultValue={props.action}
-                      value={props.action}
-                      onChange={(value) => {
-                        setProp((props) => (props.action = value));
-                      }}
-                    />
-                  </Box>
+                  <CustomCheckbox
+                    options={[
+                      {
+                        value: "redirect_url",
+                        label: "Redirecionar para um link",
+                      },
+                      {
+                        value: "redirect_project_page",
+                        label: "Redirecionar para uma página",
+                      },
+                      {
+                        value: "scroll_to_block",
+                        label: "Focar outro bloco da página",
+                      },
+                      {
+                        value: "close_modal",
+                        label: "Fechar o modal",
+                      },
+                      {
+                        value: "window_modal_open",
+                        label: "Abrir em uma nova janela",
+                      },
+                    ]}
+                    defaultValue={props.action}
+                    value={props.action}
+                    onChange={(value) => {
+                      setProp((props) => (props.action = value));
+                    }}
+                  />
                 ),
               },
             ]}
@@ -152,7 +152,7 @@ export const ButtonSettings = () => {
 
           <CustomCollapse
             text="Icone"
-            row={true}
+            row
             onChange={(e, value) => {
               setProp((props) => (props.action = value));
             }}
@@ -160,8 +160,8 @@ export const ButtonSettings = () => {
             value={props.action}
             type={"Button"}
             tooltip={"Icone"}
-            remove={true}
-            buttons={[
+            remove
+            options={[
               {
                 value: "redirect_url",
                 tooltip: "Nenhum icone",
@@ -230,58 +230,145 @@ export const ButtonSettings = () => {
             />
 
             <CustomTypography props={props} setProp={setProp} />
-            <ColorControl
-              name={"Cor do texto"}
-              onChange={(e, value) => {
-                setProp((props) => (props.color = value));
-              }}
-              defaultValue={props.color}
-              value={props.color}
-            />
-            <CustomCollapse
-              text="Cor do fundo"
-              row
-              buttons={[
-                {
-                  value: "color",
-                  tooltip: "Clássico",
-                  icon: (
-                    <Brush width={"18px"} height={"18px"} color="#d5d8dc" />
-                  ),
-                  content: (
-                    <Box style={{ padding: 2 }}>
-                      <ColorControl
-                        name={"Cor"}
-                        onChange={(e, value) => {
-                          setProp((props) => (props.backgroundImage = "none"));
-                          setProp((props) => (props.backgroundColor = value));
-                        }}
-                        defaultValue={props.backgroundColor}
-                        value={props.backgroundColor}
-                      />
-                    </Box>
-                  ),
-                },
-                {
-                  value: "gradient",
-                  tooltip: "Gradiente",
-                  icon: (
-                    <Gradient width={"18px"} height={"18px"} color="#d5d8dc" />
-                  ),
-                  content: (
-                    <CustomTypeColorGradient props={props} setProp={setProp} />
-                  ),
-                },
-              ]}
-            // defaultOpenSection="color"
-            />
+
             <CustomBoxShadowModal
               title={"Sombra do texto"}
               props={props}
               setProp={setProp}
               type="text"
             />
-            <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+
+            <TabOptions >
+              <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
+                <ColorControl
+                  name={"Cor do texto"}
+                  onChange={(e, value) => {
+                    setProp((props) => (props.color = value));
+                  }}
+                  defaultValue={props.color}
+                  value={props.color}
+                />
+
+                <CustomCollapse
+                  text="Cor do fundo"
+                  row
+                  options={[
+                    {
+                      value: "color",
+                      tooltip: "Clássico",
+                      icon: (
+                        <Brush />
+                      ),
+                      content: (
+                        <ColorControl
+                          name={"Cor"}
+                          onChange={(e, value) => {
+                            setProp((props) => (props.backgroundImage = "none"));
+                            setProp((props) => (props.backgroundColor = value));
+                          }}
+                          defaultValue={props.backgroundColor}
+                          value={props.backgroundColor}
+                        />
+                      ),
+                    },
+                    {
+                      value: "gradient",
+                      tooltip: "Gradiente",
+                      icon: (
+                        <Gradient />
+                      ),
+                      content: (
+                        <CustomTypeColorGradient props={props} setProp={setProp} />
+                      ),
+                    },
+                  ]}
+                  defaultOpenSection="color"
+                />
+              </Grid>
+
+              <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
+                <ColorControl
+                  name={"Cor do texto"}
+                  onChange={(e, value) => {
+                    setProp((props) => (props.hoverColor = value));
+                  }}
+                  defaultValue={props.hoverColor}
+                  value={props.hoverColor}
+                />
+
+                <CustomCollapse
+                  text="Tipo de plano de fundo"
+                  row
+                  options={[
+                    {
+                      value: "color",
+                      tooltip: "Clássico",
+                      icon: (
+                        <Brush />
+                      ),
+                      content: (
+                        <ColorControl
+                          name={"Cor"}
+                          onChange={(e, value) => {
+                            setProp((props) => (props.backgroundImage = "none"));
+                            setProp((props) => (props.hoverBackgroundColor = value));
+                          }}
+                          defaultValue={props.hoverBackgroundColor}
+                          value={props.hoverBackgroundColor}
+                        />
+                      ),
+                    },
+                    {
+                      value: "gradient",
+                      tooltip: "Gradiente",
+                      icon: (
+                        <Gradient />
+                      ),
+                      content: (
+                        <CustomTypeColorGradient props={props} setProp={setProp} />
+                      ),
+                    },
+                  ]}
+                  defaultOpenSection="color"
+                />
+
+                <ColorControl
+                  name={"Cor da borda"}
+                  onChange={(e, value) => {
+                    setProp((props) => (props.hoverBorderColor = value));
+                  }}
+                  defaultValue={props.hoverBorderColor}
+                  value={props.hoverBorderColor}
+                />
+
+                <CustomSlider
+                  text="Duração da transição"
+                  value={props.transitionDuration}
+                  onChange={(e, value) =>
+                    setProp(
+                      (props) =>
+                        (props.transitionDuration = value)
+                    )
+                  }
+                  min={0}
+                  max={3}
+                  step={0.1}
+                  disableUnits
+                  disableDeviceView
+                  tooltipText={"Escolha o tempo da transição"}
+                />
+
+                <CustomSwitch
+                  text={"Habilitar hover"}
+                  value={props.hasBackgroundHover}
+                  onChange={(e) => setProp((props) => (props.hasBackgroundHover = e))}
+                  checkedText={"Sim"}
+                  uncheckedText={"Não"}
+                />
+
+              </Grid>
+            </TabOptions>
+
             <CustomSelect
               text="Tipo da borda"
               value={props.borderStyle}
@@ -331,13 +418,13 @@ export const ButtonSettings = () => {
               ]}
             />
             <CustomBoxShadowModal
-              title={"Cor da sombra"}
+              title={"Sombra da caixa"}
               props={props}
               setProp={setProp}
             />
             <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
             <CustomLinkedValues
-              text="Preenchimento" //padding
+              text="Preenchimento"
               values={props}
               onChange={setProp}
               options={[

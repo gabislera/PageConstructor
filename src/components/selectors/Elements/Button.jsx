@@ -104,12 +104,19 @@ export const Button = ({
   animation,
   mobileLetterSpacing,
   mobileWordSpacing,
+  textShadow,
+  hoverBackgroundColor,
+  hoverColor,
+  hoverBorderColor,
+
   hidden,
   mobileHidden,
-  textShadow,
+  hasBackgroundHover,
+  transitionDuration,
 }) => {
   const {
     connectors: { connect, drag },
+    id
   } = useNode();
   const { deviceView } = useResponsiveMode();
   const getResponsiveProps = () => {
@@ -240,6 +247,8 @@ export const Button = ({
       maxWidth,
       backgroundImage,
       textShadow,
+
+
     };
   };
 
@@ -253,20 +262,33 @@ export const Button = ({
   const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
+  const hoverBackgroundStyles = hasBackgroundHover
+    ? ` .button-hover-${id}:hover {
+      background-color: ${hoverBackgroundColor} !important;
+      color: ${hoverColor} !important;
+      border-color: ${hoverBorderColor} !important;
+    }`
+    : "";
+
   return (
-    <button
-      type={type}
-      ref={(ref) => connect(drag(ref))}
-      className={`${className} ${hiddenElement && "hidden"} ${
-        pulse === "true" && "pulse-button"
-      }`}
-      data-delay={delay}
-      style={{
-        width: "100%",
-        ...responsiveProps,
-      }}
-    >
-      <span>{text}</span>
-    </button>
+    <>
+      <button
+        type={type}
+        ref={(ref) => connect(drag(ref))}
+        className={`button-hover-${id} ${className} ${hiddenElement && "hidden"} ${pulse === "true" && "pulse-button"
+          }`}
+        data-delay={delay}
+        style={{
+          transition: `all ${transitionDuration}s ease-in-out`,
+
+          width: "100%",
+          ...responsiveProps,
+        }}
+      >
+        <span>{text}</span>
+      </button>
+      <style>{hoverBackgroundStyles}</style>
+    </>
+
   );
 };

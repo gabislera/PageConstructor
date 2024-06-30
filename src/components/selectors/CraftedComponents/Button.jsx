@@ -13,6 +13,7 @@ Button.craft = {
     action: "redirect_url",
     src: "http://www.sellflux.com",
     //props texto
+
     color: "#fff",
     textAlign: "center",
     fontFamily: "sans-serif",
@@ -108,8 +109,15 @@ Button.craft = {
     bottom: "0",
     typeColor: "linear",
     textShadow: "none",
+
+    hoverBackgroundColor: "#615cf3cc",
+    hoverColor: "#fff",
+    hoverBorderColor: "#000",
+    transitionDuration: "0.3",
+
     hidden: false,
     mobileHidden: false,
+    hasBackgroundHover: false,
   },
   related: {
     settings: ButtonSettings,
