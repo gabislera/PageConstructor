@@ -7,6 +7,8 @@ import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
 import Divider from "@mui/material/Divider";
 import { AdvancedSettings } from "./AdvancedSettings";
+import ProgressBar from "../../selectors/CraftedComponents/ProgressBar";
+
 import {
   ColorControl,
   CustomAccordion,
@@ -208,6 +210,7 @@ export const ProgressBarSettings = () => {
                 props={props}
                 setProp={setProp}
                 type={"content"}
+                valueReset={ProgressBar}
               />
             </Box>
           </CustomAccordion>
@@ -226,11 +229,14 @@ export const ProgressBarSettings = () => {
                 props={props}
                 setProp={setProp}
                 type={"title"}
+                valueReset={ProgressBar}
               />
               <CustomBoxShadow
                 title={"Sombra do texto"}
                 props={props}
                 setProp={setProp}
+                custom={"TextShadow"}
+                valueReset={ProgressBar}
                 type="text"
               />
             </Box>

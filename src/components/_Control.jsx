@@ -1744,8 +1744,8 @@ export const CustomTypeColorGradient = ({ props, setProp }) => {
     <Box display="flex" flexDirection="column" gap={1}>
       <ColorControl
         name={name}
+        popertation={true}
         onChange={(color) => {
-          console.log(color);
           if (color && color.rgb) {
             setProp(
               (props) =>
@@ -2192,7 +2192,6 @@ export const CustomCheckbox = ({ options, value, onChange }) => {
       acc[option.value] = option.value === event.target.value;
       return acc;
     }, {});
-
     onChange(newValue);
   };
 
@@ -2335,14 +2334,10 @@ export const CustomCollapse = ({
   options = [],
   defaultOpenSection = null,
   placeholder = "",
-  props,
-  setProp,
-
   type,
   row = false,
   onChange,
   value,
-  valueReset,
 }) => {
   const [openSection, setOpenSection] = useState(defaultOpenSection);
 
