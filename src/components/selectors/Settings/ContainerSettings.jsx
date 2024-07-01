@@ -346,13 +346,11 @@ export const ContainerSettings = () => {
                 <CustomCollapse
                   text="Tipo de plano de fundo"
                   row
-                  buttons={[
+                  options={[
                     {
                       value: "color",
                       tooltip: "Clássico",
-                      icon: (
-                        <Brush />
-                      ),
+                      icon: <Brush />,
                       content: (
                         <Box style={{ padding: 2 }}>
                           <ColorControl
@@ -374,9 +372,7 @@ export const ContainerSettings = () => {
                     {
                       value: "gradient",
                       tooltip: "Gradiente",
-                      icon: (
-                        <Gradient />
-                      ),
+                      icon: <Gradient />,
                       content: (
                         <CustomTypeColorGradient
                           props={props}
@@ -387,9 +383,7 @@ export const ContainerSettings = () => {
                     {
                       value: "image",
                       tooltip: "Imagem",
-                      icon: (
-                        <ImageIcon />
-                      ),
+                      icon: <ImageIcon />,
                       content: (
                         <>
                           <FileUpload
@@ -439,11 +433,12 @@ export const ContainerSettings = () => {
                 <CustomSwitch
                   text={"Habilitar hover"}
                   value={props.hasBackgroundHover}
-                  onChange={(e) => setProp((props) => (props.hasBackgroundHover = e))}
+                  onChange={(e) =>
+                    setProp((props) => (props.hasBackgroundHover = e))
+                  }
                   checkedText={"Sim"}
                   uncheckedText={"Não"}
                 />
-
               </Grid>
             </TabOptions>
 
@@ -579,9 +574,7 @@ export const ContainerSettings = () => {
                   text="Duração da transição"
                   value={props.borderTransitionDuration}
                   onChange={(e, value) =>
-                    setProp(
-                      (props) => (props.borderTransitionDuration = value)
-                    )
+                    setProp((props) => (props.borderTransitionDuration = value))
                   }
                   min={0}
                   max={3}
@@ -594,7 +587,9 @@ export const ContainerSettings = () => {
                 <CustomSwitch
                   text={"Habilitar hover"}
                   value={props.hasBorderHover}
-                  onChange={(e) => setProp((props) => (props.hasBorderHover = e))}
+                  onChange={(e) =>
+                    setProp((props) => (props.hasBorderHover = e))
+                  }
                   checkedText={"Sim"}
                   uncheckedText={"Não"}
                 />

@@ -71,6 +71,7 @@ export const Image = ({
   pulse,
   hidden,
   mobileHidden,
+  hasOpacityHover,
 }) => {
   const {
     connectors: { connect, drag },
@@ -137,12 +138,14 @@ export const Image = ({
   const hiddenElement = getVisibility();
   const responsiveProps = getResponsiveProps();
 
-  const hoverStyles = `
+  const hoverStyles = hasOpacityHover
+    ? `
   .image-hover:hover {
     opacity: ${hoverOpacity} !important; 
     transition: opacity ${opacityTransitionDuration}s ease-in-out !important;
   }
-`;
+`
+    : "";
 
   // TODO: change logic to render the <a> tag only in api-main
 

@@ -95,11 +95,11 @@ export const CustomTypography = ({
   const handleMobileChange = (propName, value) => {
     setProp(
       (props) =>
-      (props[
-        getPropName(
-          `mobile${propName.charAt(0).toUpperCase() + propName.slice(1)}`
-        )
-      ] = value)
+        (props[
+          getPropName(
+            `mobile${propName.charAt(0).toUpperCase() + propName.slice(1)}`
+          )
+        ] = value)
     );
   };
 
@@ -329,8 +329,9 @@ export const CustomBoxShadowModal = ({
       setProp((props) => (props.textShadow = textShadowString));
     } else {
       const { horizontal, vertical, blur, spread, color, inset } = shadow;
-      const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${inset ? " inset" : ""
-        }`;
+      const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${
+        inset ? " inset" : ""
+      }`;
 
       setProp((props) => (props.boxShadow = boxShadowString));
     }
@@ -914,7 +915,6 @@ export const TabOptions = ({ title, children, typeStyle }) => {
       sx={{
         borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
         paddingBottom: 2,
-        marginBottom: 2,
       }}
     >
       {title && (
@@ -1174,13 +1174,13 @@ export const CustomLinkedValues = ({
               type="number"
               value={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
               placeholder={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
@@ -1290,8 +1290,8 @@ export const CustomButtonGroup = ({
                 ? "more-options"
                 : mobileValue
               : value === "more-options"
-                ? "more-options"
-                : value
+              ? "more-options"
+              : value
           }
           exclusive
           onChange={handleChange}
@@ -1329,9 +1329,9 @@ export const CustomButtonGroup = ({
                 selected={
                   deviceView === "mobile"
                     ? mobileValue === option.value ||
-                    (showChildren && option.value === "more-options")
+                      (showChildren && option.value === "more-options")
                     : value === option.value ||
-                    (showChildren && option.value === "more-options")
+                      (showChildren && option.value === "more-options")
                 }
               >
                 {option.icon}
@@ -1517,8 +1517,8 @@ export const CustomSlider = ({
     disableUnits
       ? ""
       : !disableDeviceView && deviceView === "mobile"
-        ? initialConfigs.mobile.unit
-        : initialConfigs.desktop.unit
+      ? initialConfigs.mobile.unit
+      : initialConfigs.desktop.unit
   );
 
   const units = Object.keys(unitConfigs);
@@ -1802,10 +1802,11 @@ export const CustomTypeColorGradient = ({ props, setProp }) => {
     const loc2 = Math.min(100, Math.max(0, localizationTwo));
     const ang = Math.min(360, Math.max(0, angle));
 
-    const backgroundImageString = `${props?.typeColor === "linear"
-      ? `linear-gradient(${ang}deg, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
-      : `radial-gradient(at ${position}, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
-      }`;
+    const backgroundImageString = `${
+      props?.typeColor === "linear"
+        ? `linear-gradient(${ang}deg, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
+        : `radial-gradient(at ${position}, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
+    }`;
 
     setProp((props) => (props.backgroundImage = backgroundImageString));
   }, [backgroundImage, setProp]);
@@ -1960,7 +1961,6 @@ export const ColorControl = ({
             {name}
           </Typography>
           <Box display="flex" alignItems="center" gap="4px">
-
             <Tooltip title={"Transparente"} placement="top">
               <IconButton
                 disabled={value === "transparent"}
@@ -2364,15 +2364,10 @@ export const ButtonAssistant = ({ resetValues, handleClose }) => {
 };
 
 export const CustomCollapse = ({
-  children,
   text,
   options = [],
   defaultOpenSection = null,
   placeholder = "",
-  tooltip = "",
-  icon = (
-    <SettingsIcon color="secondary" sx={{ width: "28px", height: "0px" }} />
-  ),
   type,
   row = false,
   onChange,
@@ -2415,11 +2410,14 @@ export const CustomCollapse = ({
             />
           )}
 
-          <Box display="flex" alignItems="center" sx={{
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            borderRadius: "3px",
-          }}>
-
+          <Box
+            display="flex"
+            alignItems="center"
+            sx={{
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              borderRadius: "3px",
+            }}
+          >
             {options.map((button, index) => (
               <Tooltip key={index} title={button.tooltip} placement="top">
                 <IconButton
@@ -2429,7 +2427,10 @@ export const CustomCollapse = ({
                   sx={{
                     backgroundColor:
                       openSection === button.value ? "#3f444b" : "",
-                    borderLeft: openSection === button.value ? "1px solid transparent" : "1px solid rgba(255, 255, 255, 0.1)",
+                    borderLeft:
+                      openSection === button.value
+                        ? "1px solid transparent"
+                        : "1px solid rgba(255, 255, 255, 0.1)",
                     borderRadius: "0px",
                     padding: "5px",
                     display: "flex",
@@ -2452,7 +2453,6 @@ export const CustomCollapse = ({
               </Tooltip>
             ))}
           </Box>
-
         </Box>
       </Box>
       {options.map((button, index) => (

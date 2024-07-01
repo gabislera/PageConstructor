@@ -70,6 +70,7 @@ Form.craft = {
     buttonMaxWidth: "100",
     buttonAlign: "center",
 
+    buttonText: "Enviar",
     buttonColor: "#fff",
     buttonBackgroundColor: "#625CF3",
     buttonFontFamily: "sans-serif",
@@ -85,9 +86,7 @@ Form.craft = {
     buttonBorderTopRightRadius: "4px",
     buttonBorderBottomRightRadius: "4px",
     buttonBorderBottomLeftRadius: "4px",
-
-    showLabel: true,
-    showRequiredIcon: false,
+    buttonBorderColor: "transparent",
 
     marginTop: "0px",
     marginRight: "0px",
@@ -126,6 +125,15 @@ Form.craft = {
     mobileButtonMaxWidth: "100",
     mobileButtonAlign: "center",
     pulse: "false",
+
+    hoverButtonBackgroundColor: "#615cf3cc",
+    hoverButtonColor: "#fff",
+    hoverButtonBorderColor: "transparent",
+    transitionDuration: "0.3",
+
+    showLabel: true,
+    showRequiredIcon: false,
+    hasBackgroundHover: false,
   },
   related: {
     settings: FormSettings,

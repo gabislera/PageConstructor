@@ -8,6 +8,8 @@ import {
   FormatAlignLeft,
   FormatAlignCenter,
   FormatAlignRight,
+  Brush,
+  Gradient,
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
@@ -19,12 +21,15 @@ import {
   ColorControl,
   CustomAccordion,
   CustomButtonGroup,
+  CustomCollapse,
   CustomLinkedValues,
   CustomSelect,
   CustomSlider,
   CustomSwitch,
   CustomTextInput,
+  CustomTypeColorGradient,
   CustomTypography,
+  TabOptions,
 } from "../../_Control";
 
 export const FormSettings = () => {
@@ -146,6 +151,16 @@ export const FormSettings = () => {
 
           <CustomAccordion title="Botão">
             <Box display="flex" flexDirection="column" gap={2}>
+              <CustomTextInput
+                text="Texto"
+                row={true}
+                value={props.buttonText}
+                onChange={(e) =>
+                  setProp((props) => (props.buttonText = e.target.value))
+                }
+                tooltipText={"Texto do botão"}
+              />
+
               <CustomSelect
                 text="Tamanho do botão"
                 value={props.buttonSize}
@@ -349,7 +364,142 @@ export const FormSettings = () => {
 
               <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
 
-              <ColorControl
+              <TabOptions>
+                <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
+                  <ColorControl
+                    name={"Cor do texto"}
+                    onChange={(e, value) => {
+                      setProp((props) => (props.buttonColor = value));
+                    }}
+                    defaultValue={props.color}
+                    value={props.color}
+                  />
+
+                  <CustomCollapse
+                    text="Cor do fundo"
+                    row
+                    options={[
+                      {
+                        value: "color",
+                        tooltip: "Clássico",
+                        icon: <Brush />,
+                        content: (
+                          <ColorControl
+                            name={"Cor"}
+                            onChange={(e, value) => {
+                              setProp(
+                                (props) => (props.buttonBackgroundColor = value)
+                              );
+                            }}
+                            defaultValue={props.buttonBackgroundColor}
+                            value={props.buttonBackgroundColor}
+                          />
+                        ),
+                      },
+                      {
+                        value: "gradient",
+                        tooltip: "Gradiente",
+                        icon: <Gradient />,
+                        content: (
+                          <CustomTypeColorGradient
+                            props={props}
+                            setProp={setProp}
+                          />
+                        ),
+                      },
+                    ]}
+                    defaultOpenSection="color"
+                  />
+                </Grid>
+
+                <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
+                  <ColorControl
+                    name={"Cor do texto"}
+                    onChange={(e, value) => {
+                      setProp((props) => (props.hoverButtonColor = value));
+                    }}
+                    defaultValue={props.hoverButtonColor}
+                    value={props.hoverButtonColor}
+                  />
+
+                  <CustomCollapse
+                    text="Tipo de plano de fundo"
+                    row
+                    options={[
+                      {
+                        value: "color",
+                        tooltip: "Clássico",
+                        icon: <Brush />,
+                        content: (
+                          <ColorControl
+                            name={"Cor"}
+                            onChange={(e, value) => {
+                              setProp(
+                                (props) => (props.backgroundImage = "none")
+                              );
+                              setProp(
+                                (props) =>
+                                  (props.hoverButtonBackgroundColor = value)
+                              );
+                            }}
+                            defaultValue={props.hoverButtonBackgroundColor}
+                            value={props.hoverButtonBackgroundColor}
+                          />
+                        ),
+                      },
+                      {
+                        value: "gradient",
+                        tooltip: "Gradiente",
+                        icon: <Gradient />,
+                        content: (
+                          <CustomTypeColorGradient
+                            props={props}
+                            setProp={setProp}
+                          />
+                        ),
+                      },
+                    ]}
+                    defaultOpenSection="color"
+                  />
+
+                  <ColorControl
+                    name={"Cor da borda"}
+                    onChange={(e, value) => {
+                      setProp(
+                        (props) => (props.hoverButtonBorderColor = value)
+                      );
+                    }}
+                    defaultValue={props.hoverButtonBorderColor}
+                    value={props.hoverButtonBorderColor}
+                  />
+
+                  <CustomSlider
+                    text="Duração da transição"
+                    value={props.transitionDuration}
+                    onChange={(e, value) =>
+                      setProp((props) => (props.transitionDuration = value))
+                    }
+                    min={0}
+                    max={3}
+                    step={0.1}
+                    disableUnits
+                    disableDeviceView
+                    tooltipText={"Escolha o tempo da transição"}
+                  />
+
+                  <CustomSwitch
+                    text={"Habilitar hover"}
+                    value={props.hasBackgroundHover}
+                    onChange={(e) =>
+                      setProp((props) => (props.hasBackgroundHover = e))
+                    }
+                    checkedText={"Sim"}
+                    uncheckedText={"Não"}
+                  />
+                </Grid>
+              </TabOptions>
+
+              {/* <ColorControl
                 name={"Cor do texto"}
                 value={props.buttonColor}
                 defaultValue={props.buttonColor}
@@ -365,9 +515,7 @@ export const FormSettings = () => {
                 onChange={(e, value) => {
                   setProp((props) => (props.buttonBackgroundColor = value));
                 }}
-              />
-
-              <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
+              /> */}
 
               <CustomLinkedValues
                 text="Raio da borda"

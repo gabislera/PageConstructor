@@ -25,6 +25,7 @@ export const Form = ({
   right,
   bottom,
   zIndex,
+
   mobileMarginTop,
   mobileMarginRight,
   mobileMarginLeft,
@@ -43,12 +44,13 @@ export const Form = ({
   mobileZIndex,
   mobileButtonAlign,
   mobileButtonMaxWidth,
+
   pulse,
-  showLabel,
-  showRequiredIcon,
+
   formName,
   columnGap,
   rowGap,
+
   labelSpacing,
   labelColor,
   labelFontFamily,
@@ -60,6 +62,7 @@ export const Form = ({
   labelLineHeight,
   labelLetterSpacing,
   labelWordSpacing,
+
   inputColor,
   inputFontFamily,
   inputFontSize,
@@ -80,6 +83,8 @@ export const Form = ({
   inputBorderBottomRightRadius,
   inputBorderBottomLeftRadius,
   inputBorderColor,
+
+  buttonText,
   buttonColor,
   buttonBackgroundColor,
   buttonFontFamily,
@@ -95,10 +100,21 @@ export const Form = ({
   buttonBorderTopRightRadius,
   buttonBorderBottomRightRadius,
   buttonBorderBottomLeftRadius,
+  buttonBorderColor,
+
+  hoverButtonBackgroundColor,
+  hoverButtonColor,
+  hoverButtonBorderColor,
+  transitionDuration,
+
+  showLabel,
+  showRequiredIcon,
+  hasBackgroundHover,
 }) => {
   const {
     connectors: { connect, drag },
     actions: { setProp },
+    id,
   } = useNode();
   const { deviceView } = useResponsiveMode();
   const code = "BR";
@@ -175,6 +191,17 @@ export const Form = ({
       props.items[index].value = formattedValue;
     });
   };
+
+  const hoverBackgroundStyles = hasBackgroundHover
+    ? ` .button-hover-${id}:hover {
+    background-color: ${hoverButtonBackgroundColor} !important;
+    color: ${hoverButtonColor} !important;
+    // border-color: ${hoverButtonBorderColor} !important;
+    border: 1px solid ${hoverButtonBorderColor} !important;
+  }`
+    : "";
+
+  console.log(buttonBorderColor, hoverButtonBorderColor);
 
   return (
     <form
@@ -291,6 +318,7 @@ export const Form = ({
         }}
       >
         <button
+          className={`button-hover-${id}`}
           style={{
             ...buttonSizes,
             width: "100%",
@@ -309,6 +337,8 @@ export const Form = ({
             borderTopRightRadius: buttonBorderTopRightRadius,
             borderBottomRightRadius: buttonBorderBottomRightRadius,
             borderBottomLeftRadius: buttonBorderBottomLeftRadius,
+            border: `1px solid ${buttonBorderColor}`,
+            transition: `all ${transitionDuration}s ease-in-out`,
             border: "none",
             maxWidth:
               deviceView === "mobile"
@@ -317,8 +347,9 @@ export const Form = ({
           }}
           onClick={(e) => e.preventDefault()}
         >
-          Submit
+          {buttonText}
         </button>
+        <style>{hoverBackgroundStyles}</style>
       </div>
     </form>
   );
