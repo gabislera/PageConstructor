@@ -26,6 +26,7 @@ import {
   TabOptions,
   CustomCheckbox,
   CustomCollapse,
+  CustomSwitch,
 } from "../../_Control";
 
 export const ImageSettings = () => {
@@ -250,7 +251,7 @@ export const ImageSettings = () => {
           <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
 
           <TabOptions>
-            <Grid item mt={2}>
+            <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
               <CustomSlider
                 text="Opacidade"
                 value={props.opacity}
@@ -266,7 +267,7 @@ export const ImageSettings = () => {
               />
             </Grid>
 
-            <Grid item mt={2}>
+            <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
               <CustomSlider
                 text="Opacidade"
                 value={props.hoverOpacity}
@@ -293,6 +294,16 @@ export const ImageSettings = () => {
                 disableUnits
                 disableDeviceView
                 tooltipText={"Escolha o tempo da transição"}
+              />
+
+              <CustomSwitch
+                text={"Habilitar hover"}
+                value={props.hasOpacityHover}
+                onChange={(e) =>
+                  setProp((props) => (props.hasOpacityHover = e))
+                }
+                checkedText={"Sim"}
+                uncheckedText={"Não"}
               />
             </Grid>
           </TabOptions>

@@ -375,7 +375,6 @@ export const ContainerSettings = () => {
                       value: "backgroundImage",
                       tooltip: "Gradiente",
                       icon: <Gradient />,
-
                       content: (
                         <CustomTypeColorGradient
                           props={props}

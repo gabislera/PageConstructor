@@ -62,7 +62,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px 10px;
+  padding: 0px 8px;
   background: ${(props) => (props.selected ? "#625CF3" : "transparent")};
   border-radius: 4px;
   color: ${(props) => (props.selected ? "#fff" : "inherit")};
@@ -77,6 +77,8 @@ const StyledDiv = styled.div`
       flex: 1;
       display: flex;
       align-items: center;
+      margin-left: ${(props) => props.depth * 10}px;
+
       div.layer-name {
         flex: 1;
         h2 {
@@ -103,7 +105,7 @@ const Expand = styled.a`
 const Hide = styled.a`
   width: 14px;
   height: 20px;
-  margin-right: 10px;
+  // margin-right: 10px;
   position: relative;
   transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
   cursor: pointer;
@@ -112,7 +114,7 @@ const Hide = styled.a`
     width: 100%;
     height: 100%;
     object-fit: contain;
-    opacity: ${(props) => (props.isHidden ? 0.2 : 1)}; 
+    opacity: ${(props) => (props.isHidden ? 0.2 : 1)};
   }
   &:after {
     content: " ";
@@ -125,7 +127,7 @@ const Hide = styled.a`
     transform: rotate(-45deg);
     transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     transform-origin: 0% 0%;
-    opacity: ${(props) => (props.isHidden ? 0.4 : 1)}; 
+    opacity: ${(props) => (props.isHidden ? 0.4 : 1)};
   }
 `;
 
@@ -169,29 +171,29 @@ export const DefaultLayerHeader = () => {
 
   return (
     <StyledDiv selected={selected} ref={drag} depth={depth}>
-      <Hide
-        selected={selected}
-        isHidden={hidden}
-        onClick={() => actions.setHidden(id, !hidden)}
-      >
-        <Visibility />
-      </Hide>
+      {children && children.length ? (
+        <Expand expanded={expanded} onMouseDown={() => toggleLayer()}>
+          <KeyboardArrowDown />
+        </Expand>
+      ) : null}
       <div className="inner">
         <div ref={layerHeader}>
+          <LayerIconWrapper>{getElementIcon(nodeType)}</LayerIconWrapper>
+          <div className="layer-name s">
+            <EditableLayerName />
+          </div>
           {topLevel ? (
             <TopLevelIndicator>
               <Link />
             </TopLevelIndicator>
           ) : null}
-          <LayerIconWrapper>{getElementIcon(nodeType)}</LayerIconWrapper>
-          <div className="layer-name s">
-            <EditableLayerName />
-          </div>
-          {children && children.length ? (
-            <Expand expanded={expanded} onMouseDown={() => toggleLayer()}>
-              <KeyboardArrowDown />
-            </Expand>
-          ) : null}
+          <Hide
+            selected={selected}
+            isHidden={hidden}
+            onClick={() => actions.setHidden(id, !hidden)}
+          >
+            <Visibility />
+          </Hide>
         </div>
       </div>
     </StyledDiv>

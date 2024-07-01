@@ -6,7 +6,7 @@ Button.craft = {
   props: {
     //props botão
     text: "Clique aqui",
-    className: "icon-button",
+    // className: "icon-button",
     pulse: "false",
     cursor: "pointer",
     type: "button",

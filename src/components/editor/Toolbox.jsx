@@ -31,7 +31,7 @@ import {
   FormatAlignLeft,
   Insights,
   Contacts,
-  AccessTime
+  AccessTime,
 } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { CustomAccordion } from "../_Control";
@@ -166,6 +166,7 @@ export const CustomAccordionSummary = styled(AccordionSummary)`
   min-height: 48px;
   font-size: 14px;
   font-weight: 700;
+  color: #fff;
   padding: 0;
 
   & .MuiAccordionSummary-content {
