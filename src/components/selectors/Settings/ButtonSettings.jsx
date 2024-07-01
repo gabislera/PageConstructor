@@ -7,6 +7,8 @@ import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Button from "../../selectors/CraftedComponents/Button";
+
 import {
   CustomSelect,
   CustomTextInput,
@@ -15,7 +17,7 @@ import {
   ColorControl,
   CustomLinkedValues,
   CustomCheckbox,
-  CustomBoxShadowModal,
+  CustomBoxShadow,
   CustomTypography,
   CustomSwitch,
   TabOptions,
@@ -229,16 +231,22 @@ export const ButtonSettings = () => {
               step={1}
             />
 
-            <CustomTypography props={props} setProp={setProp} />
+            <CustomTypography
+              props={props}
+              setProp={setProp}
+              valueReset={Button}
+            />
 
-            <CustomBoxShadowModal
+            <CustomBoxShadow
               title={"Sombra do texto"}
               props={props}
               setProp={setProp}
               type="text"
+              custom={"TextShadow"}
+              valueReset={Button}
             />
 
-            <TabOptions >
+            <TabOptions>
               <Grid item mt={2} display="flex" flexDirection="column" gap={2}>
                 <ColorControl
                   name={"Cor do texto"}
@@ -256,14 +264,14 @@ export const ButtonSettings = () => {
                     {
                       value: "color",
                       tooltip: "Clássico",
-                      icon: (
-                        <Brush />
-                      ),
+                      icon: <Brush />,
                       content: (
                         <ColorControl
                           name={"Cor"}
                           onChange={(e, value) => {
-                            setProp((props) => (props.backgroundImage = "none"));
+                            setProp(
+                              (props) => (props.backgroundImage = "none")
+                            );
                             setProp((props) => (props.backgroundColor = value));
                           }}
                           defaultValue={props.backgroundColor}
@@ -274,11 +282,12 @@ export const ButtonSettings = () => {
                     {
                       value: "gradient",
                       tooltip: "Gradiente",
-                      icon: (
-                        <Gradient />
-                      ),
+                      icon: <Gradient />,
                       content: (
-                        <CustomTypeColorGradient props={props} setProp={setProp} />
+                        <CustomTypeColorGradient
+                          props={props}
+                          setProp={setProp}
+                        />
                       ),
                     },
                   ]}
@@ -303,15 +312,17 @@ export const ButtonSettings = () => {
                     {
                       value: "color",
                       tooltip: "Clássico",
-                      icon: (
-                        <Brush />
-                      ),
+                      icon: <Brush />,
                       content: (
                         <ColorControl
                           name={"Cor"}
                           onChange={(e, value) => {
-                            setProp((props) => (props.backgroundImage = "none"));
-                            setProp((props) => (props.hoverBackgroundColor = value));
+                            setProp(
+                              (props) => (props.backgroundImage = "none")
+                            );
+                            setProp(
+                              (props) => (props.hoverBackgroundColor = value)
+                            );
                           }}
                           defaultValue={props.hoverBackgroundColor}
                           value={props.hoverBackgroundColor}
@@ -321,11 +332,12 @@ export const ButtonSettings = () => {
                     {
                       value: "gradient",
                       tooltip: "Gradiente",
-                      icon: (
-                        <Gradient />
-                      ),
+                      icon: <Gradient />,
                       content: (
-                        <CustomTypeColorGradient props={props} setProp={setProp} />
+                        <CustomTypeColorGradient
+                          props={props}
+                          setProp={setProp}
+                        />
                       ),
                     },
                   ]}
@@ -345,10 +357,7 @@ export const ButtonSettings = () => {
                   text="Duração da transição"
                   value={props.transitionDuration}
                   onChange={(e, value) =>
-                    setProp(
-                      (props) =>
-                        (props.transitionDuration = value)
-                    )
+                    setProp((props) => (props.transitionDuration = value))
                   }
                   min={0}
                   max={3}
@@ -361,11 +370,12 @@ export const ButtonSettings = () => {
                 <CustomSwitch
                   text={"Habilitar hover"}
                   value={props.hasBackgroundHover}
-                  onChange={(e) => setProp((props) => (props.hasBackgroundHover = e))}
+                  onChange={(e) =>
+                    setProp((props) => (props.hasBackgroundHover = e))
+                  }
                   checkedText={"Sim"}
                   uncheckedText={"Não"}
                 />
-
               </Grid>
             </TabOptions>
 
@@ -417,10 +427,12 @@ export const ButtonSettings = () => {
                 { value: "borderBottomLeftRadius", label: "Esquerda" },
               ]}
             />
-            <CustomBoxShadowModal
+            <CustomBoxShadow
               title={"Sombra da caixa"}
               props={props}
               setProp={setProp}
+              valueReset={Button}
+              type={"button"}
             />
             <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
             <CustomLinkedValues

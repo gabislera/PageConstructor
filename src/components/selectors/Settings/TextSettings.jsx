@@ -13,11 +13,13 @@ import {
 } from "@mui/icons-material";
 import { TabPannel } from "../TabPannel";
 import { a11yProps } from "../../../utils/a11yProps";
+import Text from "../../selectors/CraftedComponents/Text";
+
 import {
   CustomButtonGroup,
   ColorControl,
   CustomTypography,
-  CustomBoxShadowModal,
+  CustomBoxShadow,
 } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
 import RichTextEditor from "../../RichTextEditor";
@@ -138,11 +140,13 @@ export const TextSettings = () => {
             defaultValue={props.color}
             value={props.color}
           />
-          <CustomTypography props={props} setProp={setProp} />
-          <CustomBoxShadowModal
+          <CustomTypography props={props} setProp={setProp} valueReset={Text} />
+          <CustomBoxShadow
             title={"Sombra do texto"}
             props={props}
             setProp={setProp}
+            valueReset={Text}
+            custom={"TextShadow"}
             type="text"
           />
         </Grid>

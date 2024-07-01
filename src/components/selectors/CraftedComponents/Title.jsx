@@ -15,7 +15,6 @@ Title.craft = {
     fontSize: "30px",
     fontFamily: "sans-serif",
     additional_css: "",
-
     marginTop: "0px",
     marginRight: "0px",
     marginLeft: "0px",
@@ -30,7 +29,7 @@ Title.craft = {
     hoverBackgroundColor: "#5D58E8",
     textTransform: "none",
     fontStyle: "normal",
-    textDecoration: "normal",
+    textDecoration: "none",
     letterSpacing: "0",
     wordSpacing: "0",
     alignSelf: "initial",
@@ -41,7 +40,8 @@ Title.craft = {
     right: "0",
     bottom: "0",
     zIndex: "0",
-
+    mobileFontFamily: "sans-serif",
+    mobileTextTransform: "none",
     mobileTextAlign: "left",
     mobileLineHeight: "1.5",
     mobileFontWeight: "400",
@@ -55,7 +55,7 @@ Title.craft = {
     mobilePaddingLeft: "0px",
     mobilePaddingBottom: "0px",
     mobileFontStyle: "normal",
-    mobileTextDecoration: "normal",
+    mobileTextDecoration: "none",
     mobileLetterSpacing: "0",
     mobileWordSpacing: "0",
     mobileAlignSelf: "initial",
@@ -67,9 +67,16 @@ Title.craft = {
     mobileBottom: "0",
     mobileZIndex: "0",
     pulse: "false",
-    textShadow: "none",
+
     hidden: false,
     mobileHidden: false,
+
+    //box-shadow-text
+    titleHorizontal: 0,
+    titleVertical: 0,
+    titleBlur: 0,
+    titleColor: "#5D58E8",
+    titleHasBoxShadow: false,
   },
   related: {
     settings: TitleSettings,

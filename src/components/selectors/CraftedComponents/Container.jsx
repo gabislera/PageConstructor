@@ -100,6 +100,24 @@ Container.craft = {
     pulse: false,
     hasBackgroundHover: false,
     hasBorderHover: false,
+
+    //gradiente
+    typeColor: "linear",
+    colorOne: "#A6AFDE",
+    localizationOne: 24,
+    colorTwo: "#5D58E8",
+    localizationTwo: 59,
+    angle: 149,
+    positionGradient: "center center",
+
+    //box-shadow
+    horizontal: 26,
+    vertical: 4,
+    blur: 64,
+    spread: 20,
+    color: "#5D58E8",
+    inset: false,
+    hasBoxShadow: false,
   },
   rules: {
     canDrag: () => true,

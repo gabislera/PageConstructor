@@ -38,7 +38,6 @@ export const Title = ({
   right,
   bottom,
   zIndex,
-  textShadow,
   mobileTextAlign,
   mobileLineHeight,
   mobileFontWeight,
@@ -67,11 +66,20 @@ export const Title = ({
   hidden,
   mobileHidden,
 
+  titleHorizontal,
+  titleVertical,
+  titleBlur,
+  titleColor,
+  titleHasBoxShadow,
+
+  mobileFontFamily,
+  mobileTextTransform,
   ...props
 }) => {
   const {
     connectors: { connect, drag },
     selected,
+    id,
     actions: { setProp },
   } = useNode((state) => ({
     selected: state.events.selected,
@@ -92,6 +100,8 @@ export const Title = ({
     if (deviceView === "mobile") {
       return {
         textAlign: mobileTextAlign,
+        fontFamily: mobileFontFamily,
+        textTransform: mobileTextTransform,
         lineHeight: mobileLineHeight,
         fontWeight: mobileFontWeight,
         fontSize: mobileFontSize,
@@ -115,7 +125,6 @@ export const Title = ({
         right: mobileRight,
         bottom: mobileBottom,
         zIndex: mobileZIndex,
-        textShadow,
       };
     }
 
@@ -138,13 +147,14 @@ export const Title = ({
       wordSpacing,
       alignSelf,
       order,
+      fontFamily,
       // position,
       top,
       left,
       right,
       bottom,
-      textShadow,
       zIndex,
+      textTransform,
     };
   };
 
@@ -180,9 +190,15 @@ export const Title = ({
 
   // TODO: url is not working, need to make it work with api-main
 
+  const boxShadowTextStyles = titleHasBoxShadow
+    ? ` .title-box-shadow-text-${id} {
+      text-shadow: ${titleHorizontal}px ${titleVertical}px ${titleBlur}px ${titleColor} !important;
+}`
+    : "";
+
   return (
     <div
-      className={`${hiddenElement && "hidden"} ${
+      className={`title-box-shadow-text-${id} ${hiddenElement && "hidden"} ${
         pulse === "true" && "pulse-button"
       }`}
       style={{
@@ -240,7 +256,8 @@ export const Title = ({
             width,
           }}
         />
-      )} */}
+      )} */}{" "}
+      <style>{boxShadowTextStyles}</style>
     </div>
   );
 };

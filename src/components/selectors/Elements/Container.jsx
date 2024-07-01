@@ -95,6 +95,13 @@ export const Container = ({
   pulse,
   hasBackgroundHover,
   hasBorderHover,
+  hasBoxShadow,
+  horizontal,
+  vertical,
+  spread,
+  color,
+  inset,
+  blur,
 }) => {
   const {
     connectors: { connect, drag },
@@ -129,7 +136,7 @@ export const Container = ({
         order: mobileOrder,
         flexShrink: mobileFlexShrink,
         flexGrow: mobileFlexGrow,
-        boxShadow,
+
         // position: mobilePosition,
         // top: mobileTop,
         // left: mobileLeft,
@@ -160,7 +167,7 @@ export const Container = ({
       order,
       flexShrink,
       flexGrow,
-      boxShadow,
+
       // position,
       // top,
       // left,
@@ -175,16 +182,6 @@ export const Container = ({
       return mobileHidden;
     }
     return hidden;
-  };
-
-  const getBackgroundColor = () => {
-    const value = backgroundImage?.split(":")[1];
-
-    if (value === "http") {
-      return `url(${backgroundImage})`;
-    } else {
-      return backgroundImage;
-    }
   };
 
   const hiddenElement = getVisibility();
@@ -244,12 +241,21 @@ export const Container = ({
       }`
     : "";
 
+  const boxShadowStyles = hasBoxShadow
+    ? ` .container-box-shadow-${id} {
+  box-shadow: ${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${
+        inset ? " inset" : ""
+      } !important;
+}`
+    : "";
+
   const ContainerElement = (
     <>
       <ContainerTag
         ref={(ref) => connect(drag(ref))}
-        className={`container-hover-${id} ${hiddenElement && "hidden"} ${pulse === "true" && "pulse-button"
-          }`}
+        className={`container-hover-${id} container-box-shadow-${id} ${
+          hiddenElement && "hidden"
+        } ${pulse === "true" && "pulse-button"}`}
         style={{
           ...responsiveProps,
           maxWidth,
@@ -268,8 +274,7 @@ export const Container = ({
           borderBottomLeftRadius,
           transition: `background-color ${backgroundcolorTransitionDuration}s ease-in-out, border ${borderTransitionDuration}s ease-in-out`,
 
-
-          backgroundImage: getBackgroundColor(),
+          backgroundImage: backgroundImage,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -279,7 +284,9 @@ export const Container = ({
           ? EmptyContainer
           : children}
       </ContainerTag>
-      <style>{hoverBackgroundStyles} {hoverBorderStyles}</style>
+      <style>
+        {hoverBackgroundStyles} {hoverBorderStyles} {boxShadowStyles}
+      </style>
     </>
   );
 

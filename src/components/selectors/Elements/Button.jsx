@@ -104,7 +104,6 @@ export const Button = ({
   animation,
   mobileLetterSpacing,
   mobileWordSpacing,
-  textShadow,
   hoverBackgroundColor,
   hoverColor,
   hoverBorderColor,
@@ -113,10 +112,24 @@ export const Button = ({
   mobileHidden,
   hasBackgroundHover,
   transitionDuration,
+
+  buttonHorizontal,
+  buttonVertical,
+  buttonBlur,
+  buttonSpread,
+  buttonColor,
+  buttonInset,
+  buttonHasBoxShadow,
+
+  textHorizontal,
+  textVertical,
+  textBlur,
+  textColor,
+  textHasBoxShadow,
 }) => {
   const {
     connectors: { connect, drag },
-    id
+    id,
   } = useNode();
   const { deviceView } = useResponsiveMode();
   const getResponsiveProps = () => {
@@ -184,7 +197,6 @@ export const Button = ({
         textDecoration,
         backgroundColor,
         backgroundImage,
-        textShadow,
       };
     }
 
@@ -246,9 +258,6 @@ export const Button = ({
       backgroundColor,
       maxWidth,
       backgroundImage,
-      textShadow,
-
-
     };
   };
 
@@ -270,13 +279,28 @@ export const Button = ({
     }`
     : "";
 
+  const boxShadowStyles = buttonHasBoxShadow
+    ? ` .button-box-shadow-${id} {
+  box-shadow: ${buttonHorizontal}px ${buttonVertical}px ${buttonBlur}px ${buttonSpread}px ${buttonColor} ${
+        buttonInset === "inset" ? "inset" : ""
+      } !important;
+}`
+    : "";
+
+  const boxShadowTextStyles = textHasBoxShadow
+    ? ` .text-box-shadow-text-${id} {
+      text-shadow: ${textHorizontal}px ${textVertical}px ${textBlur}px ${textColor} !important;
+}`
+    : "";
+
   return (
     <>
       <button
         type={type}
         ref={(ref) => connect(drag(ref))}
-        className={`button-hover-${id} ${className} ${hiddenElement && "hidden"} ${pulse === "true" && "pulse-button"
-          }`}
+        className={`button-hover-${id} button-box-shadow-${id} text-box-shadow-text-${id} ${className} ${
+          hiddenElement && "hidden"
+        } ${pulse === "true" && "pulse-button"}`}
         data-delay={delay}
         style={{
           transition: `all ${transitionDuration}s ease-in-out`,
@@ -287,8 +311,9 @@ export const Button = ({
       >
         <span>{text}</span>
       </button>
-      <style>{hoverBackgroundStyles}</style>
+      <style>
+        {hoverBackgroundStyles} {boxShadowStyles} {boxShadowTextStyles}
+      </style>
     </>
-
   );
 };

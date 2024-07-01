@@ -15,7 +15,7 @@ import {
   CustomSwitch,
   CustomTextInput,
   CustomTypography,
-  CustomBoxShadowModal,
+  CustomBoxShadow,
 } from "../../_Control";
 
 export const ProgressBarSettings = () => {
@@ -227,7 +227,7 @@ export const ProgressBarSettings = () => {
                 setProp={setProp}
                 type={"title"}
               />
-              <CustomBoxShadowModal
+              <CustomBoxShadow
                 title={"Sombra do texto"}
                 props={props}
                 setProp={setProp}

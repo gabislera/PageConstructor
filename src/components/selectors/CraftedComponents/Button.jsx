@@ -107,8 +107,6 @@ Button.craft = {
     left: "0",
     right: "0",
     bottom: "0",
-    typeColor: "linear",
-    textShadow: "none",
 
     hoverBackgroundColor: "#615cf3cc",
     hoverColor: "#fff",
@@ -118,6 +116,30 @@ Button.craft = {
     hidden: false,
     mobileHidden: false,
     hasBackgroundHover: false,
+
+    //gradiente
+    typeColor: "linear",
+    colorOne: "#A6AFDE",
+    localizationOne: 24,
+    colorTwo: "#5D58E8",
+    localizationTwo: 59,
+    angle: 149,
+    positionGradient: "center center",
+
+    textHorizontal: 0,
+    textVertical: 0,
+    textBlur: 0,
+    textColor: "#5D58E8",
+    textHasBoxShadow: false,
+
+    //box-shadow
+    buttonHorizontal: 26,
+    buttonVertical: 4,
+    buttonBlur: 64,
+    buttonSpread: 20,
+    buttonColor: "#5D58E8",
+    buttonInset: false,
+    buttonHasBoxShadow: false,
   },
   related: {
     settings: ButtonSettings,

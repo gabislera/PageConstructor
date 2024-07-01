@@ -21,7 +21,7 @@ import {
   CustomTextInput,
   ColorControl,
   CustomTypography,
-  CustomBoxShadowModal,
+  CustomBoxShadow,
   CustomCollapse,
 } from "../../_Control";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -235,12 +235,13 @@ export const TitleSettings = () => {
             setProp={setProp}
             valueReset={Title}
           />
-          <CustomBoxShadowModal
+          <CustomBoxShadow
             title={"Sombra do texto"}
             props={props}
             setProp={setProp}
             valueReset={Title}
-            type="text"
+            type="title"
+            custom={"TextShadow"}
           />
         </Grid>
       </TabPannel>

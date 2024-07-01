@@ -37,7 +37,8 @@ export const Text = ({
   right,
   bottom,
   zIndex,
-  textShadow,
+  mobileTextTransform,
+  mobileFontFamily,
   mobileTextAlign,
   mobileLineHeight,
   mobileFontWeight,
@@ -67,10 +68,17 @@ export const Text = ({
   hidden,
   mobileHidden,
 
+  textHorizontal,
+  textVertical,
+  textBlur,
+  textColor,
+  textHasBoxShadow,
+
   ...props
 }) => {
   const {
     connectors: { connect, drag },
+    id,
   } = useNode((state) => ({
     selected: state.events.selected,
     dragged: state.events.dragged,
@@ -81,6 +89,8 @@ export const Text = ({
   const getResponsiveProps = () => {
     if (deviceView === "mobile") {
       return {
+        textTransform: mobileTextTransform,
+        fontFamily: mobileFontFamily,
         textAlign: mobileTextAlign,
         lineHeight: mobileLineHeight,
         fontWeight: mobileFontWeight,
@@ -105,11 +115,11 @@ export const Text = ({
         right: mobileRight,
         bottom: mobileBottom,
         zIndex: mobileZIndex,
-        textShadow,
       };
     }
 
     return {
+      fontFamily,
       textAlign,
       lineHeight,
       fontWeight,
@@ -134,17 +144,23 @@ export const Text = ({
       right,
       bottom,
       zIndex,
-      textShadow,
+      textTransform,
     };
   };
 
   const hiddenElement = deviceView === "mobile" ? mobileHidden : hidden;
   const responsiveProps = getResponsiveProps();
+  const boxShadowTextStyles = textHasBoxShadow
+    ? ` .text-box-shadow-text-${id} {
+      text-shadow: ${textHorizontal}px ${textVertical}px ${textBlur}px ${textColor} !important;
+}`
+    : "";
 
   return (
     <div
-      className={`${hiddenElement && "hidden"} ${pulse === "true" && "pulse-button"
-        }`}
+      className={`text-box-shadow-text-${id} ${hiddenElement && "hidden"} ${
+        pulse === "true" && "pulse-button"
+      }`}
       style={{
         ...responsiveProps,
         display: "inherit",
@@ -162,6 +178,7 @@ export const Text = ({
           ...responsiveProps,
         }}
       />
+      <style>{boxShadowTextStyles}</style>
     </div>
   );
 };

@@ -95,11 +95,11 @@ export const CustomTypography = ({
   const handleMobileChange = (propName, value) => {
     setProp(
       (props) =>
-      (props[
-        getPropName(
-          `mobile${propName.charAt(0).toUpperCase() + propName.slice(1)}`
-        )
-      ] = value)
+        (props[
+          getPropName(
+            `mobile${propName.charAt(0).toUpperCase() + propName.slice(1)}`
+          )
+        ] = value)
     );
   };
 
@@ -147,8 +147,12 @@ export const CustomTypography = ({
           horizontal: -300,
         }}
       >
-        <ButtonAssistant resetValues={resetValues} handleClose={handleClose} />
         <Box display="flex" flexDirection="column" gap={2}>
+          <ButtonAssistant
+            title="Tipografia"
+            resetValues={resetValues}
+            handleClose={handleClose}
+          />
           <CustomSelect
             text="Família da fonte"
             value={props[getPropName("fontFamily")]}
@@ -181,7 +185,6 @@ export const CustomTypography = ({
               { value: "700", label: "700" },
             ]}
           />
-
           <CustomSelect
             text="Transformar"
             value={props[getPropName("textTransform")]}
@@ -196,7 +199,6 @@ export const CustomTypography = ({
             ]}
             tooltipText={"Escolha a transformação do texto"}
           />
-
           <CustomSelect
             text="Estilo"
             value={props[getPropName("fontStyle")]}
@@ -207,7 +209,6 @@ export const CustomTypography = ({
             ]}
             tooltipText={"Escolha o estilo da fonte"}
           />
-
           <CustomSelect
             text="Decoração"
             value={props[getPropName("textDecoration")]}
@@ -222,7 +223,6 @@ export const CustomTypography = ({
             ]}
             tooltipText={"Escolha a decoração do texto"}
           />
-
           <CustomSlider
             text={"Altura da linha"}
             value={props[getPropName("lineHeight")]}
@@ -238,7 +238,6 @@ export const CustomTypography = ({
             disableUnits
             tooltipText={"Escolha a altura da linha"}
           />
-
           <CustomSlider
             text={"Espaçamento das letras"}
             value={props[getPropName("letterSpacing")]}
@@ -251,7 +250,6 @@ export const CustomTypography = ({
             disableDeviceView={disableDeviceView}
             tooltipText={"Escolha a espaçamento das letras"}
           />
-
           <CustomSlider
             text={"Espaçamento das palavras"}
             value={props[getPropName("wordSpacing")]}
@@ -266,15 +264,17 @@ export const CustomTypography = ({
   );
 };
 
-export const CustomBoxShadowModal = ({
-  title,
+export const CustomBoxShadow = ({
+  type,
   props,
   setProp,
-  type,
   valueReset,
-  typeValue,
+  custom,
+  title,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const classes = useStyles();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -286,72 +286,23 @@ export const CustomBoxShadowModal = ({
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const initialBoxShadow = {
-    horizontal: 0,
-    vertical: 0,
-    blur: 0,
-    spread: 0,
-    color: "rgba(0, 0, 0, 0.5)",
-    inset: false,
-  };
-  //
-  const initialTextShadow = {
-    horizontal: 0,
-    vertical: 0,
-    blur: 0,
-    color: "rgba(0, 0, 0, 0.5)",
-  };
-
-  const [shadow, setShadow] = useState(
-    type === "text" ? initialTextShadow : initialBoxShadow
-  );
-  const classes = useStyles();
-
-  const handleColorChange = (color) => {
-    setShadow({
-      ...shadow,
-      color: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`,
-    });
-  };
-
-  const handleSliderChange = (prop) => (event, newValue) => {
-    setShadow({ ...shadow, [prop]: newValue });
-  };
-
-  const toggleInset = () => {
-    setShadow({ ...shadow, inset: !shadow.inset });
-  };
-
-  useEffect(() => {
-    if (type === "text") {
-      const { horizontal, vertical, blur, color } = shadow;
-      const textShadowString = `${horizontal}px ${vertical}px ${blur}px ${color}`;
-      setProp((props) => (props.textShadow = textShadowString));
-    } else {
-      const { horizontal, vertical, blur, spread, color, inset } = shadow;
-      const boxShadowString = `${horizontal}px ${vertical}px ${blur}px ${spread}px ${color}${inset ? " inset" : ""
-        }`;
-
-      setProp((props) => (props.boxShadow = boxShadowString));
+  const getPropName = (name) => {
+    if (!type) {
+      return name;
     }
-  }, [shadow, props, setProp, type]);
+
+    return `${type}${name.charAt(0).toUpperCase() + name.slice(1)}`;
+  };
+
+  const handleDesktopChange = (propName, value) => {
+    setProp((props) => (props[getPropName(propName)] = value));
+  };
 
   const resetValues = () => {
-    setShadow(() => {
-      return type === "text" ? initialTextShadow : initialBoxShadow;
-    });
     setProp((props) => {
       Object.assign(props, valueReset.craft.props);
     });
   };
-
-  // const getPropName = (name) => {
-  //   if (!typeValue) {
-  //     return name;
-  //   }
-
-  //   return `${typeValue}${name.charAt(0).toUpperCase() + name.slice(1)}`;
-  // };
 
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between">
@@ -360,8 +311,8 @@ export const CustomBoxShadowModal = ({
       </Typography>
 
       <IconButton
-        onClick={handleClick}
         className={classes.border}
+        onClick={handleClick}
         sx={{
           padding: 0.2,
           backgroundColor: anchorEl !== null ? "#3f444b" : "",
@@ -375,13 +326,8 @@ export const CustomBoxShadowModal = ({
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
         PaperProps={{
           sx: {
-            zIndex: 2,
             p: 2,
             width: "272px",
             backgroundColor: "#27272a",
@@ -396,13 +342,24 @@ export const CustomBoxShadowModal = ({
           horizontal: -300,
         }}
       >
-        <ButtonAssistant resetValues={resetValues} handleClose={handleClose} />
-        <Box display="flex" flexDirection="column" gap={1}>
+        <ButtonAssistant
+          resetValues={resetValues}
+          handleClose={handleClose}
+          title={title}
+        />
+        <Box display="flex" flexDirection="column" gap={2} paddingTop={1}>
+          <CustomSwitch
+            text={"Habilitar sombra"}
+            value={props[getPropName("hasBoxShadow")]}
+            onChange={(value) => handleDesktopChange("hasBoxShadow", value)}
+            checkedText={"Sim"}
+            uncheckedText={"Não"}
+          />
           <ColorControl
             name={"Cor da sombra"}
-            onChange={handleColorChange}
-            defaultValue={shadow?.color}
-            value={shadow.color}
+            onChange={(e, value) => handleDesktopChange("color", value)}
+            value={props[getPropName("color")]}
+            defaultValue={props[getPropName("color")]}
             popertation={true}
           />
 
@@ -410,25 +367,30 @@ export const CustomBoxShadowModal = ({
             "horizontal",
             "vertical",
             "blur",
-            ...(type !== "text" ? ["spread"] : []),
+            ...(custom !== "TextShadow" ? ["spread"] : []),
           ].map((prop, index) => (
             <CustomSlider
               key={index}
               disableUnits
               disableDeviceView
               text={prop.charAt(0).toUpperCase() + prop.slice(1)}
-              value={shadow[prop]}
-              onChange={handleSliderChange(prop)}
+              value={props[getPropName(prop)]}
+              onChange={(e, value) => handleDesktopChange(prop, value)}
               min={prop === "blur" ? 0 : prop === "spread" ? -50 : -100}
               max={prop === "blur" ? 100 : prop === "spread" ? 50 : 100}
               step={1}
             />
           ))}
-          {type !== "text" && (
+          {custom !== "TextShadow" && (
             <CustomSelect
               text={"Posição"}
-              value={shadow?.inset ? "inset" : ""}
-              onChange={toggleInset}
+              value={props[getPropName("inset")]}
+              onChange={(value) => {
+                setProp(
+                  (props) => (props[getPropName("inset")] = value.target.value)
+                );
+                console.log(" value.target.value", value.target.value);
+              }}
               options={[
                 { value: "false", label: "Contorno" },
                 { value: "inset", label: "Interno" },
@@ -1174,13 +1136,13 @@ export const CustomLinkedValues = ({
               type="number"
               value={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
               placeholder={
                 parseFloat(localValues[option.value]) ||
-                  localValues[option.value] === 0
+                localValues[option.value] === 0
                   ? parseFloat(localValues[option.value])
                   : localValues[option.value]
               }
@@ -1290,8 +1252,8 @@ export const CustomButtonGroup = ({
                 ? "more-options"
                 : mobileValue
               : value === "more-options"
-                ? "more-options"
-                : value
+              ? "more-options"
+              : value
           }
           exclusive
           onChange={handleChange}
@@ -1329,9 +1291,9 @@ export const CustomButtonGroup = ({
                 selected={
                   deviceView === "mobile"
                     ? mobileValue === option.value ||
-                    (showChildren && option.value === "more-options")
+                      (showChildren && option.value === "more-options")
                     : value === option.value ||
-                    (showChildren && option.value === "more-options")
+                      (showChildren && option.value === "more-options")
                 }
               >
                 {option.icon}
@@ -1517,8 +1479,8 @@ export const CustomSlider = ({
     disableUnits
       ? ""
       : !disableDeviceView && deviceView === "mobile"
-        ? initialConfigs.mobile.unit
-        : initialConfigs.desktop.unit
+      ? initialConfigs.mobile.unit
+      : initialConfigs.desktop.unit
   );
 
   const units = Object.keys(unitConfigs);
@@ -1759,56 +1721,18 @@ export const CustomSelect = ({
   );
 };
 export const CustomTypeColorGradient = ({ props, setProp }) => {
-  const initialValueBackgroundImage = {
-    colorOne: "rgba(0, 0, 0, 1)",
-    localizationOne: 0,
-    colorTwo: "rgba(0, 0, 0, 1)",
-    localizationTwo: 0,
-    angle: 0,
-    position: "center center",
-  };
-
-  const [backgroundImage, setBackgroundImage] = useState(
-    initialValueBackgroundImage
-  );
-
-  const handleColorChange = (name, color) => {
-    if (color && color.rgb) {
-      setBackgroundImage((prev) => ({
-        ...prev,
-        [name]: `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`,
-      }));
-    }
-  };
-
-  const handleSliderChange = (name, value) => {
-    setBackgroundImage((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
   useEffect(() => {
-    const {
-      colorOne,
-      localizationOne,
-      colorTwo,
-      localizationTwo,
-      angle,
-      position,
-    } = backgroundImage;
-    if (!colorOne || !colorTwo) return;
-    const loc1 = Math.min(100, Math.max(0, localizationOne));
-    const loc2 = Math.min(100, Math.max(0, localizationTwo));
-    const ang = Math.min(360, Math.max(0, angle));
+    const loc1 = Math.min(100, Math.max(0, props.localizationOne));
+    const loc2 = Math.min(100, Math.max(0, props.localizationTwo));
+    const ang = Math.min(360, Math.max(0, props.angle));
 
-    const backgroundImageString = `${props?.typeColor === "linear"
-      ? `linear-gradient(${ang}deg, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
-      : `radial-gradient(at ${position}, ${colorOne} ${loc1}%, ${colorTwo} ${loc2}%)`
-      }`;
-
+    const backgroundImageString = `${
+      props?.typeColor === "linear"
+        ? `linear-gradient(${ang}deg, ${props.colorOne} ${loc1}%, ${props.colorTwo} ${loc2}%)`
+        : `radial-gradient(at ${props.positionGradient}, ${props.colorOne} ${loc1}%, ${props.colorTwo} ${loc2}%)`
+    }`;
     setProp((props) => (props.backgroundImage = backgroundImageString));
-  }, [backgroundImage, setProp]);
+  }, [props, setProp]);
 
   const renderColorSection = (
     name,
@@ -1820,7 +1744,17 @@ export const CustomTypeColorGradient = ({ props, setProp }) => {
     <Box display="flex" flexDirection="column" gap={1}>
       <ColorControl
         name={name}
-        onChange={(e) => handleColorChange(key, e)}
+        onChange={(color) => {
+          console.log(color);
+          if (color && color.rgb) {
+            setProp(
+              (props) =>
+                (props[
+                  key
+                ] = `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`)
+            );
+          }
+        }}
         defaultValue={backgroundColor}
         value={backgroundColor}
       />
@@ -1829,7 +1763,9 @@ export const CustomTypeColorGradient = ({ props, setProp }) => {
         min={0}
         max={100}
         value={localization}
-        onChange={(val) => handleSliderChange(keyLocation, val.target.value)}
+        onChange={(e) => {
+          setProp((props) => (props[keyLocation] = e.target.value));
+        }}
         step={1}
         disableUnits
         tooltipText={"Escolha a altura da linha"}
@@ -1854,16 +1790,16 @@ export const CustomTypeColorGradient = ({ props, setProp }) => {
       {renderColorSection(
         "Primeira cor",
         "colorOne",
-        backgroundImage.colorOne,
-        backgroundImage.localizationOne,
+        props.colorOne,
+        props.localizationOne,
         "localizationOne"
       )}
 
       {renderColorSection(
         "Segunda cor",
         "colorTwo",
-        backgroundImage.colorTwo,
-        backgroundImage.localizationTwo,
+        props.colorTwo,
+        props.localizationTwo,
         "localizationTwo"
       )}
 
@@ -1882,8 +1818,10 @@ export const CustomTypeColorGradient = ({ props, setProp }) => {
           min={0}
           max={360}
           step={1}
-          value={backgroundImage.angle}
-          onChange={(e, val) => handleSliderChange("angle", val)}
+          value={props.angle}
+          onChange={(e) => {
+            setProp((props) => (props.angle = e.target.value));
+          }}
           disableUnits
           tooltipText={"Escolha o ângulo do gradiente"}
         />
@@ -1891,13 +1829,10 @@ export const CustomTypeColorGradient = ({ props, setProp }) => {
       {props.typeColor === "radical" ? (
         <CustomSelect
           text="Posição"
-          value={backgroundImage.position}
-          onChange={(e) =>
-            setBackgroundImage((prev) => ({
-              ...prev,
-              position: e.target.value,
-            }))
-          }
+          value={props.positionGradient}
+          onChange={(e) => {
+            setProp((props) => (props.positionGradient = e.target.value));
+          }}
           options={[
             {
               value: "center center",
@@ -1960,7 +1895,6 @@ export const ColorControl = ({
             {name}
           </Typography>
           <Box display="flex" alignItems="center" gap="4px">
-
             <Tooltip title={"Transparente"} placement="top">
               <IconButton
                 disabled={value === "transparent"}
@@ -2339,7 +2273,7 @@ export const TextFieldControl = ({
     </>
   );
 };
-export const ButtonAssistant = ({ resetValues, handleClose }) => {
+export const ButtonAssistant = ({ resetValues, handleClose, title }) => {
   return (
     <Box
       style={{
@@ -2349,36 +2283,69 @@ export const ButtonAssistant = ({ resetValues, handleClose }) => {
         paddingBottom: "10px",
       }}
     >
-      <Tooltip title="Restaurar" placement="right">
-        <IconButton color="secondary" onClick={resetValues}>
-          <RestartAltIcon sx={{ width: "18px", height: "18px" }} />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Fechar" onClick={handleClose} placement="right">
-        <IconButton color="secondary">
-          <CloseIcon sx={{ width: "18px", height: "18px" }} />
-        </IconButton>
-      </Tooltip>
+      <Typography variant="caption" color="inherit" sx={{ fontWeight: "bold" }}>
+        {title}
+      </Typography>
+      <Box>
+        <Tooltip title="Voltar ao padrão" placement="top">
+          <IconButton
+            color="secondary"
+            onClick={resetValues}
+            sx={{
+              padding: 0,
+              "& > svg": {
+                width: "16px",
+                height: "16px",
+                fill: "#d5d8dc",
+              },
+              "&:hover": {
+                backgroundColor: "transparent",
+              },
+            }}
+          >
+            <RestartAltIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Fechar" onClick={handleClose} placement="top">
+          <IconButton
+            color="secondary"
+            sx={{
+              padding: 0,
+              paddingLeft: 0.8,
+              "& > svg": {
+                width: "16px",
+                height: "16px",
+                fill: "#d5d8dc",
+              },
+              "&:hover": {
+                backgroundColor: "transparent",
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
+      </Box>
     </Box>
   );
 };
 
 export const CustomCollapse = ({
-  children,
   text,
   options = [],
   defaultOpenSection = null,
   placeholder = "",
-  tooltip = "",
-  icon = (
-    <SettingsIcon color="secondary" sx={{ width: "28px", height: "0px" }} />
-  ),
+  props,
+  setProp,
+
   type,
   row = false,
   onChange,
   value,
+  valueReset,
 }) => {
   const [openSection, setOpenSection] = useState(defaultOpenSection);
+
   const handleClick = (buttonValue) => {
     setOpenSection((prevOpenSection) =>
       prevOpenSection === buttonValue ? null : buttonValue
@@ -2415,11 +2382,14 @@ export const CustomCollapse = ({
             />
           )}
 
-          <Box display="flex" alignItems="center" sx={{
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            borderRadius: "3px",
-          }}>
-
+          <Box
+            display="flex"
+            alignItems="center"
+            sx={{
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              borderRadius: "3px",
+            }}
+          >
             {options.map((button, index) => (
               <Tooltip key={index} title={button.tooltip} placement="top">
                 <IconButton
@@ -2429,7 +2399,10 @@ export const CustomCollapse = ({
                   sx={{
                     backgroundColor:
                       openSection === button.value ? "#3f444b" : "",
-                    borderLeft: openSection === button.value ? "1px solid transparent" : "1px solid rgba(255, 255, 255, 0.1)",
+                    borderLeft:
+                      openSection === button.value
+                        ? "1px solid transparent"
+                        : "1px solid rgba(255, 255, 255, 0.1)",
                     borderRadius: "0px",
                     padding: "5px",
                     display: "flex",
@@ -2452,7 +2425,6 @@ export const CustomCollapse = ({
               </Tooltip>
             ))}
           </Box>
-
         </Box>
       </Box>
       {options.map((button, index) => (

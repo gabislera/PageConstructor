@@ -7,6 +7,7 @@ import { a11yProps } from "../../../utils/a11yProps";
 import { makeStyles } from "@mui/styles";
 import { CustomTypography } from "../../_Control";
 import { AdvancedSettings } from "./AdvancedSettings";
+import Faq from "../../selectors/CraftedComponents/Faq";
 import {
   AddFaqItems,
   ColorControl,
@@ -150,6 +151,7 @@ export const FaqSettings = () => {
                 props={props}
                 setProp={setProp}
                 type={"title"}
+                valueReset={Faq}
               />
 
               <CustomLinkedValues
@@ -190,6 +192,7 @@ export const FaqSettings = () => {
                 props={props}
                 setProp={setProp}
                 type={"content"}
+                valueReset={Faq}
               />
 
               <CustomLinkedValues

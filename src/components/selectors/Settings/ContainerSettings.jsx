@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNode } from "@craftjs/core";
 import { Grid, Box, Tab, Tabs, Divider } from "@mui/material";
+import Container from "../../selectors/CraftedComponents/Container";
+
 import {
   Settings,
   Contrast,
@@ -26,7 +28,7 @@ import {
   CustomSlider,
   FileUpload,
   TabOptions,
-  CustomBoxShadowModal,
+  CustomBoxShadow,
   CustomCollapse,
   CustomTypeColorGradient,
   CustomSwitch,
@@ -346,21 +348,19 @@ export const ContainerSettings = () => {
                 <CustomCollapse
                   text="Tipo de plano de fundo"
                   row
-                  buttons={[
+                  props={props}
+                  valueReset={Container}
+                  setProp={setProp}
+                  options={[
                     {
-                      value: "color",
+                      value: "backgroundColor",
                       tooltip: "Clássico",
-                      icon: (
-                        <Brush />
-                      ),
+                      icon: <Brush />,
                       content: (
                         <Box style={{ padding: 2 }}>
                           <ColorControl
                             name={"Cor"}
                             onChange={(e, value) => {
-                              setProp(
-                                (props) => (props.backgroundImage = "none")
-                              );
                               setProp(
                                 (props) => (props.backgroundColor = value)
                               );
@@ -372,11 +372,10 @@ export const ContainerSettings = () => {
                       ),
                     },
                     {
-                      value: "gradient",
+                      value: "backgroundImage",
                       tooltip: "Gradiente",
-                      icon: (
-                        <Gradient />
-                      ),
+                      icon: <Gradient />,
+
                       content: (
                         <CustomTypeColorGradient
                           props={props}
@@ -385,18 +384,17 @@ export const ContainerSettings = () => {
                       ),
                     },
                     {
-                      value: "image",
+                      value: "backgroundImageUrl",
                       tooltip: "Imagem",
-                      icon: (
-                        <ImageIcon />
-                      ),
+                      icon: <ImageIcon />,
                       content: (
                         <>
                           <FileUpload
                             value={props.backgroundImage}
                             onChange={(imageUrl) =>
                               setProp(
-                                (props) => (props.backgroundImage = imageUrl)
+                                (props) =>
+                                  (props.backgroundImage = `url(${imageUrl})`)
                               )
                             }
                           />
@@ -404,7 +402,6 @@ export const ContainerSettings = () => {
                       ),
                     },
                   ]}
-                  defaultOpenSection="color"
                 />
               </Grid>
 
@@ -439,11 +436,12 @@ export const ContainerSettings = () => {
                 <CustomSwitch
                   text={"Habilitar hover"}
                   value={props.hasBackgroundHover}
-                  onChange={(e) => setProp((props) => (props.hasBackgroundHover = e))}
+                  onChange={(e) =>
+                    setProp((props) => (props.hasBackgroundHover = e))
+                  }
                   checkedText={"Sim"}
                   uncheckedText={"Não"}
                 />
-
               </Grid>
             </TabOptions>
 
@@ -502,10 +500,11 @@ export const ContainerSettings = () => {
                     { value: "borderBottomLeftRadius", label: "Esquerda" },
                   ]}
                 />
-                <CustomBoxShadowModal
+                <CustomBoxShadow
                   title={"Cor da sombra"}
                   props={props}
                   setProp={setProp}
+                  valueReset={Container}
                 />
               </Grid>
 
@@ -579,9 +578,7 @@ export const ContainerSettings = () => {
                   text="Duração da transição"
                   value={props.borderTransitionDuration}
                   onChange={(e, value) =>
-                    setProp(
-                      (props) => (props.borderTransitionDuration = value)
-                    )
+                    setProp((props) => (props.borderTransitionDuration = value))
                   }
                   min={0}
                   max={3}
@@ -594,7 +591,9 @@ export const ContainerSettings = () => {
                 <CustomSwitch
                   text={"Habilitar hover"}
                   value={props.hasBorderHover}
-                  onChange={(e) => setProp((props) => (props.hasBorderHover = e))}
+                  onChange={(e) =>
+                    setProp((props) => (props.hasBorderHover = e))
+                  }
                   checkedText={"Sim"}
                   uncheckedText={"Não"}
                 />
