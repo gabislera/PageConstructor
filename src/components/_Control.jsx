@@ -111,7 +111,7 @@ export const CustomTypography = ({
 
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between">
-      <Typography variant="caption" color="inherit" marginBottom={0}>
+      <Typography variant="caption" color="white" marginBottom={0}>
         Tipografia
       </Typography>
 
@@ -356,7 +356,7 @@ export const CustomBoxShadowModal = ({
 
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between">
-      <Typography variant="caption" color="inherit" marginBottom={0}>
+      <Typography variant="caption" color="white" marginBottom={0}>
         {title}
       </Typography>
 
@@ -851,7 +851,7 @@ export const FileUpload = ({ value, valueVideo, onChange, title }) => {
         justifyContent="space-between"
         mb={1}
       >
-        <Typography variant="caption" color="inherit" lineHeight={1}>
+        <Typography variant="caption" color="white" lineHeight={1}>
           {title ? title : "Escolher imagem"}
         </Typography>
 
@@ -918,7 +918,7 @@ export const TabOptions = ({ title, children, typeStyle }) => {
       }}
     >
       {title && (
-        <Typography variant="caption" color="inherit">
+        <Typography variant="caption" color="white">
           {title}
         </Typography>
       )}
@@ -1095,7 +1095,7 @@ export const CustomLinkedValues = ({
     <Box width="100%" display="flex" flexDirection="column">
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box alignItems="center">
-          <Typography variant="caption" color="inherit">
+          <Typography variant="caption" color="white">
             {text}
           </Typography>
           <DeviceViewSelect />
@@ -1203,7 +1203,7 @@ export const CustomLinkedValues = ({
             <Typography
               variant="caption"
               gutterBottom
-              color="inherit"
+              color="white"
               fontSize={10}
             >
               {option.label}
@@ -1275,7 +1275,7 @@ export const CustomButtonGroup = ({
       >
         <Box display="flex" alignItems="center">
           <Tooltip title={tooltipText} placement="top">
-            <Typography variant="caption" color="inherit">
+            <Typography variant="caption" color="white">
               {text}
             </Typography>
           </Tooltip>
@@ -1372,12 +1372,7 @@ export const CustomTextInput = ({
           width: fullWidth ? "100%" : "auto",
         }}
       >
-        <Typography
-          variant="caption"
-          gutterBottom
-          color="inherit"
-          sx={{ mb: 0 }}
-        >
+        <Typography variant="caption" gutterBottom color="white" sx={{ mb: 0 }}>
           {text}
         </Typography>
         <TextField
@@ -1429,12 +1424,7 @@ export const CustomAutocomplete = ({
           justifyContent: row ? "space-between" : "start",
         }}
       >
-        <Typography
-          variant="caption"
-          gutterBottom
-          color="inherit"
-          sx={{ mb: 0 }}
-        >
+        <Typography variant="caption" gutterBottom color="white" sx={{ mb: 0 }}>
           {text}
         </Typography>
         <Autocomplete
@@ -1570,7 +1560,7 @@ export const CustomSlider = ({
     <Box width="100%" display="flex" flexDirection="column">
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box alignItems="center">
-          <Typography variant="caption" color="inherit">
+          <Typography variant="caption" color="white">
             {text}
           </Typography>
           {!disableDeviceView && <DeviceViewSelect />}
@@ -1719,7 +1709,7 @@ export const CustomSelect = ({
         <Typography
           variant="caption"
           gutterBottom
-          color="inherit"
+          color="white"
           marginBottom={0}
         >
           {text}
@@ -1957,7 +1947,7 @@ export const ColorControl = ({
     >
       <Box zIndex={3}>
         <Box className={classes.box}>
-          <Typography variant="caption" color="inherit">
+          <Typography variant="caption" color="white">
             {name}
           </Typography>
           <Box display="flex" alignItems="center" gap="4px">
@@ -2044,7 +2034,7 @@ export const CustomSwitch = ({
           justifyContent: "space-between",
         }}
       >
-        <Typography variant="caption" color="inherit">
+        <Typography variant="caption" color="white">
           {text}
         </Typography>
         <Switch
@@ -2213,7 +2203,7 @@ export const CustomInput = ({
     flexDirection="column"
     style={{ display: "flex", gap: 5 }}
   >
-    <Typography variant="caption" color="inherit" marginBottom={0}>
+    <Typography variant="caption" color="white" marginBottom={0}>
       {text}
     </Typography>
     <Box display="flex" alignItems="center" flexDirection="row" width="100%">
@@ -2278,7 +2268,7 @@ export const CustomCheckbox = ({ options, value, onChange }) => {
               />
             }
             label={
-              <Typography variant="caption" color="inherit">
+              <Typography variant="caption" color="white">
                 {option.label}
               </Typography>
             }
@@ -2303,7 +2293,7 @@ export const TextFieldControl = ({
   return (
     <>
       <Box>
-        <Typography variant="caption" color="inherit">
+        <Typography variant="caption" color="white">
           Código HTML do Vídeo:
         </Typography>
         <Tooltip title={name} placement="top">
@@ -2391,12 +2381,7 @@ export const CustomCollapse = ({
           width: "100%",
         }}
       >
-        <Typography
-          variant="caption"
-          gutterBottom
-          color="inherit"
-          sx={{ mb: 0 }}
-        >
+        <Typography variant="caption" gutterBottom color="white" sx={{ mb: 0 }}>
           {text}
         </Typography>
 
